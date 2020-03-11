@@ -2,6 +2,10 @@
 
 .settings
 
+# carpeta amb els binaris fora del backend
+
+Sources/bin
+
 Design/appDesign.sketch
 
 Design/Logo.sketch
