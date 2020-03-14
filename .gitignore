@@ -11,6 +11,8 @@
 
 Sources/purplepoint-backend/bin
 
+*.class
+
 # altres
 Design/appDesign.sketch
 
