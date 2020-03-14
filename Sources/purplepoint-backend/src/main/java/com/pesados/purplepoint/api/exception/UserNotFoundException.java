@@ -1,4 +1,4 @@
-package com.example.demo.payroll.exception;
+package com.pesados.purplepoint.api.exception;
 
 public class UserNotFoundException extends RuntimeException {
 

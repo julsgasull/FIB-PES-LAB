@@ -1,4 +1,4 @@
-package com.example.demo.payroll.model;
+package com.pesados.purplepoint.api.model;
 
 import lombok.Data;
 

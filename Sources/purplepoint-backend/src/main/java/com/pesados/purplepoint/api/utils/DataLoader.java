@@ -1,4 +1,4 @@
-package com.example.demo.payroll.utils;
+package com.pesados.purplepoint.api.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,9 +6,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.example.demo.PurplePointApplication;
-import com.example.demo.payroll.model.User;
-import com.example.demo.payroll.model.repository.UserRepository;
+import com.pesados.purplepoint.api.PurplePointApplication;
+import com.pesados.purplepoint.api.model.User;
+import com.pesados.purplepoint.api.model.UserRepository;
 
 import lombok.extern.slf4j.Slf4j;
 

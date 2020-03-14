@@ -1,4 +1,4 @@
-package com.example.demo.payroll.controller;
+package com.pesados.purplepoint.api.controller;
 
 import java.util.*;
 import java.util.function.*;
@@ -8,12 +8,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.demo.payroll.model.User;
-import com.example.demo.payroll.model.repository.UserRepository;
-import com.example.demo.payroll.exception.UserNotFoundException;
+
+import com.pesados.purplepoint.api.exception.UserNotFoundException;
+import com.pesados.purplepoint.api.model.User;
+import com.pesados.purplepoint.api.model.UserRepository;
 
 @RestController
+@RequestMapping("/api/v1")
 class UserController {
 
   private final UserRepository repository;

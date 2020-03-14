@@ -1,11 +1,12 @@
-package com.example.demo.payroll.controller.handler;
+package com.pesados.purplepoint.api.controller.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import com.example.demo.payroll.exception.UserNotFoundException;
+
+import com.pesados.purplepoint.api.exception.UserNotFoundException;
 
 
 @ControllerAdvice
