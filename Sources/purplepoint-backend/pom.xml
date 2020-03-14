@@ -8,11 +8,11 @@
 		<version>2.2.5.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>demo</artifactId>
+	<groupId>com.pesados</groupId>
+	<artifactId>purplepoint</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
-	<description>Demo project for Spring Boot</description>
+	<name>purplepoint</name>
+	<description>PurplePoint project for Spring Boot</description>
 
 	<properties>
 		<java.version>1.8</java.version>
