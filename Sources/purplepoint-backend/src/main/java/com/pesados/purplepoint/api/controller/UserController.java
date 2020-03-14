@@ -33,8 +33,8 @@ class UserController {
   }
 
   @PostMapping("/users")
-  User newEmployee(@RequestBody User newEmployee) {
-    return repository.save(newEmployee);
+  User newUser(@RequestBody User newUser) {
+    return repository.save(newUser);
   }
 
   // Single item
@@ -46,22 +46,22 @@ class UserController {
   }
 
   @PutMapping("/users/{id}")
-  User replaceEmployee(@RequestBody User newEmployee, @PathVariable Long id) {
+  User replaceUser(@RequestBody User newUser, @PathVariable Long id) {
 
     return repository.findById(id)
       .map(employee -> {
-        employee.setName(newEmployee.getName());
-        employee.setEmail(newEmployee.getEmail());
+        employee.setName(newUser.getName());
+        employee.setEmail(newUser.getEmail());
         return repository.save(employee);
       })
       .orElseGet(() -> {
-        newEmployee.setId(id);
-        return repository.save(newEmployee);
+        newUser.setId(id);
+        return repository.save(newUser);
       });
   }
 
   @DeleteMapping("/users/{id}")
-  void deleteEmployee(@PathVariable Long id) {
+  void deleteUser(@PathVariable Long id) {
     repository.deleteById(id);
   }
 }
