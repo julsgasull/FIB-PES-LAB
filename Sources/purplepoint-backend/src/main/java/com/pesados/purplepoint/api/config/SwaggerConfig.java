@@ -23,8 +23,21 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
-                .build();
+                .apis(RequestHandlerSelectors.basePackage("com.pesados"))
+                .build()
+                .apiInfo(apiStuff());
+    }
+
+    private ApiInfo apiStuff() {
+        return new ApiInfo(
+            "PURPLE POINT",
+            "Generic Description",
+            "v1.0",
+            "Free to use - Download on Play Store",
+            new springfox.documentation.service.Contact("Purple Point Volunteers", "", "purplepoint@gmail.com"),
+            " ",
+            " ",
+            Collections.emptyList());
     }
 }
