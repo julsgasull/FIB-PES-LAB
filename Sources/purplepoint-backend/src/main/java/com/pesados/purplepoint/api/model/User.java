@@ -10,10 +10,10 @@ import javax.persistence.Id;
 @Entity
 public class User {
 	private @Id @GeneratedValue Long id;
-	  private String name;
-	  private String email;
+	private String name;
+	private String email;
 
-	  User() {}
+	User() {}
 
   public User(String name, String email) {
     this.name = name;

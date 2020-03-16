@@ -11,13 +11,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import springfox.documentation.*;
+
 import com.pesados.purplepoint.api.exception.UserNotFoundException;
 import com.pesados.purplepoint.api.model.User;
 import com.pesados.purplepoint.api.model.UserRepository;
 
 @RestController
 @RequestMapping("/api/v1")
-class UserController {
+public class UserController {
 
   private final UserRepository repository;
 
@@ -26,7 +28,6 @@ class UserController {
   }
 
   // Aggregate root
-
   @GetMapping("/users")
   List<User> all() {
     return repository.findAll();
