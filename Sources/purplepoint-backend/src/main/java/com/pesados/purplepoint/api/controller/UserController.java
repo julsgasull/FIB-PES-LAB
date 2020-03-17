@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
-
+import io.swagger.annotations.ApiParam;
 
 import com.pesados.purplepoint.api.exception.UserNotFoundException;
 import com.pesados.purplepoint.api.model.User;
@@ -39,7 +39,8 @@ public class UserController {
   @PostMapping("/users")
   @ApiOperation(value = "Creates a new, non-existing, user",
           response = User.class)
-  User newUser(@RequestBody User newUser) {
+  User newUser(@ApiParam(value = "Please to create a new user provide:\n- An ID\n- A name\n- An e-mail")
+               @RequestBody User newUser) {
     return repository.save(newUser);
   }
 
@@ -49,7 +50,8 @@ public class UserController {
   @ApiOperation(value = "Gets an especfic user",
           notes = "Provide an ID to look up for a specific user",
           response = User.class)
-  User one(@PathVariable Long id) {
+  User one(@ApiParam(value = "ID value for the user you want to look up", required = true)
+           @PathVariable Long id) {
 
     return repository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
   }
@@ -58,7 +60,11 @@ public class UserController {
   @ApiOperation(value = "Update a user",
           notes = "Provide an ID to replace an existing user",
           response = User.class)
-  User replaceUser(@RequestBody User newUser, @PathVariable Long id) {
+  User replaceUser(@ApiParam(value = "A new user object to replace the existing one please to create a new user provide:" +
+                                     "\n- An ID\n- A name\n- An e-mail", required = true)
+                   @RequestBody User newUser,
+                   @ApiParam(value = "ID of the user to replace", required = true)
+                   @PathVariable Long id) {
 
     return repository.findById(id)
       .map(employee -> {
@@ -76,7 +82,8 @@ public class UserController {
   @ApiOperation(value = "Deletes a user",
           notes = "Provide an ID to delete a specific user",
           response = User.class)
-  void deleteUser(@PathVariable Long id) {
+  void deleteUser(@ApiParam(value = "ID value for the user you want to delete", required = true)
+                  @PathVariable Long id) {
     repository.deleteById(id);
   }
 }
