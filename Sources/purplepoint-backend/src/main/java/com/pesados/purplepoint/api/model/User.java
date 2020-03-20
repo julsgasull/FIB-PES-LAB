@@ -11,12 +11,16 @@ public class User {
 	private @Id @GeneratedValue Long id;
 	private String name;
 	private String email;
+	private String password;
+	private String token;
 
 	  User() {}
 
-  public User(String name, String email) {
+  public User(String name, String email, String password) {
     this.name = name;
     this.email = email;
+    this.password = password;
+    this.token = null;
   }
   
   public Long getId() {
@@ -41,5 +45,17 @@ public class User {
 	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+	public String getToken() {
+		return token;
+	}
+
+	public Object getPassword() {
+		// TODO Auto-generated method stub
+		return password;
 	}
 }
