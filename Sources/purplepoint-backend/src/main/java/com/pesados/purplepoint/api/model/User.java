@@ -1,17 +1,17 @@
 package com.pesados.purplepoint.api.model;
 
-import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Data
 @Entity
 public class User {
+    public enum Role {USER, ADMIN}
+    
 	private @Id @GeneratedValue Long id;
-	  private String name;
-	  private String email;
+	private String name;
+	private String email;
 
 	  User() {}
 
