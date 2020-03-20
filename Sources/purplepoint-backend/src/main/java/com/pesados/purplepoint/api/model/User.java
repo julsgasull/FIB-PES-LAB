@@ -7,8 +7,7 @@ import javax.persistence.Id;
 
 @Entity
 public class User {
-    public enum Role {USER, ADMIN}
-    
+   
 	private @Id @GeneratedValue Long id;
 	private String name;
 	private String email;
