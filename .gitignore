@@ -7,3 +7,16 @@ Design/appDesign.sketch
 Design/Logo.sketch
 
 .DS_Store
+
+#IDE - VSCode
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+#dependencies
+/node_modules
+
+#misc
+npm-debug.log
