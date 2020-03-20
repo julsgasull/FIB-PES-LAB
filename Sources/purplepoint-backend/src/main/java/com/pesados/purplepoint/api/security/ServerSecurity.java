@@ -1,6 +1,8 @@
 package com.pesados.purplepoint.api.security;
 
 
+import javax.sql.DataSource;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,14 +20,14 @@ public class ServerSecurity extends WebSecurityConfigurerAdapter {
 	
 	// Pel tema del password encoder
 	// https://mkyong.com/spring-boot/spring-security-there-is-no-passwordencoder-mapped-for-the-id-null/
+
 	  @Override
 	  public void configure(AuthenticationManagerBuilder auth) throws Exception {
-
 	    auth.inMemoryAuthentication()
-	      .withUser("isma1").password("{noop}1234").roles("USER").and()
-	      .withUser("isma2").password("{noop}1234").roles("ADMIN");
+	      .withUser("testUser").password("{noop}userpass").roles("USER").and()
+	      .withUser("testAdmin").password("{noop}adminpass").roles("ADMIN");
 	  }
-
+	  
 	  /**
 	   * This section defines the security policy for the app.
 	   * - BASIC authentication is supported (enough for this REST-based demo)
