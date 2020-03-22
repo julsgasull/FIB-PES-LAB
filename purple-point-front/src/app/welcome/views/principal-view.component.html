@@ -1,10 +1,14 @@
 <h1>Purple point</h1>
 <div>
-    <button>Panic</button>
+    <button id="panicButton">Panic</button>
 </div>
 <div>
-    <button>Log in</button>
+    <button class="principalButton" (click)="redirectToLogin()">
+        Log in
+    </button>
 </div>
 <div>
-    <button>Sign up</button>
+    <button class="principalButton" (click)="redirectToSignUp()">
+        Sign up
+    </button>
 </div>

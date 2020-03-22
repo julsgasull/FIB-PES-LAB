@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'principal-view',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PrincipalViewComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: Router) { }
 
   ngOnInit(): void {
+  }
+
+  redirectToLogin() {
+    this.route.navigate(['/login']);
+  }
+  redirectToSignUp() {
+    this.route.navigate(['/signup']);
   }
 
 }
