@@ -16,3 +16,13 @@ Design/appDesign.sketch
 Design/Logo.sketch
 
 .DS_Store
+
+purple-point-front/e2e/
+
+purple-point-front/node_modules/
+
+Sources/
+
+purple-point-front/.editorconfig 2
+
+purple-point-front/src/assets/.gitkeep 2
