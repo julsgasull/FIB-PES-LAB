@@ -17,17 +17,20 @@ import com.pesados.purplepoint.api.exception.UserNotFoundException;
 import com.pesados.purplepoint.api.exception.WrongPasswordException;
 import com.pesados.purplepoint.api.model.User;
 import com.pesados.purplepoint.api.model.UserRepository;
+import com.pesados.purplepoint.api.model.UserService;
+
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @RestController
 @RequestMapping("/api/v1")
+public
 class UserController {
 
-  private final UserRepository repository;
+  private final UserService service;
 
-  UserController(UserRepository repository) {
-    this.repository = repository;
+  UserController(UserService service) {
+    this.service = service;
   }
 
   // Aggregate root
@@ -35,7 +38,7 @@ class UserController {
   public User login(@RequestParam("user") String email, @RequestParam("password") String pwd) throws WrongPasswordException {
 		
 		String token = getJWTToken(email);
-		User user = this.repository.findByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
+		User user = this.service.getUserByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
 		
 		if ( pwd.equals(user.getPassword())) {
 			user.setToken(token);
@@ -43,17 +46,17 @@ class UserController {
 			throw new WrongPasswordException(pwd);
 		}
 		
-		return repository.save(user);		
+		return service.saveUser(user);		
   }
   
   private String getJWTToken(String email) {
-		String secretKey = "mySecretKey";
+		String secretKey = "superSecretKey";
 		List<GrantedAuthority> grantedAuthorities = AuthorityUtils
 				.commaSeparatedStringToAuthorityList("ROLE_USER");
 		
 		String token = Jwts
 				.builder()
-				.setId("softtekJWT")
+				.setId("ppJWT")
 				.setSubject(email)
 				.claim("authorities",
 						grantedAuthorities.stream()
@@ -69,12 +72,12 @@ class UserController {
   
   @GetMapping("/users")
   List<User> all() {
-    return repository.findAll();
+    return service.getAll();
   }
 
   @PostMapping("/users")
   User newUser(@RequestBody User newUser) {
-    return repository.save(newUser);
+    return service.saveUser(newUser);
   }
 
   // Single item
@@ -82,26 +85,26 @@ class UserController {
   @GetMapping("/users/{id}")
   User one(@PathVariable Long id) {
 
-    return repository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+    return service.getUserById(id).orElseThrow(() -> new UserNotFoundException(id));
   }
 
   @PutMapping("/users/{id}")
   User replaceUser(@RequestBody User newUser, @PathVariable Long id) {
 
-    return repository.findById(id)
-      .map(employee -> {
-        employee.setName(newUser.getName());
-        employee.setEmail(newUser.getEmail());
-        return repository.save(employee);
+    return service.getUserById(id)
+      .map(user -> {
+        user.setName(newUser.getName());
+        user.setEmail(newUser.getEmail());
+        return service.saveUser(user);
       })
       .orElseGet(() -> {
         newUser.setId(id);
-        return repository.save(newUser);
+        return service.saveUser(newUser);
       });
   }
 
   @DeleteMapping("/users/{id}")
   void deleteUser(@PathVariable Long id) {
-    repository.deleteById(id);
+    service.deleteUserById(id);
   }
 }

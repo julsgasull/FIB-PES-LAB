@@ -1,13 +1,14 @@
-package com.example.demo;
+package com.pesados.purplepoint.tests;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DemoApplicationTests {
+class PurplePointApplicationTests {
 
 	@Test
 	void contextLoads() {
 	}
+	
 
 }
