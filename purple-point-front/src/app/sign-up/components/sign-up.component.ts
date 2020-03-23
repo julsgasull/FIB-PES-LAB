@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignUpComponent implements OnInit {
 
+  genders = ['Gender', 'Male', 'Female', 'Non binary', 'Ohter'];
   constructor() { }
 
   ngOnInit(): void {

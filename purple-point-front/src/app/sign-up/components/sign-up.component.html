@@ -3,18 +3,26 @@
     <h2>Sign up</h2>
     <form>
       <div>
+        <div>
         <input type="text" class="form-control" id="email" placeholder="email" required>
-        <br>
+        </div>
+        <div>
         <input type="text" class="form-control" id="username" placeholder="username" required>
-        <br>
-        <input type="password" class="form-control" id="password" placeholder="password" required>
-        <br>
-        <input type="password" class="form-control" id="repeatPassword" placeholder="repeat password" required>
-        <br>
-        <input type="radio" class="form-control" id="gender" placeholder="gender" required>
+        </div>
+        <div>
+          <input type="password" class="form-control" id="password" placeholder="password" required>
+        </div>
+        <div>
+          <input type="password" class="form-control" id="repeatPassword" placeholder="repeat password" required>
+        </div>
+        <div>
+          <select class="form-control" id="gender" required>
+            <option *ngFor="let gen of genders" [value]="gen">{{gen}}</option>
+          </select>
+        </div>
       </div>
 
-      <button type="submit" >Register</button>
+      <button type="submit">Register</button>
 
     </form>
 </div>
