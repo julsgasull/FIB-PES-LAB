@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../models/user.class';
 
 @Component({
   selector: 'app-login',
@@ -7,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  title = 'example';
+  gender = ['male', 'famale', 'non-binary', 'other'];
+  model = new User('test@mail.com', 'testUsername', 'Passw0rd!', this.gender[2]);
+  submitted = false;
+  
+  onSubmit() { this.submitted = true; }
+
   constructor() { }
 
   ngOnInit(): void {
