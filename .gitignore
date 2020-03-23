@@ -2,27 +2,23 @@
 
 .settings
 
-
-# configuracio intellij
-
-.idea
-
-# carpeta amb els binaris fora del backend
-
-Sources/bin
-
 Design/appDesign.sketch
 
 Design/Logo.sketch
 
 .DS_Store
 
-purple-point-front/e2e/
+#IDE - VSCode
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 
-purple-point-front/node_modules/
+#dependencies
+/node_modules
 
-Sources/
+#misc
+npm-debug.log
 
-purple-point-front/.editorconfig 2
-
-purple-point-front/src/assets/.gitkeep 2
+purple-point-front/.editorconfig

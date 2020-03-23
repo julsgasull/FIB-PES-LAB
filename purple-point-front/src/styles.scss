@@ -1,2 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');
+
+#panicButton {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: black;
+    color: white;
+    background-image: linear-gradient(to top left,#262226 80%,  #8a088a 85%);
+}
+
+.principalButton {
+    border-radius: 50%;
+    background-color: #8a088a;
+    color: white;
+
+}
