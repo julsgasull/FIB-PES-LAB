@@ -2,19 +2,11 @@ package com.pesados.purplepoint.tests.controller;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -23,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.Assert;
 import org.springframework.web.client.RestClientException;
 
 import com.pesados.purplepoint.api.controller.UserController;
@@ -51,7 +44,7 @@ public class UserControllerTest {
 			e.printStackTrace();
 		}
     	//Verify request succeed
-        Assert.assertEquals(401, result.getStatusCodeValue());
+        Assertions.assertEquals(401, result.getStatusCodeValue());
     }
     
     @Test
@@ -76,8 +69,8 @@ public class UserControllerTest {
 			e.printStackTrace();
 		}
 
-    	Assert.assertEquals(200, result.getStatusCodeValue());
-    	Assert.assertTrue(result.getBody().getToken() != null);
+    	Assertions.assertEquals(200, result.getStatusCodeValue());
+    	Assertions.assertTrue(result.getBody().getToken() != null);
     }
     
     @Test
@@ -115,7 +108,7 @@ public class UserControllerTest {
         		this.baseUrl, HttpMethod.GET, entity, String.class
         		);
         
-        Assert.assertTrue(200 == result.getStatusCodeValue());
+        Assertions.assertTrue(200 == result.getStatusCodeValue());
     }    
 
 }
