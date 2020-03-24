@@ -10,20 +10,18 @@ import com.pesados.purplepoint.api.PurplePointApplication;
 import com.pesados.purplepoint.api.model.User;
 import com.pesados.purplepoint.api.model.UserRepository;
 
-import lombok.extern.slf4j.Slf4j;
-
-
 
 @Configuration
-@Slf4j
 class LoadDatabase {
 	private static final Logger logger = LoggerFactory.getLogger(PurplePointApplication.class);
   @Bean
   CommandLineRunner initDatabase(UserRepository repository) {
 	  
     return args -> {
-    	logger.info("Preloading " + repository.save(new User("Bilbo Baggins", "testmail1@gmail.com")));
-    	logger.info("Preloading " + repository.save(new User("Frodo Baggins", "testmail@gmail.com")));
+    	logger.info("Preloading " + repository.save(new User("test", "isma@gmail.com", "1234")));
+    	logger.info("Preloading " + repository.save(new User("Bilbo Baggins", "testmail1@gmail.com", "1234")));
+    	logger.info("Preloading " + repository.save(new User("Frodo Baggins", "testmail@gmail.com", "5678")));
     };
+    
   }
 }

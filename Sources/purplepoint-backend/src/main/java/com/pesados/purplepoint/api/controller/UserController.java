@@ -1,7 +1,9 @@
 package com.pesados.purplepoint.api.controller;
 
 import java.util.*;
-import java.util.function.*;
+import java.util.stream.Collectors;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,31 +11,76 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 import com.pesados.purplepoint.api.exception.UserNotFoundException;
+import com.pesados.purplepoint.api.exception.WrongPasswordException;
 import com.pesados.purplepoint.api.model.User;
 import com.pesados.purplepoint.api.model.UserRepository;
+import com.pesados.purplepoint.api.model.UserService;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 @RestController
 @RequestMapping("/api/v1")
+
 public class UserController {
+  private final UserService service;
 
-  private final UserRepository repository;
-
-  UserController(UserRepository repository) {
-    this.repository = repository;
+  UserController(UserService service) {
+    this.service = service;
   }
 
-  // Aggregate root
+  @PostMapping("/users/login") 
+  @ApiOperation(value = "Logs In a user",
+                response = User.class)
+  public User login(@RequestBody User aUser) throws WrongPasswordException {
+	  	String email = aUser.getEmail();
+	  	String pwd = aUser.getPassword();
+	  	
+		String token = getJWTToken(email);
+		User user = this.service.getUserByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
+		
+		if ( pwd.equals(user.getPassword())) {
+			user.setToken(token);
+		} else {
+			throw new WrongPasswordException(pwd);
+		}
+		
+		return service.saveUser(user);		
+}
+  
+  private String getJWTToken(String email) {
+		String secretKey = "superSecretKey";
+		List<GrantedAuthority> grantedAuthorities = AuthorityUtils
+				.commaSeparatedStringToAuthorityList("ROLE_USER");
+		
+		String token = Jwts
+				.builder()
+				.setId("ppJWT")
+				.setSubject(email)
+				.claim("authorities",
+						grantedAuthorities.stream()
+								.map(GrantedAuthority::getAuthority)
+								.collect(Collectors.toList()))
+				.setIssuedAt(new Date(System.currentTimeMillis()))
+				.setExpiration(new Date(System.currentTimeMillis() + 600000))
+				.signWith(SignatureAlgorithm.HS512,
+						secretKey.getBytes()).compact();
+
+		return "Bearer " + token;
+	}
+
   @GetMapping("/users")
   @ApiOperation(value = "Gets a list of all users",
                 response = User.class)
   List<User> all() {
-    return repository.findAll();
+    return service.getAll();
   }
 
   @PostMapping("/users")
@@ -41,7 +88,7 @@ public class UserController {
           response = User.class)
   User newUser(@ApiParam(value = "Please to create a new user provide:\n- An ID\n- A name\n- An e-mail")
                @RequestBody User newUser) {
-    return repository.save(newUser);
+    return service.saveUser(newUser);
   }
 
   // Single item
@@ -53,7 +100,7 @@ public class UserController {
   User one(@ApiParam(value = "ID value for the user you want to look up", required = true)
            @PathVariable Long id) {
 
-    return repository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+    return service.getUserById(id).orElseThrow(() -> new UserNotFoundException(id));
   }
 
   @PutMapping("/users/{id}")
@@ -66,15 +113,15 @@ public class UserController {
                    @ApiParam(value = "ID of the user to replace", required = true)
                    @PathVariable Long id) {
 
-    return repository.findById(id)
-      .map(employee -> {
-        employee.setName(newUser.getName());
-        employee.setEmail(newUser.getEmail());
-        return repository.save(employee);
+    return service.getUserById(id)
+      .map(user -> {
+        user.setName(newUser.getName());
+        user.setEmail(newUser.getEmail());
+        return service.saveUser(user);
       })
       .orElseGet(() -> {
         newUser.setId(id);
-        return repository.save(newUser);
+        return service.saveUser(newUser);
       });
   }
 
@@ -84,6 +131,6 @@ public class UserController {
           response = User.class)
   void deleteUser(@ApiParam(value = "ID value for the user you want to delete", required = true)
                   @PathVariable Long id) {
-    repository.deleteById(id);
+    service.deleteUserById(id);
   }
 }
