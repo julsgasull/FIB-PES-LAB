@@ -1,20 +1,29 @@
 package com.pesados.purplepoint.api.model;
 
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
+@ApiModel(description = "Stored details about a user")
 public class User {
-   
+  
+  @ApiModelProperty(notes = "The unique ID of the user", position = 0)
 	private @Id @GeneratedValue Long id;
+  @ApiModelProperty(notes = "The user's name", position = 1)
 	private String name;
+  @ApiModelProperty(notes = "The user's email", position = 2)
 	private String email;
+  @ApiModelProperty(notes = "The user's password", position = 3)
 	private String password;
+  @ApiModelProperty(notes = "The user's token - usually NULL -", position = 4)
 	private String token;
 
-	  User() {}
+	User() {}
 
   public User(String name, String email, String password) {
     this.name = name;
@@ -22,11 +31,9 @@ public class User {
     this.password = password;
     this.token = null;
   }
-  
-  public Long getId() {
-		return id;
-	}
-	
+
+	public Long getID() { return id; }
+
 	public void setId(Long id) {
 		this.id = id;
 	}
