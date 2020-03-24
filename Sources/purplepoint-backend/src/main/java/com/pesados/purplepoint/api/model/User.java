@@ -54,8 +54,7 @@ public class User {
 		return token;
 	}
 
-	public Object getPassword() {
-		// TODO Auto-generated method stub
+	public String getPassword() {
 		return password;
 	}
 }

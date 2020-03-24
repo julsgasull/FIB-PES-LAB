@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.databind.node.POJONode;
 import com.pesados.purplepoint.api.exception.UserNotFoundException;
 import com.pesados.purplepoint.api.exception.WrongPasswordException;
 import com.pesados.purplepoint.api.model.User;
@@ -24,19 +26,20 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 @RestController
 @RequestMapping("/api/v1")
+
 public
 class UserController {
-
   private final UserService service;
 
   UserController(UserService service) {
     this.service = service;
   }
 
-  // Aggregate root
-  @PostMapping("/users/login")
-  public User login(@RequestParam("user") String email, @RequestParam("password") String pwd) throws WrongPasswordException {
-		
+  @PostMapping("/users/login") 
+  public User login(@RequestBody User aUser) throws WrongPasswordException {
+	  	String email = aUser.getEmail();
+	  	String pwd = aUser.getPassword();
+	  	
 		String token = getJWTToken(email);
 		User user = this.service.getUserByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
 		
@@ -47,7 +50,7 @@ class UserController {
 		}
 		
 		return service.saveUser(user);		
-  }
+}
   
   private String getJWTToken(String email) {
 		String secretKey = "superSecretKey";
