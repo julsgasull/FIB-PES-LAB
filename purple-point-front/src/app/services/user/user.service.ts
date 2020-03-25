@@ -8,6 +8,9 @@ import { UserRemote } from './user.remote';
   providedIn: 'root'
 })
 export class UserService {
+  loginUser() {
+    throw new Error("Method not implemented.");
+  }
 
   constructor(private userRemote: UserRemote) { }
 
