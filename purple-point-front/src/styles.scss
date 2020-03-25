@@ -86,3 +86,11 @@ button {
     letter-spacing: 0;
     text-align: center;
 }
+
+.has-error input,
+.has-error div,
+.has-error select {
+    border-width: 1px;
+    border-color: #FFFFFF;;
+    color:  #FFFFFF;;
+}

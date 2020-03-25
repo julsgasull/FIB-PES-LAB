@@ -9,7 +9,7 @@ import { User } from '../models/user.class';
 export class LoginComponent implements OnInit {
 
   gender = ['male', 'famale', 'non-binary', 'other'];
-  model = new User('test@mail.com', 'testUsername', 'Passw0rd!', this.gender[2]);
+  model = new User();
   submitted = false;
   
   onSubmit() { this.submitted = true; }
