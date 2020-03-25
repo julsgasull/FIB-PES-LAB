@@ -4,7 +4,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.json.JSONObject;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -14,9 +13,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
-import com.pesados.purplepoint.api.model.User;
-import com.pesados.purplepoint.api.model.UserService;
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public class UserControllerTest {
@@ -24,16 +20,6 @@ public class UserControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 
-    @Autowired
-    private UserService userService;
-
-    @Before
-    public void setUp(){
-        // given
-        userService.saveUser(new User("test", "isma@gmail.com", "1234"));
-    }
-	
-	
     @Test
     public void shouldReturnUnauthorized() throws Exception {
     	
@@ -42,7 +28,7 @@ public class UserControllerTest {
     
     @Test
     public void shouldReturnCredentials() throws Exception {	
-    	
+
     	JSONObject user = new JSONObject();
     	user.put("email", "isma@gmail.com");
     	user.put("password", "1234");
