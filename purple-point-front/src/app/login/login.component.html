@@ -1,12 +1,41 @@
+{{diagnostic}}
 <div class="container">
-    <h1>PurplePoint</h1>
-    <h2>Login</h2>
-    <form>
+    <h1>Purple Point</h1>
+    <h2>Log in</h2>
+    <form formGroup="userForm" (ngSubmit)="onSubmit()">
       <div>
-        <input type="text" class="form-control" id="username" placeholder="username" required>
+        <div ngClass="{'has-error': isSubmitted === true && formControls.email.errors}">
+          <input 
+            type="email" 
+            class="form-control" 
+            id="email" 
+            placeholder="email" 
+            formControlName="email"
+            name="email"
+            required
+          >
+          <div *ngIf="isSubmitted && formControls.email.errors"> 
+            <div *ngIf="formControls.email.errors.required">Email required</div> 		   
+            <div *ngIf="formControls.email.errors.email">Email not valid</div>
+          </div> 
+        </div>
         <br>
-        <input type="password" class="form-control" id="password" placeholder="password" required>
+        <div ngClass="{ 'has-error': isSubmitted && formControls.password.errors }">
+          <input 
+            type="password" 
+            class="form-control" 
+            id="password" 
+            placeholder="password"
+            formControlName="password"
+            (click)="setSubmittedToFalse()"
+            required
+          >
+        </div>
+        <div *ngIf="isSubmitted && formControls.password.errors" >
+          <div *ngIf="formControls.password.errors.required">Password is required</div>
+        </div>
       </div>
-      <button type="submit" class="principalButton">Login</button>
+      <br>
+      <button type="submit" class="principalButton">Register</button>
     </form>
 </div>
