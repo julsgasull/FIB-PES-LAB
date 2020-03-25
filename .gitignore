@@ -9,8 +9,11 @@
 
 # carpeta amb els binaris fora del backend
 
-Sources/bin
+Sources/purplepoint-backend/bin
 
+*.class
+
+# altres
 Design/appDesign.sketch
 
 Design/Logo.sketch
