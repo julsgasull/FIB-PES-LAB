@@ -1,7 +1,9 @@
 package com.pesados.purplepoint.api.controller;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,20 +13,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 
 import com.pesados.purplepoint.api.exception.UserNotFoundException;
 import com.pesados.purplepoint.api.exception.WrongPasswordException;
 import com.pesados.purplepoint.api.model.User;
-import com.pesados.purplepoint.api.model.UserRepository;
 import com.pesados.purplepoint.api.model.UserService;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping("/api/v1")
