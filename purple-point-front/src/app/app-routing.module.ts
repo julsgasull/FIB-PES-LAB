@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SignUpViewComponent } from './sign-up/views/sign-up-view.component';
 import { PrincipalViewComponent } from './welcome/views/principal-view.component';
 import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,10 @@ const routes: Routes = [
     path: 'signup',
     component: SignUpViewComponent, pathMatch: 'full'
   },
+  {
+    path: 'profile',
+    component: ProfileComponent, pathMatch: 'full'
+  }
 
 ];
 

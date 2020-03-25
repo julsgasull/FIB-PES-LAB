@@ -75,7 +75,6 @@ button {
     letter-spacing: 0;
     text-align: center;
 }
-
 .secondaryButton {
     background: #202020;
     border-radius: 24.5px;
@@ -85,6 +84,55 @@ button {
     color: #8F4DEC;
     letter-spacing: 0;
     text-align: center;
+}
+.logoutButton {
+    background: #202020;
+    font-family: Montserrat;
+    font-style: bold;
+    font-size: 10px;
+    color: #8F4DEC;
+    letter-spacing: 0;
+}
+
+.userInfo {
+    margin: auto;
+}
+.profileImage {
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    border-radius: 50px;
+    box-shadow: -4px -4px 20px 0 #341860, 4px 4px 20px 0 #0C0516;
+}
+.username {
+    font-family: Montserrat;
+    font-style: bold;
+    font-size: 15px;
+    color: #8F4DEC;
+    letter-spacing: 0;
+    text-align: right;
+}
+.mapImage {
+    width: 375px;
+    height: 506px;
+    object-fit: cover;
+    border-radius: 42px;
+}
+.tableAttribute {
+    font-family: Montserrat;
+    font-style: bold;
+    font-size: 10px;
+    color: #9F9F9F;
+    letter-spacing: 0;
+    text-align: right;
+}
+.tableValue {
+    font-family: Montserrat;
+    font-style: normal;
+    font-size: 10px;
+    color: #EAEDEB;
+    letter-spacing: 0;
+    text-align: right;
 }
 
 .has-error input,

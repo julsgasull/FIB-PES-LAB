@@ -19,5 +19,8 @@ export class PrincipalViewComponent implements OnInit {
   redirectToSignUp() {
     this.route.navigate(['/signup']);
   }
+  redirectToProfile() {
+    this.route.navigate(['/profile']);
+  }
 
 }
