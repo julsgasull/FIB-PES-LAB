@@ -1,114 +1,80 @@
-package com.pesados.purplepoint.tests.controller;
+package com.pesados.purplepoint.api.tests.controller;
 
-import java.net.URI;
-import java.net.URISyntaxException;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.jupiter.api.Assertions;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.Assert;
-import org.springframework.web.client.RestClientException;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
-import com.pesados.purplepoint.api.controller.UserController;
 import com.pesados.purplepoint.api.model.User;
 import com.pesados.purplepoint.api.model.UserService;
 
-
-@SpringBootTest(classes=UserController.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc
 public class UserControllerTest {
-	
-	final String baseUrl = "http://localhost:8080/api/v1/users";
-	
-	@MockBean
+
+	@Autowired
+	private MockMvc mockMvc;
+
+    @Autowired
     private UserService userService;
+
+    @Before
+    public void setUp(){
+        // given
+        userService.saveUser(new User("test", "isma@gmail.com", "1234"));
+    }
 	
-    private TestRestTemplate restTemplate = new TestRestTemplate();    
-    
+	
     @Test
-    public void shouldReturnUnauthorized() {
+    public void shouldReturnUnauthorized() throws Exception {
     	
-    	ResponseEntity<User> result = null;
-		try {
-			result = this.restTemplate.getForEntity(this.baseUrl+"/1",User.class);
-		} catch (RestClientException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	//Verify request succeed
-        Assertions.assertEquals(401, result.getStatusCodeValue());
+    	this.mockMvc.perform(get("/api/v1/users")).andExpect(status().is(401));
     }
     
     @Test
-    public void shouldReturnCredentials() throws JSONException {
-    	ResponseEntity<User> result = null;
-      
+    public void shouldReturnCredentials() throws Exception {	
+    	
     	JSONObject user = new JSONObject();
     	user.put("email", "isma@gmail.com");
     	user.put("password", "1234");
     	
-    	HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);        
-        HttpEntity<String> request = 
-        	      new HttpEntity<String>(user.toString(), headers);
-		try {
-			result = this.restTemplate.postForEntity(new URI(this.baseUrl+"/login"), request, User.class);
-		} catch (RestClientException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-    	Assertions.assertEquals(200, result.getStatusCodeValue());
-    	Assertions.assertTrue(result.getBody().getToken() != null);
+    	this.mockMvc.perform(MockMvcRequestBuilders
+    						.post("/api/v1/users/login")
+    						.contentType("application/json")
+    						.content(user.toString()))
+    						.andExpect(status().isOk());
     }
     
     @Test
-    public void shuldBeAbleToAccesResourcesWithCredentials() throws JSONException {
-    	ResponseEntity<User> auxresult = null;
-        
+    public void shouldBeAbleToAccesResourcesWithCredentials() throws Exception {
+    	//login
     	JSONObject user = new JSONObject();
     	user.put("email", "isma@gmail.com");
     	user.put("password", "1234");
     	
-    	HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);        
-        HttpEntity<String> request = 
-        	      new HttpEntity<String>(user.toString(), headers);
-		try {
-			auxresult = this.restTemplate.postForEntity(new URI(this.baseUrl+"/login"), request, User.class);
-		} catch (RestClientException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		String token = auxresult.getBody().getToken().replaceAll("Bearer ", "");
-		
-		headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);   
-        headers.setBearerAuth(token);
-    	HttpEntity entity = new HttpEntity(headers);
-
-    	ResponseEntity<String> result = null;
+    	MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders
+							    						.post("/api/v1/users/login")
+							    						.contentType("application/json")
+							    						.content(user.toString()))
+							    						.andExpect(status().isOk())
+							    						.andReturn();
     	
-        result = restTemplate.exchange(
-        		this.baseUrl, HttpMethod.GET, entity, String.class
-        		);
-        
-        Assertions.assertTrue(200 == result.getStatusCodeValue());
-    }    
+    	JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
+    	String token =((String) respUser.get("token"));
+    	
+    	this.mockMvc.perform(get("/api/v1/users").header("Authorization",token))
+    				.andDo(MockMvcResultHandlers.print())
+    				.andExpect(status().is(200));
+
+    }
 
 }
