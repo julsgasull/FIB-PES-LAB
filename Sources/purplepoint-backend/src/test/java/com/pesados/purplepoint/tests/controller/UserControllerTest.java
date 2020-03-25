@@ -107,8 +107,51 @@ public class UserControllerTest {
         result = restTemplate.exchange(
         		this.baseUrl, HttpMethod.GET, entity, String.class
         		);
+
         
         Assertions.assertTrue(200 == result.getStatusCodeValue());
-    }    
+    }
+
+    @Test
+	public void verDatosPerfil() throws JSONException {
+		ResponseEntity<User> auxresult = null;
+
+		JSONObject user = new JSONObject();
+		user.put("email", "isma@gmail.com");
+		user.put("password", "1234");
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<String> request =
+				new HttpEntity<String>(user.toString(), headers);
+		try {
+			auxresult = this.restTemplate.postForEntity(new URI(this.baseUrl+"/login"), request, User.class);
+		} catch (RestClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		String token = auxresult.getBody().getToken().replaceAll("Bearer ", "");
+
+		headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.setBearerAuth(token);
+		HttpEntity entity = new HttpEntity(headers);
+
+		ResponseEntity<String> result = null;
+
+		///TODO hacerlo diferente para poder testearlo sin depender de login
+		String auxUrl  = "http://localhost:8080/api/v1/users/2";
+		result = restTemplate.exchange(
+				auxUrl, HttpMethod.GET, entity, String.class
+		);
+		Assertions.assertEquals(200,result.getStatusCodeValue());
+		String hardcoded = "{\"id\":2,\"name\":\"Bilbo Baggins\",\"email\":\"testmail1@gmail.com\",\"password\":\"1234\",\"token\":null,\"gender\":\"no definit\",\"helpedUsers\":0,\"markedSpots\":0}";
+		Assertions.assertEquals(result.getBody().toString(), hardcoded);
+	}
+
 
 }

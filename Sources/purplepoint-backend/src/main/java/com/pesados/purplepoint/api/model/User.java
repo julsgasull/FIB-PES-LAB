@@ -22,6 +22,14 @@ public class User {
 	private String password;
   @ApiModelProperty(notes = "The user's token - usually NULL -", position = 4)
 	private String token;
+  @ApiModelProperty(notes = "The user's gender", position = 5)
+	private String gender;
+  @ApiModelProperty(notes = "The user's gender", position = 5)
+	private int helpedUsers;
+  @ApiModelProperty(notes = "The user's gender", position = 5)
+	private int markedSpots;
+
+
 
 	User() {}
 
@@ -30,6 +38,9 @@ public class User {
     this.email = email;
     this.password = password;
     this.token = null;
+    this.gender = "no definit";
+    this.helpedUsers = 0;
+    this.markedSpots = 0;
   }
 
 	public Long getID() { return id; }
@@ -63,5 +74,29 @@ public class User {
 
 	public String getPassword() {
 		return password;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public int getHelpedUsers() {
+		return helpedUsers;
+	}
+
+	public void setHelpedUsers(int helpedUsers) {
+		this.helpedUsers = helpedUsers;
+	}
+
+	public int getMarkedSpots() {
+		return markedSpots;
+	}
+
+	public void setMarkedSpots(int markedSpots) {
+		this.markedSpots = markedSpots;
 	}
 }
