@@ -16,7 +16,7 @@ Design/Logo.sketch
 !.vscode/extensions.json
 
 #dependencies
-/node_modules
+purple-point-front/node_modules
 
 #misc
 npm-debug.log
@@ -48,3 +48,4 @@ purple-point-front/tsconfig 2.json
 purple-point-front/tsconfig.app 2.json
 
 purple-point-front/tslint 2.json
+
