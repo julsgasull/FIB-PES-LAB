@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
   }
 
   private createUserForm() {
-    debugger
     const userFormValue = JSON.parse(JSON.stringify(this.loginFrom.value));
     const userData: UserData = {
       email:    userFormValue.email,
@@ -40,15 +39,11 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    debugger
     this.isSubmitted = true;
     if (this.loginFrom.valid){
       this.userService.loginUser(this.createUserForm()).subscribe((response: any) => {
-        //hay que redirigir
-        
-      alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.loginFrom.value, null, 4));
+        this.redirectToUserInfo();
       });
-      this.redirectToUserInfo();
   } else {
     return
   }
@@ -63,7 +58,7 @@ export class LoginComponent implements OnInit {
   }
 
   redirectToUserInfo() {
-    // this.route.navigate(['/userProfile']);
+    this.route.navigate(['/profile']);
   }
 
 }
