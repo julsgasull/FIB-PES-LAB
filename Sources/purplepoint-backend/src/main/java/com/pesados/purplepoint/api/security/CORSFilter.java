@@ -39,7 +39,13 @@ public class CORSFilter implements Filter {
             String headers = httpReq.getHeader("Access-Control-Request-Headers");
             if (headers != null)
                 httpResp.setHeader("Access-Control-Allow-Headers", headers);
-
+            
+            if ("OPTIONS".equalsIgnoreCase(httpReq.getMethod())) {
+                httpResp.setHeader("Allow", VALID_METHODS);
+                httpResp.setStatus(200);
+                return;
+            }
+            
             // Allow caching cross-domain permission
             httpResp.setHeader("Access-Control-Max-Age", "3600");
         }
