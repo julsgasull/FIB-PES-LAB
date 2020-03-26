@@ -16,6 +16,7 @@ public class AuthServer extends WebSecurityConfigurerAdapter {
 		    	.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 		    	.addFilterBefore(new CORSFilter(), UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests()
+			      	.antMatchers(HttpMethod.OPTIONS,"/**").permitAll()//allow CORS option calls
 			        .antMatchers(HttpMethod.POST, "/api/v1/users/login").permitAll()
 			        .anyRequest().authenticated()
 			    .and()
