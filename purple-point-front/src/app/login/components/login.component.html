@@ -1,8 +1,7 @@
-{{diagnostic}}
 <div class="container">
-    <h1>Purple Point</h1>
-    <h2>Log in</h2>
-    <form formGroup="userForm" (ngSubmit)="onSubmit()">
+    <h1>PurplePoint</h1>
+    <h2>Login</h2>
+    <form [formGroup]="loginFrom" (ngSubmit)="onSubmit()">
       <div>
         <div ngClass="{'has-error': isSubmitted === true && formControls.email.errors}">
           <input 
@@ -19,7 +18,6 @@
             <div *ngIf="formControls.email.errors.email">Email not valid</div>
           </div> 
         </div>
-        <br>
         <div ngClass="{ 'has-error': isSubmitted && formControls.password.errors }">
           <input 
             type="password" 
@@ -35,7 +33,6 @@
           <div *ngIf="formControls.password.errors.required">Password is required</div>
         </div>
       </div>
-      <br>
-      <button type="submit" class="principalButton">Register</button>
+      <button type="submit" class="principalButton">Log in</button>
     </form>
 </div>

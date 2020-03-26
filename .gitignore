@@ -16,7 +16,7 @@ Design/Logo.sketch
 !.vscode/extensions.json
 
 #dependencies
-/node_modules
+purple-point-front/node_modules
 
 #misc
 npm-debug.log
@@ -25,28 +25,27 @@ purple-point-front/.editorconfig
 
 Sources/
 
-purple-point-front/src/assets/.gitkeep 2
-
-purple-point-front/src/assets/.gitkeep 3
-
-purple-point-front/e2e/
+purple-point-front/src/assets/
 
 purple-point-front/.editorconfig 2
 
+purple-point-front/package 2.json
+
+purple-point-front/e2e/
+
 purple-point-front/.editorconfig 3
+
+purple-point-front/tsconfig.spec 2.json
+
+purple-point-front/package-lock 2.json
 
 purple-point-front/browserslist 2
 
 purple-point-front/karma.conf 2.js
 
-purple-point-front/package 2.json
-
-purple-point-front/package-lock 2.json
-
 purple-point-front/tsconfig 2.json
 
 purple-point-front/tsconfig.app 2.json
 
-purple-point-front/tsconfig.spec 2.json
-
 purple-point-front/tslint 2.json
+
