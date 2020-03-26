@@ -9,6 +9,7 @@ import { WelcomeModule } from './welcome/welcome.module';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from './services/user/user.service';
 import { UserRemote } from './services/user/user.remote';
+import { LoginModule } from './login/login.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { UserRemote } from './services/user/user.remote';
     ReactiveFormsModule,
     AppRoutingModule,
     SignUpModule,
+    LoginModule,
     WelcomeModule,
     HttpClientModule
   ],
