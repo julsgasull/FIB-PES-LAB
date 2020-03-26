@@ -10,16 +10,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class AuthServer extends WebSecurityConfigurerAdapter {
     @Override
 	protected void configure(HttpSecurity http) throws Exception {
-		/*http
-			.csrf().disable()
-				.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
-				.authorizeRequests()
-				.antMatchers(HttpMethod.POST, "/api/v1/users/login").permitAll()
-				.anyRequest().authenticated();	*/
+
 	    http
 		    .csrf().disable()
 		    	.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
-		        .authorizeRequests()
+		    	.addFilterBefore(new CORSFilter(), UsernamePasswordAuthenticationFilter.class)
+				.authorizeRequests()
 			        .antMatchers(HttpMethod.POST, "/api/v1/users/login").permitAll()
 			        .anyRequest().authenticated()
 			    .and()
