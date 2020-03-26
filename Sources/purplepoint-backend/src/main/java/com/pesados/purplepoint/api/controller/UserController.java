@@ -26,11 +26,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @RestController
 @RequestMapping("/api/v1")
-@CrossOrigin(origins = "http://localhost:4200/login", methods= {RequestMethod.GET, RequestMethod.POST})
 public class UserController {
   private final UserService service;
 
