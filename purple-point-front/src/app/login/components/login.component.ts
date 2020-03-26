@@ -3,6 +3,7 @@ import { User } from '../../models/user.class';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../services/user/user.service';
 import { UserData } from '../../models/userData.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
 
   constructor (
     private formBuilder: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private route: Router
   ) {}
 
   ngOnInit(): void {
@@ -43,8 +45,10 @@ export class LoginComponent implements OnInit {
     if (this.loginFrom.valid){
       this.userService.loginUser(this.createUserForm()).subscribe((response: any) => {
         //hay que redirigir
-      });
+        
       alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.loginFrom.value, null, 4));
+      });
+      this.redirectToUserInfo();
   } else {
     return
   }
@@ -53,11 +57,13 @@ export class LoginComponent implements OnInit {
   setSubmittedToFalse() { 
     this.isSubmitted = false; 
   }
-  get diagnostic() {
-    return JSON.stringify(this.loginFrom.value);
-  }
+
   get formControls() {
     return this.loginFrom.controls;
+  }
+
+  redirectToUserInfo() {
+    // this.route.navigate(['/userProfile']);
   }
 
 }

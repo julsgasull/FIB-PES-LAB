@@ -36,7 +36,7 @@ export class SignUpComponent implements OnInit {
   }
 
   private createUserForm() {
-    const userFormValue = JSON.parse(JSON.stringify(this.userForm.value.detail));
+    const userFormValue = JSON.parse(JSON.stringify(this.userForm.value));
     const userData: UserData = {
       email: userFormValue.email,
       username: userFormValue.username,

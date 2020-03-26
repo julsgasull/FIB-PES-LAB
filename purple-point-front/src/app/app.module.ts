@@ -19,11 +19,11 @@ import { LoginModule } from './login/login.module';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     AppRoutingModule,
     SignUpModule,
     LoginModule,
     WelcomeModule,
-    HttpClientModule
   ],
   providers: [
     UserService,

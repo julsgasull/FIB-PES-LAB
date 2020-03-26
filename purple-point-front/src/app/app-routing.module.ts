@@ -18,6 +18,9 @@ const routes: Routes = [
     path: 'signup',
     component: SignUpViewComponent, pathMatch: 'full'
   },
+  // {
+  //   // path: 'userProfile',
+  // }
 
 ];
 

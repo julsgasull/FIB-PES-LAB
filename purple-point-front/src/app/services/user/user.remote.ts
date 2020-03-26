@@ -18,16 +18,22 @@ export class UserRemote {
         },
         {
             headers:{
-              'content-type':"application/json"
+              'Content-Type':"application/json"
             }
         });
     }
 
     login(user: UserData): Observable<LoginData> {
-        return this.httpClient.post<LoginData>(`${environment.API_URL}/users/login`, user,
+        debugger
+        console.log(`${environment.API_URL}`)
+        return this.httpClient.post<LoginData>(`${environment.API_URL}/users/login`, 
+        {   
+            'email': user.email,
+            'password': user.password
+        },
         {
             headers:{
-              'content-type':"application/json"
+              'Content-Type':"application/json"
             }
         });
     }
