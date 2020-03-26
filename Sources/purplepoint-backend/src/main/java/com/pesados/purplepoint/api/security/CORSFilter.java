@@ -32,6 +32,11 @@ public class CORSFilter implements Filter {
                 return;
             }
         } else {
+        	if ("OPTIONS".equalsIgnoreCase(httpReq.getMethod())) {
+                httpResp.setHeader("Allow", VALID_METHODS);
+                httpResp.setStatus(200);
+                return;
+            }
             // This is a cross-domain request, add headers allowing access
             httpResp.setHeader("Access-Control-Allow-Origin", origin);
             httpResp.setHeader("Access-Control-Allow-Methods", VALID_METHODS);
@@ -40,11 +45,7 @@ public class CORSFilter implements Filter {
             if (headers != null)
                 httpResp.setHeader("Access-Control-Allow-Headers", headers);
             
-            if ("OPTIONS".equalsIgnoreCase(httpReq.getMethod())) {
-                httpResp.setHeader("Allow", VALID_METHODS);
-                httpResp.setStatus(200);
-                return;
-            }
+            
             
             // Allow caching cross-domain permission
             httpResp.setHeader("Access-Control-Max-Age", "3600");
