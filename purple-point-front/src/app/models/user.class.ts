@@ -1,4 +1,3 @@
-  
 export class User {
     public email: String;
     public username: String;

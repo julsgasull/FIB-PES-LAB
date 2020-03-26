@@ -1,8 +1,7 @@
-{{diagnostic}}
 <div class="container">
     <h1>PurplePoint</h1>
     <h2>Login</h2>
-    <form formGroup="userForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="loginFrom" (ngSubmit)="onSubmit()">
       <div>
         <div ngClass="{'has-error': isSubmitted === true && formControls.email.errors}">
           <input 
