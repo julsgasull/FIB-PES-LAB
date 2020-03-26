@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @RestController
 @RequestMapping("/api/v1")
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET, RequestMethod.POST})
+@CrossOrigin(origins = "http://localhost:4200/login", methods= {RequestMethod.GET, RequestMethod.POST})
 public class UserController {
   private final UserService service;
 
@@ -135,4 +135,5 @@ public class UserController {
                   @PathVariable Long id) {
     service.deleteUserById(id);
   }
+
 }
