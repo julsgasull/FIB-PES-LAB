@@ -34,6 +34,7 @@ public class CORSFilter implements Filter {
         } else {
         	if ("OPTIONS".equalsIgnoreCase(httpReq.getMethod())) {
                 httpResp.setHeader("Allow", VALID_METHODS);
+                httpResp.setHeader("Access-Control-Allow-Headers", "x-requested-with");
                 httpResp.setStatus(200);
                 return;
             }
