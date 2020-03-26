@@ -24,7 +24,6 @@ export class UserRemote {
     }
 
     login(user: UserData): Observable<LoginData> {
-        debugger
         console.log(`${environment.API_URL}`)
         return this.httpClient.post<LoginData>(`${environment.API_URL}/users/login`, 
         {   

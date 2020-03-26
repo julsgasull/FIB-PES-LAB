@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserService } from './services/user/user.service';
 import { UserRemote } from './services/user/user.remote';
 import { LoginModule } from './login/login.module';
+import { ProfileModule } from './profile/profile.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { LoginModule } from './login/login.module';
     SignUpModule,
     LoginModule,
     WelcomeModule,
+    ProfileModule
   ],
   providers: [
     UserService,

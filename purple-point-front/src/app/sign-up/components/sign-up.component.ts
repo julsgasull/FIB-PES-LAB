@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MustMatch } from './../../common/must-match.validator';
 import { UserService } from 'src/app/services/user/user.service';
 import { UserData } from 'src/app/models/userData.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'sign-up',
@@ -19,7 +20,8 @@ export class SignUpComponent implements OnInit {
   userForm: FormGroup;
 	constructor(
     private formBuilder: FormBuilder, 
-    private userService: UserService) { }
+    private userService: UserService,
+    private route: Router) { }
 
   ngOnInit(): void {
     console.log(this.genders);
@@ -46,13 +48,12 @@ export class SignUpComponent implements OnInit {
     return userData;
   }
   onSubmit() {
-    debugger
     this.isSubmitted = true;
     if (this.userForm.valid) {
       this.userService.createUser(this.createUserForm()).subscribe((response: any) => {
-        //hay que redirigir
+        this.redirectToUserInfo();
       });
-      alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.userForm.value, null, 4));
+      
   } else {
     return
   }
@@ -62,8 +63,10 @@ export class SignUpComponent implements OnInit {
     this.isSubmitted = false;
   }
 
-  get diagnostic() { return JSON.stringify(this.userForm.value); }
-
   get formControls() { return this.userForm.controls; }
+
+  redirectToUserInfo() {
+    this.route.navigate(['/profile']);
+  }
 
 }
