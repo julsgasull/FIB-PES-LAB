@@ -4,11 +4,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -32,6 +35,11 @@ import io.swagger.annotations.ApiParam;
 public class UserController {
   private final UserService service;
 
+  @ModelAttribute
+  public void setResponseHeader(HttpServletResponse response) {
+	  response.setHeader("Access-Control-Allow-Origin", "*");
+  }
+  
   UserController(UserService service) {
     this.service = service;
   }

@@ -11,7 +11,7 @@ public class PurplePointApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/api/v1/users/login").allowedOrigins("http://localhost:4200");
+				registry.addMapping("/api/v1/users/login").allowedOrigins("*");
 			}
 		};
 	}
