@@ -1,5 +1,6 @@
 package com.pesados.purplepoint.api.tests.controller;
 
+
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -96,5 +98,33 @@ public class UserControllerTest {
 		this.mockMvc.perform(get("/api/v1/users/email/isma@gmail.com").header("Authorization",token))
 				.andDo(MockMvcResultHandlers.print())
 				.andExpect(status().is(200));
+	}
+
+	@Test
+	public void shouldReturnUserinfo() throws Exception {
+
+
+    	JSONObject user = new JSONObject();
+		user.put("email", "isma@gmail.com");
+		user.put("password", "1234");
+
+		MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders
+				.post("/api/v1/users/login")
+				.contentType("application/json")
+				.content(user.toString()))
+				.andExpect(status().isOk())
+				.andReturn();
+
+		JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
+		String token =((String) respUser.get("token"));
+
+		String user_bd = "{\"id\":1,\"name\":\"test\",\"email\":\"isma@gmail.com\",\"password\":\"1234\",\"token\":\""+ token+"\",\"helpedUsers\":0,\"markedSpots\":0}";
+
+		this.mockMvc.perform(get("/api/v1/users/1").header("Authorization",token))
+				.andDo(MockMvcResultHandlers.print())
+				.andExpect(content().string(user_bd))
+				.andExpect(status().is(200));
+
+
 	}
 }
