@@ -51,7 +51,7 @@ export class SignUpComponent implements OnInit {
     this.isSubmitted = true;
     if (this.userForm.valid) {
       this.userService.createUser(this.createUserForm()).subscribe((response: any) => {
-        this.redirectToUserInfo();
+        this.redirectToLogin();
       });
       
   } else {
@@ -65,8 +65,8 @@ export class SignUpComponent implements OnInit {
 
   get formControls() { return this.userForm.controls; }
 
-  redirectToUserInfo() {
-    this.route.navigate(['/profile']);
+  redirectToLogin() {
+    this.route.navigate(['/login']);
   }
 
 }
