@@ -32,17 +32,13 @@ public class CORSFilter implements Filter {
                 return;
             }
         } else {
-        	if ("OPTIONS".equalsIgnoreCase(httpReq.getMethod())) {
-                httpResp.setHeader("Allow", VALID_METHODS);
-                httpResp.setHeader("Access-Control-Allow-Headers", "x-requested-with");
-                httpResp.setStatus(200);
-                return;
-            }
+            httpResp.setHeader("Access-Control-Allow-Headers", "");
             // This is a cross-domain request, add headers allowing access
             httpResp.setHeader("Access-Control-Allow-Origin", origin);
             httpResp.setHeader("Access-Control-Allow-Methods", VALID_METHODS);
             httpResp.setHeader("Access-Control-Allow-Credentials", "true");
             String headers = httpReq.getHeader("Access-Control-Request-Headers");
+            headers = headers + ", x-requested-with";
             if (headers != null)
                 httpResp.setHeader("Access-Control-Allow-Headers", headers);
             
