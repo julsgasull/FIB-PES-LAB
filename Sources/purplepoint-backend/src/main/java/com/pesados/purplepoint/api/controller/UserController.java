@@ -1,5 +1,6 @@
 package com.pesados.purplepoint.api.controller;
 
+
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,11 +23,17 @@ import com.pesados.purplepoint.api.exception.UserNotFoundException;
 import com.pesados.purplepoint.api.exception.WrongPasswordException;
 import com.pesados.purplepoint.api.model.User;
 import com.pesados.purplepoint.api.model.UserService;
-
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -53,7 +60,7 @@ public class UserController {
 		String token = getJWTToken(email);
 		User user = this.service.getUserByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
 		
-		if ( pwd.equals(user.getPassword())) {
+		if (pwd.equals(user.getPassword())) {
 			user.setToken(token);
 		} else {
 			throw new WrongPasswordException(pwd);
@@ -63,7 +70,7 @@ public class UserController {
 }
   
   private String getJWTToken(String email) {
-		String secretKey = "superSecretKey";
+		String secretKey = "adivinaestacrack";
 		List<GrantedAuthority> grantedAuthorities = AuthorityUtils
 				.commaSeparatedStringToAuthorityList("ROLE_USER");
 		
@@ -83,6 +90,7 @@ public class UserController {
 		return "Bearer " + token;
 	}
 
+
   @GetMapping("/users")
   @ApiOperation(value = "Gets a list of all users",
                 response = User.class)
@@ -90,15 +98,15 @@ public class UserController {
     return service.getAll();
   }
 
-  @PostMapping("/users")
+  @PostMapping("/users/register")
   @ApiOperation(value = "Creates a new, non-existing, user",
           response = User.class)
-  User newUser(@ApiParam(value = "Please to create a new user provide:\n- An ID\n- A name\n- An e-mail")
+  User newUser(@ApiParam(value = "To create a new user please provide:\n- A valid e-mail \n- An username\n- An e-mail \n A password \n The user's gender")
                @RequestBody User newUser) {
     return service.saveUser(newUser);
   }
 
-  // Single item
+// Single item
 
   @GetMapping("/users/{id}")
   @ApiOperation(value = "Gets an especfic user",
@@ -109,6 +117,17 @@ public class UserController {
 
     return service.getUserById(id).orElseThrow(() -> new UserNotFoundException(id));
   }
+
+   @GetMapping("/users/email/{email}")
+   @ApiOperation(value = "Gets an especfic user by its email",
+           notes = "Provide an email to look up for a specific user",
+           response = User.class)
+   User emailUser(@ApiParam(value = "email value for the user you want to look up", required = true)
+            @PathVariable String email) {
+      System.out.println("tu madre");
+       return service.getUserByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
+   }
+
 
   @PutMapping("/users/{id}")
   @ApiOperation(value = "Update a user",
