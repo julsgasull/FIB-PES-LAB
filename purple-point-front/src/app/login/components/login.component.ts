@@ -41,9 +41,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.isSubmitted = true;
     if (this.loginFrom.valid){
-      console.log("login form is valid")
       this.userService.loginUser(this.createUserForm()).subscribe((response: any) => {
-        console.log("redirect to user info")
         this.redirectToUserInfo();
       });
     } else {
