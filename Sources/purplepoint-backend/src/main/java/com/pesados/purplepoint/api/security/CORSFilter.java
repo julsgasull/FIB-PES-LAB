@@ -12,11 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 public class CORSFilter implements Filter {
 
-	public void destroy() {
-    }
-
     public static String VALID_METHODS = "DELETE, GET, OPTIONS, POST, PUT";
-
+    
+    public void destroy() {}
+    
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
             throws ServletException, IOException {
         HttpServletRequest httpReq = (HttpServletRequest) req;
