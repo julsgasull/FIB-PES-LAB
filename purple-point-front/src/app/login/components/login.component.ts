@@ -4,6 +4,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../services/user/user.service';
 import { UserData } from '../../models/userData.interface';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject'
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +17,7 @@ export class LoginComponent implements OnInit {
   user: User = new User();
   isSubmitted = false;
   loginFrom: FormGroup;
+  loggedUser: HttpResponse<User>;
 
   constructor (
     private formBuilder: FormBuilder,
@@ -42,6 +45,7 @@ export class LoginComponent implements OnInit {
     this.isSubmitted = true;
     if (this.loginFrom.valid){
       this.userService.loginUser(this.createUserForm()).subscribe((response: any) => {
+        this.loggedUser = response;
         this.redirectToUserInfo();
       });
     } else {

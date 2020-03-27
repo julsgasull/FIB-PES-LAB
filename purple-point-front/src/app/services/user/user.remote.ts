@@ -8,6 +8,7 @@ import { LoginData } from 'src/app/models/loginData.interface';
 
 @Injectable()
 export class UserRemote {
+
     constructor(private httpClient: HttpClient) {}
 
     createUser(user: UserData): Observable<User> {
@@ -27,7 +28,7 @@ export class UserRemote {
 
     login(user: UserData): Observable<LoginData> {
         console.log(`${environment.API_URL}`)
-        let a = this.httpClient.post<LoginData>(`${environment.API_URL}/users/login`, 
+        return this.httpClient.post<LoginData>(`${environment.API_URL}/users/login`, 
         {   
             'email': user.email,
             'password': user.password
@@ -37,7 +38,5 @@ export class UserRemote {
               'Content-Type':"application/json"
             }
         });
-        console.log(a);
-        return a;
     }
 }
