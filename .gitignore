@@ -20,6 +20,12 @@ purple-point-front/node_modules
 
 #misc
 npm-debug.log
+Sources/purplepoint-backend/bin
+
+*.class
+
+# altres
+Design/appDesign.sketch
 
 purple-point-front/.editorconfig
 
