@@ -11,10 +11,12 @@ export class UserRemote {
     constructor(private httpClient: HttpClient) {}
 
     createUser(user: UserData): Observable<User> {
-        return this.httpClient.post<User>(`${environment.API_URL}/createUser`, 
+        return this.httpClient.post<User>(`${environment.API_URL}/users/register`, 
         {   
             'email': user.email,
-            'password': user.password
+            'username': user.username,
+            'password': user.password,
+            'gender': user.gender
         },
         {
             headers:{
@@ -25,7 +27,7 @@ export class UserRemote {
 
     login(user: UserData): Observable<LoginData> {
         console.log(`${environment.API_URL}`)
-        return this.httpClient.post<LoginData>(`${environment.API_URL}/users/login`, 
+        let a = this.httpClient.post<LoginData>(`${environment.API_URL}/users/login`, 
         {   
             'email': user.email,
             'password': user.password
@@ -35,5 +37,7 @@ export class UserRemote {
               'Content-Type':"application/json"
             }
         });
+        console.log(a);
+        return a;
     }
 }
