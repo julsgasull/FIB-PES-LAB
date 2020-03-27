@@ -1,8 +1,5 @@
 package com.pesados.purplepoint.api.tests.controller;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +10,9 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public class UserControllerTest {
@@ -22,13 +22,11 @@ public class UserControllerTest {
 
     @Test
     public void shouldReturnUnauthorized() throws Exception {
-    	
     	this.mockMvc.perform(get("/api/v1/users")).andExpect(status().is(401));
     }
     
     @Test
-    public void shouldReturnCredentials() throws Exception {	
-
+    public void shouldReturnCredentials() throws Exception {
     	JSONObject user = new JSONObject();
     	user.put("email", "isma@gmail.com");
     	user.put("password", "1234");
@@ -41,7 +39,7 @@ public class UserControllerTest {
     }
     
     @Test
-    public void shouldBeAbleToAccesResourcesWithCredentials() throws Exception {
+    public void shouldBeAbleToAccessResourcesWithCredentials() throws Exception {
     	//login
     	JSONObject user = new JSONObject();
     	user.put("email", "isma@gmail.com");
@@ -63,4 +61,40 @@ public class UserControllerTest {
 
     }
 
+	@Test
+	public void shouldReturnNewUser() throws Exception {
+		JSONObject user = new JSONObject();
+		user.put("name", "amandi");
+		user.put("password", "1234");
+		user.put("email", "amandi@gmail.com");
+		user.put("gender", "female");
+
+		this.mockMvc.perform(MockMvcRequestBuilders
+				.post("/api/v1/users/register")
+				.contentType("application/json")
+				.content(user.toString()))
+				.andExpect(status().isOk());
+	}
+
+	@Test
+	public void shouldBeAbleToAccesUserByEmailWihCredentials() throws Exception {
+		// Login with mockup user in the database.
+		JSONObject user = new JSONObject();
+		user.put("email", "isma@gmail.com");
+		user.put("password", "1234");
+
+		MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders
+				.post("/api/v1/users/login")
+				.contentType("application/json")
+				.content(user.toString()))
+				.andExpect(status().isOk())
+				.andReturn();
+
+		JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
+		String token =((String) respUser.get("token"));
+
+		this.mockMvc.perform(get("/api/v1/users/email/isma@gmail.com").header("Authorization",token))
+				.andDo(MockMvcResultHandlers.print())
+				.andExpect(status().is(200));
+	}
 }
