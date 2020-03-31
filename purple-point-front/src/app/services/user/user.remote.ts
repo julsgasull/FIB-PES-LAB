@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { User } from 'src/app/models/user.class';
 import { Observable } from 'rxjs';
@@ -11,8 +11,8 @@ export class UserRemote {
 
     constructor(private httpClient: HttpClient) {}
 
-    createUser(user: UserData): Observable<User> {
-        return this.httpClient.post<User>(`${environment.API_URL}/users/register`, 
+    createUser(user: UserData): Observable<UserData> {
+        return this.httpClient.post<UserData>(`${environment.API_URL}/users/register`, 
         {   
             'email': user.email,
             'username': user.username,
@@ -26,9 +26,8 @@ export class UserRemote {
         });
     }
 
-    login(user: UserData): Observable<LoginData> {
-        console.log(`${environment.API_URL}`)
-        return this.httpClient.post<LoginData>(`${environment.API_URL}/users/login`, 
+    login(user: UserData): Observable<UserData> {
+        return this.httpClient.post<UserData>(`${environment.API_URL}/users/login`, 
         {   
             'email': user.email,
             'password': user.password
@@ -38,5 +37,12 @@ export class UserRemote {
               'Content-Type':"application/json"
             }
         });
+    }
+
+    getUserByEmail(email: string): Observable<UserData> {
+        const params = new HttpParams().set('email', email);
+        return this.httpClient.get<UserData>(`${environment.API_URL}/users/email`,
+        {params: params}
+        );
     }
 }

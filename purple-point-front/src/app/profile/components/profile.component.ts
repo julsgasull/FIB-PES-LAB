@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject'
-import { HttpResponse } from '@angular/common/http';
-import { User } from '../../models/user.class';
+import { UserService } from 'src/app/services/user/user.service';
+import { LoginData } from 'src/app/models/loginData.interface';
+import { UserData } from 'src/app/models/userData.interface';
 
 
 @Component({
@@ -11,18 +11,26 @@ import { User } from '../../models/user.class';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  public userInfo: UserData;
+  public disableInputs: boolean = true;
 
   constructor(
     private route: Router,
-    private response: HttpResponse<User>
-  ) {
-  }
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
-    this.response.subscribe(loggedUser => this.response = loggedUser)
+    const userEmail = localStorage.getItem('userEmail');
+      this.userService.getUserByEmail(userEmail).subscribe((response: UserData) => {
+        this.userInfo = response;
+      });
   }
   redirectToPrincipalView() {
     this.route.navigate(['']);
+  }
+
+  editarPerfil() {
+    this.disableInputs = false;
   }
 
 

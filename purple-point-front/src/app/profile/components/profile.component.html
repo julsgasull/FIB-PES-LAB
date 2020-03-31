@@ -6,7 +6,7 @@
                     <table>
                         <tbody>
                             <tr>
-                                <p class="username">@{{name}}</p>
+                                <input class="username" [disabled]="disableInputs" placeholder="@{{userInfo.name}}">
                             </tr>
                             <tr>
                                 <table>
@@ -16,7 +16,7 @@
                                             <td class="tableValue">male</td>
                                         </tr>
                                         <tr>
-                                            <td class="tableAttribute">number of harassed spots masked</td>
+                                            <td class="tableAttribute">@{{userInfo.name}}</td>
                                             <td class="tableValue">5</td>
                                         </tr>
                                     </tbody>
@@ -42,7 +42,8 @@
                 <td><p></p></td>
                 <td><p></p></td>
                 <td><p></p></td>
-                <td><p></p></td>
+                <!-- <td><p></p></td> -->
+                <td><button (click)="editarPerfil()">Editar perfil </button></td>
                 <td><button class="logoutButton" (click)="redirectToPrincipalView()">log out > </button></td>
             </tr>
         </tbody>
