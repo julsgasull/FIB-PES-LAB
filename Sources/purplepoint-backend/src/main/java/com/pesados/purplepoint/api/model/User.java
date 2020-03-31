@@ -64,7 +64,7 @@ public class User {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getGender(String gender) {  return gender; }
+	public String getGender() {  return gender; }
 
 	public int getHelpedUsers() {
 		return helpedUsers;
@@ -90,5 +90,5 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
-	public String setPassword() { return password; }
+	public void setPassword(String password) { this.password = password; }
 }

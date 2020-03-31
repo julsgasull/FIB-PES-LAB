@@ -129,24 +129,29 @@ public class UserController {
    }
 
 
-  @PutMapping("/users/{id}")
+  @PutMapping("/users/email/{email}")
   @ApiOperation(value = "Update a user",
-          notes = "Provide an ID to replace an existing user",
+          notes = "Provide an email to replace an existing user",
           response = User.class)
   User replaceUser(@ApiParam(value = "A new user object to replace the existing one please to create a new user provide:" +
-                                     "\n- An ID\n- A name\n- An e-mail", required = true)
+                                     "\n- A name\n- An e-mail\n- A password\n-Gender")
                    @RequestBody User newUser,
-                   @ApiParam(value = "ID of the user to replace", required = true)
-                   @PathVariable Long id) {
+                   @ApiParam(value = "email of the user to modify", required = true)
+                   @PathVariable String email) {
 
-    return service.getUserById(id)
+    return service.getUserByEmail(email)
       .map(user -> {
         user.setName(newUser.getName());
         user.setEmail(newUser.getEmail());
-        return service.saveUser(user);
+        user.setPassword(newUser.getPassword());
+        user.setGender(newUser.getGender());
+		user.setToken(newUser.getToken());
+		user.setHelpedUsers(newUser.getHelpedUsers());
+		user.setMarkedSpots(newUser.getMarkedSpots());
+		  return service.saveUser(user);
       })
       .orElseGet(() -> {
-        newUser.setId(id);
+        newUser.setEmail(email);
         return service.saveUser(newUser);
       });
   }
