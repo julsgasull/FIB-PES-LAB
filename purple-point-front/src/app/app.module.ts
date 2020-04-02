@@ -12,6 +12,7 @@ import { UserService } from './services/user/user.service';
 import { UserRemote } from './services/user/user.remote';
 import { LoginModule } from './login/login.module';
 import { ProfileModule } from './profile/profile.module';
+import { PanicbuttonModule } from './common/components/panicbutton/panicbutton.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ProfileModule } from './profile/profile.module';
     SignUpModule,
     LoginModule,
     WelcomeModule,
-    ProfileModule
+    ProfileModule,
+    PanicbuttonModule
   ],
   providers: [
     UserService,
