@@ -13,6 +13,7 @@ import { UserService } from './services/user/user.service';
 import { UserRemote } from './services/user/user.remote';
 import { LoginModule } from './login/login.module';
 import { ProfileModule } from './profile/profile.module';
+import { PanicbuttonModule } from './common/components/panicbutton/panicbutton.module';
 import { AuthInterceptor } from './services/auth/auth.interceptor';
 
 @NgModule({
@@ -29,7 +30,8 @@ import { AuthInterceptor } from './services/auth/auth.interceptor';
     SignUpModule,
     LoginModule,
     WelcomeModule,
-    ProfileModule
+    ProfileModule,
+    PanicbuttonModule
   ],
   providers: [
     {
