@@ -1,22 +1,26 @@
 import { Injectable } from '@angular/core';
-import { User } from '../../models/user.class';
-import { Observable } from 'rxjs';
+import { Observable} from 'rxjs';
 import { UserData } from 'src/app/models/userData.interface';
 import { UserRemote } from './user.remote';
-import { LoginData } from 'src/app/models/loginData.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private userRemote: UserRemote) { }
+  constructor(
+    private userRemote: UserRemote) { }
 
-  loginUser(user: UserData): Observable<LoginData> {
+  loginUser(user: UserData): Observable<UserData> {
     return this.userRemote.login(user);
   }
 
-  createUser(user: UserData): Observable<User> {
+  createUser(user: UserData): Observable<UserData> {
     return this.userRemote.createUser(user);
   }
+
+  getUserByEmail(email: string): Observable<UserData> {
+    return this.userRemote.getUserByEmail(email);
+  }
+
 }
