@@ -24,7 +24,6 @@ export class SignUpComponent implements OnInit {
     private route: Router) { }
 
   ngOnInit(): void {
-    console.log(this.genders);
     this.userForm = this.formBuilder.group({
 			email: ['', [Validators.required, Validators.email]],
 			username: ['', [Validators.required]],
