@@ -14,10 +14,12 @@ import { UserRemote } from './services/user/user.remote';
 import { LoginModule } from './login/login.module';
 import { ProfileModule } from './profile/profile.module';
 import { AuthInterceptor } from './services/auth/auth.interceptor';
+import { MainMenuComponent } from './main-menu/main-menu.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MainMenuComponent
   ],
   imports: [
     CommonModule,

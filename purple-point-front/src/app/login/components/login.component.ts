@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
       this.userService.loginUser(this.createUserForm()).subscribe((response: UserData) => {
         localStorage.setItem('userEmail', response.email);
         localStorage.setItem('token', response.token);
-        this.redirectToUserInfo();
+        this.redirectToMainMenu();
       });
     } else {
       alert("not authenticated");
@@ -62,6 +62,10 @@ export class LoginComponent implements OnInit {
 
   redirectToUserInfo() {
     this.route.navigate(['/profile']);
+  }
+
+  redirectToMainMenu() {
+    this.route.navigate(['/mainmenu']);
   }
 
 }

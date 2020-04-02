@@ -22,6 +22,7 @@ h2 {
 }
 
 div {
+    font-family: Montserrat;
     background-color: #202020;
     color: #FFFFFF;
     text-align: center;
@@ -30,6 +31,10 @@ div {
 button {
     border-width: 0px;
     text-align: center;
+}
+
+td, tr {
+    font-family: Montserrat;
 }
 
 .form-group {
@@ -141,4 +146,78 @@ button {
     border-width: 1px;
     border-color: #FFFFFF;;
     color:  #FFFFFF;;
+}
+
+.profileRectangle {
+    background: #313131;
+    border-radius: 18px;
+    font-family: Montserrat-Regular;
+    font-size: 15px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.50);
+    font-family: Montserrat-Regular;
+    font-size: 12px;
+    color: #A666FF;
+    letter-spacing: 0;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.50);
+    box-shadow: -4px -4px 20px 0 #341860, 4px 4px 20px 0 #0C0516;
+    padding: 3px;
+}
+
+.name {
+    font-family: Montserrat;
+    font-style: normal;
+    font-size: 15px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-align: left;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.50);
+}
+.username {
+    font-family: Montserrat;
+    font-style: normal;
+    font-size: 12px;
+    color: #A666FF;
+    letter-spacing: 0;
+    text-align: left;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.50);
+}
+
+.mapbutton {
+    background: #6730BE;
+    border-radius: 16px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-size: 14px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+}
+.settingsbutton {
+    background: #6730BE;
+    border-radius: 16px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-size: 14px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+}
+.wikibutton {
+    background: #8F4DEC;
+    border-radius: 16px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-size: 14px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+}
+.panicButtonTitle {
+    font-family: Montserrat;
+    font-style: normal;
+    font-size: 27px;
+    color: #9F9F9F;
+    letter-spacing: 0;
+    text-align: center;
 }
