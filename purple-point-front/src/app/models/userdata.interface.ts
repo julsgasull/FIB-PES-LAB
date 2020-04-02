@@ -6,4 +6,6 @@ export interface UserData {
     password: string;
     gender?: string;
     token?: string;
+    markedSpots?: number;
+    helpedUsers?: number;
 }

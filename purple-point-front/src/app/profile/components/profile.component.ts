@@ -11,8 +11,10 @@ import { UserData } from 'src/app/models/userData.interface';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  genders = ['Male', 'Female', 'Non binary', 'Other'];
   public userInfo: UserData;
   public disableInputs: boolean = true;
+  public enableSaveButton: boolean = false;
 
   constructor(
     private route: Router,
@@ -21,9 +23,9 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     const userEmail = localStorage.getItem('userEmail');
-      this.userService.getUserByEmail(userEmail).subscribe((response: UserData) => {
-        this.userInfo = response;
-      });
+    this.userService.getUserByEmail(userEmail).subscribe((response: UserData) => {
+      this.userInfo = response;
+    });
   }
   redirectToPrincipalView() {
     this.route.navigate(['']);
@@ -31,7 +33,12 @@ export class ProfileComponent implements OnInit {
 
   editarPerfil() {
     this.disableInputs = false;
+    this.enableSaveButton = true;
   }
 
+  saveChanges() {
+    this.enableSaveButton = false;
+    this.disableInputs = true;
+  }
 
 }

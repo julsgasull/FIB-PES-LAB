@@ -6,18 +6,33 @@
                     <table>
                         <tbody>
                             <tr>
-                                <input class="username" [disabled]="disableInputs" placeholder="@{{userInfo.name}}">
+                                <input class="form-control" [disabled]="disableInputs" placeholder="@{{userInfo.name}}">
                             </tr>
                             <tr>
                                 <table>
                                     <tbody>
                                         <tr>
                                             <td class="tableAttribute">gender</td>
-                                            <td class="tableValue">male</td>
+
+                                            <select 
+                                            class="form-control" 
+                                            [disabled]="disableInputs">
+                                            <option>{{userInfo.gender}}</option>
+                                            <option *ngFor="let gen of genders">{{gen}}</option>
+                                          </select>
+
+                                            <td class="tableValue">{{userInfo.gender}}</td>
                                         </tr>
                                         <tr>
-                                            <td class="tableAttribute">@{{userInfo.name}}</td>
-                                            <td class="tableValue">5</td>
+                                            <td class="tableAttribute">Password</td>
+                                            <td class="tableValue">{{userInfo.password}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td *ngIf="enableSaveButton">
+                                                <button class="principalButton" (click)="saveChanges()">
+                                                    Save changes 
+                                                </button>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -42,8 +57,7 @@
                 <td><p></p></td>
                 <td><p></p></td>
                 <td><p></p></td>
-                <!-- <td><p></p></td> -->
-                <td><button (click)="editarPerfil()">Editar perfil </button></td>
+                <td><button class="principalButton" (click)="editarPerfil()">Editar perfil </button></td>
                 <td><button class="logoutButton" (click)="redirectToPrincipalView()">log out > </button></td>
             </tr>
         </tbody>
@@ -51,6 +65,9 @@
     <br>
     <br>
     <br>
+    <br>
+    <span class="tableAttribute">Number of harassed spots marked</span>
+    <span class="tableValue">{{userInfo.markedSpots}}</span>
     <br>
     <br>
     <img class="mapImage" src="https://miro.medium.com/max/3332/0*R8YnMoScMd_jiO93.png">

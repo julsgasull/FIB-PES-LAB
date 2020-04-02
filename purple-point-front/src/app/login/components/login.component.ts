@@ -43,7 +43,8 @@ export class LoginComponent implements OnInit {
     this.isSubmitted = true;
     if (this.loginFrom.valid){
       this.userService.loginUser(this.createUserForm()).subscribe((response: UserData) => {
-        localStorage.setItem('userEmail',response.email);
+        localStorage.setItem('userEmail', response.email);
+        localStorage.setItem('token', response.token);
         this.redirectToUserInfo();
       });
     } else {
