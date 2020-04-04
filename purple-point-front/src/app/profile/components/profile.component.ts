@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
-import { LoginData } from 'src/app/models/loginData.interface';
 import { UserData } from 'src/app/models/userData.interface';
 
 
