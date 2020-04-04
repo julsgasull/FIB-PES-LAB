@@ -6,38 +6,46 @@
                     <table>
                         <tbody>
                             <td>
-                                <img class="profileImage" src="https://media-exp1.licdn.com/dms/image/C4D03AQHLDRgeidvYZA/profile-displayphoto-shrink_200_200/0?e=1590624000&v=beta&t=uxwAXOUWM-vFtGENLqSPWJee07Mijq06Rhcp-uYZFwc">
+                                <img class="profileImage" src={{profileImage}} style="height: 50px;
+                                width: 50px;">
                             </td>
                             <td style='vertical-align: middle; text-align:left;'>
-                                <tr class='name'>Ismael de la Gracia</tr>
-                                <tr clasw='username'>@isma</tr>
+                                <tr class='name'>{{userInfo.name}}</tr>
+                                <tr clasw='username'>@{{userInfo.name}}</tr>
                             </td>
                             <td style='width: 150px;'></td>
-                            <td style='vertical-align: middle; text-align:right;'>
-                                <img src="../../../images/expand.svg">
+                            <td style="vertical-align: middle; text-align:right;">
+                                <img src={{expandImage}} alt="" style="height:25px; width:25px">
                             </td>
                     </tbody>
                     </table>
                 </div>
             </tr>
             <tr>
-                <p style="text-align: left;">Hello, <b>Isma</b>!</p>
+                <p style="text-align: left;">Hello, <b>{{userInfo.name}}</b>!</p>
             </tr>
             <tr>
                 <table>
                     <tbody>
                         <td>
-                            <tr>
-                                <button class="mapbutton">go to map</button>
-                            </tr>
-                            <tr>
-                                <button class="settingsbutton">go to settings</button>
-                            </tr>
+                            <button class="mapbutton" (click)="redirectToMap()">
+                                <div style="text-align:left;">
+                                    Want to see or <br>
+                                    mark some spots?<br>
+                                    <b>Go to map</b>
+                                    <br><br><br>
+                                </div>
+                                <img src={{mapImage}} style="float:right; height:20px; width:20px;">
+                            </button>
                         </td>
                         <td>
-                            <button class="wikibutton">
-                                Doubts?<br>
-                                Visit the wiki
+                            <button class="wikibutton" (click)="redirectToWiki()">
+                                <img src={{wikiImage}} style="float:right; height:20px; width:20px;">
+                                <br><br><br><br><br><br>
+                                <div style="text-align:left;">
+                                    Doubts?<br>
+                                    <b>Visit the wiki</b>
+                                </div>      
                             </button>
                         </td>
                     </tbody>
@@ -47,6 +55,7 @@
             <tr>
                 <div class="panicButtonTitle">Panic button</div>
             </tr>
+            <tr><br></tr>
             <tr>
                 <div>
                     <button id="panicButton">PANIC</button>

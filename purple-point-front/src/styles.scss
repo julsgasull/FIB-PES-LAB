@@ -21,7 +21,7 @@ h2 {
     text-align: center;
 }
 
-div {
+.container {
     font-family: Montserrat;
     background-color: #202020;
     color: #FFFFFF;
@@ -103,8 +103,6 @@ td, tr {
     margin: auto;
 }
 .profileImage {
-    height: 100px;
-    width: 100px;
     object-fit: cover;
     border-radius: 50px;
     box-shadow: -4px -4px 20px 0 #341860, 4px 4px 20px 0 #0C0516;
@@ -150,7 +148,7 @@ td, tr {
 
 .profileRectangle {
     background: #313131;
-    border-radius: 18px;
+    border-radius: 25px;
     font-family: Montserrat-Regular;
     font-size: 15px;
     color: #FFFFFF;
@@ -164,7 +162,7 @@ td, tr {
     text-align: center;
     text-shadow: 0 2px 4px rgba(0,0,0,0.50);
     box-shadow: -4px -4px 20px 0 #341860, 4px 4px 20px 0 #0C0516;
-    padding: 3px;
+    padding: 10px;
 }
 
 .name {
@@ -187,15 +185,8 @@ td, tr {
 }
 
 .mapbutton {
-    background: #6730BE;
-    border-radius: 16px;
-    font-family: Montserrat;
-    font-style: normal;
-    font-size: 14px;
-    color: #FFFFFF;
-    letter-spacing: 0;
-}
-.settingsbutton {
+    width: 140px;
+    height: 155px;
     background: #6730BE;
     border-radius: 16px;
     font-family: Montserrat;
@@ -205,6 +196,8 @@ td, tr {
     letter-spacing: 0;
 }
 .wikibutton {
+    width: 140px;
+    height: 155px;
     background: #8F4DEC;
     border-radius: 16px;
     font-family: Montserrat;
