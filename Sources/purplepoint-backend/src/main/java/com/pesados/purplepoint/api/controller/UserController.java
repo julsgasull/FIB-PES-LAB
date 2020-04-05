@@ -101,7 +101,7 @@ public class UserController {
   @PostMapping("/users/register")
   @ApiOperation(value = "Creates a new, non-existing, user",
           response = User.class)
-  User newUser(@ApiParam(value = "To create a new user please provide:\n- A valid e-mail \n- An username\n- An e-mail \n A password \n The user's gender")
+  User newUser(@ApiParam(value = "To create a new user please provide:\n- A valid name \n- An username\n- An e-mail \n A password \n The user's gender")
                @RequestBody User newUser) {
     return service.saveUser(newUser);
   }
@@ -129,11 +129,37 @@ public class UserController {
    }
 
 
-  @PutMapping("/users/email/{email}")
+	@PutMapping("/users/{id}")
+	@ApiOperation(value = "Update a user",
+			notes = "Provide an ID to replace an existing user",
+			response = User.class)
+	User replaceUserbyID(@ApiParam(value = "A new user object to replace the existing one please to create a new user provide:" +
+			"\n- An ID\n- A name\n- An e-mail", required = true)
+					 @RequestBody User newUser,
+					 @ApiParam(value = "ID of the user to replace", required = true)
+					 @PathVariable Long id) {
+
+		return service.getUserById(id)
+				.map(user -> {
+					user.setName(newUser.getName());
+					user.setUserName(newUser.getUsername());
+					user.setEmail(newUser.getEmail());
+					user.setPassword(newUser.getPassword());
+					user.setGender(newUser.getGender());
+					return service.saveUser(user);
+				})
+				.orElseGet(() -> {
+					newUser.setId(id);
+					return service.saveUser(newUser);
+				});
+	}
+
+
+	@PutMapping("/users/email/{email}")
   @ApiOperation(value = "Update a user",
           notes = "Provide an email to replace an existing user",
           response = User.class)
-  User replaceUser(@ApiParam(value = "A new user object to replace the existing one please to create a new user provide:" +
+  User replaceUserbyEmail(@ApiParam(value = "A new user object to replace the existing one please to create a new user provide:" +
                                      "\n- A name\n- An e-mail\n- A password\n-Gender")
                    @RequestBody User newUser,
                    @ApiParam(value = "email of the user to modify", required = true)
@@ -142,12 +168,10 @@ public class UserController {
     return service.getUserByEmail(email)
       .map(user -> {
         user.setName(newUser.getName());
-        user.setEmail(newUser.getEmail());
+        user.setUserName(newUser.getUsername());
+		user.setEmail(newUser.getEmail());
         user.setPassword(newUser.getPassword());
         user.setGender(newUser.getGender());
-		user.setToken(newUser.getToken());
-		user.setHelpedUsers(newUser.getHelpedUsers());
-		user.setMarkedSpots(newUser.getMarkedSpots());
 		  return service.saveUser(user);
       })
       .orElseGet(() -> {

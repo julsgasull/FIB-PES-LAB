@@ -123,7 +123,7 @@ public class UserControllerTest {
 		JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
 		String token =((String) respUser.get("token"));
 
-		String user_bd = "{\"id\":1,\"name\":\"test\",\"email\":\"isma@gmail.com\",\"password\":\"1234\",\"gender\":\"others\",\"token\":\""+ token+"\",\"helpedUsers\":0,\"markedSpots\":0}";
+		String user_bd = "{\"id\":1,\"name\":\"test\",\"username\":\"test1\",\"email\":\"isma@gmail.com\",\"password\":\"1234\",\"gender\":\"others\",\"token\":\""+ token+"\",\"helpedUsers\":0,\"markedSpots\":0}";
 
 		this.mockMvc.perform(get("/api/v1/users/1").header("Authorization",token))
 				.andDo(MockMvcResultHandlers.print())
@@ -151,12 +151,13 @@ public class UserControllerTest {
 		String token =((String) respUser.get("token"));
 
 		this.mockMvc.perform(put("/api/v1/users/email/testmail1@gmail.com").header("Authorization",token)
-				.content(asJsonString(new User("isma", "amadolider@gmail.com", "1234", "nonbinary")))
+				.content(asJsonString(new User("Ismael", "isma", "amadolider@gmail.com", "1234", "nonbinary")))
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(MockMvcResultHandlers.print())
 				.andExpect(status().is(200))
-				.andExpect(MockMvcResultMatchers.jsonPath("$.name").value("isma"))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Ismael"))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.username").value("isma"))
 				.andExpect(MockMvcResultMatchers.jsonPath("$.email").value("amadolider@gmail.com"))
 				.andExpect(MockMvcResultMatchers.jsonPath("$.password").value("1234"))
 				.andExpect(MockMvcResultMatchers.jsonPath("$.gender").value("nonbinary"));
