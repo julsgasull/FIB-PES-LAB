@@ -1,7 +1,6 @@
 package com.pesados.purplepoint.api.tests.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pesados.purplepoint.api.model.User;
+develop/back
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+develop/back
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -104,12 +105,9 @@ public class UserControllerTest {
 				.andExpect(status().is(200));
 	}
 
-
 	@Test
 	public void shouldReturnUserinfo() throws Exception {
-
-
-		JSONObject user = new JSONObject();
+    JSONObject user = new JSONObject();
 		user.put("email", "isma@gmail.com");
 		user.put("password", "1234");
 
@@ -123,7 +121,7 @@ public class UserControllerTest {
 		JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
 		String token =((String) respUser.get("token"));
 
-		String user_bd = "{\"id\":1,\"name\":\"test\",\"username\":\"test1\",\"email\":\"isma@gmail.com\",\"password\":\"1234\",\"gender\":\"others\",\"token\":\""+ token+"\",\"helpedUsers\":0,\"markedSpots\":0}";
+		String user_bd = "{\"id\":1,\"name\":\"test\",\"email\":\"isma@gmail.com\",\"password\":\"1234\",\"token\":\""+ token+"\",\"helpedUsers\":0,\"markedSpots\":0}";
 
 		this.mockMvc.perform(get("/api/v1/users/1").header("Authorization",token))
 				.andDo(MockMvcResultHandlers.print())
@@ -132,7 +130,7 @@ public class UserControllerTest {
 
 
 	}
-
+  
 	@Test
 	public void shouldModifyUser() throws Exception {
 		// Login with mockup user in the database.
@@ -170,6 +168,4 @@ public class UserControllerTest {
 			throw new RuntimeException(e);
 		}
 	}
-
-
 }
