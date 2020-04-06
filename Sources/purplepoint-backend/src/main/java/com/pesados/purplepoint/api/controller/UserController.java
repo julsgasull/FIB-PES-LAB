@@ -84,7 +84,7 @@ import java.util.stream.Collectors;
 
   // Register new user
 
-  @Operation(summary = "Add a new user", description = "Adds a new user to the database with the information provided. To create a new user please provide:\n- A valid e-mail \n- An username\n- An e-mail \n A password \n The user's gender", tags = { "register" })
+  @Operation(summary = "Add a new user", description = "Adds a new user to the database with the information provided. To create a new user please provide:\n- A valid e-mail \n- An username\n- An e-mail \n- A password \n- The user's gender", tags = { "register" })
   @ApiResponses(value = {
          @ApiResponse(responseCode = "201", description = "User created",
                   content = @Content(schema = @Schema(implementation = User.class))),

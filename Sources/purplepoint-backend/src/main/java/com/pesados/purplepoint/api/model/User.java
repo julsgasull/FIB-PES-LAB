@@ -13,7 +13,7 @@ public class User {
 	private @Id @GeneratedValue Long id;
 	@Schema(description = "Name of the user.", example = "Claudia/Isma", required = true)
 	private String name;
-	@Schema(description = "Name of the user.", example = "OhAmadoLider", required = true)
+	@Schema(description = "Username of the user.", example = "OhAmadoLider", required = true)
 	private String username;
 	@Schema(description = "Email of the user.", example = "ohamadoslideres@gmail.com", required = true)
 	private String email;
