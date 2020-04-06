@@ -75,3 +75,12 @@ purple-point-front/tsconfig.spec 3.json
 purple-point-front/tslint 3.json
 
 purple-point-front/package-lock 3.json
+
+#cordova
+
+cordova-project/purple-point
+
+purple-point-front/platforms
+
+purple-point-front/plugins
+
