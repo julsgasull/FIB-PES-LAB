@@ -142,9 +142,9 @@ import java.util.stream.Collectors;
           @ApiResponse(responseCode = "401", description = "Unauthorized"),
           @ApiResponse(responseCode = "404", description = "User not found"),
           @ApiResponse(responseCode = "405", description = "Validation exception") })
-  @PutMapping("/users/update/{id}")
+  @PutMapping("/users/{id}")
   User replaceUserbyID(@Parameter(description="New information for the user.", required = true)
-                        @PathVariable User newUser,
+                        @RequestBody User newUser,
                       @Parameter(description="id of the user to replace.", required = true)
                         @PathVariable long id
   ) {
@@ -170,9 +170,9 @@ import java.util.stream.Collectors;
           @ApiResponse(responseCode = "401", description = "Unauthorized"),
           @ApiResponse(responseCode = "404", description = "User not found"),
           @ApiResponse(responseCode = "405", description = "Validation exception") })
-  @PutMapping(value = "/users/update/{email}", consumes = { "application/json", "application/xml" })
+  @PutMapping(value = "/users/email/{email}", consumes = { "application/json", "application/xml" })
   User replaceUserbyEmail( @Parameter(description="New information for the user.", required = true)
-                           @PathVariable User newUser,
+                           @RequestBody User newUser,
                            @Parameter(description="Email of the user to replace.", required = true)
                            @PathVariable String email
   ) {

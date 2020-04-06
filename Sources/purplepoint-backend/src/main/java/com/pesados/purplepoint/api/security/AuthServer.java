@@ -8,12 +8,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 public class AuthServer extends WebSecurityConfigurerAdapter {
-    @Override
+	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-	    http
-		    .csrf().disable()
-		    	.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
-		    	.addFilterBefore(new CORSFilter(), UsernamePasswordAuthenticationFilter.class)
+		http
+				.csrf().disable()
+				.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+				.addFilterBefore(new CORSFilter(), UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests()
                     .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/api-docs/**").permitAll()
 			      	.antMatchers(HttpMethod.OPTIONS,"/**").permitAll()//allow CORS option calls
@@ -25,8 +25,7 @@ public class AuthServer extends WebSecurityConfigurerAdapter {
 					.antMatchers(HttpMethod.GET, "/swagger-ui-custom.html").permitAll()
 					.antMatchers(HttpMethod.GET, "/api-docs.yaml").permitAll()
 				.anyRequest().authenticated()
-			    .and()
-			    	.exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint());
-    }
+				.and()
+				.exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint());
+	}
 }
-
