@@ -1,44 +1,34 @@
 package com.pesados.purplepoint.api.controller;
 
 
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.pesados.purplepoint.api.exception.UserNotFoundException;
 import com.pesados.purplepoint.api.exception.WrongPasswordException;
 import com.pesados.purplepoint.api.model.User;
 import com.pesados.purplepoint.api.model.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.info.Contact;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 
-@RestController
-@RequestMapping("/api/v1")
-public class UserController {
+  @RestController
+  @RequestMapping("/api/v1")
+  public class UserController {
   private final UserService service;
 
   @ModelAttribute
@@ -50,9 +40,11 @@ public class UserController {
     this.service = service;
   }
 
-  @PostMapping("/users/login") 
-  @ApiOperation(value = "Logs In a user",
-                response = User.class)
+  @Operation(summary = "Login User with E-mail and Password", description = "Login an %user% with an exising correct combination of password and email", tags = {"login"})
+  @ApiResponses(value = {
+          @ApiResponse(responseCode = "200", description = "successful login",
+                  content = @Content(array = @ArraySchema(schema = @Schema(implementation = User.class))))})
+  @PostMapping(value = "/users/login", produces = { "application/json", "application/xml" })
   public User login(@RequestBody User aUser) throws WrongPasswordException {
 	  	String email = aUser.getEmail();
 	  	String pwd = aUser.getPassword();
@@ -68,7 +60,7 @@ public class UserController {
 		
 		return service.saveUser(user);		
 }
-  
+
   private String getJWTToken(String email) {
 		String secretKey = "adivinaestacrack";
 		List<GrantedAuthority> grantedAuthorities = AuthorityUtils
@@ -90,74 +82,126 @@ public class UserController {
 		return "Bearer " + token;
 	}
 
+  // Register new user
 
-  @GetMapping("/users")
-  @ApiOperation(value = "Gets a list of all users",
-                response = User.class)
+  @Operation(summary = "Add a new user", description = "Adds a new user to the database with the information provided. To create a new user please provide:\n- A valid e-mail \n- An username\n- An e-mail \n A password \n The user's gender", tags = { "register" })
+  @ApiResponses(value = {
+         @ApiResponse(responseCode = "201", description = "User created",
+                  content = @Content(schema = @Schema(implementation = User.class))),
+         @ApiResponse(responseCode = "400", description = "Invalid input"),
+         @ApiResponse(responseCode = "409", description = "User already exists") })
+  @PostMapping(value = "/users/register", consumes = { "application/json", "application/xml" })
+  User newUser(
+          @Parameter(description="User to add. Cannot null or empty.",
+                  required=true, schema=@Schema(implementation = Contact.class))
+          @Valid @RequestBody User userNew
+  ) {
+    return service.saveUser(userNew);
+  }
+
+  // Get all users
+
+  @Operation(summary = "Get All Users", description = "Get ", tags = {"users"})
+  @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = User.class)))) })
+  @GetMapping(value = "/users/", produces = { "application/json", "application/xml"})
   List<User> all() {
     return service.getAll();
   }
 
-  @PostMapping("/users/register")
-  @ApiOperation(value = "Creates a new, non-existing, user",
-          response = User.class)
-  User newUser(@ApiParam(value = "To create a new user please provide:\n- A valid e-mail \n- An username\n- An e-mail \n A password \n The user's gender")
-               @RequestBody User newUser) {
-    return service.saveUser(newUser);
-  }
+// Get a single user
 
-// Single item
-
-  @GetMapping("/users/{id}")
-  @ApiOperation(value = "Gets an especfic user",
-          notes = "Provide an ID to look up for a specific user",
-          response = User.class)
-  User one(@ApiParam(value = "ID value for the user you want to look up", required = true)
-           @PathVariable Long id) {
-
+  @Operation(summary = "Get User By ID", description = "Get User from an existing ID value you want to look up", tags = {"users"})
+  @ApiResponses(value = {
+           @ApiResponse(responseCode = "200", description = "successful operation",
+                  content = @Content(array = @ArraySchema(schema = @Schema(implementation = User.class)))) })
+  @GetMapping(value = "/users/{id}", produces = { "application/json", "application/xml"})
+  User idUser(
+          @Parameter(description="ID of the contact to search.", required = true)
+          @PathVariable long id) {
     return service.getUserById(id).orElseThrow(() -> new UserNotFoundException(id));
   }
 
-   @GetMapping("/users/email/{email}")
-   @ApiOperation(value = "Gets an especfic user by its email",
-           notes = "Provide an email to look up for a specific user",
-           response = User.class)
-   User emailUser(@ApiParam(value = "email value for the user you want to look up", required = true)
-            @PathVariable String email) {
-      System.out.println("tu madre");
+  @Operation(summary = "Get User By email", description = "Get User from an existing email you want to look up", tags = {"users"})
+  @ApiResponses(value = {
+          @ApiResponse(responseCode = "200", description = "successful operation",
+                  content = @Content(array = @ArraySchema(schema = @Schema(implementation = User.class)))) })
+  @GetMapping(value = "/users/email/{email}", produces = { "application/json", "application/xml"})
+  User emailUser(
+          @Parameter(description="email of the contact to search.", required = true)
+          @PathVariable String email) {
        return service.getUserByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
    }
 
-
-  @PutMapping("/users/{id}")
-  @ApiOperation(value = "Update a user",
-          notes = "Provide an ID to replace an existing user",
-          response = User.class)
-  User replaceUser(@ApiParam(value = "A new user object to replace the existing one please to create a new user provide:" +
-                                     "\n- An ID\n- A name\n- An e-mail", required = true)
-                   @RequestBody User newUser,
-                   @ApiParam(value = "ID of the user to replace", required = true)
-                   @PathVariable Long id) {
-
-    return service.getUserById(id)
-      .map(user -> {
-        user.setName(newUser.getName());
-        user.setEmail(newUser.getEmail());
-        return service.saveUser(user);
-      })
-      .orElseGet(() -> {
-        newUser.setId(id);
-        return service.saveUser(newUser);
-      });
+// Update users
+  @Operation(summary = "Update an existing User by Id", description = "Update the Name, username, email, password, gender given the ID of an existing user", tags = { "users" })
+  @ApiResponses(value = {
+          @ApiResponse(responseCode = "200", description = "successful operation"),
+          @ApiResponse(responseCode = "400", description = "Invalid username supplied"),
+          @ApiResponse(responseCode = "401", description = "Unauthorized"),
+          @ApiResponse(responseCode = "404", description = "User not found"),
+          @ApiResponse(responseCode = "405", description = "Validation exception") })
+  @PutMapping("/users/update/{id}")
+  User replaceUserbyID(@Parameter(description="New information for the user.", required = true)
+                        @PathVariable User newUser,
+                      @Parameter(description="id of the user to replace.", required = true)
+                        @PathVariable long id
+  ) {
+      return service.getUserById(id)
+              .map(user -> {
+                  user.setName(newUser.getName());
+                  user.setUserName(newUser.getUsername());
+                  user.setEmail(newUser.getEmail());
+                  user.setPassword(newUser.getPassword());
+                  user.setGender(newUser.getGender());
+                  return service.saveUser(user);
+              })
+              .orElseGet(() -> {
+                  newUser.setId(id);
+                  return service.saveUser(newUser);
+              });
   }
 
-  @DeleteMapping("/users/{id}")
-  @ApiOperation(value = "Deletes a user",
-          notes = "Provide an ID to delete a specific user",
-          response = User.class)
-  void deleteUser(@ApiParam(value = "ID value for the user you want to delete", required = true)
-                  @PathVariable Long id) {
+  @Operation(summary = "Update an existing User by email", description = "Update the Name, username, email, password, gender given the email of an existing user", tags = { "users" })
+  @ApiResponses(value = {
+          @ApiResponse(responseCode = "200", description = "successful operation"),
+          @ApiResponse(responseCode = "400", description = "Invalid username supplied"),
+          @ApiResponse(responseCode = "401", description = "Unauthorized"),
+          @ApiResponse(responseCode = "404", description = "User not found"),
+          @ApiResponse(responseCode = "405", description = "Validation exception") })
+  @PutMapping(value = "/users/update/{email}", consumes = { "application/json", "application/xml" })
+  User replaceUserbyEmail( @Parameter(description="New information for the user.", required = true)
+                           @PathVariable User newUser,
+                           @Parameter(description="Email of the user to replace.", required = true)
+                           @PathVariable String email
+  ) {
+      return service.getUserByEmail(email)
+              .map(user -> {
+                  user.setName(newUser.getName());
+                  user.setUserName(newUser.getUsername());
+                  user.setEmail(newUser.getEmail());
+                  user.setPassword(newUser.getPassword());
+                  user.setGender(newUser.getGender());
+                  return service.saveUser(user);
+              })
+              .orElseGet(() -> {
+                  newUser.setEmail(email);
+                  return service.saveUser(newUser);
+              });
+  }
+
+  // Delete user
+  @Operation(summary = "Delete an user", description = "", tags = { "users" })
+  @ApiResponses(value = {
+          @ApiResponse(responseCode = "200", description = "successful operation"),
+          @ApiResponse(responseCode = "404", description = "User not found") })
+  @DeleteMapping(path="/users/{id}")
+  void deleteUser(
+          @Parameter(description="Id of the contact to be delete. Cannot be empty.",
+                  required=true)
+          @PathVariable long id
+  ) {
     service.deleteUserById(id);
   }
-
 }

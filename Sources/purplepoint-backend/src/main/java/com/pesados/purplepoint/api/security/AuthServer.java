@@ -18,6 +18,10 @@ public class AuthServer extends WebSecurityConfigurerAdapter {
 			      	.antMatchers(HttpMethod.OPTIONS,"/**").permitAll()//allow CORS option calls
 			        .antMatchers(HttpMethod.POST, "/api/v1/users/login").permitAll()
 					.antMatchers(HttpMethod.POST, "/api/v1/users/register").permitAll()
+					.antMatchers(HttpMethod.GET, "/api-docs/").permitAll()
+					.antMatchers(HttpMethod.GET, "/swagger-ui/index.html").permitAll()
+					.antMatchers(HttpMethod.PUT, "/swagger-ui/index.html?configUrl=/api-docs/swagger-config").permitAll()
+					.antMatchers(HttpMethod.GET, "/api-docs.yaml").permitAll()
 				.anyRequest().authenticated()
 			    .and()
 			    	.exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint());

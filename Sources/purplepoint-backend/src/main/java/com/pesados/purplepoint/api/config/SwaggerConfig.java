@@ -1,4 +1,4 @@
-package com.pesados.purplepoint.api.config;
+/* package com.pesados.purplepoint.api.config;
 
 import java.util.Collections;
 
@@ -36,4 +36,4 @@ public class SwaggerConfig {
             " ",
             Collections.emptyList());
     }
-}
+} */

@@ -1,40 +1,39 @@
 package com.pesados.purplepoint.api.model;
 
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-@ApiModel(description = "Stored details about a user")
+@Table(name = "Users")
 public class User {
 
-	@ApiModelProperty(notes = "The unique ID of the user", position = 0)
+	@Schema(description = "Id of the user.", required = true)
 	private @Id @GeneratedValue Long id;
-	@ApiModelProperty(notes = "The user's username", position = 1)
+	@Schema(description = "Name of the user.", example = "Claudia/Isma", required = true)
 	private String name;
-	@ApiModelProperty(notes = "The user's email", position = 2)
+	@Schema(description = "Name of the user.", example = "OhAmadoLider", required = true)
+	private String username;
+	@Schema(description = "Email of the user.", example = "ohamadoslideres@gmail.com", required = true)
 	private String email;
-	@ApiModelProperty(notes = "The user's password", position = 3)
+	@Schema(description = "Password of the user.", required = true)
 	private String password;
-	@ApiModelProperty(notes = "The user's password", position = 3)
+	@Schema(description = "Gender of the user.", required = true)
 	private String gender;
-	@ApiModelProperty(notes = "The user's token. (null before assignment)", position = 4)
+	@Schema(description = "The user's token. (null before assignment)", required = false)
 	@Column (length = 400)
 	private String token;
-	@ApiModelProperty(notes = "The user's gender", position = 5)
+	@Schema(description = "The number of users helped.", required = false)
 	private int helpedUsers;
-	@ApiModelProperty(notes = "The user's gender", position = 5)
+	@Schema(description = "The number of marked sports.", required = false)
 	private int markedSpots;
 
 	User() {}
 
-	public User(String name, String email, String password, String gender) {
+	public User(String name, String username, String email, String password, String gender) {
 		this.name = name;
+		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.gender = gender;
@@ -54,6 +53,13 @@ public class User {
 		this.name = name;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+	public void setUserName(String username) {
+		this.username = username;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -64,7 +70,7 @@ public class User {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getGender(String gender) {  return gender; }
+	public String getGender() {  return gender; }
 
 	public int getHelpedUsers() {
 		return helpedUsers;
@@ -90,5 +96,7 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
-	public String setPassword() { return password; }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }
