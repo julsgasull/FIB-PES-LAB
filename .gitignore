@@ -120,10 +120,6 @@ cordova-project/
 
 purple-point-front-android/
 
-purple-point-front/platforms/
-
-purple-point-front/plugins/
-
 purple-point-front/www/
 
 purple-point-front/.editorconfig 10
@@ -169,3 +165,13 @@ purple-point-front/tsconfig.spec 7.json
 purple-point-front/tslint 6.json
 
 purple-point-front/tslint 7.json
+
+#cordova
+
+
+purple-point-front/platforms
+
+purple-point-front/plugins
+
+
+cordova-project/purple-point
