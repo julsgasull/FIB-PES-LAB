@@ -1,3 +1,4 @@
+declare var require: any
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
@@ -10,6 +11,10 @@ import { UserData } from 'src/app/models/userData.interface';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  
+  // images
+  profileImage/* = require(agafar foto de perfil de la bd)*/;
+
   genders = ['Male', 'Female', 'Non binary', 'Other'];
   public userInfo: UserData;
   public disableInputs: boolean = true;

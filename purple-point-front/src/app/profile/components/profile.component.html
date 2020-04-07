@@ -47,8 +47,7 @@
                 <td><p></p></td>
                 <td><p></p></td>
                 <td>
-                    <img class="profileImage" src="https://media-exp1.licdn.com/dms/image/C4D03AQHLDRgeidvYZA/profile-displayphoto-shrink_200_200/0?e=1590624000&v=beta&t=uxwAXOUWM-vFtGENLqSPWJee07Mijq06Rhcp-uYZFwc" style="height: 100px;
-                    width: 100px;">
+                    <img class="profileImage" src={{profileImage}} style="height: 100px; width: 100px;">
                 </td>
             </tr>
             <tr>
@@ -59,7 +58,7 @@
                 <td><p></p></td>
                 <td><p></p></td>
                 <td><button class="principalButton" (click)="editarPerfil()">Editar perfil </button></td>
-                <td><button class="logoutButton" (click)="redirectToPrincipalView()">log out > </button></td>
+                <td><button class="logoutButton" (click)="redirectToPrincipalView()">log out ></button></td>
             </tr>
         </tbody>
     </table>
@@ -67,8 +66,12 @@
     <br>
     <br>
     <br>
-    <span class="tableAttribute">Number of harassed spots marked</span>
-    <span class="tableValue">{{userInfo.markedSpots}}</span>
+    <table align="center">
+        <tbody>
+            <td><span class="tableAttribute">Number of harassed spots marked </span></td>
+            <td><span class="tableValue">{{userInfo.markedSpots}}</span></td>
+        </tbody>
+    </table>
     <br>
     <br>
     <img class="mapImage" src="https://miro.medium.com/max/3332/0*R8YnMoScMd_jiO93.png">
