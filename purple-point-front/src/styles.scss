@@ -1,11 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/css?family=Montserrat:500,700");
 
+html, body {
+    background-color: #202020;
+    height: 100%;
+}
 
 h1 {
-    background-color: #202020;
+    position: relative;
     font-family: Montserrat;
-    font-style: bold;
+    font-weight: bold;
     font-size: 31px;
     color: #FFFFFF;
     letter-spacing: 0;
@@ -14,7 +18,7 @@ h1 {
 
 h2 {
     font-family: Montserrat;
-    font-style: normal;
+    font-weight: normal;
     font-size: 27px;
     color: #9F9F9F;
     letter-spacing: 0;
@@ -34,7 +38,7 @@ button {
 
 .form-group {
     font-family: Montserrat;
-    font-style: bold;
+    font-weight: bold;
     font-size: 14px;
     color: #9F9F9F;
     letter-spacing: 0;
@@ -42,34 +46,36 @@ button {
 
 .form-control {
     border-width: 0px;
-    background: #323232;
+    //background: #323232;
     border-radius: 19px;
     font-family: Montserrat;
-    font-style: normal;
+    font-weight: normal;
     font-size: 12px;
     color: #FFFFFF;
     letter-spacing: 0;
 }
 
 #panicButton {
+    position: relative;
     height: 100px;
     width: 100px;
     border-radius: 50%;
     color: white;
     background: #202020;
-    box-shadow: -10px -10px 80px 0 #111111, 10px 10px 80px 0 #0C0516, inset 4px 4px 20px 0 #6730BE;
+    box-shadow: -5px -5px 40px 0 #111111, 5px 5px 40px 0 #0C0516, inset 4px 4px 20px 0 #6730BE;
     font-family: Montserrat;
-    font-style: bold;
+    font-weight: bold;
     font-size: 14px;
     letter-spacing: 0;
     text-align: center;
+    margin-bottom: 30px;
 }
 
 .principalButton {
     background-image: linear-gradient(-90deg, #8F4DEC 0%, #6730BE 100%);
     border-radius: 24.5px;
     font-family: Montserrat;
-    font-style: bold;
+    font-weight: bold;
     font-size: 14px;
     color: #FFFFFF;
     letter-spacing: 0;
@@ -79,7 +85,7 @@ button {
     background: #202020;
     border-radius: 24.5px;
     font-family: Montserrat;
-    font-style: bold;
+    font-weight: bold;
     font-size: 14px;
     color: #8F4DEC;
     letter-spacing: 0;
@@ -88,7 +94,7 @@ button {
 .logoutButton {
     background: #202020;
     font-family: Montserrat;
-    font-style: bold;
+    font-weight: bold;
     font-size: 10px;
     color: #8F4DEC;
     letter-spacing: 0;
@@ -106,7 +112,7 @@ button {
 }
 .username {
     font-family: Montserrat;
-    font-style: bold;
+    font-weight: bold;
     font-size: 15px;
     color: #8F4DEC;
     letter-spacing: 0;
@@ -120,7 +126,7 @@ button {
 }
 .tableAttribute {
     font-family: Montserrat;
-    font-style: bold;
+    font-weight: bold;
     font-size: 10px;
     color: #9F9F9F;
     letter-spacing: 0;
@@ -128,7 +134,7 @@ button {
 }
 .tableValue {
     font-family: Montserrat;
-    font-style: normal;
+    font-weight: normal;
     font-size: 10px;
     color: #EAEDEB;
     letter-spacing: 0;
