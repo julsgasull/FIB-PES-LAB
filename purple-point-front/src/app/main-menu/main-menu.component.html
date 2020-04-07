@@ -6,8 +6,7 @@
                     <table>
                         <tbody>
                             <td>
-                                <img class="profileImage" src={{profileImage}} style="height: 50px;
-                                width: 50px;">
+                                <img class="profileImage" src={{profileImage}} style="height: 50px; width: 50px;">
                             </td>
                             <td style='vertical-align: middle; text-align:left;'>
                                 <tr class='name'>{{userInfo.name}}</tr>
@@ -15,15 +14,13 @@
                             </td>
                             <td style='width: 150px;'></td>
                             <td style="vertical-align: middle; text-align:right;">
-                                <img src={{expandImage}} alt="" style="height:25px; width:25px">
+                                <img src={{expandImage}} alt="" style="height:25px; width:25px" (click)="redirectToProfile()">
                             </td>
                     </tbody>
                     </table>
                 </div>
             </tr>
-            <tr>
-                <p style="text-align: left;">Hello, <b>{{userInfo.name}}</b>!</p>
-            </tr>
+            <tr> <p style="text-align: left;">Hello, <b>{{userInfo.name}}</b>!</p> </tr>
             <tr>
                 <table>
                     <tbody>

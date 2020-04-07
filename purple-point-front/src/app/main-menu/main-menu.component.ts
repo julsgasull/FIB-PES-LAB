@@ -33,6 +33,9 @@ export class MainMenuComponent implements OnInit {
     });
   }
 
+  redirectToProfile() {
+    this.route.navigate(['/profile']);
+  }
   redirectToMap() {
     //to-do
   }
