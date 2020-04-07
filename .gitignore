@@ -115,3 +115,57 @@ purple-point-front/tsconfig.spec 5.json
 purple-point-front/tslint 4.json
 
 purple-point-front/tslint 5.json
+
+cordova-project/
+
+purple-point-front-android/
+
+purple-point-front/platforms/
+
+purple-point-front/plugins/
+
+purple-point-front/www/
+
+purple-point-front/.editorconfig 10
+
+purple-point-front/.editorconfig 11
+
+purple-point-front/.editorconfig 12
+
+purple-point-front/.editorconfig 13
+
+purple-point-front/browserslist 6
+
+purple-point-front/browserslist 7
+
+purple-point-front/helloappworld.keystore
+
+purple-point-front/karma.conf 6.js
+
+purple-point-front/karma.conf 7.js
+
+purple-point-front/package 6.json
+
+purple-point-front/package 7.json
+
+purple-point-front/package-lock 6.json
+
+purple-point-front/package-lock 7.json
+
+purple-point-front/purplepoint.keystore
+
+purple-point-front/tsconfig 6.json
+
+purple-point-front/tsconfig 7.json
+
+purple-point-front/tsconfig.app 6.json
+
+purple-point-front/tsconfig.app 7.json
+
+purple-point-front/tsconfig.spec 6.json
+
+purple-point-front/tsconfig.spec 7.json
+
+purple-point-front/tslint 6.json
+
+purple-point-front/tslint 7.json
