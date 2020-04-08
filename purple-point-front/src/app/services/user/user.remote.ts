@@ -12,10 +12,11 @@ export class UserRemote {
     createUser(user: UserData): Observable<UserData> {
         return this.httpClient.post<UserData>(`${environment.API_URL}/users/register`, 
         {   
-            'email': user.email,
+            'email':    user.email,
+            'name':     user.name,
             'username': user.username,
             'password': user.password,
-            'gender': user.gender
+            'gender':   user.gender
         },
         {
             headers:{
