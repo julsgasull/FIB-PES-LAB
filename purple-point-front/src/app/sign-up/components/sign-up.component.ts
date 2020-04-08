@@ -25,7 +25,8 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit(): void {
     this.userForm = this.formBuilder.group({
-			email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
+      name: ['', [Validators.required]],
 			username: ['', [Validators.required]],
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]],
@@ -40,6 +41,7 @@ export class SignUpComponent implements OnInit {
     const userFormValue = JSON.parse(JSON.stringify(this.userForm.value));
     const userData: UserData = {
       email: userFormValue.email,
+      name: userFormValue.name,
       username: userFormValue.username,
       password: userFormValue.password,
       gender: userFormValue.gender
