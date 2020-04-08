@@ -5,10 +5,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.web.authentication.logout.CookieClearingLogoutHandler;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.security.web.authentication.rememberme.AbstractRememberMeServices;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,13 +37,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 @RestController
@@ -49,7 +52,7 @@ public class UserController {
   UserController(UserService service) {
     this.service = service;
   }
-
+  
   @PostMapping("/users/login") 
   @ApiOperation(value = "Logs In a user",
                 response = User.class)
@@ -69,6 +72,17 @@ public class UserController {
 		return service.saveUser(user);		
 }
   
+  @PutMapping("/users/refresh") 
+  @ApiOperation(value = "Refreshes auth of a logged user",
+                response = User.class)
+  public User refresh(@RequestHeader("authorization") String unformatedJWT) {
+		User user = this.service.getUserByToken(unformatedJWT).orElseThrow(() -> new UserNotFoundException(unformatedJWT));		
+		String newToken = getJWTToken(user.getEmail());
+		user.setToken(newToken);
+		
+		return service.saveUser(user);		
+}
+  
   private String getJWTToken(String email) {
 		String secretKey = "adivinaestacrack";
 		List<GrantedAuthority> grantedAuthorities = AuthorityUtils
@@ -83,7 +97,7 @@ public class UserController {
 								.map(GrantedAuthority::getAuthority)
 								.collect(Collectors.toList()))
 				.setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + 600000))
+				.setExpiration(new Date(System.currentTimeMillis() + 1000*60*5))/*5 minuts*/
 				.signWith(SignatureAlgorithm.HS512,
 						secretKey.getBytes()).compact();
 

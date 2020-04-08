@@ -1,6 +1,10 @@
 package com.pesados.purplepoint.api.tests.controller;
 
-develop/back
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +14,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-develop/back
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pesados.purplepoint.api.model.User;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -62,12 +62,34 @@ public class UserControllerTest {
     	JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
     	String token =((String) respUser.get("token"));
 
-    	this.mockMvc.perform(get("/api/v1/users").header("Authorization",token))
+    	this.mockMvc.perform(get("/api/v1/users").header("Authorization", token))
     				.andDo(MockMvcResultHandlers.print())
     				.andExpect(status().is(200));
 
     }
+    
+    @Test
+    public void shouldRefreshCredentials() throws Exception {
+    	JSONObject user = new JSONObject();
+    	user.put("email", "isma@gmail.com");
+    	user.put("password", "1234");
 
+    	MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders
+							    						.post("/api/v1/users/login")
+							    						.contentType("application/json")
+							    						.content(user.toString()))
+							    						.andExpect(status().isOk())
+							    						.andReturn();
+
+    	JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
+    	String token =((String) respUser.get("token"));
+
+    	this.mockMvc.perform(put("/api/v1/users/refresh").header("Authorization", token))
+    				.andDo(MockMvcResultHandlers.print())
+    				.andExpect(status().is(200));
+
+    }
+    
 	@Test
 	public void shouldReturnNewUser() throws Exception {
 		JSONObject user = new JSONObject();
@@ -121,14 +143,14 @@ public class UserControllerTest {
 		JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
 		String token =((String) respUser.get("token"));
 
-		String user_bd = "{\"id\":1,\"name\":\"test\",\"email\":\"isma@gmail.com\",\"password\":\"1234\",\"token\":\""+ token+"\",\"helpedUsers\":0,\"markedSpots\":0}";
+		String user_bd = "{\"id\":1,\"name\":\"test\",\"username\":\"test1\",\"email\":\"isma@gmail.com\",\"password\":\"1234\",\"gender\":\"others\",\"token\":\"" + 
+			token +
+			"\",\"helpedUsers\":0,\"markedSpots\":0}";
 
 		this.mockMvc.perform(get("/api/v1/users/1").header("Authorization",token))
 				.andDo(MockMvcResultHandlers.print())
 				.andExpect(content().string(user_bd))
 				.andExpect(status().is(200));
-
-
 	}
   
 	@Test
