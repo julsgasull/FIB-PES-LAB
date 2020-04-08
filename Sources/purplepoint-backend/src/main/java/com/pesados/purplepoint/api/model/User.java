@@ -45,7 +45,11 @@ public class User {
 		this.helpedUsers = 0;
 		this.markedSpots = 0;
 	}
-	public Long getID() { return id; }
+	
+	public Long getID() {
+		return id; 
+	}
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
