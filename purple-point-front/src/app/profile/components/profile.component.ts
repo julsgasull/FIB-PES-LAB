@@ -45,4 +45,9 @@ export class ProfileComponent implements OnInit {
     this.disableInputs = true;
   }
 
+  logout() {
+    this.userService.logoutUser(this.userInfo);
+    this.redirectToPrincipalView();
+  }
+
 }
