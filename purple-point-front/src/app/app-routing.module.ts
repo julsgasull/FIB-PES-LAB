@@ -4,6 +4,7 @@ import { SignUpViewComponent } from './sign-up/views/sign-up-view.component';
 import { PrincipalViewComponent } from './welcome/views/principal-view.component';
 import { LoginComponent } from './login/components/login.component';
 import { ProfileComponent } from './profile/components/profile.component';
+import { MainMenuComponent } from './main-menu/main-menu.component';
 
 
 const routes: Routes = [
@@ -22,8 +23,11 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent, pathMatch: 'full'
+  },
+  {
+    path: 'mainmenu',
+    component: MainMenuComponent, pathMatch: 'full'
   }
-
 ];
 
 @NgModule({
