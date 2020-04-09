@@ -32,6 +32,21 @@
           <div *ngIf="formControls.username.errors.required">Username is required</div>
         </div>
 
+        <div [ngClass]="{ 'has-error': isSubmitted && formControls.name.errors }">
+          <input 
+            type="text" 
+            class="form-control" 
+            id="name" 
+            placeholder="name" 
+            formControlName="name"
+            name="name"
+            (click)="setSubmittedToFalse()"
+            required>
+          </div>
+          <div *ngIf="isSubmitted && formControls.name.errors" >
+            <div *ngIf="formControls.name.errors.required">Name is required</div>
+          </div>
+
         <div [ngClass]="{ 'has-error': isSubmitted && formControls.password.errors }">
           <input 
             type="password" 
@@ -43,6 +58,7 @@
             required
           >
         </div>
+
         <div *ngIf="isSubmitted && formControls.password.errors" >
           <div *ngIf="formControls.password.errors.required">Password is required</div>
         </div>

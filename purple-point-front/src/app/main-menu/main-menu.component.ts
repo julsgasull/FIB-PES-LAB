@@ -6,24 +6,25 @@ import { UserData } from 'src/app/models/userData.interface';
 
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  selector: 'app-main-menu',
+  templateUrl: './main-menu.component.html',
+  styleUrls: ['./main-menu.component.scss']
 })
-export class ProfileComponent implements OnInit {
-  
+export class MainMenuComponent implements OnInit {
+
   // images
   profileImage/* = require(agafar foto de perfil de la bd)*/;
+  expandImage   = require("../../../images/expand.svg");
+  mapImage      = require("../../../images/map.svg");
+  wikiImage     = require("../../../images/wiki.svg");
 
-  genders = ['Male', 'Female', 'Non binary', 'Other'];
   public userInfo: UserData;
-  public disableInputs: boolean = true;
-  public enableSaveButton: boolean = false;
 
   constructor(
     private route: Router,
     private userService: UserService
   ) {}
+
 
   ngOnInit(): void {
     const userEmail = localStorage.getItem('userEmail');
@@ -31,23 +32,14 @@ export class ProfileComponent implements OnInit {
       this.userInfo = response;
     });
   }
-  redirectToPrincipalView() {
-    this.route.navigate(['']);
-  }
 
-  editarPerfil() {
-    this.disableInputs = false;
-    this.enableSaveButton = true;
+  redirectToProfile() {
+    this.route.navigate(['/profile']);
   }
-
-  saveChanges() {
-    this.enableSaveButton = false;
-    this.disableInputs = true;
+  redirectToMap() {
+    //to-do
   }
-
-  logout() {
-    this.userService.logoutUser(this.userInfo);
-    this.redirectToPrincipalView();
+  redirectToWiki() {
+    //to-do
   }
-
 }

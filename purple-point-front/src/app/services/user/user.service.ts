@@ -8,8 +8,9 @@ import { UserRemote } from './user.remote';
 })
 export class UserService {
 
-  constructor(
-    private userRemote: UserRemote) { }
+  constructor (
+    private userRemote: UserRemote
+  ) { }
 
   loginUser(user: UserData): Observable<UserData> {
     return this.userRemote.login(user);
@@ -21,6 +22,11 @@ export class UserService {
 
   getUserByEmail(email: string): Observable<UserData> {
     return this.userRemote.getUserByEmail(email);
+  }
+
+  logoutUser(userInfo: UserData) {
+    userInfo.token = null;
+    localStorage.setItem('token', null); 
   }
 
 }
