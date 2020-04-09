@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../../models/user.class';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../services/user/user.service';
 import { UserData } from '../../models/userData.interface';
 import { Router } from '@angular/router';
-import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +11,6 @@ import { HttpResponse } from '@angular/common/http';
 })
 export class LoginComponent implements OnInit {
 
-  user: User = new User();
   isSubmitted = false;
   loginFrom: FormGroup;
 

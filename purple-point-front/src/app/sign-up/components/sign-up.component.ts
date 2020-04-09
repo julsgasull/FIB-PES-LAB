@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/models/user.class';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MustMatch } from './../../common/must-match.validator';
 import { UserService } from 'src/app/services/user/user.service';
@@ -15,7 +14,6 @@ export class SignUpComponent implements OnInit {
 
   genders = ['Gender', 'Male', 'Female', 'Non binary', 'Other'];
   
-  user: User = new User();
   isSubmitted = false;
   userForm: FormGroup;
 	constructor(

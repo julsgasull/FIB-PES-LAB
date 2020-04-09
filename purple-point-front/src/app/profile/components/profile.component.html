@@ -1,67 +1,54 @@
-<div class="container">
-    <table class="userInfo">
-        <tbody>
-            <tr>
-                <td>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <input class="form-control" [disabled]="disableInputs" placeholder="@{{userInfo.name}}">
-                            </tr>
-                            <tr>
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td class="tableAttribute">gender</td>
-
-                                            <select 
-                                            class="form-control" 
-                                            [disabled]="disableInputs">
-                                            <option>{{userInfo.gender}}</option>
-                                            <option *ngFor="let gen of genders">{{gen}}</option>
-                                          </select>
-
-                                            <td class="tableValue">{{userInfo.gender}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="tableAttribute">Password</td>
-                                            <td class="tableValue">{{userInfo.password}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td *ngIf="enableSaveButton">
-                                                <button class="principalButton" (click)="saveChanges()">
-                                                    Save changes 
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-                <td><p></p></td>
-                <td><p></p></td>
-                <td><p></p></td>
-                <td><p></p></td>
-                <td><p></p></td>
-                <td><p></p></td>
-                <td>
-                    <img class="profileImage" src={{profileImage}} style="height: 100px; width: 100px;">
-                </td>
-            </tr>
-            <tr>
-                <td><p></p></td>
-                <td><p></p></td>
-                <td><p></p></td>
-                <td><p></p></td>
-                <td><p></p></td>
-                <td><p></p></td>
-                <td><button class="principalButton" (click)="editarPerfil()">Editar perfil </button></td>
-                <td><button class="logoutButton" (click)="logout()">log out > </button></td>
-            </tr>
-        </tbody>
-    </table>
+<div class="container profile">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="usernameTitle">
+                <input class="form-control" [disabled]="disableInputs" style="color:blueviolet" value="@{{userInfo.username}}"> 
+            </div>
+            <div class="userData">
+                <div class="row attribute">
+                    <div class="col-3">
+                        <span class="userTitles">name</span>
+                    </div>
+                    <div class="col-9 userChanges">
+                        <input class="form-control" [disabled]="disableInputs" placeholder="{{userInfo.name}}">
+                    </div>
+                </div>
+                <div class="row attribute">
+                    <div class="col-3 ">
+                        <span class="userTitles">gender</span>
+                    </div>
+                    <div class="col-9 userChanges">
+                        <select 
+                            class="form-control" 
+                            [disabled]="disableInputs">
+                            <option>{{userInfo.gender}}</option>
+                            <option *ngFor="let gen of genders">{{gen}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div *ngIf="enableSaveButton">
+                    <div class="row attribute">
+                        <div class="col-3">
+                            <span class="userTitles">password</span>
+                        </div>
+                        <div class="col-9 userChanges">
+                            <input class="form-control" type="password" [disabled]="disableInputs" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;">
+                    
+                        </div> 
+                    </div> 
+                    <button class="principalButton" (click)="saveChanges()">
+                        Save changes 
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 order-first order-sm-last imageBlock">
+            <img class="profileImage" src="https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg" style="height: 100px; width: 100px;">
+            <button class="principalButton editProfile" (click)="editarPerfil()">Editar perfil </button>
+            <button class="logoutButton" (click)="logout()">Log out </button>
+        </div>
+    </div>
+    <!--
     <br>
     <br>
     <br>
@@ -74,5 +61,5 @@
     </table>
     <br>
     <br>
-    <img class="mapImage" src="https://miro.medium.com/max/3332/0*R8YnMoScMd_jiO93.png">
+    <img class="mapImage" src="https://miro.medium.com/max/3332/0*R8YnMoScMd_jiO93.png"> -->
 </div>
