@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.isSubmitted = true;
     if (this.loginFrom.valid){
+      // How to do a request
       this.userService.loginUser(this.createUserForm()).subscribe((response: UserData) => {
         localStorage.setItem('userEmail', response.email);
         localStorage.setItem('token', response.token);
