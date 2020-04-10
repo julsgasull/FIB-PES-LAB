@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit {
   public userInfo: UserData;
   public disableInputs: boolean = true;
   public enableSaveButton: boolean = false;
+  public showSavedChanges: boolean = false;
 
   constructor(
     private route: Router,
@@ -36,13 +37,17 @@ export class ProfileComponent implements OnInit {
   }
 
   editarPerfil() {
-    this.disableInputs = false;
-    this.enableSaveButton = true;
+    this.disableInputs =  !this.disableInputs;
+    this.enableSaveButton = !this.enableSaveButton;
   }
 
   saveChanges() {
     this.enableSaveButton = false;
     this.disableInputs = true;
+    let userData: UserData;
+    this.userService.editProfile(userData).subscribe((response: any) => {
+     this.showSavedChanges = true;
+    });
   }
 
   logout() {

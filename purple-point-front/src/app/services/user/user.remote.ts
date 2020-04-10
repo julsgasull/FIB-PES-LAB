@@ -42,4 +42,19 @@ export class UserRemote {
         return this.httpClient.get<UserData>(`${environment.API_URL}/users/email/`+email
         );
     }
+
+    editProfile(user: UserData): Observable<any> {
+        return this.httpClient.put<UserData>(`${environment.API_URL}/users/email/`+user.email,
+        {   
+            'id': user.id,
+            'name': user.name,
+            'email': user.email,
+            'username': user.username,
+            'password': user.password,
+            'gender': user.gender,
+            'token': user.token,
+            'markedSpots': user.markedSpots,
+            'helpedUsers': user.helpedUsers
+        });
+    }
 }
