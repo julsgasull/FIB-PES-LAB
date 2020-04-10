@@ -1,13 +1,13 @@
 package com.pesados.purplepoint.api.controller;
 
 
-
 import com.pesados.purplepoint.api.exception.UserNotFoundException;
 import com.pesados.purplepoint.api.exception.WrongPasswordException;
 import com.pesados.purplepoint.api.model.User;
 import com.pesados.purplepoint.api.model.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.media.ArraySchema;

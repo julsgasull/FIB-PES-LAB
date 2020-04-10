@@ -11,8 +11,6 @@ public interface UserService {
 	
 	Optional<User> getUserByToken(String token);
 
-	Optional<User> getUserByToken(String token);
-
 	List<User> getAll();
 
 	User saveUser(User newUser);
