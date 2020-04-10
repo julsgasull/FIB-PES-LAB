@@ -2,6 +2,7 @@ package com.pesados.purplepoint.api.tests.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pesados.purplepoint.api.model.User;
+
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -87,6 +89,7 @@ public class UserControllerTest {
 				.content(""))
     				.andDo(MockMvcResultHandlers.print())
 	    				.andExpect(status().is(200));
+
 
     }
     

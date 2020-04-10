@@ -20,6 +20,7 @@ class LoadDatabase {
       logger.info("Preloading " + repository.save(new User("test", "test1","isma@gmail.com", "1234", "others")));
       logger.info("Preloading " + repository.save(new User("Bilbo Baggins", "Bilbo1","testmail1@gmail.com", "1234", "female")));
       logger.info("Preloading " + repository.save(new User("Frodo Baggins","Frodo1" , "testmail@gmail.com", "5678", "male")));
+
     };
   }
 }

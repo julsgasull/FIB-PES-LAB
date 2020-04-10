@@ -1,13 +1,13 @@
 package com.pesados.purplepoint.api.controller;
 
 
+
 import com.pesados.purplepoint.api.exception.UserNotFoundException;
 import com.pesados.purplepoint.api.exception.WrongPasswordException;
 import com.pesados.purplepoint.api.model.User;
 import com.pesados.purplepoint.api.model.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -24,6 +24,7 @@ import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 
   @RestController
@@ -45,6 +46,7 @@ import java.util.stream.Collectors;
           @ApiResponse(responseCode = "200", description = "successful login",
                   content = @Content(array = @ArraySchema(schema = @Schema(implementation = User.class))))})
   @PostMapping(value = "/users/login", produces = { "application/json", "application/xml" })
+
   public User login(@RequestBody User aUser) throws WrongPasswordException {
 	  	String email = aUser.getEmail();
 	  	String pwd = aUser.getPassword();
@@ -76,6 +78,7 @@ import java.util.stream.Collectors;
 								.collect(Collectors.toList()))
 				.setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + 1000*60*5)) // 5 minutos
+
 				.signWith(SignatureAlgorithm.HS512,
 						secretKey.getBytes()).compact();
 
@@ -114,6 +117,7 @@ import java.util.stream.Collectors;
           @Valid @RequestBody User userNew
   ) {
     return service.saveUser(userNew);
+
   }
 
   // Get all users
@@ -178,6 +182,7 @@ import java.util.stream.Collectors;
                   newUser.setId(id);
                   return service.saveUser(newUser);
               });
+
   }
 
   @Operation(summary = "Update an existing User by email", description = "Update the Name, username, email, password, gender given the email of an existing user", tags = { "users" })
