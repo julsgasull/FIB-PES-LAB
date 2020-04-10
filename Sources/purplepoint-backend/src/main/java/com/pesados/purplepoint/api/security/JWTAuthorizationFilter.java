@@ -39,7 +39,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 			((HttpServletResponse) response).sendError(HttpServletResponse.SC_FORBIDDEN, e.getMessage());
 			return;
 		}
-	}	
+	}
 
 	private Claims validateToken(HttpServletRequest request) {
 		String jwtToken = request.getHeader(HEADER).replace(PREFIX, "");
@@ -49,13 +49,13 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 	private void setUpSpringAuthentication(Claims claims) {
 
 		@SuppressWarnings("unchecked")
-		ArrayList<String> list = (ArrayList<String>) claims.get("authorities"); 
+		ArrayList<String> list = (ArrayList<String>) claims.get("authorities");
 		List<SimpleGrantedAuthority> res = new ArrayList<SimpleGrantedAuthority>();
-		
+
 		for (Iterator<String> it = list.iterator(); it.hasNext();) {
 			res.add(new SimpleGrantedAuthority(it.next()));
 		}
-		
+
 		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(claims.getSubject(), null, res);
 		SecurityContextHolder.getContext().setAuthentication(auth);
 

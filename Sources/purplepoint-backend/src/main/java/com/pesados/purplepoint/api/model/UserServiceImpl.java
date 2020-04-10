@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
 	public void deleteUserById(Long id) {
 		userRepository.deleteById(id);
 	}
-	@Override
+    @Override
     public Optional<User> getUserByToken(String token) {
         return userRepository.findByToken(token);
     }

@@ -1,9 +1,7 @@
 package com.pesados.purplepoint.api.tests.controller;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pesados.purplepoint.api.model.User;
 
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
@@ -17,8 +15,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pesados.purplepoint.api.model.User;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -65,7 +66,6 @@ public class UserControllerTest {
     	this.mockMvc.perform(get("/api/v1/users").header("Authorization", token))
     				.andDo(MockMvcResultHandlers.print())
     				.andExpect(status().is(200));
-
     }
     
     @Test
@@ -84,9 +84,12 @@ public class UserControllerTest {
     	JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
     	String token =((String) respUser.get("token"));
 
-    	this.mockMvc.perform(put("/api/v1/users/refresh").header("Authorization", token))
+    	this.mockMvc.perform(put("/api/v1/users/refresh").header("Authorization", token)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(""))
     				.andDo(MockMvcResultHandlers.print())
-    				.andExpect(status().is(200));
+	    				.andExpect(status().is(200));
+
 
     }
     
