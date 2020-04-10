@@ -82,9 +82,11 @@ public class UserControllerTest {
     	JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
     	String token =((String) respUser.get("token"));
 
-    	this.mockMvc.perform(put("/api/v1/users/refresh").header("Authorization", token))
+    	this.mockMvc.perform(put("/api/v1/users/refresh").header("Authorization", token)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(""))
     				.andDo(MockMvcResultHandlers.print())
-    				.andExpect(status().is(200));
+	    				.andExpect(status().is(200));
 
     }
     

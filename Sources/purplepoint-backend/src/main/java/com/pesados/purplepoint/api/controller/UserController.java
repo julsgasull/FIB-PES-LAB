@@ -40,7 +40,7 @@ import java.util.stream.Collectors;
     this.service = service;
   }
 
-  @Operation(summary = "Login User with E-mail and Password", description = "Login an %user% with an exising correct combination of password and email", tags = {"login"})
+  @Operation(summary = "Login User with E-mail and Password", description = "Login an %user% with an exising correct combination of password and email", tags = {"authorizations"})
   @ApiResponses(value = {
           @ApiResponse(responseCode = "200", description = "successful login",
                   content = @Content(array = @ArraySchema(schema = @Schema(implementation = User.class))))})
@@ -83,14 +83,14 @@ import java.util.stream.Collectors;
 	}
 
   // Refresh token
-  @Operation(summary = "Refreshes token", description = "Gives an user a new api-key token which replaces the old one.", tags = {"log out"})
+  @Operation(summary = "Refreshes token", description = "Gives an user a new api-key token which replaces the old one.", tags = {"authorizations"})
   @ApiResponses(value = {
           @ApiResponse(responseCode = "201", description = "Token refreshed",
                   content = @Content(schema = @Schema(implementation = User.class))),
           @ApiResponse(responseCode = "400", description = "Invalid input")})
-  @PutMapping(value = "/users/refresh", consumes = { "application/json", "application/xml" })
+  @PutMapping(value = "/users/refresh", consumes = { "application/json", "application/xml"})
   public User refresh(
-          @Parameter(description = "unformatedJWT", required=true) @PathVariable String unformatedJWT
+          @RequestHeader("Authorization") String unformatedJWT
   ) {
       User user = this.service.getUserByToken(unformatedJWT).orElseThrow(() -> new UserNotFoundException(unformatedJWT));
       String newToken = getJWTToken(user.getEmail());
@@ -122,7 +122,7 @@ import java.util.stream.Collectors;
   @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation",
                     content = @Content(array = @ArraySchema(schema = @Schema(implementation = User.class)))) })
-  @GetMapping(value = "/users/", produces = { "application/json", "application/xml"})
+  @GetMapping(value = "/users", produces = { "application/json", "application/xml"})
   List<User> all() {
     return service.getAll();
   }
