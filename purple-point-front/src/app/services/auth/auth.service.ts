@@ -16,10 +16,13 @@ export class AuthService {
   private refreshToken(): string {
     let newToken: string;
     let userData: UserData = {email: '', password: ''};
-    userData.email     = localStorage.getItem('userEmail');
-    userData.password  = localStorage.getItem('password');
-    userData.token     = localStorage.getItem('token');
-    
+    userData.email = localStorage.getItem('userEmail');
+    userData.password = localStorage.getItem('password');
+    //  si el token esta caducado no se debería enviar??
+    // userData.token = localStorage.getItem('token');
+    // quizas deberíamos usar el refreshtoken de back, pero no se
+    // como gestionarlo si el token está caducado, tal vez
+    // como dijimos, mirar de pedirlo siempre?
     this.userService.loginUser(userData).subscribe((response: UserData) => {
       newToken = response.token;
       localStorage.setItem('token', newToken);
@@ -29,9 +32,11 @@ export class AuthService {
   }
 
   public getToken(): string {
-    const token           = localStorage.getItem('token');
-    this.decoder          = new JwtHelperService();
-    const isTokenExpired  = this.decoder.isTokenExpired(token);
+    const token = localStorage.getItem('token');
+    let isTokenExpired = true;
+    if (token !== 'null') {
+      isTokenExpired = this.decoder.isTokenExpired(token);
+    }
     if (!isTokenExpired) {
       return token;
     } return this.refreshToken();
