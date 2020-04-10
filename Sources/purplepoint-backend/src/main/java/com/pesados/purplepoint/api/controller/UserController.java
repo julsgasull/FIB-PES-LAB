@@ -75,12 +75,29 @@ import java.util.stream.Collectors;
 								.map(GrantedAuthority::getAuthority)
 								.collect(Collectors.toList()))
 				.setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + 600000))
+				.setExpiration(new Date(System.currentTimeMillis() + 1000*60*5)) // 5 minutos
 				.signWith(SignatureAlgorithm.HS512,
 						secretKey.getBytes()).compact();
 
 		return "Bearer " + token;
 	}
+
+  // Refresh token
+  @Operation(summary = "Refreshes token", description = "Gives an user a new api-key token which replaces the old one.", tags = {"log out"})
+  @ApiResponses(value = {
+          @ApiResponse(responseCode = "201", description = "Token refreshed",
+                  content = @Content(schema = @Schema(implementation = User.class))),
+          @ApiResponse(responseCode = "400", description = "Invalid input")})
+  @PutMapping(value = "/users/refresh", consumes = { "application/json", "application/xml" })
+  public User refresh(
+          @Parameter(description = "unformatedJWT", required=true) @PathVariable String unformatedJWT
+  ) {
+      User user = this.service.getUserByToken(unformatedJWT).orElseThrow(() -> new UserNotFoundException(unformatedJWT));
+      String newToken = getJWTToken(user.getEmail());
+      user.setToken(newToken);
+
+      return service.saveUser(user);
+  }
 
   // Register new user
 
