@@ -27,7 +27,7 @@ export class LocationRemote {
     }
     */
 
-    firstLocation(loc: Location): Observable<Location> {
+    getLocation(loc: Location): Observable<Location> {
         const enableHighAccuracy = true;
         const maximumAge = 3600000;
         const options = {
@@ -37,7 +37,7 @@ export class LocationRemote {
 
         const location = navigator.geolocation.getCurrentPosition(onSucces, onError, options);
 
-        function onSucces(location) {
+        function onSucces(location): void {
             loc.latitude = location.coord.latitude;
             // localStorage.setItem('latitude', loc.latitude);
             loc.longitude = location.coord.longitude;
@@ -56,15 +56,33 @@ export class LocationRemote {
             // localStorage.setItem('timestamp', loc.timestamp);          
         }
 
-        function onError(er) {
+        function onError(er): void {
             const code = er.code;
             const message = er.message;
             // do an error alert of er.code with message er.message
         }
 
-        return null; //change for request
+        //do request here
+
+        return this.httpClient.post<Location>(`${environment.API_URL}/users/location?`, //endpoint a realizar
+        {   
+            'latitude':     loc.latitude,
+            'longitude':    loc.longitude,
+            'altitude':     loc.altitude,
+            'accuracy':     loc.accuracy,
+            'altAccuracy':  loc.altAccuracy,
+            'heading':      loc.heading,
+            'speed':        loc.speed,
+            'timestamp':    loc.timestamp
+        },
+        {
+            headers:{
+              'Content-Type':"application/json"
+            }
+        }); //return location
     }
 
+    //creo q no hace falta
     watchLocation(loc: Location): Observable<Location> {
         const enableHighAccuracy = true;
         const maximumAge = 3600000;
