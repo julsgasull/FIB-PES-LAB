@@ -16,6 +16,9 @@ export class LoginComponent implements OnInit {
   user: User = new User();
   isSubmitted = false;
   loginFrom: FormGroup;
+  wrongCredentials = false;
+  internalError = false;
+  
 
   constructor (
     private formBuilder: FormBuilder,
@@ -46,6 +49,10 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('userEmail', response.email);
         localStorage.setItem('token', response.token);
         this.redirectToMainMenu();
+      },
+      errorrResponse => {
+        if (errorrResponse.status == 403 || errorrResponse.status == 404)this.wrongCredentials = true;
+        else this.internalError= true;
       });
     } else {
       alert("not authenticated");
