@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   user: User = new User();
   isSubmitted = false;
   loginFrom: FormGroup;
-  //geolocation: GeoLocation = new GeoLocation();
+  geolocation: GeoLocation;
   
 
   constructor (
