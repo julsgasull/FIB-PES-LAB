@@ -18,4 +18,8 @@ export class LocationService {
     return this.locationRemote.watchLocation(loc);
   }
 
+  mockGetPosition(loc: Location): void {
+    this.locationRemote.mockGetPosition(loc);
+  }
+
 }

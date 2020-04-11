@@ -9,23 +9,6 @@ import { Location } from 'src/app/models/location.interface';
 export class LocationRemote {
 
     constructor(private httpClient: HttpClient) {}
-    /*
-    createUser(user: UserData): Observable<UserData> {
-        return this.httpClient.post<UserData>(`${environment.API_URL}/users/register`, 
-        {   
-            'email':    user.email,
-            'name':     user.name,
-            'username': user.username,
-            'password': user.password,
-            'gender':   user.gender
-        },
-        {
-            headers:{
-              'Content-Type':"application/json"
-            }
-        });
-    }
-    */
 
     getLocation(loc: Location): Observable<Location> {
         const enableHighAccuracy = true;
@@ -39,21 +22,14 @@ export class LocationRemote {
 
         function onSucces(location): void {
             loc.latitude = location.coord.latitude;
-            // localStorage.setItem('latitude', loc.latitude);
             loc.longitude = location.coord.longitude;
-            // localStorage.setItem('longitude', loc.longitude);
             loc.altitude = location.coord.altitude;
-            // localStorage.setItem('altitude', loc.altitude);
             loc.accuracy = location.coord.accuracy;
-            // localStorage.setItem('accuracy', loc.accuracy);
             loc.altAccuracy = location.coord.altAccuracy;
-            // localStorage.setItem('altAccuracy', loc.altAccuracy);
             loc.heading = location.coord.heading;
-            // localStorage.setItem('heading', loc.heading);
             loc.speed = location.coord.speed;
-            // localStorage.setItem('speed', loc.speed);
             loc.timestamp = location.coord.timestamp;
-            // localStorage.setItem('timestamp', loc.timestamp);          
+            this.saveToStorage(loc);
         }
 
         function onError(er): void {
@@ -61,9 +37,8 @@ export class LocationRemote {
             const message = er.message;
             // do an error alert of er.code with message er.message
         }
-
+        
         //do request here
-
         return this.httpClient.post<Location>(`${environment.API_URL}/users/location?`, //endpoint a realizar
         {   
             'latitude':     loc.latitude,
@@ -79,7 +54,65 @@ export class LocationRemote {
             headers:{
               'Content-Type':"application/json"
             }
-        }); //return location
+        }); //return location*/
+    }
+
+    // MOCK TO TEST WITHOUT CALLING BACK
+    mockGetPosition(loc:Location): void {
+
+        const enableHighAccuracy = true;
+        const maximumAge = 3600000;
+        const options = {
+           enableHighAccuracy,
+           maximumAge
+        }
+
+        const location = navigator.geolocation.getCurrentPosition(onSucces, onError, options);
+
+        function onSucces(location): void {
+            loc.latitude = location.coord.latitude;
+            loc.longitude = location.coord.longitude;
+            loc.altitude = location.coord.altitude;
+            loc.accuracy = location.coord.accuracy;
+            loc.altAccuracy = location.coord.altAccuracy;
+            loc.heading = location.coord.heading;
+            loc.speed = location.coord.speed;
+            loc.timestamp = location.coord.timestamp;
+
+            this.saveToStorage(loc);
+            this.printLocation(loc);
+        }
+
+        function onError(er): void {
+            const code = er.code;
+            const message = er.message;
+            // do an error alert of er.code with message er.message
+        }
+
+    }
+
+    private printLocation(loc:Location): void {
+        console.log("-----------------------------------------------\n");
+        console.log("Latitude: "    + loc.latitude.toString()    + "\n");
+        console.log("Latitude: "    + loc.longitude.toString()   + "\n");
+        console.log("Altitude: "    + loc.altitude.toString()    + "\n");
+        console.log("Accuracy: "    + loc.accuracy.toString()    + "\n");
+        console.log("altAccuracy: " + loc.altAccuracy.toString() + "\n");
+        console.log("Heading: "     + loc.heading.toString()     + "\n");
+        console.log("Speed: "       + loc.speed.toString()       + "\n");
+        console.log("Timpestamp: "  + loc.timestamp.toString()   + "\n");
+        console.log("-----------------------------------------------\n");
+    }
+
+    private saveToStorage(loc: Location): void {
+        localStorage.setItem('latitude', loc.latitude.toString());
+        localStorage.setItem('longitude', loc.longitude.toString());
+        localStorage.setItem('altitude', loc.altitude.toString());
+        localStorage.setItem('accuracy', loc.accuracy.toString());
+        localStorage.setItem('altAccuracy', loc.altAccuracy.toString());
+        localStorage.setItem('heading', loc.heading.toString());
+        localStorage.setItem('speed', loc.speed.toString());
+        localStorage.setItem('timestamp', loc.timestamp.toString());
     }
 
     //creo q no hace falta
