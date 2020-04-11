@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { Location } from 'src/app/models/location.interface';
-//import { Location } from '@angular/common';
+import { GeoLocation } from '../../models/geoLocation.interface';
 
 @Injectable()
-export class LocationRemote {
+export class GeoLocationRemote {
 
     constructor(private httpClient: HttpClient) {}
 
-    getLocation(loc: Location): Observable<Location> {
+    getLocation(loc: GeoLocation): Observable<GeoLocation> {
         const enableHighAccuracy = true;
         const maximumAge = 3600000;
         const options = {
@@ -21,14 +20,15 @@ export class LocationRemote {
         const location = navigator.geolocation.getCurrentPosition(onSucces, onError, options);
 
         function onSucces(location): void {
-            loc.latitude = location.coord.latitude;
-            loc.longitude = location.coord.longitude;
-            loc.altitude = location.coord.altitude;
-            loc.accuracy = location.coord.accuracy;
+            loc.latitude    = location.coord.latitude;
+            loc.longitude   = location.coord.longitude;
+            loc.altitude    = location.coord.altitude;
+            loc.accuracy    = location.coord.accuracy;
             loc.altAccuracy = location.coord.altAccuracy;
-            loc.heading = location.coord.heading;
-            loc.speed = location.coord.speed;
-            loc.timestamp = location.coord.timestamp;
+            loc.heading     = location.coord.heading;
+            loc.speed       = location.coord.speed;
+            loc.timestamp   = location.coord.timestamp;
+
             this.saveToStorage(loc);
         }
 
@@ -39,7 +39,7 @@ export class LocationRemote {
         }
         
         //do request here
-        return this.httpClient.post<Location>(`${environment.API_URL}/users/location?`, //endpoint a realizar
+        return this.httpClient.post<GeoLocation>(`${environment.API_URL}/users/location?`, //endpoint a realizar
         {   
             'latitude':     loc.latitude,
             'longitude':    loc.longitude,
@@ -58,7 +58,7 @@ export class LocationRemote {
     }
 
     // MOCK TO TEST WITHOUT CALLING BACK
-    mockGetPosition(loc:Location): void {
+    mockGetPosition(loc:GeoLocation): void {
 
         const enableHighAccuracy = true;
         const maximumAge = 3600000;
@@ -70,14 +70,14 @@ export class LocationRemote {
         const location = navigator.geolocation.getCurrentPosition(onSucces, onError, options);
 
         function onSucces(location): void {
-            loc.latitude = location.coord.latitude;
-            loc.longitude = location.coord.longitude;
-            loc.altitude = location.coord.altitude;
-            loc.accuracy = location.coord.accuracy;
+            loc.latitude    = location.coord.latitude;
+            loc.longitude   = location.coord.longitude;
+            loc.altitude    = location.coord.altitude;
+            loc.accuracy    = location.coord.accuracy;
             loc.altAccuracy = location.coord.altAccuracy;
-            loc.heading = location.coord.heading;
-            loc.speed = location.coord.speed;
-            loc.timestamp = location.coord.timestamp;
+            loc.heading     = location.coord.heading;
+            loc.speed       = location.coord.speed;
+            loc.timestamp   = location.coord.timestamp;
 
             this.saveToStorage(loc);
             this.printLocation(loc);
@@ -91,7 +91,7 @@ export class LocationRemote {
 
     }
 
-    private printLocation(loc:Location): void {
+    private printLocation(loc:GeoLocation): void {
         console.log("-----------------------------------------------\n");
         console.log("Latitude: "    + loc.latitude.toString()    + "\n");
         console.log("Latitude: "    + loc.longitude.toString()   + "\n");
@@ -104,7 +104,7 @@ export class LocationRemote {
         console.log("-----------------------------------------------\n");
     }
 
-    private saveToStorage(loc: Location): void {
+    private saveToStorage(loc: GeoLocation): void {
         localStorage.setItem('latitude', loc.latitude.toString());
         localStorage.setItem('longitude', loc.longitude.toString());
         localStorage.setItem('altitude', loc.altitude.toString());
@@ -116,10 +116,10 @@ export class LocationRemote {
     }
 
     //creo q no hace falta
-    watchLocation(loc: Location): Observable<Location> {
+    watchLocation(loc: GeoLocation): Observable<GeoLocation> {
         const enableHighAccuracy = true;
-        const maximumAge = 3600000;
-        const timeout = 3000; // in ms
+        const maximumAge         = 3600000;
+        const timeout            = 3000; // in ms
         const options = {
            enableHighAccuracy,
            maximumAge,
@@ -129,26 +129,18 @@ export class LocationRemote {
         const location = navigator.geolocation.getCurrentPosition(onSucces, onError, options);
 
         function onSucces(location) {
-            loc.latitude = location.coord.latitude;
-            // localStorage.setItem('latitude', loc.latitude);
-            loc.longitude = location.coord.longitude;
-            // localStorage.setItem('longitude', loc.longitude);
-            loc.altitude = location.coord.altitude;
-            // localStorage.setItem('altitude', loc.altitude);
-            loc.accuracy = location.coord.accuracy;
-            // localStorage.setItem('accuracy', loc.accuracy);
+            loc.latitude    = location.coord.latitude;
+            loc.longitude   = location.coord.longitude;
+            loc.altitude    = location.coord.altitude;
+            loc.accuracy    = location.coord.accuracy;
             loc.altAccuracy = location.coord.altAccuracy;
-            // localStorage.setItem('altAccuracy', loc.altAccuracy);
-            loc.heading = location.coord.heading;
-            // localStorage.setItem('heading', loc.heading);
-            loc.speed = location.coord.speed;
-            // localStorage.setItem('speed', loc.speed);
-            loc.timestamp = location.coord.timestamp;
-            // localStorage.setItem('timestamp', loc.timestamp);          
+            loc.heading     = location.coord.heading;
+            loc.speed       = location.coord.speed;
+            loc.timestamp   = location.coord.timestamp;       
         }
 
         function onError(er) {
-            const code = er.code;
+            const code    = er.code;
             const message = er.message;
             // do an error alert of er.code with message er.message
         }
