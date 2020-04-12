@@ -11,10 +11,10 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  isSubmitted = false;
-  loginFrom: FormGroup;
-  wrongCredentials = false;
-  internalError = false;
+  public isSubmitted = false;
+  public loginFrom: FormGroup;
+  public wrongCredentials = false;
+  public internalError = false;
   
 
   constructor (

@@ -1,44 +1,54 @@
-<div class="container">
-    <h1>PurplePoint</h1>
-    <h2>Login</h2>
-    <form [formGroup]="loginFrom" (ngSubmit)="onSubmit()">
-      <div>
-        <div ngClass="{'has-error': isSubmitted === true && formControls.email.errors}">
-          <input 
-            type="email" 
-            class="form-control" 
-            id="email" 
-            placeholder="email" 
-            formControlName="email"
-            name="email"
-            required
-          >
-          <div *ngIf="isSubmitted && formControls.email.errors"> 
-            <div *ngIf="formControls.email.errors.required">Email required</div> 		   
-            <div *ngIf="formControls.email.errors.email">Email not valid</div>
-          </div> 
+<div class="container login-cont">
+  <div class="row">
+    <div class="col-12">
+      <h1>PurplePoint</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <h2>Login</h2>
+    </div>
+  </div>
+  <form [formGroup]="loginFrom" (ngSubmit)="onSubmit()">
+    <div class="row" [ngClass]="{'has-error': isSubmitted === true && formControls.email.errors}">
+      <div class="col-12 form-field">
+        <input 
+        type="email" 
+        class="form-control" 
+        id="email" 
+        placeholder="email" 
+        formControlName="email"
+        name="email"
+        required
+      >
+        <div *ngIf="isSubmitted && formControls.email.errors"> 
+          <div class="error-message" *ngIf="formControls.email.errors.required">Email required</div> 		   
+          <div class="error-message" *ngIf="formControls.email.errors.email">Email not valid</div>
         </div>
-        <div ngClass="{ 'has-error': isSubmitted && formControls.password.errors }">
-          <input 
-            type="password" 
-            class="form-control" 
-            id="password" 
-            placeholder="password"
-            formControlName="password"
-            (click)="setSubmittedToFalse()"
-            required
-          >
-        </div>
+      </div> 
+    </div>
+    <div class="row" [ngClass]="{ 'has-error': isSubmitted && formControls.password.errors }">
+      <div class="col-12">
+        <input 
+        type="password" 
+        class="form-control" 
+        id="password" 
+        placeholder="password"
+        formControlName="password"
+        (click)="setSubmittedToFalse()"
+        required
+        >
         <div *ngIf="isSubmitted && formControls.password.errors" >
-          <div *ngIf="formControls.password.errors.required">Password is required</div>
+          <div class="error-message" *ngIf="formControls.password.errors.required">Password is required</div>
         </div>
         <div *ngIf="isSubmitted && wrongCredentials" >
-          <div>Incorrect username or password</div>
+          <div class="error-message">Incorrect username or password</div>
         </div>
-        <div *ngIf="isSubmitted && internalError" >
-          <div>Internal Server Error</div>
+        <div *ngIf="isSubmitted && internalError">
+          <div class="error-message">Internal Server Error</div>
         </div>
       </div>
-      <button type="submit" class="principalButton">Log in</button>
+    </div>
+    <button type="submit" class="principalButton login-button">Log in</button>
     </form>
 </div>
