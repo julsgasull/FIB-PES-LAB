@@ -18,11 +18,6 @@ export class AuthService {
     let userData: UserData = {email: '', password: ''};
     userData.email = localStorage.getItem('userEmail');
     userData.password = localStorage.getItem('password');
-    //  si el token esta caducado no se debería enviar??
-    // userData.token = localStorage.getItem('token');
-    // quizas deberíamos usar el refreshtoken de back, pero no se
-    // como gestionarlo si el token está caducado, tal vez
-    // como dijimos, mirar de pedirlo siempre?
     this.userService.loginUser(userData).subscribe((response: UserData) => {
       newToken = response.token;
       localStorage.setItem('token', newToken);
