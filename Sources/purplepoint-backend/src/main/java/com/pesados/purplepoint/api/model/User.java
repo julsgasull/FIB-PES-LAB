@@ -28,6 +28,8 @@ public class User {
 	private int helpedUsers;
 	@Schema(description = "The number of marked sports.", required = false)
 	private int markedSpots;
+	@Schema(description = "The last recorded location of the user.", required = false)
+	private Location lastLocation;
 
 	User() {}
 
@@ -103,4 +105,8 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+
+	public Location getLastLocation() { return lastLocation; }
+	public void setLastLocation(Location lastLocation) { this.lastLocation = lastLocation; }
 }
