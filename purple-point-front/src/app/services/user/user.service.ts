@@ -24,4 +24,8 @@ export class UserService {
     return this.userRemote.getUserByEmail(email);
   }
 
+  editProfile(user: UserData): Observable<any> {
+    return this.userRemote.editProfile(user);
+  }
+
 }
