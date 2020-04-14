@@ -1,51 +1,93 @@
 <div class="container profile">
     <div class="row">
         <div class="col-sm-8">
-            <div class="usernameTitle">
-                <input class="form-control" [disabled]="disableInputs" style="color:blueviolet" value="@{{userInfo.username}}"> 
-            </div>
-            <div class="userData">
-                <div class="row attribute">
-                    <div class="col-3">
-                        <span class="userTitles">name</span>
-                    </div>
-                    <div class="col-9 userChanges">
-                        <input class="form-control" [disabled]="disableInputs" placeholder="{{userInfo.name}}">
-                    </div>
-                </div>
-                <div class="row attribute">
-                    <div class="col-3 ">
-                        <span class="userTitles">gender</span>
-                    </div>
-                    <div class="col-9 userChanges">
-                        <select 
-                            class="form-control" 
-                            [disabled]="disableInputs">
-                            <option>{{userInfo.gender}}</option>
-                            <option *ngFor="let gen of genders">{{gen}}</option>
-                        </select>
+            <form [formGroup]="editProfileForm" (ngSubmit)="saveChanges()">
+                <div class="usernameTitle" [ngClass]="{'has-error': isSubmitted === true && formControls.username.errors}">
+                    <input 
+                        class="form-control" 
+                        disabled="disableInputs" 
+                        style="color:blueviolet" 
+                        value="@{{userInfo.username}}"
+                        formControlName="username"
+                        name="username"
+                        (click)="setSubmittedToFalse()"
+                        required
+                    > 
+                    <div *ngIf="isSubmitted && formControls.username.errors"> 
+                        <div class="error-message" *ngIf="formControls.username.errors.required">Username is required</div>
                     </div>
                 </div>
-                <div *ngIf="enableSaveButton">
+                <div class="userData" [ngClass]="{'has-error': isSubmitted === true && formControls.name.errors}">
                     <div class="row attribute">
                         <div class="col-3">
-                            <span class="userTitles">password</span>
+                            <span class="userTitles">name</span>
                         </div>
                         <div class="col-9 userChanges">
-                            <input class="form-control" type="password" [disabled]="disableInputs" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;">
-                    
+                            <input 
+                                class="form-control" 
+                                disabled="disableInputs" 
+                                value="{{userInfo.name}}"
+                                formControlName="name"
+                                name="name"
+                                (click)="setSubmittedToFalse()"
+                                required
+                            >
+                            <div *ngIf="isSubmitted && formControls.name.errors"> 
+                                <div class="error-message" *ngIf="formControls.name.errors.required">Name is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row attribute">
+                        <div class="col-3 ">
+                            <span class="userTitles">gender</span>
+                        </div>
+                        <div class="col-9 userChanges" [ngClass]="{ 'has-error': isSubmitted && formControls.gender.errors }">
+                            <select 
+                                class="form-control" 
+                                disabled="disableInputs"
+                                formControlName="gender"
+                                name="gender"
+                                (click)="setSubmittedToFalse()"
+                                required>
+                            >
+                                <option>{{userInfo.gender}}</option>
+                                <option *ngFor="let gen of genders">{{gen}}</option>
+                            </select>
+                        </div>
+                        <div *ngIf="isSubmitted && formControls.gender.errors" >
+                            <div *ngIf="formControls.gender.errors.required">Gender is required</div>
+                        </div>
+                    </div>
+                    <div *ngIf="enableSaveButton">
+                        <div class="row attribute">
+                            <div class="col-3">
+                                <span class="userTitles">password</span>
+                            </div>
+                            <div class="col-9 userChanges" [ngClass]="{ 'has-error': isSubmitted && formControls.password.errors }">
+                                <input class="form-control" type="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;">
+                            </div>
+                            <div *ngIf="isSubmitted && formControls.password.errors" >
+                                <div *ngIf="formControls.password.errors.required">Password is required</div>
+                            </div> 
                         </div> 
-                    </div> 
-                    <button class="principalButton" (click)="saveChanges()">
-                        Save changes 
-                    </button>
+                        <button type="submit" class="principalButton" (click)="saveChanges()">
+                            Save changes 
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
+        
         <div class="col-sm-4 order-first order-sm-last imageBlock">
             <img class="profileImage" src="https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg" style="height: 100px; width: 100px;">
-            <button class="principalButton editProfile" (click)="editarPerfil()">Editar perfil </button>
-            <button class="logoutButton" (click)="logout()">Log out </button>
+            <button 
+                type="button" 
+                class="principalButton editProfile"
+                (click)="editarPerfil()"
+            >
+                Editar perfil
+            </button>
+            <button type="button" class="logoutButton" (click)="logout()">Log out </button>
         </div>
     </div>
     <!--
