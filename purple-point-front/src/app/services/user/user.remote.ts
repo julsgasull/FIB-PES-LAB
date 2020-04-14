@@ -33,7 +33,8 @@ export class UserRemote {
         },
         {
             headers:{
-              'Content-Type':"application/json"
+                'X-Skip-Interceptor': '',
+                'Content-Type':"application/json"
             }
         });
     }

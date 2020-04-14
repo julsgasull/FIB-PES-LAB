@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit {
     if (this.loginFrom.valid){
       this.userService.loginUser(this.createUserForm()).subscribe((response: UserData) => {
         localStorage.setItem('userEmail', response.email);
+        localStorage.setItem('password', response.password);
         localStorage.setItem('token', response.token);
         this.redirectToMainMenu();
       },

@@ -46,8 +46,9 @@ export class ProfileComponent implements OnInit {
   }
 
   logout() {
-    this.userService.logoutUser(this.userInfo);
     this.redirectToPrincipalView();
+    this.userInfo.token = null;
+    localStorage.setItem('token', null); 
   }
 
 }
