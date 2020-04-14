@@ -28,9 +28,4 @@ export class UserService {
     return this.userRemote.editProfile(user);
   }
 
-  logoutUser(userInfo: UserData) {
-    userInfo.token = null;
-    localStorage.setItem('token', null); 
-  }
-
 }
