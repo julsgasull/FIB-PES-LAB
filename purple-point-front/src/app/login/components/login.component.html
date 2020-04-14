@@ -32,6 +32,12 @@
         <div *ngIf="isSubmitted && formControls.password.errors" >
           <div *ngIf="formControls.password.errors.required">Password is required</div>
         </div>
+        <div *ngIf="isSubmitted && wrongCredentials" >
+          <div>Incorrect username or password</div>
+        </div>
+        <div *ngIf="isSubmitted && internalError" >
+          <div>Internal Server Error</div>
+        </div>
       </div>
       <button type="submit" class="principalButton">Log in</button>
     </form>
