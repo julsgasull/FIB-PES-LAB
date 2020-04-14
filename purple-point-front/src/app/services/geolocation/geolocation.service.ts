@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable} from 'rxjs';
-import { GeoLocationRemote } from './geolocation.remote';
-import { GeoLocation } from 'src/app/models/geolocation.interface';
+import { GeoLocationRemote } from 'src/app/services/geolocation/geolocation.remote';
+import { GeoLocation } from 'src/app/models/geoLocation.interface';
 
 @Injectable({
   providedIn: 'root'

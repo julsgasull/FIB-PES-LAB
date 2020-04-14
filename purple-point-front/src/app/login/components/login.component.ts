@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../services/user/user.service';
 import { UserData } from '../../models/userData.interface';
 import { Router } from '@angular/router';
-import { GeoLocation } from '../../models/geolocation.interface';
+import { GeoLocation } from '../../models/geoLocation.interface';
 import { GeoLocationService } from '../../services/geolocation/geolocation.service'
 import { HttpResponse } from '@angular/common/http';
 
