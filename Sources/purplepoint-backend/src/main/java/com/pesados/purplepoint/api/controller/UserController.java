@@ -3,6 +3,7 @@ package com.pesados.purplepoint.api.controller;
 
 import com.pesados.purplepoint.api.exception.UserNotFoundException;
 import com.pesados.purplepoint.api.exception.WrongPasswordException;
+import com.pesados.purplepoint.api.model.Location;
 import com.pesados.purplepoint.api.model.User;
 import com.pesados.purplepoint.api.model.UserService;
 import io.jsonwebtoken.Jwts;
@@ -176,7 +177,8 @@ import java.util.stream.Collectors;
                   user.setEmail(newUser.getEmail());
                   user.setPassword(newUser.getPassword());
                   user.setGender(newUser.getGender());
-                  return service.saveUser(user);
+				  user.setLastLocation(newUser.getLastLocation());
+				  return service.saveUser(user);
               })
               .orElseGet(() -> {
                   newUser.setId(id);
@@ -205,6 +207,7 @@ import java.util.stream.Collectors;
                   user.setEmail(newUser.getEmail());
                   user.setPassword(newUser.getPassword());
                   user.setGender(newUser.getGender());
+                  user.setLastLocation(newUser.getLastLocation());
                   return service.saveUser(user);
               })
               .orElseGet(() -> {
@@ -214,7 +217,7 @@ import java.util.stream.Collectors;
   }
 
   // Delete user
-  @Operation(summary = "Delete an user", description = "", tags = { "users" })
+  @Operation(summary = "Delete an user", description = "Deletes user by the given id", tags = { "users" })
   @ApiResponses(value = {
           @ApiResponse(responseCode = "200", description = "successful operation"),
           @ApiResponse(responseCode = "404", description = "User not found") })
@@ -226,4 +229,29 @@ import java.util.stream.Collectors;
   ) {
     service.deleteUserById(id);
   }
+		/*
+	  @Operation(summary = "Establish location to a user", description = "Updates the last location for the given user", tags = { "location" })
+	  @ApiResponses(value = {
+			  @ApiResponse(responseCode = "201", description = "Location modified",
+					  content = @Content(schema = @Schema(implementation = User.class))),
+			  @ApiResponse(responseCode = "400", description = "Invalid input"),
+			  @ApiResponse(responseCode = "401", description = "Unauthorized"),
+			  @ApiResponse(responseCode = "404", description = "User not found")})
+	  @PutMapping(value = "/users/location", consumes = { "application/json", "application/xml" })
+	  User establishLocation(
+			  @Parameter(description="New location for the user.", required = true)
+			  @RequestBody Location newLocation,
+			  @Parameter(description="email of the user to update.", required = true)
+			  @PathVariable String email
+	  ) {
+		  return service.getUserByEmail(email)
+				  .map(user -> {
+					  return service.saveUser(user);
+				  });
+
+	  }
+
+		 */
+
+
 }
