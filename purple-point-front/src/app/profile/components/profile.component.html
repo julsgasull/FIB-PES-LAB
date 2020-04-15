@@ -79,7 +79,7 @@
         </div>
         
         <div class="col-sm-4 order-first order-sm-last imageBlock">
-            <img class="profileImage" src="https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg" style="height: 100px; width: 100px;">
+            <img class="profileImage" src="https://image.flaticon.com/icons/svg/1738/1738691.svg" style="height: 100px; width: 100px;">
             <button 
                 type="button" 
                 class="principalButton editProfile"
@@ -104,4 +104,24 @@
     <br>
     <br>
     <img class="mapImage" src="https://miro.medium.com/max/3332/0*R8YnMoScMd_jiO93.png"> -->
+</div>
+
+<!-- TESTING IMAGE PROFILE UPLOAD -->
+<div class="container row">
+    <div class="col-md-12"> <h1>Upload Image</h1> </div>
+</div>
+<div class="container row">
+    <div class="col-md-6"> <input type="file" (change)="onFileChanged($event)"> </div>
+    <div class="col-md-6"> <input type="button" (click)="onUpload()" value="upload"> </div>
+</div>
+<hr />
+<div class="container row">
+    <div class="col-md-12"> <div *ngIf=message>{{message}}</div> </div>
+</div>
+<div class="container row">
+    <div class="col-md-6"> <input type="text" class="form-control" id="name" placeholder="image name" [(ngModel)]="imageName" name="name" /> </div>
+    <div class="col-md-6"> <input type="button" (click)="getImage()" value="Get Image"> </div>
+</div>
+<div class="container row">
+    <div class="col-md-12"> <div *ngIf=retrievedImage> <img [src]="retrievedImage"> </div> </div>
 </div>
