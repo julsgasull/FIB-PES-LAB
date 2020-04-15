@@ -8,18 +8,18 @@ import { GeoLocation } from 'src/app/models/geoLocation.interface';
 })
 export class GeoLocationService {
 
-  constructor(private locationRemote: GeoLocationRemote) {}
+  constructor(private geolocationRemote: GeoLocationRemote) {}
 
   getLocation(loc: GeoLocation): Observable<GeoLocation> {
-    return this.locationRemote.getLocation(loc);
+    return this.geolocationRemote.getLocation(loc);
   }
 
   watchLocation(loc: GeoLocation): Observable<GeoLocation> {
-    return this.locationRemote.watchLocation(loc);
+    return this.geolocationRemote.watchLocation(loc);
   }
 
   mockGetPosition(loc: GeoLocation): void {
-    this.locationRemote.mockGetPosition(loc);
+    this.geolocationRemote.mockGetPosition(loc);
   }
 
 }

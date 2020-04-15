@@ -13,7 +13,12 @@ import { GeoLocation } from '../../models/geoLocation.interface';
 })
 export class LoginComponent implements OnInit {
 
-  geolocation: GeoLocation;
+  geolocation: GeoLocation = ({
+    latitude: -1, 
+    longitude: -1, 
+    accuracy: -1,
+    timestamp: -1
+  });
   public isSubmitted = false;
   public loginFrom: FormGroup;
   public wrongCredentials = false;

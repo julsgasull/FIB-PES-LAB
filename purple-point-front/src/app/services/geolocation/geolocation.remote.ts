@@ -22,11 +22,7 @@ export class GeoLocationRemote {
         function onSucces(location): void {
             loc.latitude    = location.coord.latitude;
             loc.longitude   = location.coord.longitude;
-            loc.altitude    = location.coord.altitude;
             loc.accuracy    = location.coord.accuracy;
-            loc.altAccuracy = location.coord.altAccuracy;
-            loc.heading     = location.coord.heading;
-            loc.speed       = location.coord.speed;
             loc.timestamp   = location.coord.timestamp;
 
             this.saveToStorage(loc);
@@ -43,11 +39,7 @@ export class GeoLocationRemote {
         {   
             'latitude':     loc.latitude,
             'longitude':    loc.longitude,
-            'altitude':     loc.altitude,
             'accuracy':     loc.accuracy,
-            'altAccuracy':  loc.altAccuracy,
-            'heading':      loc.heading,
-            'speed':        loc.speed,
             'timestamp':    loc.timestamp
         },
         {
@@ -66,21 +58,32 @@ export class GeoLocationRemote {
            enableHighAccuracy,
            maximumAge
         }
+        if (navigator.geolocation) {
+            const location = navigator.geolocation.getCurrentPosition(onSucces, onError, options);
+        }
+        else console.log("Geolocation not available!");
+        
+        function onSucces(position): void {
+            
+            loc.latitude    = position.coords.latitude;
+            loc.longitude   = position.coords.longitude;
+            loc.accuracy    = position.coords.accuracy;
+            loc.timestamp   = position.timestamp;
 
-        const location = navigator.geolocation.getCurrentPosition(onSucces, onError, options);
+            // Save to storage
+            localStorage.setItem('latitude', loc.latitude.toString());
+            localStorage.setItem('longitude', loc.longitude.toString());
+            localStorage.setItem('accuracy', loc.accuracy.toString());
+            localStorage.setItem('timestamp', loc.timestamp.toString());
 
-        function onSucces(location): void {
-            loc.latitude    = location.coord.latitude;
-            loc.longitude   = location.coord.longitude;
-            loc.altitude    = location.coord.altitude;
-            loc.accuracy    = location.coord.accuracy;
-            loc.altAccuracy = location.coord.altAccuracy;
-            loc.heading     = location.coord.heading;
-            loc.speed       = location.coord.speed;
-            loc.timestamp   = location.coord.timestamp;
-
-            this.saveToStorage(loc);
-            this.printLocation(loc);
+            /*  DEBUG O TREURE PER PANTALLA
+            console.log("-----------------------------------------------\n");
+            console.log("Latitude: "    + loc.latitude.toString()    + "\n");
+            console.log("Longitude: "   + loc.longitude.toString()   + "\n");
+            console.log("Accuracy: "    + loc.accuracy.toString()    + "\n");
+            console.log("Timpestamp: "  + loc.timestamp.toString()   + "\n");
+            console.log("-----------------------------------------------\n");
+            */ 
         }
 
         function onError(er): void {
@@ -95,11 +98,7 @@ export class GeoLocationRemote {
         console.log("-----------------------------------------------\n");
         console.log("Latitude: "    + loc.latitude.toString()    + "\n");
         console.log("Latitude: "    + loc.longitude.toString()   + "\n");
-        console.log("Altitude: "    + loc.altitude.toString()    + "\n");
         console.log("Accuracy: "    + loc.accuracy.toString()    + "\n");
-        console.log("altAccuracy: " + loc.altAccuracy.toString() + "\n");
-        console.log("Heading: "     + loc.heading.toString()     + "\n");
-        console.log("Speed: "       + loc.speed.toString()       + "\n");
         console.log("Timpestamp: "  + loc.timestamp.toString()   + "\n");
         console.log("-----------------------------------------------\n");
     }
@@ -107,11 +106,7 @@ export class GeoLocationRemote {
     private saveToStorage(loc: GeoLocation): void {
         localStorage.setItem('latitude', loc.latitude.toString());
         localStorage.setItem('longitude', loc.longitude.toString());
-        localStorage.setItem('altitude', loc.altitude.toString());
         localStorage.setItem('accuracy', loc.accuracy.toString());
-        localStorage.setItem('altAccuracy', loc.altAccuracy.toString());
-        localStorage.setItem('heading', loc.heading.toString());
-        localStorage.setItem('speed', loc.speed.toString());
         localStorage.setItem('timestamp', loc.timestamp.toString());
     }
 
@@ -131,11 +126,7 @@ export class GeoLocationRemote {
         function onSucces(location) {
             loc.latitude    = location.coord.latitude;
             loc.longitude   = location.coord.longitude;
-            loc.altitude    = location.coord.altitude;
             loc.accuracy    = location.coord.accuracy;
-            loc.altAccuracy = location.coord.altAccuracy;
-            loc.heading     = location.coord.heading;
-            loc.speed       = location.coord.speed;
             loc.timestamp   = location.coord.timestamp;       
         }
 
