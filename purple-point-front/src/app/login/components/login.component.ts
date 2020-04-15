@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../../models/user.class';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../services/user/user.service';
 import { UserData } from '../../models/userData.interface';
 import { Router } from '@angular/router';
-import { GeoLocation } from '../../models/geoLocation.interface';
 import { GeoLocationService } from '../../services/geolocation/geolocation.service'
-import { HttpResponse } from '@angular/common/http';
+import { GeoLocation } from '../../models/geoLocation.interface';
 
 @Component({
   selector: 'app-login',
@@ -15,11 +13,11 @@ import { HttpResponse } from '@angular/common/http';
 })
 export class LoginComponent implements OnInit {
 
-  user: User = new User();
-  isSubmitted = false;
-  loginFrom: FormGroup;
   geolocation: GeoLocation;
-  
+  public isSubmitted = false;
+  public loginFrom: FormGroup;
+  public wrongCredentials = false;
+  public internalError = false;
 
   constructor (
     private formBuilder: FormBuilder,
@@ -51,9 +49,14 @@ export class LoginComponent implements OnInit {
       // How to do a request
       this.userService.loginUser(this.createUserForm()).subscribe((response: UserData) => {
         localStorage.setItem('userEmail', response.email);
+        localStorage.setItem('password', response.password);
         localStorage.setItem('token', response.token);
         this.geoLocationService.mockGetPosition(this.geolocation);
         this.redirectToMainMenu();
+      },
+      errorrResponse => {
+        if (errorrResponse.status == 403 || errorrResponse.status == 404)this.wrongCredentials = true;
+        else this.internalError= true;
       });
     } else {
       alert("not authenticated");

@@ -1,0 +1,25 @@
+.login-cont{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-field {
+    margin: 30px 0;
+}
+
+.error-message {
+    text-align: left;
+    margin-left: 13px;
+    margin-top: 3px;
+    font-weight: 100;
+    font-size: 12px;
+    color:  #8F4DEC;
+}
+
+.login-button{
+    margin-top: 20px;
+    padding: 2px 16px;
+}

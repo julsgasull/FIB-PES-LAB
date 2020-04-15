@@ -1,0 +1,41 @@
+.profile {
+    margin-top: 50px;
+}
+
+.userData {
+    display: flex;
+    flex-direction: column;
+}
+
+.imageBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.usernameTitle{
+    margin-bottom: 30px;
+}
+
+.attribute {
+    display: flex;
+    margin:10px 0;
+}
+
+.userTitles {
+    line-height: 33px;
+    font-family: Montserrat;
+    font-weight: bold;
+    font-size: 10px;
+    color: #9F9F9F;
+    letter-spacing: 0;
+    text-align: left;
+}
+
+.userChanges {
+    padding-right: 0;
+}
+
+.editProfile {
+    margin: 10px 0;
+}

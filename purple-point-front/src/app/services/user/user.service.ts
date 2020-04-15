@@ -24,9 +24,8 @@ export class UserService {
     return this.userRemote.getUserByEmail(email);
   }
 
-  logoutUser(userInfo: UserData) {
-    userInfo.token = null;
-    localStorage.setItem('token', null); 
+  editProfile(user: UserData): Observable<any> {
+    return this.userRemote.editProfile(user);
   }
 
 }
