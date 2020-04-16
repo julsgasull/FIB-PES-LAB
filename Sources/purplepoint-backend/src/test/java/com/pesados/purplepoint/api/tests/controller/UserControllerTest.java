@@ -1,7 +1,7 @@
 package com.pesados.purplepoint.api.tests.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pesados.purplepoint.api.model.User;
+import com.pesados.purplepoint.api.model.user.User;
 
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package com.pesados.purplepoint.api.model;
+package com.pesados.purplepoint.api.model.user;
 
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -60,9 +60,6 @@ public class User {
 	public String getUsername() {
 		return username;
 	}
-	public void setUserName(String username) {
-		this.username = username;
-	}
 
 	public String getEmail() {
 		return email;
@@ -102,5 +99,9 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public void setUsername(String username2) {
+		this.username = username2;
 	}
 }

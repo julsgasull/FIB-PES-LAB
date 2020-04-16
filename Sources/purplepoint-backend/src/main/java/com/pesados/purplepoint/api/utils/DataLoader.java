@@ -1,8 +1,9 @@
 package com.pesados.purplepoint.api.utils;
 
 import com.pesados.purplepoint.api.PurplePointApplication;
-import com.pesados.purplepoint.api.model.User;
-import com.pesados.purplepoint.api.model.UserRepository;
+import com.pesados.purplepoint.api.model.user.User;
+import com.pesados.purplepoint.api.model.user.UserRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;

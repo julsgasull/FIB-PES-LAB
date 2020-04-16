@@ -3,8 +3,9 @@ package com.pesados.purplepoint.api.controller;
 
 import com.pesados.purplepoint.api.exception.UserNotFoundException;
 import com.pesados.purplepoint.api.exception.WrongPasswordException;
-import com.pesados.purplepoint.api.model.User;
-import com.pesados.purplepoint.api.model.UserService;
+import com.pesados.purplepoint.api.model.user.User;
+import com.pesados.purplepoint.api.model.user.UserService;
+
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.swagger.v3.oas.annotations.Operation;
@@ -172,7 +173,7 @@ import java.util.stream.Collectors;
       return service.getUserById(id)
               .map(user -> {
                   user.setName(newUser.getName());
-                  user.setUserName(newUser.getUsername());
+                  user.setUsername(newUser.getUsername());
                   user.setEmail(newUser.getEmail());
                   user.setPassword(newUser.getPassword());
                   user.setGender(newUser.getGender());
@@ -201,7 +202,7 @@ import java.util.stream.Collectors;
       return service.getUserByEmail(email)
               .map(user -> {
                   user.setName(newUser.getName());
-                  user.setUserName(newUser.getUsername());
+                  user.setUsername(newUser.getUsername());
                   user.setEmail(newUser.getEmail());
                   user.setPassword(newUser.getPassword());
                   user.setGender(newUser.getGender());
