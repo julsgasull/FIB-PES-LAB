@@ -3,7 +3,11 @@ package com.pesados.purplepoint.api.model.user;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.io.IOException;
+
 import javax.persistence.*;
+
+import com.pesados.purplepoint.api.model.image.Image;
 
 @Entity
 @Table(name = "Users")
@@ -28,10 +32,12 @@ public class User {
 	private int helpedUsers;
 	@Schema(description = "The number of marked sports.", required = false)
 	private int markedSpots;
+	@Schema(description = "The profile picture", required = false)
+	private Image profilePic;
 
 	User() {}
 
-	public User(String name, String username, String email, String password, String gender) {
+	public User(String name, String username, String email, String password, String gender) throws IOException {
 		this.name = name;
 		this.username = username;
 		this.email = email;
@@ -40,6 +46,12 @@ public class User {
 		this.token = null;
 		this.helpedUsers = 0;
 		this.markedSpots = 0;
+		try {
+			this.setProfilePic(new Image("https://image.flaticon.com/icons/svg/1738/1738691.svg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			throw new IOException("Could not get default image for user!");
+		}
 	}
 	
 	public Long getID() {
@@ -53,6 +65,7 @@ public class User {
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -64,6 +77,7 @@ public class User {
 	public String getEmail() {
 		return email;
 	}
+	
 	public void setEmail(String email) {
 		this.email = email;
 	}
@@ -71,11 +85,15 @@ public class User {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getGender() {  return gender; }
+	
+	public String getGender() {  
+		return gender; 
+	}
 
 	public int getHelpedUsers() {
 		return helpedUsers;
 	}
+	
 	public void setHelpedUsers(int helpedUsers) {
 		this.helpedUsers = helpedUsers;
 	}
@@ -83,6 +101,7 @@ public class User {
 	public int getMarkedSpots() {
 		return markedSpots;
 	}
+	
 	public void setMarkedSpots(int markedSpots) {
 		this.markedSpots = markedSpots;
 	}
@@ -90,6 +109,7 @@ public class User {
 	public void setToken(String token) {
 		this.token = token;
 	}
+	
 	public String getToken() {
 		return token;
 	}
@@ -97,11 +117,20 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
+	
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
 	public void setUsername(String username2) {
 		this.username = username2;
+	}
+
+	public Image getProfilePic() {
+		return profilePic;
+	}
+
+	public void setProfilePic(Image profilePic) {
+		this.profilePic = profilePic;
 	}
 }
