@@ -3,6 +3,8 @@ package com.pesados.purplepoint.api.controller;
 
 import com.pesados.purplepoint.api.exception.UserNotFoundException;
 import com.pesados.purplepoint.api.exception.WrongPasswordException;
+import com.pesados.purplepoint.api.model.image.Image;
+import com.pesados.purplepoint.api.model.image.ImageService;
 import com.pesados.purplepoint.api.model.user.User;
 import com.pesados.purplepoint.api.model.user.UserService;
 
@@ -16,12 +18,16 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,15 +37,17 @@ import java.util.stream.Collectors;
   @RestController
   @RequestMapping("/api/v1")
   public class UserController {
-  private final UserService service;
+  private final UserService userService;
+private final ImageService imgService;
 
   @ModelAttribute
   public void setResponseHeader(HttpServletResponse response) {
 	  response.setHeader("Access-Control-Allow-Origin", "*");
   }
   
-  UserController(UserService service) {
-    this.service = service;
+  UserController(UserService userService, ImageService imgService) {
+    this.userService = userService;
+    this.imgService = imgService;
   }
 
   @Operation(summary = "Login User with E-mail and Password", description = "Login an %user% with an exising correct combination of password and email", tags = {"authorizations"})
@@ -53,7 +61,7 @@ import java.util.stream.Collectors;
 	  	String pwd = aUser.getPassword();
 	  	
 		String token = getJWTToken(email);
-		User user = this.service.getUserByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
+		User user = this.userService.getUserByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
 		
 		if (pwd.equals(user.getPassword())) {
 			user.setToken(token);
@@ -61,7 +69,7 @@ import java.util.stream.Collectors;
 			throw new WrongPasswordException(pwd);
 		}
 		
-		return service.saveUser(user);		
+		return userService.saveUser(user);		
 }
 
   private String getJWTToken(String email) {
@@ -96,16 +104,19 @@ import java.util.stream.Collectors;
   public User refresh(
           @RequestHeader("Authorization") String unformatedJWT
   ) {
-      User user = this.service.getUserByToken(unformatedJWT).orElseThrow(() -> new UserNotFoundException(unformatedJWT));
+      User user = this.userService.getUserByToken(unformatedJWT).orElseThrow(() -> new UserNotFoundException(unformatedJWT));
       String newToken = getJWTToken(user.getEmail());
       user.setToken(newToken);
 
-      return service.saveUser(user);
+      return userService.saveUser(user);
   }
 
   // Register new user
 
-  @Operation(summary = "Add a new user", description = "Adds a new user to the database with the information provided. To create a new user please provide:\n- A valid e-mail \n- An username\n- An e-mail \n- A password \n- The user's gender", tags = { "register" })
+  @Operation(summary = "Add a new user", 
+		  description = "Adds a new user to the database with the information provided. "
+		  		+ "To create a new user please provide:\n- A valid e-mail \n- An username\n- "
+		  		+ "An e-mail \n- A password \n- The user's gender", tags = { "authorizations" })
   @ApiResponses(value = {
          @ApiResponse(responseCode = "201", description = "User created",
                   content = @Content(schema = @Schema(implementation = User.class))),
@@ -117,7 +128,7 @@ import java.util.stream.Collectors;
                   required=true, schema=@Schema(implementation = Contact.class))
           @Valid @RequestBody User userNew
   ) {
-    return service.saveUser(userNew);
+    return userService.saveUser(userNew);
 
   }
 
@@ -129,7 +140,7 @@ import java.util.stream.Collectors;
                     content = @Content(array = @ArraySchema(schema = @Schema(implementation = User.class)))) })
   @GetMapping(value = "/users", produces = { "application/json", "application/xml"})
   List<User> all() {
-    return service.getAll();
+    return userService.getAll();
   }
 
 // Get a single user
@@ -142,7 +153,7 @@ import java.util.stream.Collectors;
   User idUser(
           @Parameter(description="ID of the contact to search.", required = true)
           @PathVariable long id) {
-    return service.getUserById(id).orElseThrow(() -> new UserNotFoundException(id));
+    return userService.getUserById(id).orElseThrow(() -> new UserNotFoundException(id));
   }
 
   @Operation(summary = "Get User By email", description = "Get User from an existing email you want to look up", tags = {"users"})
@@ -153,7 +164,7 @@ import java.util.stream.Collectors;
   User emailUser(
           @Parameter(description="email of the contact to search.", required = true)
           @PathVariable String email) {
-       return service.getUserByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
+       return userService.getUserByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
    }
 
 // Update users
@@ -170,22 +181,52 @@ import java.util.stream.Collectors;
                       @Parameter(description="id of the user to replace.", required = true)
                         @PathVariable long id
   ) {
-      return service.getUserById(id)
+      return userService.getUserById(id)
               .map(user -> {
                   user.setName(newUser.getName());
                   user.setUsername(newUser.getUsername());
                   user.setEmail(newUser.getEmail());
                   user.setPassword(newUser.getPassword());
                   user.setGender(newUser.getGender());
-                  return service.saveUser(user);
+                  return userService.saveUser(user);
               })
               .orElseGet(() -> {
                   newUser.setId(id);
-                  return service.saveUser(newUser);
+                  return userService.saveUser(newUser);
               });
 
   }
 
+	//Update users pic
+	 @Operation(summary = "Update an existing User profile picture by User Id", 
+			 description = "profile pic", 
+			 tags = { "users" })
+	 @ApiResponses(value = {
+	         @ApiResponse(responseCode = "200", description = "successful operation"),
+	         @ApiResponse(responseCode = "400", description = "Invalid username supplied"),
+	         @ApiResponse(responseCode = "401", description = "Unauthorized"),
+	         @ApiResponse(responseCode = "404", description = "User not found"),
+	         @ApiResponse(responseCode = "405", description = "Validation exception") })
+	 @PutMapping(value = "/users/{id}/image", consumes = { "multipart/form-data"})
+	 User updatePic(@Parameter(description="New pic for the user.", required = true) @RequestParam("file") MultipartFile file, 
+	                     @Parameter(description="id of the user to replace.", required = true)
+	                       @PathVariable long id
+	 ) throws IOException {
+		 Image img = imgService.saveImage(new Image(file.getName(),"image/jpg",file.getBytes()));
+		 return userService.getUserById(id)
+	             .map(user -> {
+	                 user.setProfilePic(img);;
+	                 return userService.saveUser(user);
+	             })
+	             .orElseGet(() -> {
+	                 User myUser = new User();
+	                 myUser.setId(id);
+	                 myUser.setProfilePic(img);
+	                 return userService.saveUser(myUser);
+	             });
+	
+	 } 
+	 
   @Operation(summary = "Update an existing User by email", description = "Update the Name, username, email, password, gender given the email of an existing user", tags = { "users" })
   @ApiResponses(value = {
           @ApiResponse(responseCode = "200", description = "successful operation"),
@@ -199,18 +240,18 @@ import java.util.stream.Collectors;
                            @Parameter(description="Email of the user to replace.", required = true)
                            @PathVariable String email
   ) {
-      return service.getUserByEmail(email)
+      return userService.getUserByEmail(email)
               .map(user -> {
                   user.setName(newUser.getName());
                   user.setUsername(newUser.getUsername());
                   user.setEmail(newUser.getEmail());
                   user.setPassword(newUser.getPassword());
                   user.setGender(newUser.getGender());
-                  return service.saveUser(user);
+                  return userService.saveUser(user);
               })
               .orElseGet(() -> {
                   newUser.setEmail(email);
-                  return service.saveUser(newUser);
+                  return userService.saveUser(newUser);
               });
   }
 
@@ -225,6 +266,6 @@ import java.util.stream.Collectors;
                   required=true)
           @PathVariable long id
   ) {
-    service.deleteUserById(id);
+    userService.deleteUserById(id);
   }
 }

@@ -1,6 +1,9 @@
 
 package com.pesados.purplepoint.api.config;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -8,12 +11,6 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
-import io.swagger.v3.oas.models.servers.Server;
-
-import java.util.ArrayList;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 @OpenAPIDefinition(
         security = {@SecurityRequirement(name = "bearer")}
@@ -23,14 +20,14 @@ import org.springframework.context.annotation.Configuration;
 public class OpenApiConfig {
     @Bean
     public OpenAPI customOpenAPI() {
-    	Server myServer = new Server();
+    	/*Server myServer = new Server();
     	myServer.setUrl("http://10.4.41.153/");
     	ArrayList<Server> serverList = new ArrayList<Server> ();
-    	serverList.add(myServer);
+    	serverList.add(myServer);*/
     	
         return new OpenAPI()
                 .components(new Components())
-                .servers(serverList)
+                /*.servers(serverList)*/
                 .info(new Info().title("PurplePoint Application API").description(
                         "This is PurplePoint's Spring Boot API service using springdoc-openapi and OpenAPI 3."));
     }

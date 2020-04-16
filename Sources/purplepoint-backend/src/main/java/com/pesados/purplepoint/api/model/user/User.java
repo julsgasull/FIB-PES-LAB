@@ -32,10 +32,13 @@ public class User {
 	private int helpedUsers;
 	@Schema(description = "The number of marked sports.", required = false)
 	private int markedSpots;
-	@Schema(description = "The profile picture", required = false)
+	
+	@Schema(description = "The profile picture of the User", required = false)
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "imageid") 
 	private Image profilePic;
 
-	User() {}
+	public User() {}
 
 	public User(String name, String username, String email, String password, String gender) throws IOException {
 		this.name = name;
@@ -46,12 +49,7 @@ public class User {
 		this.token = null;
 		this.helpedUsers = 0;
 		this.markedSpots = 0;
-		try {
-			this.setProfilePic(new Image("https://image.flaticon.com/icons/svg/1738/1738691.svg"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			throw new IOException("Could not get default image for user!");
-		}
+		this.profilePic = null;
 	}
 	
 	public Long getID() {
