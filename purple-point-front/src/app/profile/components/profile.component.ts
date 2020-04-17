@@ -30,47 +30,12 @@ export class ProfileComponent implements OnInit {
     private httpClient: HttpClient
   ) {}
 
-  selectedFile: File;
-  retrievedImage: any;
-  base64Data: any;
-  retrieveResonse: any;
-  message: string;
-  imageName: any;
-
-  // Gets called when the user selects an image
-  public onFileChanged(event) { //Select File
-    this.selectedFile = event.target.files[0];
-  }
-
-  // Gets called when the user clicks on submit to upload the image
-  onUpload() {
-    console.log(this.selectedFile);
-    
-    // FormData API provides methods and properties to allow us easily prepare form data to be sent with POST HTTP requests.
-    const uploadImageData = new FormData();
-    uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
-  
-    // endpoint: users/:id/image
-    // Make a call to the Spring Boot Application to save the image
-    this.httpClient.post('http://localhost:8080/image/upload', uploadImageData, { observe: 'response' })
-      .subscribe((response) => {
-        if (response.status === 200)  this.message = 'Image uploaded successfully';
-        else                          this.message = 'Image not uploaded successfully';
-      });
-  }
-
-  //Gets called when the user clicks on retieve image button to get the image from back end
-  getImage() {
-    //Make a call to Sprinf Boot to get the Image Bytes.
-    this.httpClient.get('http://localhost:8080/image/get/' + this.imageName)
-      .subscribe(
-        res => {
-          this.retrieveResonse  = res;
-          this.base64Data       = this.retrieveResonse.picByte;
-          this.retrievedImage   = 'data:image/jpeg;base64,' + this.base64Data;
-        }
-      );
-  }
+  selectedFile:     File;
+  retrievedImage:   any;
+  base64Data:       any;
+  retrieveResonse:  any;
+  message:          string;
+  imageName:        any;
 
   
   ngOnInit(): void {
@@ -88,6 +53,39 @@ export class ProfileComponent implements OnInit {
         helpedUsers:  new FormControl( { value: response.helpedUsers, disabled: true }, Validators.required)
       });
     });
+  }
+
+  public onFileChanged(event) { // Gets called when the user selects an image
+    this.selectedFile = event.target.files[0]; //Select File
+  }
+  
+  onUpload() { // Gets called when the user clicks on submit to upload the image
+    console.log(this.selectedFile);
+  
+    // FormData API provides methods and properties to allow us 
+    // easily prepare form data to be sent with POST HTTP requests.
+    const uploadImageData = new FormData();
+    uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
+  
+    // endpoint: users/:id/image
+    // Make a call to the SERVER to save the image
+    this.httpClient.post('http://localhost:8080/image/upload', uploadImageData, { observe: 'response' })
+      .subscribe((response) => {
+        if (response.status === 200)  this.message = 'Image uploaded successfully';
+        else                          this.message = 'Image not uploaded successfully';
+      });
+  }
+
+  getImage() { //Gets called when the user clicks on retieve image button to get the image from back end
+    //Make a call to SERVER to get the Image Bytes.
+    this.httpClient.get('http://localhost:8080/image/get/' + this.imageName)
+      .subscribe(
+        res => {
+          this.retrieveResonse  = res;
+          this.base64Data       = this.retrieveResonse.picByte;
+          this.retrievedImage   = 'data:image/jpeg;base64,' + this.base64Data;
+        }
+      );
   }
 
   redirectToPrincipalView() {
@@ -130,11 +128,11 @@ export class ProfileComponent implements OnInit {
     if (this.editProfileForm.valid) {
       this.userService.editProfile(this.createUserForm()).subscribe((response: any) => {      
         this.enableSaveButton = false;
-        this.disableInputs = true;
+        this.disableInputs    = true;
       });
     } else {
-      this.disableInputs = false;
-      this.enableSaveButton = true;
+      this.disableInputs      = false;
+      this.enableSaveButton   = true;
     }
   }
 
