@@ -188,6 +188,7 @@ private final ImageService imgService;
                   user.setEmail(newUser.getEmail());
                   user.setPassword(newUser.getPassword());
                   user.setGender(newUser.getGender());
+                  user.setProfilePic(newUser.getProfilePic());
                   return userService.saveUser(user);
               })
               .orElseGet(() -> {

@@ -8,7 +8,7 @@ public interface ImageService {
 
 	Optional<Image> getImageById(Long id);
 	
-	Optional<Image> getImageByName(String name);
+	Optional<Image> getImageByImgname(String name);
 
 	List<Image> getAll();
 
@@ -16,7 +16,7 @@ public interface ImageService {
 
 	void deleteImageById(Long id);
 	
-	void deleteImageByName(String name);
+	void deleteImageByImgname(String name);
 
 
 }

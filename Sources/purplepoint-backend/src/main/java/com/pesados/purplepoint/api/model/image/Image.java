@@ -31,7 +31,7 @@ public class Image {
 	private Long imageid;	
 	@Schema(description = "Unique name of the image.", required = true)
 	@Column(name = "imgname")
-	private String name;	
+	private String imgname;	
 	@Schema(description = "Type of the image.", required = false)
     @Column(name = "type")
 	private String type;
@@ -46,7 +46,7 @@ public class Image {
 	}
 	
 	public Image(String name, String type, byte[] picByte) {
-		this.name = name;
+		this.imgname = name;
 		this.type = type;
 		this.picByte = picByte;
 	}	
@@ -72,7 +72,7 @@ public class Image {
 
         // Create Random file name but unique by adding timestamp with extension
 
-        this.name = RandomString.make() + new Date().getTime() + ".svg";
+        this.imgname = RandomString.make() + new Date().getTime() + ".svg";
         this.picByte = byteArrayOutputStream.toByteArray();
         this.type = "image/svg";
 
@@ -88,11 +88,11 @@ public class Image {
 	}
 	
 	public void setName (String name) {
-		this.name = name;
+		this.imgname = name;
 	}
 	
 	public String getName () {
-		return this.name;
+		return this.imgname;
 	}
 	
 	public void setType(String type) {

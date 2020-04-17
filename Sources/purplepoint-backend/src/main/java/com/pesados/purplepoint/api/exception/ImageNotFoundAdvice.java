@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 
 @ControllerAdvice
-class UserNotFoundAdvice {
+class ImageNotFoundAdvice {
 
   @ResponseBody
-  @ExceptionHandler(UserNotFoundException.class)
+  @ExceptionHandler(ImageNotFoundException.class)
   @ResponseStatus(HttpStatus.NOT_FOUND)
-  String userNotFoundHandler(UserNotFoundException ex) {
+  String imageNotFoundHandler(ImageNotFoundException ex) {
     return ex.getMessage();
   }
 }

@@ -17,8 +17,8 @@ public class ImageServiceImpl implements ImageService {
 		return imageRepository.findById(id);
 	}
 	@Override
-	public Optional<Image> getImageByName(String name) {
-		return imageRepository.findByName(name);
+	public Optional<Image> getImageByImgname(String name) {
+		return imageRepository.findByImgname(name);
 	}
 	@Override
 	public Image saveImage(Image newImage) {
@@ -29,8 +29,8 @@ public class ImageServiceImpl implements ImageService {
 		imageRepository.deleteById(id);
 	}
 	@Override
-	public void deleteImageByName(String name) {
-		imageRepository.deleteByName(name);		
+	public void deleteImageByImgname(String name) {
+		imageRepository.deleteByImgname(name);		
 	}
 	@Override
 	public List<Image> getAll() {
