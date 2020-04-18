@@ -3,8 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../services/user/user.service';
 import { UserData } from '../../models/userData.interface';
 import { Router } from '@angular/router';
-import { GeoLocationService } from '../../services/geolocation/geolocation.service'
-import { GeoLocation } from '../../models/geoLocation.interface';
 
 @Component({
   selector: 'app-login',
@@ -13,12 +11,6 @@ import { GeoLocation } from '../../models/geoLocation.interface';
 })
 export class LoginComponent implements OnInit {
 
-  geolocation: GeoLocation = ({
-    latitude: -1, 
-    longitude: -1, 
-    accuracy: -1,
-    timestamp: -1
-  });
   public isSubmitted = false;
   public loginFrom: FormGroup;
   public wrongCredentials = false;
@@ -27,12 +19,10 @@ export class LoginComponent implements OnInit {
   constructor (
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private route: Router,
-    private geoLocationService: GeoLocationService
+    private route: Router
   ) {}
 
   ngOnInit(): void {
-    //function location here
     this.loginFrom = this.formBuilder.group({
       email:    ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
@@ -56,7 +46,6 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('userEmail', response.email);
         localStorage.setItem('password', response.password);
         localStorage.setItem('token', response.token);
-        this.geoLocationService.mockGetPosition(this.geolocation);
         this.redirectToMainMenu();
       },
       errorrResponse => {

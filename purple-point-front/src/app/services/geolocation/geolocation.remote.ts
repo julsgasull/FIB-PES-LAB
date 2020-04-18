@@ -76,25 +76,26 @@ export class GeoLocationRemote {
             localStorage.setItem('accuracy', loc.accuracy.toString());
             localStorage.setItem('timestamp', loc.timestamp.toString());
 
-            /*  DEBUG O TREURE PER PANTALLA
+            //  DEBUG O TREURE PER PANTALLA
             console.log("-----------------------------------------------\n");
             console.log("Latitude: "    + loc.latitude.toString()    + "\n");
             console.log("Longitude: "   + loc.longitude.toString()   + "\n");
             console.log("Accuracy: "    + loc.accuracy.toString()    + "\n");
             console.log("Timpestamp: "  + loc.timestamp.toString()   + "\n");
             console.log("-----------------------------------------------\n");
-            */ 
+            
         }
 
         function onError(er): void {
             const code = er.code;
             const message = er.message;
             // do an error alert of er.code with message er.message
+            console.log("Error: " + code + " with message: " + message);
         }
 
     }
 
-    private printLocation(loc:GeoLocation): void {
+    private printLocation(loc: GeoLocation): void {
         console.log("-----------------------------------------------\n");
         console.log("Latitude: "    + loc.latitude.toString()    + "\n");
         console.log("Latitude: "    + loc.longitude.toString()   + "\n");
@@ -108,34 +109,5 @@ export class GeoLocationRemote {
         localStorage.setItem('longitude', loc.longitude.toString());
         localStorage.setItem('accuracy', loc.accuracy.toString());
         localStorage.setItem('timestamp', loc.timestamp.toString());
-    }
-
-    //creo q no hace falta
-    watchLocation(loc: GeoLocation): Observable<GeoLocation> {
-        const enableHighAccuracy = true;
-        const maximumAge         = 3600000;
-        const timeout            = 3000; // in ms
-        const options = {
-           enableHighAccuracy,
-           maximumAge,
-           timeout
-        }
-
-        const location = navigator.geolocation.getCurrentPosition(onSucces, onError, options);
-
-        function onSucces(location) {
-            loc.latitude    = location.coord.latitude;
-            loc.longitude   = location.coord.longitude;
-            loc.accuracy    = location.coord.accuracy;
-            loc.timestamp   = location.coord.timestamp;       
-        }
-
-        function onError(er) {
-            const code    = er.code;
-            const message = er.message;
-            // do an error alert of er.code with message er.message
-        }
-        
-        return null; //change for request
     }
 }
