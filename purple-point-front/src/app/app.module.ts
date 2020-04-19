@@ -18,6 +18,8 @@ import { AuthInterceptor } from './services/auth/auth.interceptor';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { GeoLocationRemote } from './services/geolocation/geolocation.remote';
 import { GeoLocationService } from './services/geolocation/geolocation.service';
+import { PanicButtonService } from './services/panic-button/panic-button.service';
+import { PanicButtonRemote } from './services/panic-button/panic-button.remote';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,10 @@ import { GeoLocationService } from './services/geolocation/geolocation.service';
     UserService,
     UserRemote,
     GeoLocationService,
-    GeoLocationRemote
+    GeoLocationRemote,
+    PanicButtonService,
+    PanicButtonRemote,
+
   ],
   bootstrap: [AppComponent]
 })

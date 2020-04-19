@@ -46,6 +46,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('userEmail', response.email);
         localStorage.setItem('password', response.password);
         localStorage.setItem('token', response.token);
+        localStorage.setItem('username', response.username)
         this.redirectToMainMenu();
       },
       errorrResponse => {

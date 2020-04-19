@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PanicButtonService } from 'src/app/services/panic-button/panic-button.service'
 
 @Component({
   selector: 'panicbutton',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PanicbuttonComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private panicButtonService: PanicButtonService,
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  sendAlert() {
+   //this.panicButtonService.sendAlert() 
+   console.log("M'has clicat brooooooooooooo")
   }
 
 }
