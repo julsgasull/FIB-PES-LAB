@@ -31,7 +31,7 @@ export class GeoLocationRemote {
         function onError(er): void {
             const code = er.code;
             const message = er.message;
-            // do an error alert of er.code with message er.message
+            console.log("Error: " + code + " with message: " + message);
         }
         
         //do request here

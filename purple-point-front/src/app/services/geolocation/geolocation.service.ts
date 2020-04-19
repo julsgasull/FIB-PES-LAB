@@ -14,10 +14,6 @@ export class GeoLocationService {
     return this.geolocationRemote.getLocation(loc);
   }
 
- /* watchLocation(loc: GeoLocation): Observable<GeoLocation> {
-    return this.geolocationRemote.watchLocation(loc);
-  }*/
-
   mockGetPosition(loc: GeoLocation): void {
     this.geolocationRemote.mockGetPosition(loc);
   }
