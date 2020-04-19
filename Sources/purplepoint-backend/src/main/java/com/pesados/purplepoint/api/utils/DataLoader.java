@@ -8,12 +8,15 @@ import com.pesados.purplepoint.api.model.user.UserRepository;
 import com.pesados.purplepoint.api.model.user.UserService;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
+
 import java.nio.file.Files;
 
 @Configuration
@@ -29,10 +32,9 @@ class LoadDatabase {
     };
   }
   @Bean
-  CommandLineRunner initImageDatabase(ImageService service) {
-	ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+  CommandLineRunner initImageDatabase(ImageService service) throws IOException {
 	  
-	File file = new File(classLoader.getResource("sample.svg").getFile());
+	File file = new ClassPathResource("sample.svg").getFile();
     return args -> {
       logger.info("Preloading " + service.saveImage(new Image(file.getName(),"image/svg",Files.readAllBytes(file.toPath()))));
     };
