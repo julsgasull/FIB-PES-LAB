@@ -28,7 +28,10 @@ public class User {
 	private int helpedUsers;
 	@Schema(description = "The number of marked sports.", required = false)
 	private int markedSpots;
+
 	@Schema(description = "The last recorded location of the user.", required = false)
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="locationId")
 	private Location lastLocation;
 
 	User() {}
