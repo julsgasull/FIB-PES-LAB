@@ -10,6 +10,7 @@ import com.pesados.purplepoint.api.model.user.UserService;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.util.FileCopyUtils;
 
 import java.nio.file.Files;
 
@@ -34,14 +37,15 @@ class LoadDatabase {
   }
   @Bean
   CommandLineRunner initImageDatabase(ImageService service) throws IOException {
-	  
-	File file = new ClassPathResource("sample.svg").getFile();
-	byte[] bytesArray = new byte[(int) file.length()]; 
-	FileInputStream fis = new FileInputStream(file);
-	fis.read(bytesArray); //read file into bytes[]
-	fis.close();
+	  logger.info("Finding resource \"sample.svg\"");
+	  Resource resource = new ClassPathResource("classpath:sample.svg");
+	  logger.info("Converting resource \"sample.svg\" to byte array");
+      InputStream inputStream = resource.getInputStream();
+      byte[] bdata = FileCopyUtils.copyToByteArray(inputStream);
+	  logger.info("Saving image in \"sample.svg\" into DB");
+      
     return args -> {
-      logger.info("Preloading " + service.saveImage(new Image("sample.svg","image/svg",bytesArray)));
+      logger.info("Preloading " + service.saveImage(new Image("sample.svg","image/svg",bdata)));
     };
   }
 }
