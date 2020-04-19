@@ -160,7 +160,7 @@ private final ImageService imgService;
   @ApiResponses(value = {
           @ApiResponse(responseCode = "200", description = "successful operation",
                   content = @Content(array = @ArraySchema(schema = @Schema(implementation = User.class)))) })
-  @GetMapping(value = "/users/email/{email}", produces = { "application/json", "application/xml"})
+  @GetMapping(value = "/users/{email}", produces = { "application/json", "application/xml"})
   User emailUser(
           @Parameter(description="email of the contact to search.", required = true)
           @PathVariable String email) {
@@ -235,7 +235,7 @@ private final ImageService imgService;
           @ApiResponse(responseCode = "401", description = "Unauthorized"),
           @ApiResponse(responseCode = "404", description = "User not found"),
           @ApiResponse(responseCode = "405", description = "Validation exception") })
-  @PutMapping(value = "/users/email/{email}", consumes = { "application/json", "application/xml" })
+  @PutMapping(value = "/users/{email}", consumes = { "application/json", "application/xml" })
   User replaceUserbyEmail( @Parameter(description="New information for the user.", required = true)
                            @RequestBody User newUser,
                            @Parameter(description="Email of the user to replace.", required = true)
