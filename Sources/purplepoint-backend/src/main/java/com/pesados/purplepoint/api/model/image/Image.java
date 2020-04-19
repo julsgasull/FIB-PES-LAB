@@ -35,8 +35,7 @@ public class Image {
 	@Schema(description = "Type of the image.", required = false)
     @Column(name = "type")
 	private String type;
-	
-	@Schema(description = "Image bytes.", required = true)
+	@Schema(description = "Image bytes.", type="String", required = true)
 	@Column(name = "picByte")
 	@Lob
 	private byte[] picByte;
