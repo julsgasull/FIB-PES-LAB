@@ -24,7 +24,7 @@ public class OpenApiConfig {
     @Bean
     public OpenAPI customOpenAPI() {
     	Server myServer = new Server();
-    	myServer.setUrl("http://10.4.41.153/");
+    	myServer.setUrl("http://10.4.41.147/");
     	ArrayList<Server> serverList = new ArrayList<Server> ();
     	serverList.add(myServer);
     	
