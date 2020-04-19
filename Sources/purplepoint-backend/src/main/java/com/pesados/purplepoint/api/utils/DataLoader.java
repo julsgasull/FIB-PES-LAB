@@ -1,14 +1,5 @@
 package com.pesados.purplepoint.api.utils;
 
-import com.pesados.purplepoint.api.PurplePointApplication;
-import com.pesados.purplepoint.api.model.image.Image;
-import com.pesados.purplepoint.api.model.image.ImageService;
-import com.pesados.purplepoint.api.model.user.User;
-import com.pesados.purplepoint.api.model.user.UserRepository;
-import com.pesados.purplepoint.api.model.user.UserService;
-
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -21,7 +12,11 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.util.FileCopyUtils;
 
-import java.nio.file.Files;
+import com.pesados.purplepoint.api.PurplePointApplication;
+import com.pesados.purplepoint.api.model.image.Image;
+import com.pesados.purplepoint.api.model.image.ImageService;
+import com.pesados.purplepoint.api.model.user.User;
+import com.pesados.purplepoint.api.model.user.UserService;
 
 @Configuration
 class LoadDatabase {
