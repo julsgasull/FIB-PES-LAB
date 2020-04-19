@@ -38,7 +38,7 @@ class LoadDatabase {
   @Bean
   CommandLineRunner initImageDatabase(ImageService service) throws IOException {
 	  logger.info("Finding resource \"sample.svg\"");
-	  Resource resource = new ClassPathResource("classpath:sample.svg");
+	  Resource resource = new ClassPathResource("sample.svg");
 	  logger.info("Converting resource \"sample.svg\" to byte array");
       InputStream inputStream = resource.getInputStream();
       byte[] bdata = FileCopyUtils.copyToByteArray(inputStream);
