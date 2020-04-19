@@ -35,4 +35,8 @@ public class OpenApiConfig {
                         "This is PurplePoint's Spring Boot API service using springdoc-openapi and OpenAPI 3."));
     }
 
+
+
+
+
 }
