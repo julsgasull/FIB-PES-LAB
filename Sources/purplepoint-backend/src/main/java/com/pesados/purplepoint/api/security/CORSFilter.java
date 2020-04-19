@@ -1,14 +1,9 @@
 package com.pesados.purplepoint.api.security;
 
-import java.io.IOException;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 public class CORSFilter implements Filter {
 
@@ -40,8 +35,6 @@ public class CORSFilter implements Filter {
             headers = headers + ", x-requested-with";
             if (headers != null)
                 httpResp.setHeader("Access-Control-Allow-Headers", headers);
-            
-            
             
             // Allow caching cross-domain permission
             httpResp.setHeader("Access-Control-Max-Age", "3600");
