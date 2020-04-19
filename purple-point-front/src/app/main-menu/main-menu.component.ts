@@ -33,6 +33,12 @@ export class MainMenuComponent implements OnInit {
     });
   }
 
+  logout() {
+    this.route.navigate(['']);
+    this.userInfo.token = null;
+    localStorage.setItem('token', null); 
+  }
+
   redirectToProfile() {
     this.route.navigate(['/profile']);
   }
