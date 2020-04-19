@@ -17,7 +17,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -125,7 +124,7 @@ public class UserControllerTest {
 		JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
 		String token =((String) respUser.get("token"));
 
-		this.mockMvc.perform(get("/api/v1/users/email/isma@gmail.com").header("Authorization",token))
+		this.mockMvc.perform(get("/api/v1/users/isma@gmail.com").header("Authorization",token))
 				.andDo(MockMvcResultHandlers.print())
 				.andExpect(status().is(200));
 	}
@@ -173,7 +172,7 @@ public class UserControllerTest {
 		JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
 		String token =((String) respUser.get("token"));
 
-		this.mockMvc.perform(put("/api/v1/users/email/testmail1@gmail.com").header("Authorization",token)
+		this.mockMvc.perform(put("/api/v1/users/testmail1@gmail.com").header("Authorization",token)
 				.content(asJsonString(new User("Ismael", "isma", "amadolider@gmail.com", "1234", "nonbinary")))
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
