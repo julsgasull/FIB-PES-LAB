@@ -1,10 +1,13 @@
-package com.pesados.purplepoint.api.model;
+package com.pesados.purplepoint.api.model.user;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.pesados.purplepoint.api.model.image.Image;
 
 @Service
 public class UserServiceImpl implements UserService {

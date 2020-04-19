@@ -1,4 +1,4 @@
-package com.pesados.purplepoint.api.model;
+package com.pesados.purplepoint.api.model.user;
 
 import java.util.List;
 import java.util.Optional;
