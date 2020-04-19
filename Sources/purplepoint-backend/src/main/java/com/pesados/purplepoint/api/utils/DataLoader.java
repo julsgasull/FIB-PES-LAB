@@ -41,7 +41,7 @@ class LoadDatabase {
 	fis.read(bytesArray); //read file into bytes[]
 	fis.close();
     return args -> {
-      logger.info("Preloading " + service.saveImage(new Image(file.getName(),"image/svg",bytesArray)));
+      logger.info("Preloading " + service.saveImage(new Image("sample.svg","image/svg",bytesArray)));
     };
   }
 }
