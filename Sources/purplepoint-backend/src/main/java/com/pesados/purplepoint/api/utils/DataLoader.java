@@ -8,6 +8,7 @@ import com.pesados.purplepoint.api.model.user.UserRepository;
 import com.pesados.purplepoint.api.model.user.UserService;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 import org.slf4j.Logger;
@@ -35,8 +36,12 @@ class LoadDatabase {
   CommandLineRunner initImageDatabase(ImageService service) throws IOException {
 	  
 	File file = new ClassPathResource("sample.svg").getFile();
+	byte[] bytesArray = new byte[(int) file.length()]; 
+	FileInputStream fis = new FileInputStream(file);
+	fis.read(bytesArray); //read file into bytes[]
+	fis.close();
     return args -> {
-      logger.info("Preloading " + service.saveImage(new Image(file.getName(),"image/svg",Files.readAllBytes(file.toPath()))));
+      logger.info("Preloading " + service.saveImage(new Image(file.getName(),"image/svg",bytesArray)));
     };
   }
 }
