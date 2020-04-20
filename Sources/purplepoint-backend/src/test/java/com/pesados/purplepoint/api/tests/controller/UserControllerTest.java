@@ -1,8 +1,8 @@
 package com.pesados.purplepoint.api.tests.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pesados.purplepoint.api.model.location.Location;
 import com.pesados.purplepoint.api.model.user.User;
-
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -146,6 +146,7 @@ public class UserControllerTest {
 		String token =((String) respUser.get("token"));
 /*
  * tret del test perque falla amb cada nova feature y me tiene arto
+ * amandi: isma eres el amo
 		String user_bd = "{\"id\":1,\"name\":\"test\",\"username\":\"test1\",\"email\":\"isma@gmail.com\",\"password\":\"1234\",\"gender\":\"others\",\"token\":\"" + 
 			token +
 			"\",\"helpedUsers\":0,\"markedSpots\":0}";
@@ -184,6 +185,35 @@ public class UserControllerTest {
 				.andExpect(MockMvcResultMatchers.jsonPath("$.password").value("1234"))
 				.andExpect(MockMvcResultMatchers.jsonPath("$.gender").value("nonbinary"));
 	}
+
+	@Test
+	public void shouldModifyLocation() throws Exception {
+		// Login with mockup user in the database.
+		JSONObject user = new JSONObject();
+		user.put("email", "isma@gmail.com");
+		user.put("password", "1234");
+
+		MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders
+				.post("/api/v1/users/login")
+				.contentType("application/json")
+				.content(user.toString()))
+				.andExpect(status().isOk())
+				.andReturn();
+
+		JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
+		String token =((String) respUser.get("token"));
+
+		this.mockMvc.perform(put("/api/v1/users/location/isma@gmail.com").header("Authorization",token)
+				.content(asJsonString(new Location(4, 5, 6, 7)))
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+				.andDo(MockMvcResultHandlers.print())
+				.andExpect(status().is(200))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.lastLocation.latitude").value("4.0"))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.lastLocation.longitude").value("5.0"))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.lastLocation.accuracy").value("6.0"))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.lastLocation.timestamp").value("7.0"));
+    }
 
 	public static String asJsonString(final Object obj) {
 		try {

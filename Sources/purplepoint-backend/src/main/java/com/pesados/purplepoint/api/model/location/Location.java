@@ -18,8 +18,10 @@ public class Location {
     @Schema(description = "Timestamp of the moment the location was created.", required = true)
     private float timestamp;
 
+    Location() {
+    }
 
-    Location(float latitude, float longitude, float altitude, float accuracy, float altitudeAccuracy, float heading, float speed, float timestamp) {
+    public Location(float latitude, float longitude, float accuracy, float timestamp) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.accuracy = accuracy;
