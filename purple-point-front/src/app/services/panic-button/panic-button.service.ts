@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PanicButtonRemote } from './panic-button.remote';
-import { UserData } from 'src/app/models/userData.interface';
-import { GeoLocation } from 'src/app/models/geoLocation.interface';
 import { Observable } from 'rxjs';
+import { PanicAlarm } from 'src/app/models/panicAlarm.interface'
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,7 @@ export class PanicButtonService {
     private panicButtonRemote: PanicButtonRemote
   ) { }
 
-  sendAlert(user: UserData, location: GeoLocation): Observable<any> {
-    return this.panicButtonRemote.sendAlert(user, location);
+  sendAlert(panicAlarm: PanicAlarm): Observable<any> {
+    return this.panicButtonRemote.sendAlert(panicAlarm);
   }
 }

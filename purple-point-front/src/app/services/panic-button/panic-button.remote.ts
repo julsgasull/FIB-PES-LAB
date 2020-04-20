@@ -2,24 +2,22 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { UserData } from 'src/app/models/userData.interface';
-import { GeoLocation } from 'src/app/models/geoLocation.interface';
+import { PanicAlarm } from 'src/app/models/panicAlarm.interface';
 
 @Injectable()
 export class PanicButtonRemote {
 
     constructor(private httpClient: HttpClient) {}
 
-    sendAlert(user: UserData,location: GeoLocation): Observable<any> {
+    sendAlert(panicAlarm: PanicAlarm ): Observable<any> {
         //return this.httpClient.post<any>(`${environment.API_URL}/panic/`,
-        console.log("M'HAS CLICAAAAT BRO")
-        return this.httpClient.post<any>(`${environment.API_URL}/users/email/`+user.email,
+          return this.httpClient.post<any>(`${environment.API_URL}`,
         {   
-            'username': user.username,
-            'latitude': location.latitude,
-            'longitude': location.longitude,
-            'accuracy': location.accuracy,
-            'timestamp': location.timestamp
+            'username': panicAlarm.username,
+            'latitude': panicAlarm.latitude,
+            'longitude': panicAlarm.longitude,
+            'accuracy': panicAlarm.accuracy,
+            'timestamp': panicAlarm.timestamp
         });
     }
 }
