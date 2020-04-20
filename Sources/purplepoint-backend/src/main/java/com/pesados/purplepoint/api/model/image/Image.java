@@ -48,12 +48,11 @@ public class Image {
 		// Ho fem una mica antibalas
 		int i = name.indexOf(".");
 		if (i != -1) {
-			name = name.substring(0, i-1) 
-					+ RandomString.make() + new Date().getTime() 
+			name = name.substring(0, i) 
+					+ "_" + RandomString.make() + new Date().getTime() 
 					+ name.substring(i);
 		} else {
-			name = name.substring(0, i-1) 
-					+ RandomString.make() + new Date().getTime();
+			name = name	+ "_" + RandomString.make() + new Date().getTime();
 			i = type.indexOf("/");
 			if (i != -1) {
 				name += "." + type.substring(i+1);
