@@ -5,9 +5,9 @@ import com.pesados.purplepoint.api.exception.UserNotFoundException;
 import com.pesados.purplepoint.api.exception.WrongPasswordException;
 import com.pesados.purplepoint.api.model.image.Image;
 import com.pesados.purplepoint.api.model.image.ImageService;
+import com.pesados.purplepoint.api.model.location.Location;
 import com.pesados.purplepoint.api.model.user.User;
 import com.pesados.purplepoint.api.model.user.UserService;
-
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.swagger.v3.oas.annotations.Operation;
@@ -18,7 +18,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +25,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -270,25 +268,25 @@ import java.util.stream.Collectors;
     userService.deleteUserById(id);
   }
 
-  		/*
-	  @Operation(summary = "Establish location to a user", description = "Updates the last location for the given user", tags = { "location" })
-	  @ApiResponses(value = {
-			  @ApiResponse(responseCode = "201", description = "Location modified",
-					  content = @Content(schema = @Schema(implementation = User.class))),
-			  @ApiResponse(responseCode = "400", description = "Invalid input"),
-			  @ApiResponse(responseCode = "401", description = "Unauthorized"),
-			  @ApiResponse(responseCode = "404", description = "User not found")})
-	  @PutMapping(value = "/users/location", consumes = { "application/json", "application/xml" })
-	  User establishLocation(
-			  @Parameter(description="New location for the user.", required = true)
-			  @RequestBody Location newLocation,
-			  @Parameter(description="email of the user to update.", required = true)
-			  @PathVariable String email
-	  ) {
-		  return service.getUserByEmail(email)
-				  .map(user -> {
-					  return service.saveUser(user);
-				  });
-	  }
-		 */
+  @Operation(summary = "Update user's location", description = "Updates the last location for the given user", tags = { "location" })
+  @ApiResponses(value = {
+          @ApiResponse(responseCode = "201", description = "Location modified",
+                  content = @Content(schema = @Schema(implementation = User.class))),
+          @ApiResponse(responseCode = "400", description = "Invalid input"),
+          @ApiResponse(responseCode = "401", description = "Unauthorized"),
+          @ApiResponse(responseCode = "404", description = "User not found")})
+  @PutMapping(value = "/users/location/{email}", consumes = { "application/json", "application/xml" })
+  User establishLocation(
+          @Parameter(description="New location for the user.", required = true)
+          @RequestBody Location newLocation,
+          @Parameter(description="email of the user to update.", required = true)
+          @PathVariable String email
+  ) {
+      return userService.getUserByEmail(email)
+              .map(user -> {
+                  user.setLastLocation(newLocation);
+                  return userService.saveUser(user);
+              })
+              .orElseThrow(() -> new UserNotFoundException(email));
+  }
 }
