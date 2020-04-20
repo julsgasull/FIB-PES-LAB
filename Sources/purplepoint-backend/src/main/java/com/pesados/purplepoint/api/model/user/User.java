@@ -1,13 +1,20 @@
 package com.pesados.purplepoint.api.model.user;
 
 
-import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.IOException;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.pesados.purplepoint.api.model.image.Image;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
 @Table(name = "Users")
@@ -32,11 +39,11 @@ public class User {
 	private int helpedUsers;
 	@Schema(description = "The number of marked sports.", required = false)
 	private int markedSpots;
-	
 	@Schema(description = "The profile picture of the User", required = false)
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "imageid") 
 	private Image profilePic;
+	
 
 	public User() {}
 
@@ -51,6 +58,8 @@ public class User {
 		this.markedSpots = 0;
 		this.profilePic = null;
 	}
+	
+	
 	
 	public Long getID() {
 		return id; 
