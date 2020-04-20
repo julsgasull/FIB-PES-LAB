@@ -23,18 +23,23 @@ import io.swagger.v3.oas.models.servers.Server;
 public class OpenApiConfig {
     @Bean
     public OpenAPI customOpenAPI() {
+    	/*------------------ Servers Config ------------------*/ 
     	Server myServer = new Server();
     	myServer.setUrl("http://10.4.41.147/");
     	myServer.setDescription("Development server");
     	ArrayList<Server> serverList = new ArrayList<Server> ();
     	serverList.add(myServer);
     	
+    	/*------------------ Security Config ------------------*/
+
+    	/*------------------ END ------------------*/
+    	
         return new OpenAPI()
                 .components(new Components())
                 .info(new Info().title("PurplePoint Application API").description(
                         "This is PurplePoint's Spring Boot API service using springdoc-openapi and OpenAPI 3."))
                 .openapi("3.0.0")
-                .servers(serverList);
+                .servers(serverList).security(null);
     }
 
 }
