@@ -35,7 +35,7 @@ public class Image {
 	@Schema(description = "Type of the image.", required = false)
     @Column(name = "type")
 	private String type;
-	@Schema(description = "Image bytes.", type="String", required = true)
+	@Schema(description = "Image bytes.", type="String", format="Bytes", required = true)
 	@Column(name = "picByte")
 	@Lob
 	private byte[] picByte;
@@ -45,7 +45,24 @@ public class Image {
 	}
 	
 	public Image(String name, String type, byte[] picByte) {
-		this.imgname = name;
+		// Ho fem una mica antibalas
+		int i = name.indexOf(".");
+		if (i != -1) {
+			name = name.substring(0, i-1) 
+					+ RandomString.make() + new Date().getTime() 
+					+ name.substring(i);
+		} else {
+			name = name.substring(0, i-1) 
+					+ RandomString.make() + new Date().getTime();
+			i = type.indexOf("/");
+			if (i != -1) {
+				name += "." + type.substring(i+1);
+			} else {
+				name += "." + type;
+			}
+		}
+		
+		this.imgname = name ;
 		this.type = type;
 		this.picByte = picByte;
 	}	

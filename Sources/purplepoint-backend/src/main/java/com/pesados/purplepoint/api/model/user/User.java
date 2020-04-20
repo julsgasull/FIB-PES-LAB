@@ -31,11 +31,11 @@ public class User {
 	private int helpedUsers;
 	@Schema(description = "The number of marked sports.", required = false)
 	private int markedSpots;
-	
 	@Schema(description = "The profile picture of the User", required = false)
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "imageid") 
 	private Image profilePic;
+	
 
 	@Schema(description = "The last recorded location of the user.", required = false)
 	@OneToOne(cascade = CascadeType.ALL)
@@ -55,6 +55,8 @@ public class User {
 		this.markedSpots = 0;
 		this.profilePic = null;
 	}
+	
+	
 	
 	public Long getID() {
 		return id; 
