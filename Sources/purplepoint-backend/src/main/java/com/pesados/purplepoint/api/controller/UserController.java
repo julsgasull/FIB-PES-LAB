@@ -35,6 +35,7 @@ import java.util.stream.Collectors;
   @RestController
   @RequestMapping("/api/v1")
   public class UserController {
+
   private final UserService userService;
   private final ImageService imgService;
 
@@ -111,10 +112,9 @@ import java.util.stream.Collectors;
 
   // Register new user
 
-  @Operation(summary = "Add a new user", 
-		  description = "Adds a new user to the database with the information provided. "
-		  		+ "To create a new user please provide:\n- A valid e-mail \n- An username\n- "
-		  		+ "An e-mail \n- A password \n- The user's gender", tags = { "authorizations" })
+  @Operation(summary = "Add a new alarm",
+		  description = "Adds a new user to the database with the information provided. ",
+		  tags = { "authorizations" })
   @ApiResponses(value = {
          @ApiResponse(responseCode = "201", description = "User created",
                   content = @Content(schema = @Schema(implementation = User.class))),
@@ -214,7 +214,7 @@ import java.util.stream.Collectors;
 		 Image img = imgService.saveImage(new Image(file.getName(),"image/jpg",file.getBytes()));
 		 return userService.getUserById(id)
 	             .map(user -> {
-	                 user.setProfilePic(img);;
+	                 user.setProfilePic(img);
 	                 return userService.saveUser(user);
 	             })
 	             .orElseGet(() -> {
@@ -255,7 +255,7 @@ import java.util.stream.Collectors;
   }
 
   // Delete user
-  @Operation(summary = "Delete an user", description = "", tags = { "users" })
+  @Operation(summary = "Delete an user", description = "Delete an existing user by the given id", tags = { "users" })
   @ApiResponses(value = {
           @ApiResponse(responseCode = "200", description = "successful operation"),
           @ApiResponse(responseCode = "404", description = "User not found") })
