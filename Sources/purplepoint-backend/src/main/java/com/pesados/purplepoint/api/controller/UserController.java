@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
   @RequestMapping("/api/v1")
   public class UserController {
   private final UserService userService;
-private final ImageService imgService;
+  private final ImageService imgService;
 
   @ModelAttribute
   public void setResponseHeader(HttpServletResponse response) {
@@ -168,7 +168,7 @@ private final ImageService imgService;
    }
 
 // Update users
-  @Operation(summary = "Update an existing User by Id", description = "Update the Name, username, email, password, gender given the ID of an existing user", tags = { "users" })
+  @Operation(summary = "Update an existing User by ID", description = "Update the Name, username, email, password, gender given the ID of an existing user", tags = { "users" })
   @ApiResponses(value = {
           @ApiResponse(responseCode = "200", description = "successful operation"),
           @ApiResponse(responseCode = "400", description = "Invalid username supplied"),
@@ -269,4 +269,26 @@ private final ImageService imgService;
   ) {
     userService.deleteUserById(id);
   }
+
+  		/*
+	  @Operation(summary = "Establish location to a user", description = "Updates the last location for the given user", tags = { "location" })
+	  @ApiResponses(value = {
+			  @ApiResponse(responseCode = "201", description = "Location modified",
+					  content = @Content(schema = @Schema(implementation = User.class))),
+			  @ApiResponse(responseCode = "400", description = "Invalid input"),
+			  @ApiResponse(responseCode = "401", description = "Unauthorized"),
+			  @ApiResponse(responseCode = "404", description = "User not found")})
+	  @PutMapping(value = "/users/location", consumes = { "application/json", "application/xml" })
+	  User establishLocation(
+			  @Parameter(description="New location for the user.", required = true)
+			  @RequestBody Location newLocation,
+			  @Parameter(description="email of the user to update.", required = true)
+			  @PathVariable String email
+	  ) {
+		  return service.getUserByEmail(email)
+				  .map(user -> {
+					  return service.saveUser(user);
+				  });
+	  }
+		 */
 }
