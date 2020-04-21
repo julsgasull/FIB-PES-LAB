@@ -3,6 +3,8 @@ package com.pesados.purplepoint.api.utils;
 import java.io.IOException;
 import java.io.InputStream;
 
+import com.pesados.purplepoint.api.model.alarm.Alarm;
+import com.pesados.purplepoint.api.model.alarm.AlarmService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -45,4 +47,5 @@ class LoadDatabase {
       logger.info("Preloading " + service.saveUser(new User("Frodo Baggins","Frodo1" , "testmail2@gmail.com", "5678", "male")));
     };
   }
+
 }

@@ -215,6 +215,8 @@ public class UserControllerTest {
 				.andExpect(MockMvcResultMatchers.jsonPath("$.lastLocation.timestamp").value("7.0"));
     }
 
+
+
 	public static String asJsonString(final Object obj) {
 		try {
 			return new ObjectMapper().writeValueAsString(obj);
