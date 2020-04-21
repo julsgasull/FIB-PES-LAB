@@ -16,6 +16,10 @@ import { ProfileModule } from './profile/profile.module';
 import { PanicbuttonModule } from './common/components/panicbutton/panicbutton.module';
 import { AuthInterceptor } from './services/auth/auth.interceptor';
 import { MainMenuComponent } from './main-menu/main-menu.component';
+import { GeoLocationRemote } from './services/geolocation/geolocation.remote';
+import { GeoLocationService } from './services/geolocation/geolocation.service';
+import { PanicButtonService } from './services/panic-button/panic-button.service';
+import { PanicButtonRemote } from './services/panic-button/panic-button.remote';
 
 @NgModule({
   declarations: [
@@ -44,7 +48,12 @@ import { MainMenuComponent } from './main-menu/main-menu.component';
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService,
     UserService,
-    UserRemote
+    UserRemote,
+    GeoLocationService,
+    GeoLocationRemote,
+    PanicButtonService,
+    PanicButtonRemote,
+
   ],
   bootstrap: [AppComponent]
 })

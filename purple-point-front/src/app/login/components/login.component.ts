@@ -15,7 +15,6 @@ export class LoginComponent implements OnInit {
   public loginFrom: FormGroup;
   public wrongCredentials = false;
   public internalError = false;
-  
 
   constructor (
     private formBuilder: FormBuilder,
@@ -42,10 +41,12 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.isSubmitted = true;
     if (this.loginFrom.valid){
+      // How to do a request
       this.userService.loginUser(this.createUserForm()).subscribe((response: UserData) => {
         localStorage.setItem('userEmail', response.email);
         localStorage.setItem('password', response.password);
         localStorage.setItem('token', response.token);
+        localStorage.setItem('username', response.username)
         this.redirectToMainMenu();
       },
       errorrResponse => {
