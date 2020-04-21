@@ -11,13 +11,16 @@ export class PanicButtonRemote {
 
     sendAlert(panicAlarm: PanicAlarm ): Observable<any> {
         //return this.httpClient.post<any>(`${environment.API_URL}/panic/`,
-          return this.httpClient.post<any>(`${environment.API_URL}`,
+          return this.httpClient.post<any>(`${environment.API_URL}/alarms/create`,
         {   
             'username': panicAlarm.username,
-            'latitude': panicAlarm.latitude,
-            'longitude': panicAlarm.longitude,
-            'accuracy': panicAlarm.accuracy,
-            'timestamp': panicAlarm.timestamp
+            'location': {
+                'latitude': panicAlarm.latitude,
+                'longitude': panicAlarm.longitude,
+                'accuracy': panicAlarm.accuracy,
+                'timestamp': panicAlarm.timestamp
+            },
+            'panicbutton': panicAlarm.panicbutton
         });
     }
 }

@@ -3,6 +3,7 @@ export interface PanicAlarm {
     latitude?:    number;
     longitude?:   number;
     accuracy?:    number;
-    timestamp?:   number;
+    timestamp?:   number;         
+    panicbutton?: boolean;
    
 }

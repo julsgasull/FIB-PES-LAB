@@ -23,7 +23,8 @@ export class PanicbuttonComponent implements OnInit {
     latitude: Number(localStorage.getItem('latitude')),
     longitude: Number(localStorage.getItem('longitude')),
     accuracy: Number(localStorage.getItem('accuracy')),
-    timestamp: Number(localStorage.getItem('timestamp'))
+    timestamp: Number(localStorage.getItem('timestamp')),
+    panicbutton: true,
    } 
    console.log("Estas enviant aixo", userAlarm)
    this.panicButtonService.sendAlert(userAlarm).subscribe((response: any) => {
