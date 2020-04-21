@@ -33,7 +33,7 @@ public class AlarmController {
 	@Operation(summary = "Create a new alarm",
 			description = "Adds a new alarm to the database with the information provided. ", tags = { "alarms" })
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "201", description = "Alarm created",
+			@ApiResponse(responseCode = "200", description = "Alarm created",
 					content = @Content(schema = @Schema(implementation = Alarm.class))),
 			@ApiResponse(responseCode = "400", description = "Invalid input"),
 			@ApiResponse(responseCode = "409", description = "Alarm already exists") })
@@ -118,7 +118,7 @@ public class AlarmController {
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "successful operation"),
 			@ApiResponse(responseCode = "404", description = "Alarm not found") })
-	@DeleteMapping(path="/alarm/{id}")
+	@DeleteMapping(path="/alarms/delete/{id}")
 	void deleyeAlarm(
 			@Parameter(description="Id of the alarm to be deleted. Cannot be empty.",
 					required=true)
