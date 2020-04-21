@@ -7,6 +7,8 @@ public interface AlarmService {
 
 	Optional<Alarm> getAlarmById(Long id);
 
+	Optional<Alarm> getAlarmByUsername(String username);
+
 	List<Alarm> getAll();
 
 	Alarm saveAlarm(Alarm newAlarm);

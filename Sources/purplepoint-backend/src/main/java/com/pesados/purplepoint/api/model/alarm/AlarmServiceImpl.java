@@ -1,5 +1,6 @@
 package com.pesados.purplepoint.api.model.alarm;
 
+import com.pesados.purplepoint.api.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +29,9 @@ public class AlarmServiceImpl implements AlarmService {
 	@Override
 	public List<Alarm> getAll() {
 		return alarmRepository.findAll();
+	}
+	@Override
+	public Optional<Alarm> getAlarmByUsername(String usernamme) {
+		return alarmRepository.findByUsername(usernamme);
 	}
 }

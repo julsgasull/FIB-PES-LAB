@@ -25,7 +25,7 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
     	/*------------------ Servers Config ------------------*/ 
     	Server myServer = new Server();
-    	myServer.setUrl("http://10.4.41.147/");
+    	myServer.setUrl("http://localhost:5001/");
     	myServer.setDescription("Development server");
     	ArrayList<Server> serverList = new ArrayList<Server> ();
     	serverList.add(myServer);
