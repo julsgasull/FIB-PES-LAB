@@ -91,11 +91,13 @@ export class ProfileComponent implements OnInit {
         this.formControls.username.disable();
         this.formControls.password.disable();
         this.formControls.gender.disable();
+        alert("Los cambios se han guardado correctamente");
       });
     }
     else {
       this.disableInputs = false;
       this.enableSaveButton = true;
+      alert("Ha habido un error, pro favor pruébalo más tarde");
     }
   }
 
