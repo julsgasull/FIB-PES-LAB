@@ -93,7 +93,7 @@ public class AlarmController {
 			@ApiResponse(responseCode = "401", description = "Unauthorized"),
 			@ApiResponse(responseCode = "404", description = "Alarm not found"),
 			@ApiResponse(responseCode = "405", description = "Validation exception")})
-	@PutMapping("/alarms/{id}")
+	@PutMapping("/alarms/update/ {id}")
 	Alarm replaceAlarmbyID(@Parameter(description = "New information for the alarm.", required = true)
 						   @RequestBody Alarm newAlarm,
 						   @Parameter(description = "id of the alarm to replace.", required = true)
