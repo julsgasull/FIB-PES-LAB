@@ -9,7 +9,7 @@ export class GeoLocationRemote {
 
     constructor(private httpClient: HttpClient) {}
 
-    getLocation(loc: GeoLocation): Observable<GeoLocation> {
+    getLocation(loc: GeoLocation): Observable<any> {
         const enableHighAccuracy = true;
         const maximumAge = 3600000;
         const options = {
@@ -20,12 +20,24 @@ export class GeoLocationRemote {
         const location = navigator.geolocation.getCurrentPosition(onSucces, onError, options);
 
         function onSucces(location): void {
+            const usermail = localStorage.getItem("userEmail");
+
             loc.latitude    = location.coord.latitude;
             loc.longitude   = location.coord.longitude;
             loc.accuracy    = location.coord.accuracy;
             loc.timestamp   = location.coord.timestamp;
 
-            this.saveToStorage(loc);
+            localStorage.setItem('latitude', loc.latitude.toString());
+            localStorage.setItem('longitude', loc.longitude.toString());
+            localStorage.setItem('accuracy', loc.accuracy.toString());
+            localStorage.setItem('timestamp', loc.timestamp.toString());
+
+            //  DEBUG O TREURE PER PANTALLA
+            console.log("Latitude: "    + loc.latitude.toString()    + "\n");
+            console.log("Longitude: "   + loc.longitude.toString()   + "\n");
+            console.log("Accuracy: "    + loc.accuracy.toString()    + "\n");
+            console.log("Timpestamp: "  + loc.timestamp.toString()   + "\n");
+            console.log("-----------------------------------------------\n");
         }
 
         function onError(er): void {
@@ -93,21 +105,5 @@ export class GeoLocationRemote {
             console.log("Error: " + code + " with message: " + message);
         }
 
-    }
-
-    private printLocation(loc: GeoLocation): void {
-        console.log("-----------------------------------------------\n");
-        console.log("Latitude: "    + loc.latitude.toString()    + "\n");
-        console.log("Latitude: "    + loc.longitude.toString()   + "\n");
-        console.log("Accuracy: "    + loc.accuracy.toString()    + "\n");
-        console.log("Timpestamp: "  + loc.timestamp.toString()   + "\n");
-        console.log("-----------------------------------------------\n");
-    }
-
-    private saveToStorage(loc: GeoLocation): void {
-        localStorage.setItem('latitude', loc.latitude.toString());
-        localStorage.setItem('longitude', loc.longitude.toString());
-        localStorage.setItem('accuracy', loc.accuracy.toString());
-        localStorage.setItem('timestamp', loc.timestamp.toString());
     }
 }
