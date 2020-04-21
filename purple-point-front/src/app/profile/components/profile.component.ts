@@ -87,6 +87,10 @@ export class ProfileComponent implements OnInit {
       this.userService.editProfile(this.createUserForm()).subscribe((response: any) => {      
         this.enableSaveButton = false;
         this.disableInputs = true;
+        this.formControls.name.disable();
+        this.formControls.username.disable();
+        this.formControls.password.disable();
+        this.formControls.gender.disable();
       });
     }
     else {
