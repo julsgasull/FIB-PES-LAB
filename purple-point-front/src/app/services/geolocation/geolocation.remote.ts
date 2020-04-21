@@ -10,6 +10,7 @@ export class GeoLocationRemote {
     constructor(private httpClient: HttpClient) {}
 
     getLocation(loc: GeoLocation): Observable<any> {
+        const useremail: string = localStorage.getItem("userEmail");
         const enableHighAccuracy = true;
         const maximumAge = 3600000;
         const options = {
@@ -19,13 +20,11 @@ export class GeoLocationRemote {
 
         const location = navigator.geolocation.getCurrentPosition(onSucces, onError, options);
 
-        function onSucces(location): void {
-            const usermail = localStorage.getItem("userEmail");
-
-            loc.latitude    = location.coord.latitude;
-            loc.longitude   = location.coord.longitude;
-            loc.accuracy    = location.coord.accuracy;
-            loc.timestamp   = location.coord.timestamp;
+        function onSucces(position): void {
+            loc.latitude    = position.coords.latitude;
+            loc.longitude   = position.coords.longitude;
+            loc.accuracy    = position.coords.accuracy;
+            loc.timestamp   = position.timestamp;
 
             localStorage.setItem('latitude', loc.latitude.toString());
             localStorage.setItem('longitude', loc.longitude.toString());
@@ -47,7 +46,7 @@ export class GeoLocationRemote {
         }
         
         //do request here
-        return this.httpClient.post<GeoLocation>(`${environment.API_URL}/users/location?`, //endpoint a realizar
+        return this.httpClient.put<GeoLocation>(`${environment.API_URL}/users/location/`+useremail, //endpoint a realizar
         {   
             'latitude':     loc.latitude,
             'longitude':    loc.longitude,
@@ -61,7 +60,7 @@ export class GeoLocationRemote {
         }); //return location*/
     }
 
-    // MOCK TO TEST WITHOUT CALLING BACK
+    // DEBUG ONLY
     mockGetPosition(loc:GeoLocation): void {
 
         const enableHighAccuracy = true;

@@ -40,17 +40,12 @@ export class MainMenuComponent implements OnInit {
     this.userService.getUserByEmail(userEmail).subscribe((response: UserData) => {
       this.userInfo = response;
     });
-    //console.log("llego aqui");
 
     const timeout = 5 * 1000; // in ms
     
-    
     setInterval(() => {
-      // tratar response
-      this.geoLocationService.mockGetPosition(this.geolocation);
+      this.geoLocationService.getLocation(this.geolocation);
     }, timeout);
-    
-    //console.log("y hago la geoloc");
   }
 
   redirectToProfile() {

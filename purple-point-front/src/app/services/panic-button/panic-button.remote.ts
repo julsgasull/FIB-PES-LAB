@@ -10,7 +10,6 @@ export class PanicButtonRemote {
     constructor(private httpClient: HttpClient) {}
 
     sendAlert(panicAlarm: PanicAlarm ): Observable<any> {
-        //return this.httpClient.post<any>(`${environment.API_URL}/panic/`,
           return this.httpClient.post<any>(`${environment.API_URL}/alarms/create`,
         {   
             'username': panicAlarm.username,

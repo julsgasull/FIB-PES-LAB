@@ -10,7 +10,7 @@ export class GeoLocationService {
 
   constructor(private geolocationRemote: GeoLocationRemote) {}
 
-  getLocation(loc: GeoLocation): Observable<GeoLocation> {
+  getLocation(loc: GeoLocation): Observable<any> {
     return this.geolocationRemote.getLocation(loc);
   }
 
