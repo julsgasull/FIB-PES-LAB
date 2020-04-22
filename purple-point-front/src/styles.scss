@@ -97,13 +97,13 @@ td, tr {
     text-align: center;
 }
 .logoutButton {
-    background: #202020;
     font-family: Montserrat;
     font-weight: bold;
     font-size: 10px;
     color: #8F4DEC;
     letter-spacing: 0;
     margin-bottom: 20px;
+    background-color: unset;
 }
 
 .userInfo {
@@ -113,6 +113,8 @@ td, tr {
     object-fit: cover;
     border-radius: 50px;
     box-shadow: -4px -4px 20px 0 #341860, 4px 4px 20px 0 #0C0516;
+    height: 50px;
+    width: 50px;
 }
 .username {
     font-family: Montserrat;
@@ -189,35 +191,4 @@ td, tr {
     letter-spacing: 0;
     text-align: left;
     text-shadow: 0 2px 4px rgba(0,0,0,0.50);
-}
-
-.mapbutton {
-    width: 140px;
-    height: 155px;
-    background: #6730BE;
-    border-radius: 16px;
-    font-family: Montserrat;
-    font-style: normal;
-    font-size: 14px;
-    color: #FFFFFF;
-    letter-spacing: 0;
-}
-.wikibutton {
-    width: 140px;
-    height: 155px;
-    background: #8F4DEC;
-    border-radius: 16px;
-    font-family: Montserrat;
-    font-style: normal;
-    font-size: 14px;
-    color: #FFFFFF;
-    letter-spacing: 0;
-}
-.panicButtonTitle {
-    font-family: Montserrat;
-    font-style: normal;
-    font-size: 27px;
-    color: #9F9F9F;
-    letter-spacing: 0;
-    text-align: center;
 }

@@ -1,0 +1,31 @@
+.signup-cont {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.form-field {
+    margin: 10px 0;
+}
+
+.second-title {
+    margin-bottom: 20px;
+}
+
+.error-message {
+    text-align: left;
+    margin-left: 13px;
+    margin-top: 3px;
+    font-weight: 100;
+    font-size: 12px;
+    color:  #8F4DEC;
+}
+
+.signup-button{
+    margin-top: 20px;
+    padding: 2px 16px;
+}
