@@ -70,6 +70,14 @@
                                 <div *ngIf="formControls.password.errors.required">Password is required</div>
                             </div> 
                         </div> 
+                        <div class="row attribute">
+                            <div class="col-3">
+                                <span class="userTitles">profile pic</span>
+                            </div>
+                            <div class="col-9 userChanges" [ngClass]="{ 'has-error': isSubmitted && formControls.profilePic.errors }">
+                                <div class="form-control"><input type="file" (change)="onFileChanged($event)"></div>
+                            </div>
+                        </div> 
                         <button type="submit" class="principalButton" (click)="saveChanges()">
                             Save changes 
                         </button>
@@ -79,7 +87,7 @@
         </div>
         
         <div class="col-sm-4 order-first order-sm-last imageBlock">
-            <img class="profileImage" src="https://image.flaticon.com/icons/svg/1738/1738691.svg" style="height: 100px; width: 100px;">
+            <img class="profileImage" src={{retrievedImage}} style="height: 100px; width: 100px;">
             <button 
                 type="button" 
                 class="principalButton editProfile"
@@ -105,26 +113,3 @@
     <br>
     <img class="mapImage" src="https://miro.medium.com/max/3332/0*R8YnMoScMd_jiO93.png"> -->
 </div>
-
-<!-- TESTING IMAGE PROFILE UPLOAD -->
-<br><br><br>
-<div class="container row">
-    <div class="col-md-12"> <h1>Upload Image</h1> </div>
-</div>
-<div class="container row">
-    <div class="col-md-6"> <input type="file" (change)="onFileChanged($event)"> </div>
-    <div class="col-md-6"> <input type="button" (click)="onUpload()" value="upload"> </div>
-</div>
-<!--
-<hr />
-<div class="container row">
-    <div class="col-md-12"> <div *ngIf=message>{{message}}</div> </div>
-</div>
-<div class="container row">
-    <div class="col-md-6"> <input type="text" class="form-control" id="name" placeholder="image name" [(ngModel)]="imageName" name="name" /> </div>
-    <div class="col-md-6"> <input type="button" (click)="getImage()" value="Get Image"> </div>
-</div>
-<div class="container row">
-    <div class="col-md-12"> <div *ngIf=retrievedImage> <img [src]="retrievedImage"> </div> </div>
-</div>
--->
