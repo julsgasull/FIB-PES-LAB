@@ -2,6 +2,7 @@ package com.pesados.purplepoint.api.controller;
 
 
 import com.pesados.purplepoint.api.exception.UserNotFoundException;
+import com.pesados.purplepoint.api.exception.UserRegisterBadRequestException;
 import com.pesados.purplepoint.api.exception.WrongPasswordException;
 import com.pesados.purplepoint.api.model.image.Image;
 import com.pesados.purplepoint.api.model.image.ImageService;
@@ -126,8 +127,11 @@ public class UserController {
 					required=true, schema=@Schema(implementation = Contact.class))
 			@Valid @RequestBody User userNew
 	) {
-		return userService.saveUser(userNew);
-
+		if (!userService.getUserByEmail(userNew.getEmail()).isPresent()) {
+			return userService.saveUser(userNew);
+		} else {
+			throw new UserRegisterBadRequestException();
+		}
 	}
 
 	// Get all users
