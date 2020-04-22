@@ -1,3 +1,5 @@
+import { ProfilePicData } from './profilepicdata.interface';
+
 export interface UserData {
     id?: number;
     name?: string;
@@ -8,4 +10,5 @@ export interface UserData {
     token?: string;
     markedSpots?: number;
     helpedUsers?: number;
+    profilePic?: ProfilePicData;
 }
