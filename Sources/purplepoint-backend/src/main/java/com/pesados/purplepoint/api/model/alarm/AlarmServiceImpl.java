@@ -1,11 +1,10 @@
 package com.pesados.purplepoint.api.model.alarm;
 
-import com.pesados.purplepoint.api.model.user.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 
 @Service

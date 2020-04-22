@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.pesados.purplepoint.api.exception.ImageNotFoundException;
 import com.pesados.purplepoint.api.model.image.Image;
 import com.pesados.purplepoint.api.model.image.ImageService;
-import com.pesados.purplepoint.api.model.user.User;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -43,7 +42,7 @@ public class ImageController {
 			  tags = { "images" })
 	  @ApiResponses(value = {
 	         @ApiResponse(responseCode = "201", description = "Image created",
-	                  content = @Content(schema = @Schema(implementation = User.class))),
+	                  content = @Content(schema = @Schema(implementation = Image.class))),
 	         @ApiResponse(responseCode = "400", description = "Invalid input"),
 	         @ApiResponse(responseCode = "409", description = "Image already exists") })
 	  @PostMapping(value = "/images", consumes = { "multipart/form-data"})
