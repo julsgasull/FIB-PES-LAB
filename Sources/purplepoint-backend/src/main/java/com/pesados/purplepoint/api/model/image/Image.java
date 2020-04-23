@@ -124,11 +124,11 @@ public class Image {
 		return this.type;
 	}
 	
-	public void setPicByte(String data) {
+	public void setPicByteB64(String data) {
 		this.picByteB64 = data;
 	}
 	
-	public String getPicByte() {
+	public String getPicByteB64() {
 		return this.picByteB64;
 	}
 }
