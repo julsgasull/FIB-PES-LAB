@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -196,36 +197,6 @@ public class UserController {
 				.orElseGet(() -> {
 					newUser.setId(id);
 					return userService.saveUser(newUser);
-				});
-
-	}
-
-	//Update users pic
-	@Operation(summary = "Update an existing User profile picture by User Id",
-			description = "profile pic",
-			tags = { "users" })
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "successful operation"),
-			@ApiResponse(responseCode = "400", description = "Invalid username supplied"),
-			@ApiResponse(responseCode = "401", description = "Unauthorized"),
-			@ApiResponse(responseCode = "404", description = "User not found"),
-			@ApiResponse(responseCode = "405", description = "Validation exception") })
-	@PutMapping(value = "/users/{id}/image", consumes = { "multipart/form-data"})
-	User updatePic(@Parameter(description="New pic for the user.", required = true) @RequestParam("file") MultipartFile file,
-				   @Parameter(description="id of the user to replace.", required = true)
-				   @PathVariable long id
-	) throws IOException {
-		Image img = imgService.saveImage(new Image(file.getName(),"image/jpg",file.getBytes()));
-		return userService.getUserById(id)
-				.map(user -> {
-					user.setProfilePic(img);
-					return userService.saveUser(user);
-				})
-				.orElseGet(() -> {
-					User myUser = new User();
-					myUser.setId(id);
-					myUser.setProfilePic(img);
-					return userService.saveUser(myUser);
 				});
 
 	}

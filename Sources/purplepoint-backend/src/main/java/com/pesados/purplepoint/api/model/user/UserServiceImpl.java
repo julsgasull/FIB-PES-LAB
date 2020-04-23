@@ -2,6 +2,7 @@ package com.pesados.purplepoint.api.model.user;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,7 +47,7 @@ public class UserServiceImpl implements UserService {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			Image defaultImage = new Image("sample.svg","image/svg", bdata);
+			Image defaultImage = new Image("sample.svg","image/svg", Base64.getEncoder().encodeToString(bdata));
 			newUser.setProfilePic(defaultImage);
 		}
 		return userRepository.save(newUser);

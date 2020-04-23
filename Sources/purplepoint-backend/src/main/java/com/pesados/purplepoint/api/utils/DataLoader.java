@@ -2,6 +2,7 @@ package com.pesados.purplepoint.api.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Base64;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +33,7 @@ class LoadDatabase {
 	  logger.info("Saving image in \"sample.svg\" into DB");
 
 	  return args -> {
-      logger.info("Preloading " + service.saveImage(new Image("sample.svg","image/svg",bdata)));
+      logger.info("Preloading " + service.saveImage(new Image("sample.svg","image/svg", Base64.getEncoder().encodeToString(bdata))));
     };
   }
   
