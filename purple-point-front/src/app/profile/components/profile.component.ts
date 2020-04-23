@@ -76,7 +76,7 @@ export class ProfileComponent implements OnInit {
   }
 
   redirectToPrincipalView() {
-    this.route.navigate(['/principal']);
+    this.route.navigate(['']);
   }
 
   editarPerfil() {

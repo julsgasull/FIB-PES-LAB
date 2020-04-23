@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../services/user/user.service';
 import { UserData } from '../../models/userData.interface';
 import { Router } from '@angular/router';
-import { UtilsService } from 'src/app/services/utils/utils.service'
 
 @Component({
   selector: 'app-login',
@@ -20,8 +19,7 @@ export class LoginComponent implements OnInit {
   constructor (
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private route: Router,
-    private utilsService : UtilsService
+    private route: Router
   ) {}
 
   ngOnInit(): void {
@@ -35,7 +33,7 @@ export class LoginComponent implements OnInit {
     const userFormValue = JSON.parse(JSON.stringify(this.loginFrom.value));
     const userData: UserData = {
       email:    userFormValue.email,
-      password: this.utilsService.encryptSha256(userFormValue.password)
+      password: userFormValue.password
     }
     return userData;
   }
