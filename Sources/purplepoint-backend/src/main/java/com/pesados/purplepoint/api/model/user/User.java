@@ -18,7 +18,7 @@ public class User {
 	private String name;
 	@Schema(description = "Username of the user.", example = "OhAmadoLider", required = true)
 	private String username;
-	@Schema(description = "Email of the user.", example = "ohamadoslideres@gmail.com", required = true)
+	@Schema(description = "Email of the user.", example = "isma@gmail.com", required = true)
 	private String email;
 	@Schema(description = "Password of the user.", required = true)
 	private String password;
