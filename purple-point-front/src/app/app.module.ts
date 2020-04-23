@@ -15,16 +15,20 @@ import { LoginModule } from './login/login.module';
 import { ProfileModule } from './profile/profile.module';
 import { PanicbuttonModule } from './common/components/panicbutton/panicbutton.module';
 import { AuthInterceptor } from './services/auth/auth.interceptor';
-import { MainMenuComponent } from './main-menu/main-menu.component';
+import { MainMenuComponent } from './main-menu/components/main-menu.component';
 import { GeoLocationRemote } from './services/geolocation/geolocation.remote';
 import { GeoLocationService } from './services/geolocation/geolocation.service';
 import { PanicButtonService } from './services/panic-button/panic-button.service';
 import { PanicButtonRemote } from './services/panic-button/panic-button.remote';
+import { UtilsService } from './services/utils/utils.service';
+import { UtilsRemote } from './services/utils/utils.remote';
+import { OpeningViewComponent } from './opening-view/components/opening-view.component';
+import { OpeningViewModule } from './opening-view/opening-view.module';
+import { MainMenuModule } from './main-menu/main-menu.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    MainMenuComponent
+    AppComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +41,9 @@ import { PanicButtonRemote } from './services/panic-button/panic-button.remote';
     LoginModule,
     WelcomeModule,
     ProfileModule,
-    PanicbuttonModule
+    PanicbuttonModule,
+    OpeningViewModule,
+    MainMenuModule
   ],
   providers: [
     {
@@ -53,6 +59,8 @@ import { PanicButtonRemote } from './services/panic-button/panic-button.remote';
     GeoLocationRemote,
     PanicButtonService,
     PanicButtonRemote,
+    UtilsService,
+    UtilsRemote,
 
   ],
   bootstrap: [AppComponent]

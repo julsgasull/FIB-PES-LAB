@@ -15,10 +15,7 @@ import { GeoLocationService } from 'src/app/services/geolocation/geolocation.ser
 export class MainMenuComponent implements OnInit {
 
   // images
-  profileImage/* = require(agafar foto de perfil de la bd)*/;
-  expandImage   = require("../../../images/expand.svg");
-  mapImage      = require("../../../images/map.svg");
-  wikiImage     = require("../../../images/wiki.svg");
+  // profileImage/* = require(agafar foto de perfil de la bd)*/;
 
   public userInfo: UserData;
   geolocation: GeoLocation = ({
@@ -49,7 +46,7 @@ export class MainMenuComponent implements OnInit {
   }
 
   logout() {
-    this.route.navigate(['']);
+    this.route.navigate(['/principal']);
     this.userInfo.token = null;
     localStorage.setItem('token', null); 
   }
