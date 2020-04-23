@@ -5,7 +5,6 @@ import java.util.Optional;
 
 public interface ImageService {
 
-
 	Optional<Image> getImageById(Long id);
 	
 	Optional<Image> getImageByImgname(String name);

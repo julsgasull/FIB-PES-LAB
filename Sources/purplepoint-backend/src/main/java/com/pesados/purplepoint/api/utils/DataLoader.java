@@ -1,8 +1,13 @@
 package com.pesados.purplepoint.api.utils;
 
-import java.io.IOException;
-import java.io.InputStream;
-
+import com.pesados.purplepoint.api.PurplePointApplication;
+import com.pesados.purplepoint.api.model.alarm.Alarm;
+import com.pesados.purplepoint.api.model.alarm.AlarmService;
+import com.pesados.purplepoint.api.model.image.Image;
+import com.pesados.purplepoint.api.model.image.ImageService;
+import com.pesados.purplepoint.api.model.location.Location;
+import com.pesados.purplepoint.api.model.user.User;
+import com.pesados.purplepoint.api.model.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -12,11 +17,8 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.util.FileCopyUtils;
 
-import com.pesados.purplepoint.api.PurplePointApplication;
-import com.pesados.purplepoint.api.model.image.Image;
-import com.pesados.purplepoint.api.model.image.ImageService;
-import com.pesados.purplepoint.api.model.user.User;
-import com.pesados.purplepoint.api.model.user.UserService;
+import java.io.IOException;
+import java.io.InputStream;
 
 @Configuration
 class LoadDatabase {
@@ -45,5 +47,16 @@ class LoadDatabase {
       logger.info("Preloading " + service.saveUser(new User("Frodo Baggins","Frodo1" , "testmail2@gmail.com", "5678", "male")));
     };
   }
+
+    @Bean
+    CommandLineRunner initAlarmDatabase(AlarmService service) {
+
+        return args -> {
+            logger.info("Preloading " + service.saveAlarm(new Alarm("isma", new Location((float)41.447612, (float)2.224417, 100, 0), true)));
+            logger.info("Preloading " + service.saveAlarm(new Alarm("isma", new Location((float)41.447379, (float)2.226842, 100, 0), true)));
+            logger.info("Preloading " + service.saveAlarm(new Alarm("isma", new Location((float)21.160510, (float)-86.842466, 100, 0), true)));
+            logger.info("Preloading " + service.saveAlarm(new Alarm("isma", new Location((float)41.402899, (float)2.121561, 100, 0), true)));
+  };
+    }
 
 }

@@ -4,6 +4,8 @@ package com.pesados.purplepoint.api.controller;
 import com.pesados.purplepoint.api.exception.UserNotFoundException;
 import com.pesados.purplepoint.api.exception.UserRegisterBadRequestException;
 import com.pesados.purplepoint.api.exception.WrongPasswordException;
+import com.pesados.purplepoint.api.model.alarm.Alarm;
+import com.pesados.purplepoint.api.model.alarm.AlarmService;
 import com.pesados.purplepoint.api.model.image.Image;
 import com.pesados.purplepoint.api.model.image.ImageService;
 import com.pesados.purplepoint.api.model.location.Location;
@@ -27,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,15 +41,18 @@ import java.util.stream.Collectors;
 public class UserController {
 	private final UserService userService;
 	private final ImageService imgService;
+	private final AlarmService alarmService;
+
 
 	@ModelAttribute
 	public void setResponseHeader(HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 	}
 
-	UserController(UserService userService, ImageService imgService) {
+	UserController(UserService userService, ImageService imgService, AlarmService alarmService) {
 		this.userService = userService;
 		this.imgService = imgService;
+		this.alarmService = alarmService;
 	}
 
 	@Operation(summary = "Login User with E-mail and Password", description = "Login an %user% with an exising correct combination of password and email", tags = {"authorizations"})
@@ -280,7 +286,7 @@ public class UserController {
 			@ApiResponse(responseCode = "401", description = "Unauthorized"),
 			@ApiResponse(responseCode = "404", description = "User not found")})
 	@PutMapping(value = "/users/location/{email}", consumes = { "application/json", "application/xml" })
-	User establishLocation(
+	List<Alarm> updateLocation(
 			@Parameter(description="New location for the user.", required = true)
 			@RequestBody Location newLocation,
 			@Parameter(description="email of the user to update.", required = true)
@@ -289,8 +295,16 @@ public class UserController {
 		return userService.getUserByEmail(email)
 				.map(user -> {
 					user.setLastLocation(newLocation);
-					return userService.saveUser(user);
+					List<Alarm> allAlarms = alarmService.getAll();
+					List<Alarm> nearbyAlarms = new ArrayList<>();
+					for (Alarm alarm : allAlarms) {
+						if (LocationController.isLocationInA500MeterRadius(newLocation.getLatitude(), newLocation.getLongitude(), alarm.getLocation().getLatitude(), alarm.getLocation().getLongitude()))
+							nearbyAlarms.add(alarm);
+					}
+					userService.saveUser(user);
+					return nearbyAlarms;
 				})
 				.orElseThrow(() -> new UserNotFoundException(email));
 	}
 }
+
