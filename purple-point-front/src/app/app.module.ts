@@ -20,6 +20,8 @@ import { GeoLocationRemote } from './services/geolocation/geolocation.remote';
 import { GeoLocationService } from './services/geolocation/geolocation.service';
 import { PanicButtonService } from './services/panic-button/panic-button.service';
 import { PanicButtonRemote } from './services/panic-button/panic-button.remote';
+import { UtilsService } from './services/utils/utils.service';
+import { UtilsRemote } from './services/utils/utils.remote';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,8 @@ import { PanicButtonRemote } from './services/panic-button/panic-button.remote';
     GeoLocationRemote,
     PanicButtonService,
     PanicButtonRemote,
+    UtilsService,
+    UtilsRemote,
 
   ],
   bootstrap: [AppComponent]
