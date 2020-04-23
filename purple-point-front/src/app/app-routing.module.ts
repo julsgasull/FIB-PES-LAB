@@ -3,13 +3,18 @@ import { Routes, RouterModule } from '@angular/router';
 import { PrincipalViewComponent } from './welcome/views/principal-view.component';
 import { LoginComponent } from './login/components/login.component';
 import { ProfileComponent } from './profile/components/profile.component';
-import { MainMenuComponent } from './main-menu/main-menu.component';
+import { MainMenuComponent } from './main-menu/components/main-menu.component';
 import { SignUpComponent } from './sign-up/components/sign-up.component';
+import { OpeningViewComponent } from './opening-view/components/opening-view.component';
 
 
 const routes: Routes = [
   {
     path: '',
+    component: OpeningViewComponent
+  },
+  {
+    path: 'principal',
     component: PrincipalViewComponent
   },
   {
