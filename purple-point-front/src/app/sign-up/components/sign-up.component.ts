@@ -4,6 +4,7 @@ import { MustMatch } from './../../common/must-match.validator';
 import { UserService } from 'src/app/services/user/user.service';
 import { UserData } from 'src/app/models/userData.interface';
 import { Router } from '@angular/router';
+import { UtilsService } from 'src/app/services/utils/utils.service';
 
 @Component({
   selector: 'sign-up',
@@ -19,7 +20,8 @@ export class SignUpComponent implements OnInit {
 	constructor(
     private formBuilder: FormBuilder, 
     private userService: UserService,
-    private route: Router) { }
+    private route: Router,
+    private utilsService : UtilsService) { }
 
   ngOnInit(): void {
     this.userForm = this.formBuilder.group({
@@ -41,7 +43,7 @@ export class SignUpComponent implements OnInit {
       email: userFormValue.email,
       name: userFormValue.name,
       username: userFormValue.username,
-      password: userFormValue.password,
+      password: this.utilsService.encryptSha256(userFormValue.password),
       gender: userFormValue.gender
     }
     return userData;

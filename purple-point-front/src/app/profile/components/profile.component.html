@@ -70,17 +70,19 @@
                                 <div *ngIf="formControls.password.errors.required">Password is required</div>
                             </div> 
                         </div> 
-                        <div class="userTitles" style="text-align:right; font-size: xx-small;">
-                            <p><i>If you change the image, please wait for some seconds to press the "Save changes" button.</i></p>
-                         </div>
                         <div class="row attribute">
                             <div class="col-3">
                                 <span class="userTitles">profile pic</span>
                             </div>
                             <div class="col-9 userChanges" [ngClass]="{ 'has-error': isSubmitted && formControls.profilePic.errors }">
-                                <div class="form-control"><input type="file" (change)="onFileChanged($event)"></div>
+                                <div class="form-control"><input type="file" accept="image/*" (change)="onFileChanged($event)"></div>
                             </div>
                         </div> 
+                        <div class="row explanation">
+                            <div class="col-12">
+                                <p><i>If you change the image, please wait for some seconds to press the "Save changes" button.</i></p>
+                            </div>
+                         </div>
                         <button type="submit" class="principalButton" (click)="saveChanges()">
                             Save changes 
                         </button>

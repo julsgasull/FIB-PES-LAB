@@ -8,6 +8,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -39,10 +40,7 @@ export class ProfileComponent implements OnInit {
     const userEmail = localStorage.getItem('userEmail');
     this.userService.getUserByEmail(userEmail).subscribe((response: UserData) => {
       this.userInfo = response;
-      console.log("profilepic: ", this.userInfo.profilePic);
-      console.log("profilepic, baseb64: ", this.userInfo.profilePic.picByteB64);
       this.retrievedImage = 'data:'+this.userInfo.profilePic.type +';base64,' + this.userInfo.profilePic.picByteB64;
-      console.log("image: ",this.retrievedImage);
       this.editProfileForm = new FormGroup({
         id:           new FormControl( { value: response.id,          disabled: true }, Validators.required),
         name:         new FormControl( { value: response.name,        disabled: true }, Validators.required),
@@ -61,28 +59,24 @@ export class ProfileComponent implements OnInit {
     this.selectedFile = event.target.files[0]; //Select File
     const uploadImageData = new FormData();
     uploadImageData.append('file', this.selectedFile);
-    this.httpClient.post<ProfilePicData>('http://10.4.41.147/api/v1/images/parser', uploadImageData, {observe:'response'}).toPromise().then((response:HttpResponse<ProfilePicData>) => {
-      console.log("response:", response);
+    this.httpClient.post<ProfilePicData>(`${environment.API_URL}/images/parser`, uploadImageData, {observe:'response'}).toPromise().then((response:HttpResponse<ProfilePicData>) => {
       this.image.imageid      = response.body.imageid;
       this.image.type         = response.body.type;
       this.image.picByteB64   = response.body.picByteB64;
       this.image.name         = response.body.name;
-      console.log("image dins del parse", this.image);
     })
     const timeout = 1 * 1000; // in ms
     setInterval(() => {}, timeout);
-    console.log("image fora del parse", this.image);
   }
 
   redirectToPrincipalView() {
-    this.route.navigate(['']);
+    this.route.navigate(['/principal']);
   }
   redirectToProfileView() {
     this.route.navigate(['/profile']);
   }
 
   editarPerfil() {
-    //debugger;
     this.isSubmitted = false;
     if (this.disableInputs) {
       this.formControls.name.enable();
@@ -113,7 +107,6 @@ export class ProfileComponent implements OnInit {
       helpedUsers:  this.formControls.helpedUsers.value,
       profilePic:   this.image
     }
-    console.log("image que envio", this.image);
     return userData;
   }
 
@@ -133,7 +126,7 @@ export class ProfileComponent implements OnInit {
     } else {
       this.disableInputs = false;
       this.enableSaveButton = true;
-      alert("Ha habido un error, pro favor pruébalo más tarde");
+      alert("Ha habido un error, por favor pruébalo más tarde");
     }
   }
 
