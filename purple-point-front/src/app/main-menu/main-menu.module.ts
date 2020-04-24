@@ -12,4 +12,4 @@ import { PanicbuttonModule } from '../common/components/panicbutton/panicbutton.
     ],
     exports: []
   })
-  export class MainMenuModule { }
+  export class MainMenuModule { } 

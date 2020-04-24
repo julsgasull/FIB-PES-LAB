@@ -22,7 +22,6 @@ import { PanicButtonService } from './services/panic-button/panic-button.service
 import { PanicButtonRemote } from './services/panic-button/panic-button.remote';
 import { UtilsService } from './services/utils/utils.service';
 import { UtilsRemote } from './services/utils/utils.remote';
-import { OpeningViewComponent } from './opening-view/components/opening-view.component';
 import { OpeningViewModule } from './opening-view/opening-view.module';
 import { MainMenuModule } from './main-menu/main-menu.module';
 
@@ -60,7 +59,7 @@ import { MainMenuModule } from './main-menu/main-menu.module';
     PanicButtonService,
     PanicButtonRemote,
     UtilsService,
-    UtilsRemote,
+    UtilsRemote
 
   ],
   bootstrap: [AppComponent]

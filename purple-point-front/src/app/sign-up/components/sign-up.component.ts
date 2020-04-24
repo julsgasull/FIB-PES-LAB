@@ -4,7 +4,7 @@ import { MustMatch } from './../../common/must-match.validator';
 import { UserService } from 'src/app/services/user/user.service';
 import { UserData } from 'src/app/models/userData.interface';
 import { Router } from '@angular/router';
-import { UtilsService } from 'src/app/services/utils/utils.service'
+import { UtilsService } from 'src/app/services/utils/utils.service';
 
 @Component({
   selector: 'sign-up',
@@ -12,6 +12,7 @@ import { UtilsService } from 'src/app/services/utils/utils.service'
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
+
   genders = ['Gender', 'Male', 'Female', 'Non binary', 'Other'];
   
   isSubmitted = false;

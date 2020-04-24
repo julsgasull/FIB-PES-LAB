@@ -10,4 +10,4 @@ import { OpeningViewComponent } from './components/opening-view.component';
     ],
     exports: []
   })
-  export class OpeningViewModule { }
+  export class OpeningViewModule { } 

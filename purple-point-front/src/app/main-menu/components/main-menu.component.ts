@@ -15,7 +15,7 @@ import { GeoLocationService } from 'src/app/services/geolocation/geolocation.ser
 export class MainMenuComponent implements OnInit {
 
   // images
-  // profileImage/* = require(agafar foto de perfil de la bd)*/;
+  profileImage/* = require(agafar foto de perfil de la bd)*/;
 
   public userInfo: UserData;
   geolocation: GeoLocation = ({

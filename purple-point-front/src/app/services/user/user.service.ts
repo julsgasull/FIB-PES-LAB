@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable} from 'rxjs';
 import { UserData } from 'src/app/models/userData.interface';
 import { UserRemote } from './user.remote';
+import { ProfilePicData } from 'src/app/models/profilepicdata.interface';
 
 @Injectable({
   providedIn: 'root'
