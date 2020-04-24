@@ -1,5 +1,6 @@
 package com.pesados.purplepoint.api.utils;
 
+import com.pesados.purplepoint.api.model.user.User;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
@@ -13,31 +14,29 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.util.FileCopyUtils;
 
-import com.pesados.purplepoint.api.PurplePointApplication;
-import com.pesados.purplepoint.api.model.image.Image;
-import com.pesados.purplepoint.api.model.image.ImageService;
-import com.pesados.purplepoint.api.model.user.User;
-import com.pesados.purplepoint.api.model.user.UserService;
+import java.io.IOException;
+import java.io.InputStream;
 
 @Configuration
 class LoadDatabase {
 	private static final Logger logger = LoggerFactory.getLogger(PurplePointApplication.class);
-  
-  @Bean
+
+    @Bean
   CommandLineRunner initImageDatabase(ImageService service) throws IOException {
-	  logger.info("Finding resource \"sample.svg\"");
-	  Resource resource = new ClassPathResource("sample.svg");
-	  logger.info("Converting resource \"sample.svg\" to byte array");
+      logger.info("Finding resource \"sample.jpg\"");
+      Resource resource = new ClassPathResource("sample.jpg");
+      logger.info("Converting resource \"sample.jpg\" to byte array");
       InputStream inputStream = resource.getInputStream();
       byte[] bdata = FileCopyUtils.copyToByteArray(inputStream);
-	  logger.info("Saving image in \"sample.svg\" into DB");
+      logger.info("Saving image in \"sample.jpg\" into DB");
 
 	  return args -> {
-      logger.info("Preloading " + service.saveImage(new Image("sample.svg","image/svg", Base64.getEncoder().encodeToString(bdata))));
+      logger.info("Preloading " + service.saveImage(new Image("sample.jpg","image/jpg", Base64.getEncoder().encodeToString(bdata))));
     };
   }
-  
-  @Bean
+
+
+    @Bean
   CommandLineRunner initUserDatabase(UserService service) {
 	  
     return args -> {
