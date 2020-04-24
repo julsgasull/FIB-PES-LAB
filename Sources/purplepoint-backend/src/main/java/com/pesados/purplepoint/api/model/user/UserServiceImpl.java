@@ -1,17 +1,16 @@
 package com.pesados.purplepoint.api.model.user;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-import java.util.Optional;
-
+import com.pesados.purplepoint.api.model.image.Image;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 
-import com.pesados.purplepoint.api.model.image.Image;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Optional;
 
 
 
@@ -37,7 +36,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User saveUser(User newUser) {
 		if (newUser.getProfilePic() == null) {
-			Resource resource = new ClassPathResource("sample.svg");
+			Resource resource = new ClassPathResource("sample.jpg");
 		    InputStream inputStream;
 		    byte[] bdata = null;
 			try {
@@ -46,7 +45,7 @@ public class UserServiceImpl implements UserService {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			Image defaultImage = new Image("sample.svg","image/svg", bdata);
+			Image defaultImage = new Image("sample.png","image/jpg", bdata);
 			newUser.setProfilePic(defaultImage);
 		}
 		return userRepository.save(newUser);
