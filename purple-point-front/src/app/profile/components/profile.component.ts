@@ -58,18 +58,10 @@ export class ProfileComponent implements OnInit {
 
   public onFileChanged(event) { // Gets called when the user selects an image
     this.selectedFile = event.target.files[0]; //Select File
-    // const reader = new FileReader();
-    // reader.readAsDataURL(this.selectedFile);
-    // this.image.name = this.selectedFile.name;
-    // reader.onload = () => {
-    //   this.image.picByteB64 = reader.result.toString().substr(reader.result.toString().indexOf('base64,'+'base64,'.length),reader.result.toString().length);
-    // };
-    // console.log("picbyte uploaded: ",this.image.picByteB64);
-  }
-  getImage() {
     const uploadImageData = new FormData();
     uploadImageData.append('file', this.selectedFile);
     this.httpClient.post<ProfilePicData>('http://10.4.41.147/api/v1/images/parser', uploadImageData, {observe:'response'}).toPromise().then((response:HttpResponse<ProfilePicData>) => {
+      console.log("response:", response);
       this.image.imageid      = response.body.imageid;
       this.image.type         = response.body.type;
       this.image.picByteB64   = response.body.picByteB64;
@@ -84,6 +76,7 @@ export class ProfileComponent implements OnInit {
   }
 
   editarPerfil() {
+    debugger;
     this.isSubmitted = false;
     if (this.disableInputs) {
       this.formControls.name.enable();
@@ -103,7 +96,6 @@ export class ProfileComponent implements OnInit {
   }
 
   private createUserForm() {
-    this.getImage();
     const userData: UserData = {
       id:           this.formControls.id.value,
       email:        this.formControls.email.value,
