@@ -23,7 +23,7 @@ import { PanicButtonRemote } from './services/panic-button/panic-button.remote';
 import { UtilsService } from './services/utils/utils.service';
 import { UtilsRemote } from './services/utils/utils.remote';
 import { OpeningViewModule } from './opening-view/opening-view.module';
-import { MainMenuModule } from './main-menu/main-module.module';
+import { MainMenuModule } from './main-menu/main-menu.module';
 
 @NgModule({
   declarations: [

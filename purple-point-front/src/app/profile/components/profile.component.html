@@ -75,7 +75,9 @@
                                 <span class="userTitles">profile pic</span>
                             </div>
                             <div class="col-9 userChanges" [ngClass]="{ 'has-error': isSubmitted && formControls.profilePic.errors }">
-                                <div class="form-control"><input type="file" accept="image/*" (change)="onFileChanged($event)"></div>
+                                <div class="form-control">
+                                    <input type="file" accept="image/*" (change)="onFileChanged($event)">
+                                </div>
                             </div>
                         </div> 
                         <div class="row explanation">
