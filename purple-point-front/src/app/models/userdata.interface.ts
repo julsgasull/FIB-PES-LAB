@@ -8,6 +8,7 @@ export interface UserData {
     password: string;
     gender?: string;
     token?: string;
+    lastLocation?: any;
     markedSpots?: number;
     helpedUsers?: number;
     profilePic?: ProfilePicData;

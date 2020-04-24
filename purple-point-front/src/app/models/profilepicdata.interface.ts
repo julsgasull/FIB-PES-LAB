@@ -1,6 +1,6 @@
 export interface ProfilePicData {
     imageid?:   number;
     type?:      string;
-    picByte:    any;
+    picByteB64?:  string;
     name?:      string;
 }
