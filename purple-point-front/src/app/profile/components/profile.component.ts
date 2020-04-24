@@ -34,6 +34,7 @@ export class ProfileComponent implements OnInit {
   image:            ProfilePicData = {imageid:123456789, type:"", picByteB64:null, name:""};
   retrievedImage:   any;
 
+
   ngOnInit(): void {
     const userEmail = localStorage.getItem('userEmail');
     this.userService.getUserByEmail(userEmail).subscribe((response: UserData) => {
@@ -68,15 +69,20 @@ export class ProfileComponent implements OnInit {
       this.image.name         = response.body.name;
       console.log("image dins del parse", this.image);
     })
+    const timeout = 1 * 1000; // in ms
+    setInterval(() => {}, timeout);
     console.log("image fora del parse", this.image);
   }
 
   redirectToPrincipalView() {
     this.route.navigate(['']);
   }
+  redirectToProfileView() {
+    this.route.navigate(['/profile']);
+  }
 
   editarPerfil() {
-    debugger;
+    //debugger;
     this.isSubmitted = false;
     if (this.disableInputs) {
       this.formControls.name.enable();
@@ -122,6 +128,7 @@ export class ProfileComponent implements OnInit {
         this.formControls.password.disable();
         this.formControls.gender.disable();
         alert("Los cambios se han guardado correctamente");
+        location.reload();
       });
     } else {
       this.disableInputs = false;
