@@ -24,10 +24,12 @@ import { UtilsService } from './services/utils/utils.service';
 import { UtilsRemote } from './services/utils/utils.remote';
 import { OpeningViewModule } from './opening-view/opening-view.module';
 import { MainMenuModule } from './main-menu/main-menu.module';
+import { MapComponent } from './map/components/map.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MapComponent
   ],
   imports: [
     CommonModule,
