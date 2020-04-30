@@ -5,11 +5,11 @@ import { PanicbuttonModule } from '../common/components/panicbutton/panicbutton.
 
 
 @NgModule({
-    declarations: [MainMenuComponent],
-    imports: [
-      CommonModule,
-      PanicbuttonModule
-    ],
-    exports: []
-  })
-  export class MainMenuModule { } 
+  declarations: [MainMenuComponent],
+  imports: [
+    CommonModule,
+    PanicbuttonModule
+  ],
+  exports: []
+})
+export class MainMenuModule { } 
