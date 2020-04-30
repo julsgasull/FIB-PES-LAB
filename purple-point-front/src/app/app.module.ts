@@ -25,6 +25,7 @@ import { UtilsRemote } from './services/utils/utils.remote';
 import { OpeningViewModule } from './opening-view/opening-view.module';
 import { MainMenuModule } from './main-menu/main-menu.module';
 import { MapComponent } from './map/components/map.component';
+import { MarkerService } from './services/marker/marker.service';
 
 @NgModule({
   declarations: [
@@ -61,8 +62,8 @@ import { MapComponent } from './map/components/map.component';
     PanicButtonService,
     PanicButtonRemote,
     UtilsService,
-    UtilsRemote
-
+    UtilsRemote,
+    MarkerService
   ],
   bootstrap: [AppComponent]
 })
