@@ -103,7 +103,10 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/com.google.firebase/firebase-admin -->
+		<!--
+		Firebase
+		https://mvnrepository.com/artifact/com.google.firebase/firebase-admin
+		 -->
 		<dependency>
 			<groupId>com.google.firebase</groupId>
 			<artifactId>firebase-admin</artifactId>
