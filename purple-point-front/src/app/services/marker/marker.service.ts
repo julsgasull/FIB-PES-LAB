@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as L from 'leaflet';
 import { HttpClient } from '@angular/common/http';
 
-var myIcon = L.icon({
+var pointIcon = L.icon({
   iconUrl: '../../../assets/images/pin.svg',
   shadowUrl: '../../../assets/images/pin-shadow.svg',
 
@@ -22,7 +22,7 @@ export class MarkerService {
   }
 
   getAllMarks(map: L.Map) {
-    L.marker([51.5, -0.09], {icon: myIcon}).addTo(map)
+    L.marker([51.5, -0.09], {icon: pointIcon}).addTo(map)
       .bindPopup('this is a test mark')
     ;
   }
