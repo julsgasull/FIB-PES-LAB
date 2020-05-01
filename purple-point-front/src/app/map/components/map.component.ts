@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import { MarkerService } from 'src/app/services/marker/marker.service';
 
@@ -7,14 +7,15 @@ import { MarkerService } from 'src/app/services/marker/marker.service';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements AfterViewInit {
+export class MapComponent implements OnInit {
   private map: L.Map;
 
   constructor(private markerService: MarkerService) { }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     this.initMap();
     this.markerService.getAllMarks(this.map);
+    this.map.invalidateSize();
   }
 
   initMap(): void {
