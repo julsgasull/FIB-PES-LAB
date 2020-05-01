@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/css?family=Montserrat:500,700");
+@import "~leaflet/dist/leaflet.css";
 
 html, body {
     background-color: #202020;
@@ -192,3 +193,22 @@ td, tr {
     text-align: left;
     text-shadow: 0 2px 4px rgba(0,0,0,0.50);
 }
+
+.map-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 30px;
+}
+
+.map-frame {
+    border: 2px solid black;
+    height: 100%;
+}
+
+#map {
+    height: 100%;
+}
+  
