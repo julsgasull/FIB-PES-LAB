@@ -24,6 +24,8 @@ import { UtilsService } from './services/utils/utils.service';
 import { UtilsRemote } from './services/utils/utils.remote';
 import { OpeningViewModule } from './opening-view/opening-view.module';
 import { MainMenuModule } from './main-menu/main-menu.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { MainMenuModule } from './main-menu/main-menu.module';
     ProfileModule,
     PanicbuttonModule,
     OpeningViewModule,
-    MainMenuModule
+    MainMenuModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     {
