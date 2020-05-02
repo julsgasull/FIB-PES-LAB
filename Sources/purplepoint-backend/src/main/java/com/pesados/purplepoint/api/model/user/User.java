@@ -1,12 +1,19 @@
 package com.pesados.purplepoint.api.model.user;
 
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import com.pesados.purplepoint.api.model.image.Image;
 import com.pesados.purplepoint.api.model.location.Location;
-import io.swagger.v3.oas.annotations.media.Schema;
 
-import javax.persistence.*;
-import java.io.IOException;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
 @Table(name = "Users")
@@ -44,7 +51,7 @@ public class User {
 
 	public User() {}
 
-	public User(String name, String username, String email, String password, String gender) throws IOException {
+	public User(String name, String username, String email, String password, String gender) {
 		this.name = name;
 		this.username = username;
 		this.email = email;
