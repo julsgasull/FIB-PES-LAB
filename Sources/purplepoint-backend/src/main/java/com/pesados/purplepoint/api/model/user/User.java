@@ -35,6 +35,10 @@ public class User {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "imageid") 
 	private Image profilePic;
+
+
+	@Schema(description = "Firebase token to send push notifications.", required = true)
+	private String firebaseToken;
 	
 
 	@Schema(description = "The last recorded location of the user.", required = false)
@@ -54,6 +58,7 @@ public class User {
 		this.helpedUsers = 0;
 		this.markedSpots = 0;
 		this.profilePic = null;
+		this.firebaseToken = null;
 	}
 	
 	
@@ -141,4 +146,12 @@ public class User {
 	public Location getLastLocation() { return lastLocation; }
 
 	public void setLastLocation(Location lastLocation) { this.lastLocation = lastLocation; }
+
+	public String getFirebaseToken() {
+		return firebaseToken;
+	}
+
+	public void setFirebaseToken(String firebaseToken) {
+		this.firebaseToken = firebaseToken;
+	}
 }
