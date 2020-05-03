@@ -12,7 +12,7 @@ public class Alarm {
 
 	@Schema(description = "Id of the alarm.", required = true)
 	private @Id @GeneratedValue Long alarmId;
-	@Schema(description = "Username of the user.", required = true)
+	@Schema(description = "Username of the user who has made the alarm.", required = true)
 	private String username;
 
 	@Schema(description = "Location of the user.", required = true)

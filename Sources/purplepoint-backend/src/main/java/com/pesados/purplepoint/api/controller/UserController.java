@@ -4,11 +4,9 @@ package com.pesados.purplepoint.api.controller;
 import com.pesados.purplepoint.api.exception.UserNotFoundException;
 import com.pesados.purplepoint.api.exception.UserRegisterBadRequestException;
 import com.pesados.purplepoint.api.exception.WrongPasswordException;
-import com.pesados.purplepoint.api.model.alarm.Alarm;
 import com.pesados.purplepoint.api.model.alarm.AlarmService;
 import com.pesados.purplepoint.api.model.image.Image;
 import com.pesados.purplepoint.api.model.image.ImageService;
-import com.pesados.purplepoint.api.model.location.Location;
 import com.pesados.purplepoint.api.model.user.User;
 import com.pesados.purplepoint.api.model.user.UserService;
 import io.jsonwebtoken.Jwts;
@@ -28,7 +26,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -276,7 +273,8 @@ public class UserController {
 		userService.deleteUserById(id);
 	}
 
-
+/*
+// Won't work until changed to search by device.
 	@Operation(summary = "Update user's location", description = "Updates the last location for the given user", tags = {"location"})
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "201", description = "Location modified",
@@ -305,4 +303,6 @@ public class UserController {
 				})
 				.orElseThrow(() -> new UserNotFoundException(email));
 	}
+
+ */
 }

@@ -1,19 +1,10 @@
 package com.pesados.purplepoint.api.model.user;
 
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
 import com.pesados.purplepoint.api.model.image.Image;
-import com.pesados.purplepoint.api.model.location.Location;
-
 import io.swagger.v3.oas.annotations.media.Schema;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Users")
@@ -42,12 +33,6 @@ public class User {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "imageid") 
 	private Image profilePic;
-	
-
-	@Schema(description = "The last recorded location of the user.", required = false)
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="locationId")
-	private Location lastLocation;
 
 	public User() {}
 
@@ -144,8 +129,4 @@ public class User {
 	public void setProfilePic(Image profilePic) {
 		this.profilePic = profilePic;
 	}
-
-	public Location getLastLocation() { return lastLocation; }
-
-	public void setLastLocation(Location lastLocation) { this.lastLocation = lastLocation; }
 }
