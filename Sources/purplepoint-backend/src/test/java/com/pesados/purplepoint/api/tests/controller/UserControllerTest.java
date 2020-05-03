@@ -230,6 +230,31 @@ public class UserControllerTest {
 		 */
 	}
 
+	@Test
+	public void shouldModifyFirebaseToken() throws Exception {
+		// Login with mockup user in the database.
+		JSONObject user = new JSONObject();
+		user.put("email", "isma@gmail.com");
+		user.put("password", "1234");
+
+		MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders
+				.post("/api/v1/users/login")
+				.contentType("application/json")
+				.content(user.toString()))
+				.andExpect(status().isOk())
+				.andReturn();
+
+		JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
+		String token =((String) respUser.get("token"));
+
+		this.mockMvc.perform(put("/api/v1/users/firebase/isma@gmail.com").header("Authorization",token)
+				.content(asJsonString("ddld51d5d"))
+				.accept(MediaType.APPLICATION_JSON))
+				.andDo(MockMvcResultHandlers.print())
+				.andExpect(status().is(200))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.firebaseToken").value("ddld51d5d"));
+	}
+
 
 
 	public static String asJsonString(final Object obj) {
