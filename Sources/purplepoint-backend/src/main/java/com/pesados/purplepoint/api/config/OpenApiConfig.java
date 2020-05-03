@@ -22,23 +22,18 @@ import java.util.ArrayList;
 public class OpenApiConfig {
     @Bean
     public OpenAPI customOpenAPI() {
-    	/*------------------ Servers Config ------------------*/ 
     	Server myServer = new Server();
-    	myServer.setUrl("http://localhost:5001/");
-    	myServer.setDescription("Development server");
+    	myServer.setUrl("http://10.4.41.153/");
     	ArrayList<Server> serverList = new ArrayList<Server> ();
     	serverList.add(myServer);
-    	
-    	/*------------------ Security Config ------------------*/
+        myServer.setUrl("http://localhost:5001/");
+        serverList.add(myServer);
 
-    	/*------------------ END ------------------*/
-    	
         return new OpenAPI()
                 .components(new Components())
+                .servers(serverList)
                 .info(new Info().title("PurplePoint Application API").description(
-                        "This is PurplePoint's Spring Boot API service using springdoc-openapi and OpenAPI 3."))
-                .openapi("3.0.0")
-                .servers(serverList);
+                        "This is PurplePoint's Spring Boot API service using springdoc-openapi and OpenAPI 3."));
     }
 
 }
