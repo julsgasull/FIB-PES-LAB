@@ -1,0 +1,56 @@
+{
+    "titles": {
+        "purplepoint": "Purple Point",
+        "sign-up": "Sign up",
+        "login": "Login",
+        "panicButton": "Panic button"
+    },
+    "formFields": {
+        "email": "email",
+        "password": "password",
+        "username": "username",
+        "name": "name",
+        "confirm password": "confirm password"
+    },
+    "formErrors": {
+        "emailRequired": "Email is required",
+        "emailNotValid": "Email not valid",
+        "passwordRequired": "Password is required",
+        "usernameRequired": "Username is required",
+        "nameRequired": "Name is required",
+        "genderRequired": "Gender is required",
+        "incorrectUserOrPwd": "Incorrect email or password",
+        "internalServerError": "Internal Server Error",
+        "confirmPasswordRequired": "Confirm Password is required",
+        "passwordMustMatch": "Passwords must match"
+
+    },
+    "profileFields": {
+        "name": "name",
+        "gender": "gender",
+        "password": "password",
+        "profilePic": "profile pic"
+    },
+    "genders": {
+        "female": "Female",
+        "male": "Male",
+        "nonBinary": "Non binary",
+        "other": "Other"
+    },
+    "buttons" : {
+        "panic": "PANIC",
+        "login": "Log in",
+        "logout": "Log out",
+        "saveChanges": "Save changes",
+        "editProfile": "Edit profile",
+        "register": "Register"
+    },
+    "text": {
+        "hello": "Hello, ",
+        "markSpots": "Want to see or mark some spots?",
+        "goToMap": "Go to map",
+        "doubts": "Doubts?",
+        "visitWiki": "Visit the wiki",
+        "imageAdv": "If you change the image, please wait for some seconds to press the 'Save changes' button."
+    }
+}
