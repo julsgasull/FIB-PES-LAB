@@ -1,4 +1,9 @@
 <div class="container signup-cont">
+  <div class="row" style="position: fixed; top: 0; right: 0;">
+    <div class="col-12">
+      <language-button></language-button>
+    </div>
+  </div>
   <div class="row">
     <div class="col-12">
       <h1>
@@ -9,7 +14,7 @@
   <div class="row second-title">
     <div class="col-12">  
       <h2>
-        {{ 'titles.signup' | translate }}
+        {{ 'titles.sign-up' | translate }}
       </h2>
     </div>
   </div>
@@ -21,7 +26,7 @@
           type="email" 
           class="form-control" 
           id="email" 
-          placeholder= {{ 'formFields.email' | translate }}
+          placeholder= "{{ 'formFields.email' | translate }}"
           formControlName="email"
           name="email"
           required
@@ -43,7 +48,7 @@
           type="text" 
           class="form-control" 
           id="username" 
-          placeholder= {{ 'formFields.username' | translate }} 
+          placeholder= "{{ 'formFields.username' | translate }}" 
           formControlName="username"
           name="username"
           (click)="setSubmittedToFalse()"
@@ -63,7 +68,7 @@
           type="text" 
           class="form-control" 
           id="name" 
-          placeholder= {{ 'formFields.name' | translate }} 
+          placeholder= "{{ 'formFields.name' | translate }}"
           formControlName="name"
           name="name"
           (click)="setSubmittedToFalse()"
@@ -82,7 +87,7 @@
           type="password" 
           class="form-control" 
           id="password" 
-          placeholder= {{ 'formFields.password' | translate }}
+          placeholder= "{{ 'formFields.password' | translate }}"
           formControlName="password"
           (click)="setSubmittedToFalse()"
           required
@@ -101,7 +106,7 @@
           type="password" 
           class="form-control" 
           id="repeatPassword" 
-          placeholder= {{ 'formFields.confirmPassword' | translate }}
+          placeholder= "{{ 'formFields.confirmPassword' | translate }}"
           formControlName="confirmPassword"
           name="password"
           (click)="setSubmittedToFalse()"
@@ -127,8 +132,8 @@
           name="gender"
           (click)="setSubmittedToFalse()"
           required>
-          <option [ngValue]="null" disabled>{{genders[0]}}</option>
-          <option *ngFor="let gen of genders | slice:1;" [ngValue]="gen">{{gen}}</option>
+          <option [ngValue]="null" disabled>{{ 'profileFields.gender' | translate }}</option>
+          <option *ngFor="let gen of 'genders' | translate | keyvalue " [ngValue]="gen.value">{{gen.value}}</option>
         </select>
         <div *ngIf="isSubmitted && formControls.gender.errors" >
           <div class="error-message" *ngIf="formControls.gender.errors.required">

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MainMenuComponent } from './components/main-menu.component';
 import { PanicbuttonModule } from '../common/components/panicbutton/panicbutton.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { LanguageButtonModule } from '../common/components/language-button/language-button.module';
 
 
 @NgModule({
@@ -10,7 +11,8 @@ import { TranslateModule } from '@ngx-translate/core';
     imports: [
       CommonModule,
       PanicbuttonModule,
-      TranslateModule
+      TranslateModule,
+      LanguageButtonModule
     ],
     exports: []
   })

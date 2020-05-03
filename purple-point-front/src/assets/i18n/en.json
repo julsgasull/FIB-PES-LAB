@@ -10,7 +10,7 @@
         "password": "password",
         "username": "username",
         "name": "name",
-        "confirm password": "confirm password"
+        "confirmPassword": "confirm password"
     },
     "formErrors": {
         "emailRequired": "Email is required",

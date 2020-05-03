@@ -26,6 +26,7 @@ import { MainMenuModule } from './main-menu/main-menu.module';
 
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { LanguageButtonModule } from './common/components/language-button/language-button.module';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
     PanicbuttonModule,
     OpeningViewModule,
     MainMenuModule,
+    LanguageButtonModule,
     TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,

@@ -5,6 +5,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { UserData } from 'src/app/models/userData.interface';
 import { Router } from '@angular/router';
 import { UtilsService } from 'src/app/services/utils/utils.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'sign-up',
@@ -13,15 +14,13 @@ import { UtilsService } from 'src/app/services/utils/utils.service';
 })
 export class SignUpComponent implements OnInit {
 
-  genders = ['Gender', 'Male', 'Female', 'Non binary', 'Other'];
-  
   isSubmitted = false;
   userForm: FormGroup;
 	constructor(
     private formBuilder: FormBuilder, 
     private userService: UserService,
     private route: Router,
-    private utilsService : UtilsService) { }
+    private utilsService : UtilsService) {}
 
   ngOnInit(): void {
     this.userForm = this.formBuilder.group({
@@ -36,6 +35,7 @@ export class SignUpComponent implements OnInit {
       validator: MustMatch('password', 'confirmPassword')
     });
   }
+
 
   private createUserForm() {
     const userFormValue = JSON.parse(JSON.stringify(this.userForm.value));

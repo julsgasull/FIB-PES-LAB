@@ -1,4 +1,9 @@
 <div class="container profile">
+    <div class="row" style="position: fixed; top: 0; right: 0;">
+        <div class="col-12">
+          <language-button></language-button>
+        </div>
+    </div>
     <div class="row">
         <div class="col-sm-8">
             <form [formGroup]="editProfileForm" (ngSubmit)="saveChanges()">
@@ -59,7 +64,19 @@
                                 required>
                             >
                                 <option>{{userInfo.gender}}</option>
-                                <option *ngFor="let gen of genders">{{gen}}</option>
+                                <option *ngIf="(userInfo.gender) !== ('genders.female' | translate)">
+                                    {{ 'genders.female' | translate }}
+                                </option>
+                                <option *ngIf="(userInfo.gender) !== ('genders.male' | translate)">
+                                    {{ 'genders.male' | translate }}
+                                </option>
+                                <option *ngIf="(userInfo.gender) !== ('genders.nonBinary' | translate)">
+                                    {{ 'genders.nonBinary' | translate }}
+                                </option>
+                                <option *ngIf="(userInfo.gender) !== ('genders.other' | translate)">
+                                    {{ 'genders.other' | translate }}
+                                </option>
+
                             </select>
                         </div>
                         <div *ngIf="isSubmitted && formControls.gender.errors" >
