@@ -16,18 +16,26 @@
     </div>
     <div class="row logoutDiv">
         <div class="col-6">
-            <p class="helloText">Hello, <b>{{userInfo.name}}</b>!</p>
+            <p class="helloText">
+                {{'text.hello' | translate }}
+                <b>{{userInfo.name}}</b>!
+            </p>
         </div>
         <div class="col-6">
-            <button type="button" class="logout" (click)="logout()">Log out </button>
+            <button type="button" class="logout" (click)="logout()">
+                {{'buttons.logout' | translate }}
+            </button>
         </div>
     </div>
     <div class="row">
         <div class="col-6">
             <button class="purpleButton" (click)="redirectToMap()">
                 <div class="bigButton">
-                    <span>Want to see or mark some spots? 
-                        <b>Go to map</b>
+                    <span>
+                        {{'text.markSpots' | translate }} 
+                        <b>
+                            {{'text.goToMap' | translate}}
+                        </b>
                     </span>
                 </div>
                 <img class="imageClass" src="assets\images\map.svg">
@@ -39,15 +47,21 @@
                     <img class="imageClass" src="assets\images\wiki.svg">
                 </div>
                 <div class="doubts">
-                    <span>Doubts?</span><br>
-                    <b>Visit the wiki</b>
+                    <span>
+                        {{'text.doubts' | translate}}
+                    </span><br>
+                    <b>
+                        {{'text.visitWiki' | translate}}
+                    </b>
                 </div>      
             </button>
         </div>
     </div>
     <div class="row">
         <div class="col-12 panicButtonTitle">
-            <span>Panic button</span>
+            <span>
+                {{'titles.panicButton' | translate}}
+            </span>
         </div>
         <div class="col-12 roundButton">
             <panicbutton></panicbutton>

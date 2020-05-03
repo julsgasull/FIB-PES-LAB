@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PrincipalViewComponent } from './views/principal-view.component';
+import { PrincipalViewComponent } from './components/principal-view.component';
 import { PanicbuttonModule } from '../common/components/panicbutton/panicbutton.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -9,7 +10,8 @@ import { PanicbuttonModule } from '../common/components/panicbutton/panicbutton.
   declarations: [PrincipalViewComponent],
   imports: [
     CommonModule,
-    PanicbuttonModule
+    PanicbuttonModule,
+    TranslateModule
   ],
   exports: [PrincipalViewComponent]
 })

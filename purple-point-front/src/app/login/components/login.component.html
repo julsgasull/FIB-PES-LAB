@@ -1,54 +1,70 @@
 <div class="container login-cont">
   <div class="row">
     <div class="col-12">
-      <h1>PurplePoint</h1>
+      <h1>
+        {{ 'titles.purplepoint' | translate }}
+      </h1>
     </div>
   </div>
   <div class="row">
     <div class="col-12">
-      <h2>Login</h2>
+      <h2>
+        {{ 'titles.login' | translate }}
+      </h2>
     </div>
   </div>
   <form [formGroup]="loginFrom" (ngSubmit)="onSubmit()">
     <div class="row" [ngClass]="{'has-error': isSubmitted === true && formControls.email.errors}">
       <div class="col-12 form-field">
         <input 
-        type="email" 
-        class="form-control" 
-        id="email" 
-        placeholder="email" 
-        formControlName="email"
-        name="email"
-        required
-      >
+          type="email" 
+          class="form-control" 
+          id="email" 
+          placeholder= "{{'formFields.email' | translate }}"
+          formControlName="email"
+          name="email"
+          required
+        >
         <div *ngIf="isSubmitted && formControls.email.errors"> 
-          <div class="error-message" *ngIf="formControls.email.errors.required">Email required</div> 		   
-          <div class="error-message" *ngIf="formControls.email.errors.email">Email not valid</div>
+          <div class="error-message" *ngIf="formControls.email.errors.required">
+            {{ 'formErrors.emailRequired' | translate }}
+          </div> 		   
+          <div class="error-message" *ngIf="formControls.email.errors.email">
+            {{ 'formErrors.emailNotValid' | translate }}
+          </div>
         </div>
       </div> 
     </div>
     <div class="row" [ngClass]="{ 'has-error': isSubmitted && formControls.password.errors }">
       <div class="col-12">
         <input 
-        type="password" 
-        class="form-control" 
-        id="password" 
-        placeholder="password"
-        formControlName="password"
-        (click)="setSubmittedToFalse()"
-        required
+          type="password" 
+          class="form-control" 
+          id="password" 
+          placeholder= "{{'formFields.password' | translate }}"
+          formControlName="password"
+          (click)="setSubmittedToFalse()"
+          required
         >
         <div *ngIf="isSubmitted && formControls.password.errors" >
-          <div class="error-message" *ngIf="formControls.password.errors.required">Password is required</div>
+          <div class="error-message" *ngIf="formControls.password.errors.required">
+            {{ 'formErrors.passwordRequired' | translate }}
+          </div>
         </div>
         <div *ngIf="isSubmitted && wrongCredentials" >
-          <div class="error-message">Incorrect username or password</div>
+          <div class="error-message">
+            {{ 'formErrors.incorrectUserOrPwd' | translate }}
+          </div>
         </div>
         <div *ngIf="isSubmitted && internalError">
-          <div class="error-message">Internal Server Error</div>
+          <div class="error-message">
+            {{ 'formErrors.internalServerError' | translate }}
+          </div>
         </div>
       </div>
     </div>
-    <button type="submit" class="principalButton login-button">Log in</button>
+    <button type="submit" class="principalButton login-button">
+      {{ 'buttons.login' | translate }}
+    </button>
   </form>
 </div>

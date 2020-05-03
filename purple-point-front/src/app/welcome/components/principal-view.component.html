@@ -6,19 +6,21 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <h1>PurplePoint</h1>   
+            <h1>
+                {{ 'titles.purplepoint' | translate }}
+            </h1>   
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
             <div>
                 <button class="principalButton" (click)="redirectToSignUp()">
-                    Sign up
+                    {{ 'titles.sign-up' | translate }}
                 </button>
             </div>
             <div>
                 <button class="secondaryButton" (click)="redirectToLogin()">
-                    Log in
+                    {{ 'titles.login' | translate }}
                 </button>
             </div>
         </div>
