@@ -23,18 +23,16 @@ export class ProfileComponent implements OnInit {
   public enableSaveButton: boolean = false;
   public editProfileForm: FormGroup;
   public isSubmitted: boolean = false;
+  public selectedFile: File;
+  public message: string;
+  public image: ProfilePicData = {imageid:123456789, type:"", picByteB64:null, name:""};
+  public retrievedImage: any;
 
   constructor(
     private route: Router,
     private userService: UserService,
     private httpClient: HttpClient
   ) {}
-
-  selectedFile:     File;
-  message:          string;
-  image:            ProfilePicData = {imageid:123456789, type:"", picByteB64:null, name:""};
-  retrievedImage:   any;
-
 
   ngOnInit(): void {
     const userEmail = localStorage.getItem('userEmail');
