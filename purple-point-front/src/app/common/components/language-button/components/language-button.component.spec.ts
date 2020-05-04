@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PanicbuttonComponent } from './panicbutton.component';
+import { LanguageButtonComponent } from './language-button.component';
 
-describe('PanicbuttonComponent', () => {
-  let component: PanicbuttonComponent;
-  let fixture: ComponentFixture<PanicbuttonComponent>;
+describe('LanguageButtonComponent', () => {
+  let component: LanguageButtonComponent;
+  let fixture: ComponentFixture<LanguageButtonComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PanicbuttonComponent ]
+      declarations: [ LanguageButtonComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PanicbuttonComponent);
+    fixture = TestBed.createComponent(LanguageButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

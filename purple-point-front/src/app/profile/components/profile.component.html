@@ -1,4 +1,9 @@
 <div class="container profile">
+    <div class="row" style="position: fixed; top: 0; right: 0;">
+        <div class="col-12">
+          <language-button></language-button>
+        </div>
+    </div>
     <div class="row">
         <div class="col-sm-8">
             <form [formGroup]="editProfileForm" (ngSubmit)="saveChanges()">
@@ -14,13 +19,17 @@
                         required
                     > 
                     <div *ngIf="isSubmitted && formControls.username.errors"> 
-                        <div class="error-message" *ngIf="formControls.username.errors.required">Username is required</div>
+                        <div class="error-message" *ngIf="formControls.username.errors.required">
+                            {{ 'formErrors.usernameRequired' | translate }}
+                        </div>
                     </div>
                 </div>
                 <div class="userData" [ngClass]="{'has-error': isSubmitted === true && formControls.name.errors}">
                     <div class="row attribute">
                         <div class="col-3">
-                            <span class="userTitles">name</span>
+                            <span class="userTitles">
+                                {{ 'profileFields.name' | translate }}
+                            </span>
                         </div>
                         <div class="col-9 userChanges">
                             <input 
@@ -33,13 +42,17 @@
                                 required
                             >
                             <div *ngIf="isSubmitted && formControls.name.errors"> 
-                                <div class="error-message" *ngIf="formControls.name.errors.required">Name is required</div>
+                                <div class="error-message" *ngIf="formControls.name.errors.required">
+                                    {{ 'formErrors.nameRequired' | translate }}
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="row attribute">
                         <div class="col-3 ">
-                            <span class="userTitles">gender</span>
+                            <span class="userTitles">
+                                {{ 'profileFields.gender' | translate }}
+                            </span>
                         </div>
                         <div class="col-9 userChanges" [ngClass]="{ 'has-error': isSubmitted && formControls.gender.errors }">
                             <select 
@@ -50,29 +63,38 @@
                                 (click)="setSubmittedToFalse()"
                                 required>
                             >
-                                <option>{{userInfo.gender}}</option>
-                                <option *ngFor="let gen of genders">{{gen}}</option>
+                                <option *ngFor="let gen of 'genders' | translate | keyvalue " [ngValue]="gen.key">
+                                    {{gen.value}}
+                                </option>
                             </select>
-                        </div>
-                        <div *ngIf="isSubmitted && formControls.gender.errors" >
-                            <div *ngIf="formControls.gender.errors.required">Gender is required</div>
+                            <div *ngIf="isSubmitted && formControls.gender.errors" >
+                                <div class="error-message" *ngIf="formControls.gender.errors.required">
+                                    {{ 'formErrors.genderRequired' | translate }}
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div *ngIf="enableSaveButton">
                         <div class="row attribute">
                             <div class="col-3">
-                                <span class="userTitles">password</span>
+                                <span class="userTitles">
+                                    {{ 'profileFields.password' | translate }}
+                                </span>
                             </div>
                             <div class="col-9 userChanges" [ngClass]="{ 'has-error': isSubmitted && formControls.password.errors }">
                                 <input class="form-control" type="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;">
                             </div>
                             <div *ngIf="isSubmitted && formControls.password.errors" >
-                                <div *ngIf="formControls.password.errors.required">Password is required</div>
+                                <div *ngIf="formControls.password.errors.required">
+                                    {{'formErrors.passwordRequired' | translate }}
+                                </div>
                             </div> 
                         </div> 
                         <div class="row attribute">
                             <div class="col-3">
-                                <span class="userTitles">profile pic</span>
+                                <span class="userTitles">
+                                    {{ 'profileFields.profilePic' | translate }}
+                                </span>
                             </div>
                             <div class="col-9 userChanges" [ngClass]="{ 'has-error': isSubmitted && formControls.profilePic.errors }">
                                 <div class="form-control">
@@ -82,11 +104,13 @@
                         </div> 
                         <div class="row explanation">
                             <div class="col-12">
-                                <p><i>If you change the image, please wait for some seconds to press the "Save changes" button.</i></p>
+                                <p><i>
+                                    {{ 'text.imageAdv' | translate }}
+                                </i></p>
                             </div>
                          </div>
                         <button type="submit" class="principalButton" (click)="saveChanges()">
-                            Save changes 
+                            {{ 'buttons.saveChanges' | translate }} 
                         </button>
                     </div>
                 </div>
@@ -100,9 +124,11 @@
                 class="principalButton editProfile"
                 (click)="editarPerfil()"
             >
-                Editar perfil
+                {{ 'buttons.editProfile' | translate }}
             </button>
-            <button type="button" class="logoutButton" (click)="logout()">Log out </button>
+            <button type="button" class="logoutButton" (click)="logout()">
+                {{ 'buttons.logout' | translate }}
+            </button>
         </div>
     </div>
 </div>
