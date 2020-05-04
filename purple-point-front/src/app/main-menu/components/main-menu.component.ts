@@ -14,7 +14,7 @@ import { GeoLocationService } from 'src/app/services/geolocation/geolocation.ser
 })
 export class MainMenuComponent implements OnInit {
 
-  retrievedImage:   any;
+  profileImage: any;
 
   public userInfo: UserData;
   geolocation: GeoLocation = ({
@@ -35,7 +35,7 @@ export class MainMenuComponent implements OnInit {
     const userEmail = localStorage.getItem('userEmail');
     this.userService.getUserByEmail(userEmail).subscribe((response: UserData) => {
       this.userInfo = response;
-      this.retrievedImage = 'data:'+this.userInfo.profilePic.type +';base64,' + this.userInfo.profilePic.picByteB64;
+      this.profileImage = 'data:'+this.userInfo.profilePic.type +';base64,' + this.userInfo.profilePic.picByteB64;
     });
 
     const timeout = 5 * 1000; // in ms
