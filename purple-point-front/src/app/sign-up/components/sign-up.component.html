@@ -133,7 +133,7 @@
           (click)="setSubmittedToFalse()"
           required>
           <option [ngValue]="null" disabled>{{ 'profileFields.gender' | translate }}</option>
-          <option *ngFor="let gen of 'genders' | translate | keyvalue " [ngValue]="gen.value">{{gen.value}}</option>
+          <option *ngFor="let gen of 'genders' | translate | keyvalue " [ngValue]="gen.key">{{gen.value}}</option>
         </select>
         <div *ngIf="isSubmitted && formControls.gender.errors" >
           <div class="error-message" *ngIf="formControls.gender.errors.required">

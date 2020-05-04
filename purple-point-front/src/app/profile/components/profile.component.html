@@ -63,25 +63,14 @@
                                 (click)="setSubmittedToFalse()"
                                 required>
                             >
-                                <option>{{userInfo.gender}}</option>
-                                <option *ngIf="(userInfo.gender) !== ('genders.female' | translate)">
-                                    {{ 'genders.female' | translate }}
+                                <option *ngFor="let gen of 'genders' | translate | keyvalue " [ngValue]="gen.key">
+                                    {{gen.value}}
                                 </option>
-                                <option *ngIf="(userInfo.gender) !== ('genders.male' | translate)">
-                                    {{ 'genders.male' | translate }}
-                                </option>
-                                <option *ngIf="(userInfo.gender) !== ('genders.nonBinary' | translate)">
-                                    {{ 'genders.nonBinary' | translate }}
-                                </option>
-                                <option *ngIf="(userInfo.gender) !== ('genders.other' | translate)">
-                                    {{ 'genders.other' | translate }}
-                                </option>
-
                             </select>
-                        </div>
-                        <div *ngIf="isSubmitted && formControls.gender.errors" >
-                            <div *ngIf="formControls.gender.errors.required">
-                                {{ 'formErrors.genderRequired' | translate }}
+                            <div *ngIf="isSubmitted && formControls.gender.errors" >
+                                <div class="error-message" *ngIf="formControls.gender.errors.required">
+                                    {{ 'formErrors.genderRequired' | translate }}
+                                </div>
                             </div>
                         </div>
                     </div>

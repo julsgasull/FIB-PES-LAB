@@ -16,8 +16,6 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-
-  genders = ['Male', 'Female', 'Non binary', 'Other'];
   public userInfo: UserData;
   public disableInputs: boolean = true;
   public enableSaveButton: boolean = false;
