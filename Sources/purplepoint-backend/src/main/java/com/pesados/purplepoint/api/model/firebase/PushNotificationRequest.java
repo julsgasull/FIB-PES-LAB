@@ -1,10 +1,16 @@
 package com.pesados.purplepoint.api.model.firebase;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class PushNotificationRequest {
 
+    @Schema(description = "Title of the notification that is gonna be send.", example = "Your help is needed", required = true)
     private String title;
+    @Schema(description = "Message of the notification that is gonna be send", example = "The user XYZ needs your help", required = true)
     private String message;
+    @Schema(description = "Name of the subscription topic to which we want to send a notification", example = "BarcelonaHelp", required = false)
     private String topic;
+    @Schema(description = "Token of the device to which we want to send a notification", example = "ffudfll77dfhdkfos", required = false)
     private String token;
 
     public PushNotificationRequest() {

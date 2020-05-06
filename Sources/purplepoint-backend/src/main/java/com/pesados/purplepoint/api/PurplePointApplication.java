@@ -27,10 +27,12 @@ public class PurplePointApplication {
 		SpringApplication.run(PurplePointApplication.class, args);
 		try {
 			FileInputStream serviceAccount =
-					new FileInputStream("src/main/resources/google/purplepoint-f2abf-firebase-adminsdk-unh8s-38169d9605.json");
+					new FileInputStream("C:\\Users\\frank\\Documents\\UPC\\PES\\FIB-PES-LAB\\Sources\\purplepoint-backend\\src\\main\\resources\\google\\purplepoint-f2abf-firebase-adminsdk-unh8s-38169d9605.json");
+
 			FirebaseOptions options = new FirebaseOptions.Builder()
 					.setCredentials(GoogleCredentials.fromStream(serviceAccount))
-					.setDatabaseUrl("https://purplepoint-f2abf.firebaseio.com/").build();
+					.setDatabaseUrl("https://purplepoint-f2abf.firebaseio.com/")
+					.build();
 			if(FirebaseApp.getApps().isEmpty()) { //<--- check with this line
 				FirebaseApp.initializeApp(options);
 			}
