@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "Devices")
+@Table(name = "Devicessss")
 public class Device {
     @Schema(description = "Id of the alarm.", required = true)
     private @Id @GeneratedValue Long deviceId;

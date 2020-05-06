@@ -103,7 +103,6 @@ public class AlarmController {
 				.map(alarm -> {
 					alarm.setUsername(newAlarm.getUsername());
 					alarm.setLocation(newAlarm.getLocation());
-					alarm.setPanicbutton(true);
 					return alarmService.saveAlarm((alarm));
 				}).orElseGet(() -> {
 					newAlarm.setAlarmId(id);

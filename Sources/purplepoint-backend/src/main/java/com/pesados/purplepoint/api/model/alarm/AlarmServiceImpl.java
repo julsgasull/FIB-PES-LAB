@@ -34,5 +34,5 @@ public class AlarmServiceImpl implements AlarmService {
 		return alarmRepository.findByUsername(usernamme);
 	}
 
-	public List<Alarm> getAlarmByLocation(float latitude, float longitude) { return alarmRepository.findByNearbyLocation(latitude, longitude); }
+	// public List<Alarm> getAlarmByLocation(float latitude, float longitude) { return alarmRepository.findByNearbyLocation(latitude, longitude); }
 }

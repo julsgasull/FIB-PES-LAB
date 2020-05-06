@@ -27,7 +27,7 @@ public class PurplePointApplication {
 		SpringApplication.run(PurplePointApplication.class, args);
 		try {
 			FileInputStream serviceAccount =
-					new FileInputStream("C:\\Users\\frank\\Documents\\UPC\\PES\\FIB-PES-LAB\\Sources\\purplepoint-backend\\src\\main\\resources\\google\\purplepoint-f2abf-firebase-adminsdk-unh8s-38169d9605.json");
+					new FileInputStream("purplepoint-backend/src/main/resources/google/purplepoint-f2abf-firebase-adminsdk-unh8s-38169d9605.json");
 
 			FirebaseOptions options = new FirebaseOptions.Builder()
 					.setCredentials(GoogleCredentials.fromStream(serviceAccount))
