@@ -4,6 +4,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { take } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs'
+import { Observable } from 'rxjs';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class MessagingService {
@@ -11,6 +14,7 @@ export class MessagingService {
   currentMessage = new BehaviorSubject(null);
 
   constructor(
+    private httpClient: HttpClient,
     private angularFireDB: AngularFireDatabase,
     private angularFireAuth: AngularFireAuth,
     private angularFireMessaging: AngularFireMessaging) {
@@ -23,26 +27,29 @@ export class MessagingService {
     }
 
   /*
-   * update token in firebase database
-   */
-  updateToken(userId, token) {
+   * update token in backend database
+  */
+  updateToken(token): Observable<any> {
     // we can change this function to request our backend service
-    this.angularFireAuth.authState.pipe(take(1)).subscribe(
-      () => {
-        const data = {};
-        data[userId] = token
-        this.angularFireDB.object('fcmTokens/').update(data)
-      })
+    return this.httpClient.put<string>(`${environment.API_URL}/device/token/`, //endpoint a realizar
+    {   
+      'token': token
+    },
+    {
+        headers:{
+          'Content-Type':"application/json"
+        }
+    });
   }
 
   /*
    * request permission for notification from firebase cloud messaging
-   */
-  requestPermission(userId) {
+  */
+  requestPermission() {
     this.angularFireMessaging.requestToken.subscribe(
       (token) => {
         console.log(token);
-        this.updateToken(userId, token);
+        this.updateToken(token);
       },
       (err) => {
         console.error('Unable to get permission to notify.', err);
@@ -52,7 +59,7 @@ export class MessagingService {
 
   /*
    * hook method when new notification received in foreground
-   */
+  */
   receiveMessage() {
     this.angularFireMessaging.messages.subscribe(
       (payload) => {

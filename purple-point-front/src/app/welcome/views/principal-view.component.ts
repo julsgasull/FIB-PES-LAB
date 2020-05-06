@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MessagingService } from 'src/app/shared/messaging.service';
 
 @Component({
   selector: 'principal-view',
@@ -8,9 +9,17 @@ import { Router } from '@angular/router';
 })
 export class PrincipalViewComponent implements OnInit {
 
-  constructor(private route: Router) { }
+  message;
+
+  constructor(
+    private route: Router,
+    private messagingService: MessagingService
+  ) { }
 
   ngOnInit(): void {
+    this.messagingService.requestPermission();
+    this.messagingService.receiveMessage();
+    this.message = this.messagingService.currentMessage;
   }
 
   redirectToLogin() {
