@@ -48,16 +48,16 @@ export class SignUpComponent implements OnInit {
     }
     return userData;
   }
+
   onSubmit() {
     this.isSubmitted = true;
     if (this.userForm.valid) {
       this.userService.createUser(this.createUserForm()).subscribe((response: any) => {
         this.redirectToLogin();
       });
-      
-  } else {
-    return
-  }
+    } else {
+      return
+    }
   }
 
   setSubmittedToFalse() {

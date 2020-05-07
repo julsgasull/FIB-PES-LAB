@@ -9,6 +9,7 @@
             <form [formGroup]="editProfileForm" (ngSubmit)="saveChanges()">
                 <div class="usernameTitle" [ngClass]="{'has-error': isSubmitted === true && formControls.username.errors}">
                     <input 
+                        *ngIf="userInfo"
                         class="form-control" 
                         disabled="disableInputs" 
                         style="color:blueviolet" 
@@ -33,6 +34,7 @@
                         </div>
                         <div class="col-9 userChanges">
                             <input 
+                                *ngIf="userInfo"
                                 class="form-control" 
                                 disabled="disableInputs" 
                                 value="{{userInfo.name}}"

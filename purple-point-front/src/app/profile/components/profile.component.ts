@@ -1,4 +1,3 @@
-declare var require: any
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
@@ -6,8 +5,7 @@ import { UserData } from 'src/app/models/userData.interface';
 import { ProfilePicData } from 'src/app/models/profilepicdata.interface';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 
-import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -19,7 +17,17 @@ export class ProfileComponent implements OnInit {
   public userInfo: UserData;
   public disableInputs: boolean = true;
   public enableSaveButton: boolean = false;
-  public editProfileForm: FormGroup;
+  public editProfileForm: FormGroup = new FormGroup({
+    id:           new FormControl( { value: null, disabled: true }, Validators.required),
+    name:         new FormControl( { value: null, disabled: true }, Validators.required),
+    email:        new FormControl( { value: null, disabled: true }, Validators.required),
+    username:     new FormControl( { value: null, disabled: true }, Validators.required),
+    password:     new FormControl( { value: null, disabled: true }, Validators.required),
+    gender:       new FormControl( { value: null, disabled: true }, Validators.required),
+    markedSpots:  new FormControl( { value: null, disabled: true }, Validators.required),
+    helpedUsers:  new FormControl( { value: null, disabled: true }, Validators.required),
+    profilePic:   new FormControl( { value: null, disabled: true }, Validators.required),
+  });
   public isSubmitted: boolean = false;
   public selectedFile: File;
   public message: string;
@@ -51,7 +59,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  public onFileChanged(event) { // Gets called when the user selects an image
+  onFileChanged(event) { // Gets called when the user selects an image
     this.selectedFile = event.target.files[0]; //Select File
     const uploadImageData = new FormData();
     uploadImageData.append('file', this.selectedFile);
@@ -109,7 +117,7 @@ export class ProfileComponent implements OnInit {
   saveChanges() {
     this.isSubmitted = true;
     if (this.editProfileForm.valid) {
-      this.userService.editProfile(this.createUserForm()).subscribe((response: any) => {      
+      this.userService.editProfile(this.createUserForm()).subscribe(() => {      
         this.enableSaveButton = false;
         this.disableInputs = true;
         this.formControls.name.disable();
