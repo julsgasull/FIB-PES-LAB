@@ -6,6 +6,7 @@ import com.pesados.purplepoint.api.model.alarm.AlarmService;
 import com.pesados.purplepoint.api.model.image.Image;
 import com.pesados.purplepoint.api.model.image.ImageService;
 import com.pesados.purplepoint.api.model.location.Location;
+import com.pesados.purplepoint.api.model.location.LocationService;
 import com.pesados.purplepoint.api.model.report.Report;
 import com.pesados.purplepoint.api.model.report.ReportService;
 import com.pesados.purplepoint.api.model.user.User;
@@ -60,14 +61,26 @@ class LoadDatabase {
       };
     }
 
+
     @Bean
-    CommandLineRunner initAlarmDatabase(AlarmService service) {
+    CommandLineRunner initLocationDatabase(LocationService service) {
+        User usr = new User("test5", "test5","testingthis@gmail.com", "1234", "others");
 
         return args -> {
-            logger.info("Preloading " + service.saveAlarm(new Alarm("isma", new Location((float)41.447612, (float)2.224417, 100, 0), true)));
-            logger.info("Preloading " + service.saveAlarm(new Alarm("isma", new Location((float)41.447379, (float)2.226842, 100, 0), true)));
-            logger.info("Preloading " + service.saveAlarm(new Alarm("isma", new Location((float)21.160510, (float)-86.842466, 100, 0), true)));
-            logger.info("Preloading " + service.saveAlarm(new Alarm("isma", new Location((float)41.402899, (float)2.121561, 100, 0), true)));
+            logger.info("Preloading " + service.saveLocation(new Location((float)41.447612, (float)2.224417, (float)100, (float)0)));
+            logger.info("Preloading " + service.saveLocation(new Location((float)41.447379, (float)2.226842, (float)100, (float)0)));
+            logger.info("Preloading " + service.saveLocation(new Location((float)21.160510, (float)-86.842466, (float)100, (float)0)));
+            logger.info("Preloading " + service.saveLocation(new Location((float)41.402899, (float)2.121561, (float)100, (float)0)));
+        };
+    }
+
+    @Bean
+    CommandLineRunner initAlarmDatabase(AlarmService service) {
+        return args -> {
+            logger.info("Preloading " + service.saveAlarm(new Alarm("isma", new Location((float)41.447612, (float)2.224417, (float)100, (float)0))));
+            logger.info("Preloading " + service.saveAlarm(new Alarm("isma", new Location((float)41.447379, (float)2.226842, (float)100, (float)0))));
+            logger.info("Preloading " + service.saveAlarm(new Alarm("isma", new Location((float)21.160510, (float)-86.842466, (float)100, (float)0))));
+            logger.info("Preloading " + service.saveAlarm(new Alarm("isma", new Location((float)41.402899, (float)2.121561, (float)100, (float)0))));
         };
     }
 }

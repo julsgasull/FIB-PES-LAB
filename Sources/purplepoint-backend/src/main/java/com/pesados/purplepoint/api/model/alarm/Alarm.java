@@ -9,26 +9,22 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Alarms")
 public class Alarm {
-
 	@Schema(description = "Id of the alarm.", required = true)
 	private @Id @GeneratedValue Long alarmId;
-	@Schema(description = "Username of the user.", required = true)
+
+	@Schema(description = "Username of the user who has made the alarm.", required = true)
 	private String username;
 
 	@Schema(description = "Location of the user.", required = true)
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="locationId")
 	private Location location;
-	@Schema(description = "Whether the alarm is set or not.", required = true)
-	private boolean panicbutton;
-
 
 	public Alarm() {}
 
-	public Alarm(String username, Location location, boolean panicbutton) {
+	public Alarm(String username, Location location) {
 		this.username = username;
 		this.location = location;
-		this.panicbutton = panicbutton;
 	}
 
 	public Long getAlarmId() {
@@ -53,13 +49,5 @@ public class Alarm {
 
 	public void setLocation(Location location) {
 		this.location = location;
-	}
-
-	public boolean isPanicbutton() {
-		return panicbutton;
-	}
-
-	public void setPanicbutton(boolean panicbutton) {
-		this.panicbutton = panicbutton;
 	}
 }

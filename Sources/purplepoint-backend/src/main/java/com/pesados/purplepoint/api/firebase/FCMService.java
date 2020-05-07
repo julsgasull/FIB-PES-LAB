@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -31,6 +32,13 @@ public class FCMService {
         logger.info("Sent message without data. Topic: " + request.getTopic() + ", " + response);
     }
 
+    public void sendMulticastMessageWithoutData(PushNotificationRequest request, List<String> tokens)
+            throws FirebaseMessagingException {
+        MulticastMessage multicastmessage = getPreconfiguredMulticatsMessageWithoutData(request, tokens);
+        BatchResponse response = sendMulticastAndGetResponse(multicastmessage);
+        logger.info("Sent message without data. Total Messages: " + tokens.size()+ ", Sended OK: " + response.getSuccessCount() + ", Not Sended" + response.getFailureCount());
+    }
+
     public void sendMessageToToken(PushNotificationRequest request)
             throws InterruptedException, ExecutionException {
         Message message = getPreconfiguredMessageToToken(request);
@@ -40,6 +48,10 @@ public class FCMService {
 
     private String sendAndGetResponse(Message message) throws InterruptedException, ExecutionException {
         return FirebaseMessaging.getInstance().sendAsync(message).get();
+    }
+
+    private BatchResponse sendMulticastAndGetResponse(MulticastMessage multicastMessage) throws FirebaseMessagingException {
+        return FirebaseMessaging.getInstance().sendMulticast(multicastMessage);
     }
 
     private AndroidConfig getAndroidConfig(String topic) {
@@ -65,6 +77,10 @@ public class FCMService {
                 .build();
     }
 
+    private MulticastMessage getPreconfiguredMulticatsMessageWithoutData(PushNotificationRequest request, List<String> tokens) {
+        return getPreconfiguredMulticastMessageBuilder(request, tokens).build();
+    }
+
     private Message getPreconfiguredMessageWithData(Map<String, String> data, PushNotificationRequest request) {
         return getPreconfiguredMessageBuilder(request).putAllData(data).setTopic(request.getTopic())
                 .build();
@@ -76,6 +92,14 @@ public class FCMService {
         return Message.builder()
                 .setApnsConfig(apnsConfig).setAndroidConfig(androidConfig).setNotification(
                         new Notification(request.getTitle(), request.getMessage()));
+    }
+
+    private MulticastMessage.Builder getPreconfiguredMulticastMessageBuilder(PushNotificationRequest request, List<String> tokens) {
+        AndroidConfig androidConfig = getAndroidConfig(request.getTopic());
+        ApnsConfig apnsConfig = getApnsConfig(request.getTopic());
+        return MulticastMessage.builder()
+                .setApnsConfig(apnsConfig).setAndroidConfig(androidConfig).setNotification(
+                        new Notification(request.getTitle(), request.getMessage())).addAllTokens(tokens);
     }
 
 
