@@ -4,3 +4,23 @@
 [0506/183015.022:ERROR:process_reader_win.cc(151)] SuspendThread: Acceso denegado. (0x5)
 [0506/183015.241:ERROR:process_reader_win.cc(151)] SuspendThread: Acceso denegado. (0x5)
 [0506/183015.559:ERROR:process_reader_win.cc(151)] SuspendThread: Acceso denegado. (0x5)
+[0508/125029.419:ERROR:process_memory_win.cc(73)] ReadMemory at 0x1cad0132750 of 132 bytes failed: Solo se completó una parte de una solicitud ReadProcessMemory o WriteProcessMemory. (0x12B)
+[0508/125029.423:ERROR:process_memory_win.cc(73)] ReadMemory at 0x1cad0115150 of 132 bytes failed: Solo se completó una parte de una solicitud ReadProcessMemory o WriteProcessMemory. (0x12B)
+[0508/125029.423:ERROR:process_memory_win.cc(73)] ReadMemory at 0x1cad0113790 of 1012 bytes failed: Solo se completó una parte de una solicitud ReadProcessMemory o WriteProcessMemory. (0x12B)
+[0508/125029.423:ERROR:process_snapshot_win.cc(420)] ReadMemory RTL_USER_PROCESS_PARAMETERS
+[0508/125029.425:ERROR:process_memory_win.cc(73)] ReadMemory at 0x1cad08c0000 of 64 bytes failed: Solo se completó una parte de una solicitud ReadProcessMemory o WriteProcessMemory. (0x12B)
+[0508/125029.425:WARNING:pe_image_reader.cc(340)] could not read dos header from C:\WINDOWS\System32\combase.dll
+[0508/125029.425:ERROR:process_memory_win.cc(73)] ReadMemory at 0x1cad08c0000 of 64 bytes failed: Solo se completó una parte de una solicitud ReadProcessMemory o WriteProcessMemory. (0x12B)
+[0508/125029.425:WARNING:pe_image_reader.cc(340)] could not read dos header from C:\WINDOWS\System32\combase.dll
+[0508/125029.428:ERROR:process_memory_win.cc(73)] ReadMemory at 0x1cad012efa0 of 6656 bytes failed: Solo se completó una parte de una solicitud ReadProcessMemory o WriteProcessMemory. (0x12B)
+[0508/125029.428:ERROR:process_snapshot_win.cc(322)] failed to read unloaded module data
+[0508/125029.434:ERROR:process_memory_win.cc(73)] ReadMemory at 0x1cad08c0000 of 64 bytes failed: Solo se completó una parte de una solicitud ReadProcessMemory o WriteProcessMemory. (0x12B)
+[0508/125029.434:WARNING:pe_image_reader.cc(340)] could not read dos header from C:\WINDOWS\System32\combase.dll
+[0508/125029.436:ERROR:process_memory_win.cc(73)] ReadMemory at 0x1cad0353a50 of 72 bytes failed: Solo se completó una parte de una solicitud ReadProcessMemory o WriteProcessMemory. (0x12B)
+[0508/125029.437:WARNING:pe_image_annotations_reader.cc(134)] could not read annotations list object in C:\Program Files (x86)\Google\Chrome\Application\81.0.4044.138\chrome_elf.dll
+[0508/125029.437:ERROR:process_memory_win.cc(73)] ReadMemory at 0x1cad0725fe0 of 72 bytes failed: Solo se completó una parte de una solicitud ReadProcessMemory o WriteProcessMemory. (0x12B)
+[0508/125029.437:WARNING:pe_image_annotations_reader.cc(134)] could not read annotations list object in C:\Program Files (x86)\Google\Chrome\Application\81.0.4044.138\chrome.dll
+[0508/125029.438:ERROR:process_memory_win.cc(73)] ReadMemory at 0x1cad08c0000 of 64 bytes failed: Solo se completó una parte de una solicitud ReadProcessMemory o WriteProcessMemory. (0x12B)
+[0508/125029.438:WARNING:pe_image_reader.cc(340)] could not read dos header from C:\WINDOWS\System32\combase.dll
+[0508/125029.438:ERROR:process_memory_win.cc(73)] ReadMemory at 0x1cad08c0000 of 64 bytes failed: Solo se completó una parte de una solicitud ReadProcessMemory o WriteProcessMemory. (0x12B)
+[0508/125029.438:WARNING:pe_image_reader.cc(340)] could not read dos header from C:\WINDOWS\System32\combase.dll
