@@ -29,9 +29,10 @@ export class MessagingService {
   /*
    * update token in backend database
   */
-  updateToken(token): Observable<any> {
+  updateToken(token): any/*Observable<any>*/ {
+    console.log("Estas updateando el token");
     // we can change this function to request our backend service
-    return this.httpClient.put<string>(`${environment.API_URL}/device/token/`, //endpoint a realizar
+    /*return this.httpClient.put<string>(`${environment.API_URL}/device/token/`, //endpoint a realizar
     {   
       'token': token
     },
@@ -39,7 +40,7 @@ export class MessagingService {
         headers:{
           'Content-Type':"application/json"
         }
-    });
+    });*/
   }
 
   /*

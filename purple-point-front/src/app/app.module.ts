@@ -26,6 +26,10 @@ import { OpeningViewModule } from './opening-view/opening-view.module';
 import { MainMenuModule } from './main-menu/main-menu.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFireModule } from '@angular/fire';
 
 @NgModule({
   declarations: [
@@ -45,6 +49,10 @@ import { environment } from '../environments/environment';
     PanicbuttonModule,
     OpeningViewModule,
     MainMenuModule,
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.firebase),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
