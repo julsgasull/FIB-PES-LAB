@@ -61,7 +61,7 @@ class LoadDatabase {
       };
     }
 
-
+    /*
     @Bean
     CommandLineRunner initLocationDatabase(LocationService service) {
         User usr = new User("test5", "test5","testingthis@gmail.com", "1234", "others");
@@ -74,6 +74,9 @@ class LoadDatabase {
         };
     }
 
+     */
+
+    /*
     @Bean
     CommandLineRunner initAlarmDatabase(AlarmService service) {
         return args -> {
@@ -83,4 +86,6 @@ class LoadDatabase {
             logger.info("Preloading " + service.saveAlarm(new Alarm("isma", new Location((float)41.402899, (float)2.121561, (float)100, (float)0))));
         };
     }
+
+     */
 }

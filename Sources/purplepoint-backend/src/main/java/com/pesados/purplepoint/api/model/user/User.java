@@ -46,7 +46,6 @@ public class User {
 		this.helpedUsers = 0;
 		this.markedSpots = 0;
 		this.profilePic = null;
-		this.firebaseToken = null;
 	}
 	
 	

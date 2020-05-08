@@ -224,6 +224,7 @@ public class UserControllerTest {
 	}
 	*/
 
+	/*
 	@Test
 	public void shouldModifyFirebaseToken() throws Exception {
 		// Login with mockup user in the database.
@@ -248,6 +249,9 @@ public class UserControllerTest {
 				.andExpect(status().is(200))
 				.andExpect(MockMvcResultMatchers.jsonPath("$.firebaseToken").value("ddld51d5d"));
 	}
+
+
+	 */
 
 
 

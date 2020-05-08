@@ -231,7 +231,7 @@ public class UserController {
 
 	}
 
-	//Update firebase token
+	/*Update firebase token
 	@Operation(summary = "Update an existing User by email", description = "Update the firebase token", tags = { "users" })
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "successful operation"),
@@ -240,6 +240,8 @@ public class UserController {
 			@ApiResponse(responseCode = "404", description = "User not found"),
 			@ApiResponse(responseCode = "405", description = "Validation exception") })
 	@PutMapping(value = "/users/firebase/{email}", consumes = { "application/json", "application/xml" })
+
+
 	User updatefirebasetoken( @Parameter(description="New firebase token for the user.", required = true)
 							  @RequestBody String token,
 							  @Parameter(description="Email of the user to replace.", required = true)
@@ -252,6 +254,7 @@ public class UserController {
 				})
 				.orElseThrow(() -> new UserNotFoundException(email));
 	}
+	*/
 
 	@Operation(summary = "Update an existing User by email", description = "Update the Name, username, email, password, gender given the email of an existing user", tags = { "users" })
 	@ApiResponses(value = {
