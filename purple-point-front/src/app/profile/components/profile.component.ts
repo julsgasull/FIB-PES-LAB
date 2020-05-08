@@ -7,6 +7,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile',
@@ -37,7 +38,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private route: Router,
     private userService: UserService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -124,13 +126,13 @@ export class ProfileComponent implements OnInit {
         this.formControls.username.disable();
         this.formControls.password.disable();
         this.formControls.gender.disable();
-        alert("Los cambios se han guardado correctamente");
+        alert(this.translate.instant('alerts.savedChanges'));
         location.reload();
       });
     } else {
       this.disableInputs = false;
       this.enableSaveButton = true;
-      alert("Ha habido un error, por favor pruébalo más tarde");
+      alert(this.translate.instant('alerts.tryLater'));
     }
   }
 

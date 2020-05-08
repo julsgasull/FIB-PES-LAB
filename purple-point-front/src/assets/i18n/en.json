@@ -22,8 +22,13 @@
         "incorrectUserOrPwd": "Incorrect email or password",
         "internalServerError": "Internal Server Error",
         "confirmPasswordRequired": "Confirm Password is required",
-        "passwordMustMatch": "Passwords must match"
-
+        "passwordMustMatch": "Passwords must match",
+        "notAuthenticated": "Not authenticated"
+    },
+    "alerts": {
+        "savedChanges":"The changes have been saved correctly",
+        "tryLater": "There's been an error, please try it later",
+        "createdUser": "The user has been created correctly"
     },
     "profileFields": {
         "name": "name",

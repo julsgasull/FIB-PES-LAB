@@ -4,6 +4,7 @@ import { UserService } from '../../services/user/user.service';
 import { UserData } from '../../models/userData.interface';
 import { Router } from '@angular/router';
 import { UtilsService } from 'src/app/services/utils/utils.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private route: Router,
-    private utilsService : UtilsService
+    private utilsService : UtilsService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -55,7 +57,7 @@ export class LoginComponent implements OnInit {
         else this.internalError= true;
       });
     } else {
-      alert("not authenticated");
+        alert(this.translate.instant('formErrors.notAuthenticated'));
     }
   }
 
