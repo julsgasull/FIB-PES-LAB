@@ -67,7 +67,7 @@ public class PushNotificationController {
             @ApiResponse(responseCode = "400", description = "Invalid input")})
     @PostMapping("/multicastnotification/data")
     public ResponseEntity sendMulticastDataNotification(@RequestBody PushNotificationRequest request) {
-        List<String> registrationTokens = Arrays.asList("sup1", "sup2", "sup3");
+        List<String> registrationTokens = Arrays.asList("f2EJYEQeYyYq-v2ubvL7x5:APA91bEnuNyD72sMX7KJsg_ilfGNYu7BcShClp34qW5ZPgNh9FDd3_XvoSGQJEQ_pSHadk1NI6WkEeba7cpz2WXyyj616VKHLxpU6i0ZRJ9ap3pieNpGdgAhH1aqcD6Fkewmf0LcUNvC");
         pushNotificationService.sendMulticastPushNotification(request, registrationTokens);
         return new ResponseEntity<>(new PushNotificationResponse(HttpStatus.OK.value(), "Notification has been sent."), HttpStatus.OK);
     }
