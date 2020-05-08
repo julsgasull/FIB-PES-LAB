@@ -17,7 +17,6 @@ export class PanicbuttonComponent implements OnInit {
   }
  
   sendAlert() {
-    //this.panicButtonService.sendAlert()
     const userAlarm: PanicAlarm = {
       username: localStorage.getItem('username'),
       latitude: Number(localStorage.getItem('latitude')),

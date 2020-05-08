@@ -1,4 +1,9 @@
 <div class="container principal-cont">
+    <div class="row" style="position: fixed; top: 0; right: 0;">
+        <div class="col-12">
+          <language-button></language-button>
+        </div>
+    </div>
     <div class="row">
         <div class="col-sm-12">
             <panicbutton></panicbutton>
@@ -6,19 +11,21 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <h1>PurplePoint</h1>   
+            <h1>
+                {{ 'titles.purplepoint' | translate }}
+            </h1>   
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
             <div>
                 <button class="principalButton" (click)="redirectToSignUp()">
-                    Sign up
+                    {{ 'titles.sign-up' | translate }}
                 </button>
             </div>
             <div>
                 <button class="secondaryButton" (click)="redirectToLogin()">
-                    Log in
+                    {{ 'buttons.login' | translate }}
                 </button>
             </div>
         </div>

@@ -1,33 +1,43 @@
 <div class="container main-menu-cont">
+    <div class="row" style="position: fixed; top: 0; right: 0;">
+        <div class="col-12">
+          <language-button></language-button>
+        </div>
+    </div>
     <div class="row profileRectangle">
         <div class="col-2 profIm">
-            <img class="profileImage" 
-            src="https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg" 
-            >
-            <!-- <img class="profileImage" src={{profileImage}} style="height: 50px; width: 50px;"> -->
+            <img class="profileImage" src={{profileImage}} style="height: 50px; width: 50px;">
         </div>
-        <div class="col-7 infoData">
+        <div *ngIf="userInfo" class="col-7 infoData">
             <tr class="name">{{userInfo.name}}</tr>
             <tr clasw="username">@{{userInfo.username}}</tr>
         </div>
         <div class="col-2 expandImage">
-            <img src="assets\images\expand.png" style="height:25px; width:25px" (click)="redirectToProfile()">
+            <img src="assets\images\expand.svg" style="height:25px; width:25px" (click)="redirectToProfile()">
         </div>
     </div>
     <div class="row logoutDiv">
-        <div class="col-6">
-            <p class="helloText">Hello, <b>{{userInfo.name}}</b>!</p>
+        <div *ngIf="userInfo" class="col-6">
+            <p class="helloText">
+                {{'text.hello' | translate }}
+                <b>{{userInfo.name}}</b>!
+            </p>
         </div>
         <div class="col-6">
-            <button type="button" class="logout" (click)="logout()">Log out </button>
+            <button type="button" class="logout" (click)="logout()">
+                {{'buttons.logout' | translate }}
+            </button>
         </div>
     </div>
     <div class="row">
         <div class="col-6">
             <button class="purpleButton" (click)="redirectToMap()">
                 <div class="bigButton">
-                    <span>Want to see or mark some spots? 
-                        <b>Go to map</b>
+                    <span>
+                        {{'text.markSpots' | translate }} 
+                        <b>
+                            {{'text.goToMap' | translate}}
+                        </b>
                     </span>
                 </div>
                 <img class="imageClass" src="assets\images\map.svg">
@@ -39,15 +49,21 @@
                     <img class="imageClass" src="assets\images\wiki.svg">
                 </div>
                 <div class="doubts">
-                    <span>Doubts?</span><br>
-                    <b>Visit the wiki</b>
+                    <span>
+                        {{'text.doubts' | translate}}
+                    </span><br>
+                    <b>
+                        {{'text.visitWiki' | translate}}
+                    </b>
                 </div>      
             </button>
         </div>
     </div>
     <div class="row">
         <div class="col-12 panicButtonTitle">
-            <span>Panic button</span>
+            <span>
+                {{'titles.panicButton' | translate}}
+            </span>
         </div>
         <div class="col-12 roundButton">
             <panicbutton></panicbutton>

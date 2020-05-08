@@ -4,6 +4,7 @@ import { UserService } from '../../services/user/user.service';
 import { UserData } from '../../models/userData.interface';
 import { Router } from '@angular/router';
 import { UtilsService } from 'src/app/services/utils/utils.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ import { UtilsService } from 'src/app/services/utils/utils.service';
 export class LoginComponent implements OnInit {
 
   public isSubmitted = false;
-  public loginFrom: FormGroup;
+  public loginForm: FormGroup;
   public wrongCredentials = false;
   public internalError = false;
 
@@ -21,18 +22,19 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private route: Router,
-    private utilsService : UtilsService
+    private utilsService : UtilsService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
-    this.loginFrom = this.formBuilder.group({
+    this.loginForm = this.formBuilder.group({
       email:    ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     });
   }
 
   private createUserForm() {
-    const userFormValue = JSON.parse(JSON.stringify(this.loginFrom.value));
+    const userFormValue = JSON.parse(JSON.stringify(this.loginForm.value));
     const userData: UserData = {
       email:    userFormValue.email,
       password: this.utilsService.encryptSha256(userFormValue.password)
@@ -42,8 +44,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.isSubmitted = true;
-    if (this.loginFrom.valid){
-      // How to do a request
+    if (this.loginForm.valid){
       this.userService.loginUser(this.createUserForm()).subscribe((response: UserData) => {
         localStorage.setItem('userEmail', response.email);
         localStorage.setItem('password', response.password);
@@ -56,7 +57,7 @@ export class LoginComponent implements OnInit {
         else this.internalError= true;
       });
     } else {
-      alert("not authenticated");
+        alert(this.translate.instant('formErrors.notAuthenticated'));
     }
   }
 
@@ -65,7 +66,7 @@ export class LoginComponent implements OnInit {
   }
 
   get formControls() {
-    return this.loginFrom.controls;
+    return this.loginForm.controls;
   }
 
   redirectToUserInfo() {
