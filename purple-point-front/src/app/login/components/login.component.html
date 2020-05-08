@@ -18,7 +18,7 @@
       </h2>
     </div>
   </div>
-  <form [formGroup]="loginFrom" (ngSubmit)="onSubmit()">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="row" [ngClass]="{'has-error': isSubmitted === true && formControls.email.errors}">
       <div class="col-12 form-field">
         <input 
