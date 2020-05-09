@@ -35,7 +35,7 @@ public class PushNotificationController {
                     content = @Content(schema = @Schema(implementation = ResponseEntity.class))),
             @ApiResponse(responseCode = "400", description = "Invalid input")})
 
-    @PostMapping("/notification/topic")
+    @PostMapping("api/v1/notifications/topic")
     public ResponseEntity sendNotification(@RequestBody PushNotificationRequest request) {
         pushNotificationService.sendPushNotificationWithoutData(request);
         return new ResponseEntity<>(new PushNotificationResponse(HttpStatus.OK.value(), "Notification has been sent."), HttpStatus.OK);
@@ -47,7 +47,7 @@ public class PushNotificationController {
             @ApiResponse(responseCode = "201", description = "Notification sended",
                     content = @Content(schema = @Schema(implementation = ResponseEntity.class))),
             @ApiResponse(responseCode = "400", description = "Invalid input")})
-    @PostMapping("/notification/token")
+    @PostMapping("api/v1/notifications/token")
     public ResponseEntity sendTokenNotification(@RequestBody PushNotificationRequest request) {
         pushNotificationService.sendPushNotificationToToken(request);
         return new ResponseEntity<>(new PushNotificationResponse(HttpStatus.OK.value(), "Notification has been sent."), HttpStatus.OK);
@@ -67,9 +67,9 @@ public class PushNotificationController {
             @ApiResponse(responseCode = "201", description = "Notification sended",
                     content = @Content(schema = @Schema(implementation = ResponseEntity.class))),
             @ApiResponse(responseCode = "400", description = "Invalid input")})
-    @PostMapping("/multicastnotification/data")
+    @PostMapping("api/v1/notifications/multicastnotification/data")
     public ResponseEntity sendMulticastDataNotification(@RequestBody PushNotificationRequest request) {
-        List<String> registrationTokens = Arrays.asList("f2EJYEQeYyYq-v2ubvL7x5:APA91bEnuNyD72sMX7KJsg_ilfGNYu7BcShClp34qW5ZPgNh9FDd3_XvoSGQJEQ_pSHadk1NI6WkEeba7cpz2WXyyj616VKHLxpU6i0ZRJ9ap3pieNpGdgAhH1aqcD6Fkewmf0LcUNvC");
+        List<String> registrationTokens = Arrays.asList("f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
         Map<String, String> data = new HashMap<>();
         data.put("title", "Title of Your Notification in Title from BACK");
         data.put("body",  "Body of Your Notification in Data from BACK");

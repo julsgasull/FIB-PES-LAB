@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -36,7 +37,21 @@ public class FCMService {
             throws FirebaseMessagingException {
         MulticastMessage multicastmessage = getPreconfiguredMulticatsMessageWithoutData(request, tokens, data);
         BatchResponse response = sendMulticastAndGetResponse(multicastmessage);
-        logger.info("Sent message without data. Total Messages: " + tokens.size()+ ", Sended OK: " + response.getSuccessCount() + ", Not Sended" + response.getFailureCount());
+        logger.info("Sent message without data. Total Messages: " + tokens.size()+ ", Sended OK: " + response.getSuccessCount() + ", Not Sended " + response.getFailureCount() + " " + response.getResponses().toString());
+
+        if (response.getFailureCount() > 0) {
+            List<SendResponse> responses = response.getResponses();
+            List<String> failedTokens = new ArrayList<>();
+            for (int i = 0; i < responses.size(); i++) {
+                if (!responses.get(i).isSuccessful()) {
+                    // The order of responses corresponds to the order of the registration tokens.
+                    failedTokens.add(tokens.get(i));
+                    logger.info(responses.get(i).getException().getErrorCode());
+                }
+            }
+
+            System.out.println("List of tokens that caused failures: " + failedTokens);
+        }
     }
 
     public void sendMessageToToken(PushNotificationRequest request)
