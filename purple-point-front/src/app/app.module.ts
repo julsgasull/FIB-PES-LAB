@@ -33,6 +33,7 @@ import { AngularFireModule } from '@angular/fire';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { LanguageButtonModule } from './common/components/language-button/language-button.module';
+import { MessagingService } from './shared/messaging.service';
 
 @NgModule({
   declarations: [
@@ -82,8 +83,8 @@ import { LanguageButtonModule } from './common/components/language-button/langua
     PanicButtonService,
     PanicButtonRemote,
     UtilsService,
-    UtilsRemote
-
+    UtilsRemote,
+    MessagingService
   ],
   bootstrap: [AppComponent]
 })

@@ -18,12 +18,19 @@ export class MessagingService {
     private angularFireDB: AngularFireDatabase,
     private angularFireAuth: AngularFireAuth,
     private angularFireMessaging: AngularFireMessaging) {
-        this.angularFireMessaging.messaging.subscribe(
-        (_messaging) => {
-            _messaging.onMessage = _messaging.onMessage.bind(_messaging);
-            _messaging.onTokenRefresh = _messaging.onTokenRefresh.bind(_messaging);
-        }
-        )
+      this.angularFireMessaging.messaging.subscribe(
+      (_messaging) => {
+        _messaging.onMessage = _messaging.onMessage((payload) => {
+          console.log("new message received. ", payload);
+          this.currentMessage.next(payload);
+        }).bind(_messaging);
+        _messaging.onMessage =_messaging.onTokenRefresh(() => {
+          _messaging.getToken().then((refreshedToken) => {
+            console.log("TokenRefreshed");
+            this.updateToken(refreshedToken);
+          })
+        }).bind(_messaging);
+      });
     }
 
   /*
@@ -62,10 +69,12 @@ export class MessagingService {
    * hook method when new notification received in foreground
   */
   receiveMessage() {
+    console.log("you are now inside the recieving method");
     this.angularFireMessaging.messages.subscribe(
       (payload) => {
         console.log("new message received. ", payload);
         this.currentMessage.next(payload);
       })
+    console.log("you will now return");
   }
 }
