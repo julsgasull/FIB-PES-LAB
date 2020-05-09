@@ -32,9 +32,9 @@ public class FCMService {
         logger.info("Sent message without data. Topic: " + request.getTopic() + ", " + response);
     }
 
-    public void sendMulticastMessageWithoutData(PushNotificationRequest request, List<String> tokens)
+    public void sendMulticastMessageWithoutData(PushNotificationRequest request, List<String> tokens, Map<String, String> data)
             throws FirebaseMessagingException {
-        MulticastMessage multicastmessage = getPreconfiguredMulticatsMessageWithoutData(request, tokens);
+        MulticastMessage multicastmessage = getPreconfiguredMulticatsMessageWithoutData(request, tokens, data);
         BatchResponse response = sendMulticastAndGetResponse(multicastmessage);
         logger.info("Sent message without data. Total Messages: " + tokens.size()+ ", Sended OK: " + response.getSuccessCount() + ", Not Sended" + response.getFailureCount());
     }
@@ -77,8 +77,8 @@ public class FCMService {
                 .build();
     }
 
-    private MulticastMessage getPreconfiguredMulticatsMessageWithoutData(PushNotificationRequest request, List<String> tokens) {
-        return getPreconfiguredMulticastMessageBuilder(request, tokens).build();
+    private MulticastMessage getPreconfiguredMulticatsMessageWithoutData(PushNotificationRequest request, List<String> tokens, Map<String, String> data) {
+        return getPreconfiguredMulticastMessageBuilder(request, tokens).putAllData(data).build();
     }
 
     private Message getPreconfiguredMessageWithData(Map<String, String> data, PushNotificationRequest request) {

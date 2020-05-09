@@ -55,10 +55,10 @@ public class PushNotificationService {
         }
     }
 
-    public void sendMulticastPushNotification(PushNotificationRequest request, List<String> tokens){
+    public void sendMulticastPushNotification(PushNotificationRequest request, List<String> tokens, Map<String, String> data){
 
         try {
-            fcmService.sendMulticastMessageWithoutData(request, tokens);
+            fcmService.sendMulticastMessageWithoutData(request, tokens, data);
         } catch (FirebaseMessagingException e) {
             logger.error(e.getMessage());
         }

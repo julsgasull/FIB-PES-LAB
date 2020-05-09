@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class PushNotificationController {
@@ -68,7 +70,10 @@ public class PushNotificationController {
     @PostMapping("/multicastnotification/data")
     public ResponseEntity sendMulticastDataNotification(@RequestBody PushNotificationRequest request) {
         List<String> registrationTokens = Arrays.asList("f2EJYEQeYyYq-v2ubvL7x5:APA91bEnuNyD72sMX7KJsg_ilfGNYu7BcShClp34qW5ZPgNh9FDd3_XvoSGQJEQ_pSHadk1NI6WkEeba7cpz2WXyyj616VKHLxpU6i0ZRJ9ap3pieNpGdgAhH1aqcD6Fkewmf0LcUNvC");
-        pushNotificationService.sendMulticastPushNotification(request, registrationTokens);
+        Map<String, String> data = new HashMap<>();
+        data.put("title", "Title of Your Notification in Title from BACK");
+        data.put("body",  "Body of Your Notification in Data from BACK");
+        pushNotificationService.sendMulticastPushNotification(request, registrationTokens, data);
         return new ResponseEntity<>(new PushNotificationResponse(HttpStatus.OK.value(), "Notification has been sent."), HttpStatus.OK);
     }
 /*
