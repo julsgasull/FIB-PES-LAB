@@ -10,10 +10,13 @@ import javax.persistence.*;
 @Table(name = "Alarms")
 public class Alarm {
 	@Schema(description = "Id of the alarm.", required = true)
-	private @Id @GeneratedValue Long alarmId;
+	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long alarmId;
 
 	@Schema(description = "Username of the user who has made the alarm.", required = true)
 	private String username;
+
+	@Schema(description = "DeviceToken of the device who has made the alarm.", required = true)
+	private String deviceToken;
 
 	@Schema(description = "Location of the user.", required = true)
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -22,8 +25,9 @@ public class Alarm {
 
 	public Alarm() {}
 
-	public Alarm(String username, Location location) {
+	public Alarm(String username, String deviceToken, Location location) {
 		this.username = username;
+		this.deviceToken = deviceToken;
 		this.location = location;
 	}
 
@@ -42,6 +46,10 @@ public class Alarm {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
+	public String getDeviceToken() { return deviceToken; }
+
+	public void setDeviceToken(String deviceToken) { this.deviceToken = deviceToken; }
 
 	public Location getLocation() {
 		return location;

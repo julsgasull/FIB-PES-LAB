@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Location {
     @Schema(description = "Id of the location.", required = true)
     @Column(name = "locationId")
-    private @Id @GeneratedValue Long location_id;
+    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long locationId;
 
     @Schema(description = "Latitude.", required = true)
     @Column(name = "latitude")
@@ -35,8 +35,8 @@ public class Location {
         this.timestamp = timestamp;
     }
 
-    public Long getLocationId() { return location_id; }
-    public void setLocationId(Long locationId) { this.location_id = locationId; }
+    public Long getLocationId() { return locationId; }
+    public void setLocationId(Long locationId) { this.locationId = locationId; }
 
     public float getLatitude() { return latitude; }
     public void setLatitude(float latitude) { this.latitude = latitude; }

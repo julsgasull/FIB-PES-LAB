@@ -1,13 +1,15 @@
 package com.pesados.purplepoint.api.tests.controller;
 
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import com.pesados.purplepoint.api.controller.AlarmController;
+import com.pesados.purplepoint.api.model.alarm.Alarm;
+import com.pesados.purplepoint.api.model.alarm.AlarmService;
+import com.pesados.purplepoint.api.model.device.Device;
+import com.pesados.purplepoint.api.model.device.DeviceService;
+import com.pesados.purplepoint.api.model.location.Location;
+import com.pesados.purplepoint.api.model.user.User;
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,6 +19,14 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -25,6 +35,11 @@ public class AlarmControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 
+	@Autowired
+	private DeviceService deviceService;
+
+	@Autowired
+	private AlarmService alarmService;
 
 	@Test
 	public void shouldReturnNewLocation() throws Exception {
@@ -39,7 +54,6 @@ public class AlarmControllerTest {
 
 		alarm.put("username", "amandi");
 		alarm.put("location", location);
-		alarm.put("panicbutton", true);
 
 		JSONObject user = new JSONObject();
 		user.put("email", "isma@gmail.com");
@@ -76,7 +90,6 @@ public class AlarmControllerTest {
 
 		alarm.put("username", "isma");
 		alarm.put("location", location);
-		alarm.put("panicbutton", false);
 
 		JSONObject user = new JSONObject();
 		user.put("email", "isma@gmail.com");
@@ -123,7 +136,6 @@ public class AlarmControllerTest {
 
 		alarm.put("username", "franco");
 		alarm.put("location", location);
-		alarm.put("panicbutton", false);
 
 		JSONObject user = new JSONObject();
 		user.put("email", "isma@gmail.com");
@@ -169,7 +181,6 @@ public class AlarmControllerTest {
 
 		alarm.put("username", "julia");
 		alarm.put("location", location);
-		alarm.put("panicbutton", false);
 
 		JSONObject user = new JSONObject();
 		user.put("email", "isma@gmail.com");
@@ -202,17 +213,14 @@ public class AlarmControllerTest {
 	@Test
 	public void shouldDeleteUser() throws Exception {
 		JSONObject location = new JSONObject();
-
 		location.put("latitude", 58.0);
 		location.put("longitude", 25.05);
 		location.put("accuracy", 9.05);
 		location.put("timestamp", 1.20);
 
 		JSONObject alarm = new JSONObject();
-
 		alarm.put("username", "adri");
 		alarm.put("location", location);
-		alarm.put("panicbutton", false);
 
 		JSONObject user = new JSONObject();
 		user.put("email", "isma@gmail.com");
@@ -245,6 +253,25 @@ public class AlarmControllerTest {
 				.andExpect(status().isOk());
 	}
 
+	// integration and findNearbyDevices (AlarmController) test
+	@Test
+	public void shouldReturnNearbyDevices() throws Exception {
+		Location miCasa = new Location((float)41.447612, (float)2.224417, 100, 0);
+		Location bar = new Location((float)41.447379, (float)2.226842, 100, 0);
+		Location cancun = new Location((float)21.160510, (float)-86.842466, 100, 0);
+		Location sarria = new Location((float)41.402899, (float)2.121561, 100, 0);
 
+		User testUser = new User();
+		Alarm stubAlarm = new Alarm("isma", "2", bar);
 
+		List<Device> expectedResult = new ArrayList<Device>();
+		Optional<Device> deviceOpt = deviceService.getDeviceById("1");
+		expectedResult.add(deviceOpt.get());
+
+		AlarmController alarmController = new AlarmController(this.alarmService, this.deviceService);
+
+		List<Device> result = alarmController.findNearbyDevices(stubAlarm);
+
+		Assert.assertEquals(expectedResult.get(0).getFirebaseToken(), result.get(0).getFirebaseToken());
+	}
 }
