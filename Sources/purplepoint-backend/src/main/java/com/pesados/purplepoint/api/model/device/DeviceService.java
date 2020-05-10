@@ -5,11 +5,13 @@ import java.util.Optional;
 
 public interface DeviceService {
 
-    Optional<Device> getDeviceById(String id);
+    Optional<Device> getDeviceById(Long id);
+    
+    Optional<Device> getDeviceByFirebaseToken(String token);
 
     List<Device> getAll();
 
-    void deleteDeviceById(String id);
+    void deleteDeviceById(Long id);
 
     Device saveDevice(Device newRep);
 

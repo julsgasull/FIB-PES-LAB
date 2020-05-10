@@ -6,6 +6,7 @@ import com.pesados.purplepoint.api.model.alarm.Alarm;
 import com.pesados.purplepoint.api.model.alarm.AlarmService;
 import com.pesados.purplepoint.api.model.device.Device;
 import com.pesados.purplepoint.api.model.device.DeviceService;
+import com.pesados.purplepoint.api.model.firebase.PushNotificationService;
 import com.pesados.purplepoint.api.model.location.Location;
 import com.pesados.purplepoint.api.model.user.User;
 import org.json.JSONObject;
@@ -40,6 +41,9 @@ public class AlarmControllerTest {
 
 	@Autowired
 	private AlarmService alarmService;
+
+	@Autowired
+	private PushNotificationService pushNotificationService;
 
 	@Test
 	public void shouldReturnNewLocation() throws Exception {
@@ -265,10 +269,10 @@ public class AlarmControllerTest {
 		Alarm stubAlarm = new Alarm("isma", "2", bar);
 
 		List<Device> expectedResult = new ArrayList<Device>();
-		Optional<Device> deviceOpt = deviceService.getDeviceById("1");
+		Optional<Device> deviceOpt = deviceService.getDeviceByFirebaseToken("1");
 		expectedResult.add(deviceOpt.get());
 
-		AlarmController alarmController = new AlarmController(this.alarmService, this.deviceService);
+		AlarmController alarmController = new AlarmController(this.alarmService, this.deviceService, this.pushNotificationService);
 
 		List<Device> result = alarmController.findNearbyDevices(stubAlarm);
 

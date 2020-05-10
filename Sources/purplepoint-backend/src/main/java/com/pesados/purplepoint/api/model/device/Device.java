@@ -9,8 +9,11 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Devices")
 public class Device {
+    @Schema(description = "Id of the alarm.", required = true)
+    private @Id @GeneratedValue Long deviceId;
+
     @Schema(description = "Firebase token.", required = true)
-    private @Id String firebaseToken;
+    private String firebaseToken;
 
     @Schema(description = "Location of the device.", required = true)
     @ManyToOne(cascade = CascadeType.ALL)
@@ -22,7 +25,6 @@ public class Device {
     @JoinColumn(name="user")
     private User user;
 
-
     public Device() {}
 
     public Device(String firebaseToken, Location location, User user) {
@@ -30,6 +32,10 @@ public class Device {
         this.location = location;
         this.user = user;
     }
+
+    public Long getDeviceId() { return deviceId; }
+
+    public void setDeviceId(Long deviceId) { this.deviceId = deviceId; }
 
     public String getFirebaseToken() { return firebaseToken; }
 
@@ -42,5 +48,4 @@ public class Device {
     public User getUser() { return user; }
 
     public void setUser(User user) { this.user = user; }
-
 }

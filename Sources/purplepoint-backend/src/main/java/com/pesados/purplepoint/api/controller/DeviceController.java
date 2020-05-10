@@ -23,9 +23,8 @@ public class DeviceController {
         this.deviceService = deviceService;
     }
 
-
     @Operation(summary = "Add a new device",
-            description = "Adds a new device to the database with the information provided. ", tags = { "devices" })
+            description = "Adds a new device to the database with the information provided. ", tags = { "device" })
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "device created",
                     content = @Content(schema = @Schema(implementation = Device.class))),
@@ -40,7 +39,7 @@ public class DeviceController {
         return this.deviceService.saveDevice(newRep);
     }
 
-    @Operation(summary = "Get All devices", description = "Get ", tags = {"devices"})
+    @Operation(summary = "Get All devices", description = "Get ", tags = {"device"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation",
                     content = @Content(array = @ArraySchema(schema = @Schema(implementation = Device.class)))) })
@@ -55,7 +54,7 @@ public class DeviceController {
                     content = @Content(array = @ArraySchema(schema = @Schema(implementation = Device.class)))) })
     @GetMapping(value = "/device/{id}", produces = { "application/json", "application/xml"})
     Device getOne(
-            @Parameter(description="id of the device.", required = true) @PathVariable String id) {
+            @Parameter(description="id of the device.", required = true) @PathVariable Long id) {
         return deviceService.getDeviceById(id).orElseThrow(() -> new DeviceNotFoundException(id));
     }
 
@@ -65,7 +64,33 @@ public class DeviceController {
                     content = @Content(array = @ArraySchema(schema = @Schema(implementation = Device.class)))) })
     @DeleteMapping(value = "/device/{id}", produces = { "application/json", "application/xml"})
     void delOne(
-            @Parameter(description="id of the device.", required = true) @PathVariable String id) {
+            @Parameter(description="id of the device.", required = true) @PathVariable Long id) {
         deviceService.deleteDeviceById(id);
+    }
+
+    @Operation(summary = "Update an existing Device by token", description = "Update the token, user and/or location given the token of an existing user", tags = { "device" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation"),
+            @ApiResponse(responseCode = "400", description = "Invalid username supplied"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "404", description = "User not found"),
+            @ApiResponse(responseCode = "405", description = "Validation exception")})
+    @PutMapping(value = "/device/{token}", consumes = {"application/json", "application/xml"})
+    Device replaceDeviceByToken(@Parameter(description = "New information for the device.", required = true)
+                            @RequestBody Device newDevice,
+                            @Parameter(description = "Token of the device to replace.", required = true)
+                            @PathVariable String token
+    ) {
+        return deviceService.getDeviceByFirebaseToken(token)
+                .map(device -> {
+                    device.setFirebaseToken(newDevice.getFirebaseToken());
+                    device.setLocation(newDevice.getLocation());
+                    device.setUser(newDevice.getUser());
+                    return deviceService.saveDevice(device);
+                })
+                .orElseGet(() -> {
+                    newDevice.setFirebaseToken(token);
+                    return deviceService.saveDevice(newDevice);
+                });
     }
 }

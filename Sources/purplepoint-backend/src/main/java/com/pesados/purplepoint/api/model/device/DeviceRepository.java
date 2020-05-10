@@ -2,6 +2,8 @@ package com.pesados.purplepoint.api.model.device;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface DeviceRepository extends JpaRepository<Device, String> {
+import java.util.Optional;
 
+public interface DeviceRepository extends JpaRepository<Device, Long> {
+    public Optional<Device> findByFirebaseToken(String firebaseToken);
 }
