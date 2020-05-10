@@ -16,10 +16,9 @@ public class PushNotificationRequest {
     public PushNotificationRequest() {
     }
 
-    public PushNotificationRequest(String title, String messageBody, String topicName) {
+    public PushNotificationRequest(String title, String messageBody) {
         this.title = title;
         this.message = messageBody;
-        this.topic = topicName;
     }
 
     public String getTitle() {

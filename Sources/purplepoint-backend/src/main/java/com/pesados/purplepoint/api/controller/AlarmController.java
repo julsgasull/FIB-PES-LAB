@@ -6,6 +6,7 @@ import com.pesados.purplepoint.api.model.alarm.Alarm;
 import com.pesados.purplepoint.api.model.alarm.AlarmService;
 import com.pesados.purplepoint.api.model.device.Device;
 import com.pesados.purplepoint.api.model.device.DeviceService;
+import com.pesados.purplepoint.api.model.firebase.PushNotificationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -30,10 +31,13 @@ public class AlarmController {
 
 	private final DeviceService deviceService;
 
+	private final PushNotificationService pushNotificationService;
+
 	@Autowired
-	public AlarmController(AlarmService alarmService, DeviceService deviceService) {
+	public AlarmController(AlarmService alarmService, DeviceService deviceService, PushNotificationService pushNotificationService) {
 		this.alarmService = alarmService;
 		this.deviceService = deviceService;
+		this.pushNotificationService = pushNotificationService;
 	}
 
 	// Creates a new alarm
@@ -56,6 +60,14 @@ public class AlarmController {
 	}
 
 	private void sendPushNotificationToDevices(List<Device> devices) {
+
+		List<String> registrationTokens = new ArrayList<>();
+
+		for (int i = 0; i < devices.size(); ++i) {
+			registrationTokens.add(devices.get(i).getFirebaseToken());
+		}
+
+		pushNotificationService.sendMulticastPushNotification(registrationTokens);
 
 	}
 

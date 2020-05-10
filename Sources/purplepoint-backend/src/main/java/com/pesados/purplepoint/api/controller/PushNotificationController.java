@@ -68,7 +68,7 @@ public class PushNotificationController {
     @PostMapping("/multicastnotification/data")
     public ResponseEntity sendMulticastDataNotification(@RequestBody PushNotificationRequest request) {
         List<String> registrationTokens = Arrays.asList("sup1", "sup2", "sup3");
-        pushNotificationService.sendMulticastPushNotification(request, registrationTokens);
+        pushNotificationService.sendMulticastPushNotification(registrationTokens);
         return new ResponseEntity<>(new PushNotificationResponse(HttpStatus.OK.value(), "Notification has been sent."), HttpStatus.OK);
     }
 /*
