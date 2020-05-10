@@ -55,7 +55,7 @@ public class DeviceController {
                     content = @Content(array = @ArraySchema(schema = @Schema(implementation = Device.class)))) })
     @GetMapping(value = "/device/{id}", produces = { "application/json", "application/xml"})
     Device getOne(
-            @Parameter(description="id of the device.", required = true) @PathVariable long id) {
+            @Parameter(description="id of the device.", required = true) @PathVariable String id) {
         return deviceService.getDeviceById(id).orElseThrow(() -> new DeviceNotFoundException(id));
     }
 
@@ -65,7 +65,7 @@ public class DeviceController {
                     content = @Content(array = @ArraySchema(schema = @Schema(implementation = Device.class)))) })
     @DeleteMapping(value = "/device/{id}", produces = { "application/json", "application/xml"})
     void delOne(
-            @Parameter(description="id of the device.", required = true) @PathVariable long id) {
+            @Parameter(description="id of the device.", required = true) @PathVariable String id) {
         deviceService.deleteDeviceById(id);
     }
 }

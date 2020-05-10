@@ -1,8 +1,8 @@
 package com.pesados.purplepoint.api.utils;
 
 import com.pesados.purplepoint.api.PurplePointApplication;
-import com.pesados.purplepoint.api.model.alarm.Alarm;
-import com.pesados.purplepoint.api.model.alarm.AlarmService;
+import com.pesados.purplepoint.api.model.device.Device;
+import com.pesados.purplepoint.api.model.device.DeviceService;
 import com.pesados.purplepoint.api.model.image.Image;
 import com.pesados.purplepoint.api.model.image.ImageService;
 import com.pesados.purplepoint.api.model.location.Location;
@@ -61,7 +61,7 @@ class LoadDatabase {
       };
     }
 
-    /*
+    
     @Bean
     CommandLineRunner initLocationDatabase(LocationService service) {
         User usr = new User("test5", "test5","testingthis@gmail.com", "1234", "others");
@@ -74,16 +74,32 @@ class LoadDatabase {
         };
     }
 
-     */
-
-    /*
+  /*
     @Bean
     CommandLineRunner initAlarmDatabase(AlarmService service) {
         return args -> {
-            logger.info("Preloading " + service.saveAlarm(new Alarm("isma", new Location((float)41.447612, (float)2.224417, (float)100, (float)0))));
-            logger.info("Preloading " + service.saveAlarm(new Alarm("isma", new Location((float)41.447379, (float)2.226842, (float)100, (float)0))));
-            logger.info("Preloading " + service.saveAlarm(new Alarm("isma", new Location((float)21.160510, (float)-86.842466, (float)100, (float)0))));
-            logger.info("Preloading " + service.saveAlarm(new Alarm("isma", new Location((float)41.402899, (float)2.121561, (float)100, (float)0))));
+            // Alarma "Mi Casa"
+            logger.info("Preloading " + service.saveAlarm(new Alarm("isma", "1", new Location((float)41.447612, (float)2.224417, (float)100, (float)0))));
+            // Alarma "bar"
+            logger.info("Preloading " + service.saveAlarm(new Alarm("isma", "1", new Location((float)41.447379, (float)2.226842, (float)100, (float)0))));
+            // Alarma "bar"
+            logger.info("Preloading " + service.saveAlarm(new Alarm("isma", "1", new Location((float)21.160510, (float)-86.842466, (float)100, (float)0))));
+            // Alarma "bar"
+            logger.info("Preloading " + service.saveAlarm(new Alarm("isma", "1", new Location((float)41.402899, (float)2.121561, (float)100, (float)0))));
+        };
+    }
+*/
+    @Bean
+    CommandLineRunner initDeviceDatabase(DeviceService service) {
+        return args -> {
+            // Location "Mi Casa"
+            logger.info("Preloading " + service.saveDevice(new Device("1", new Location((float)41.447612, (float)2.224417, 100, 0), new User())));
+            // Location "bar"
+            logger.info("Preloading " + service.saveDevice(new Device("2", new Location((float)41.447379, (float)2.226842, (float)100, (float)0), new User())));
+            // Location "china"
+            logger.info("Preloading " + service.saveDevice(new Device("3", new Location((float)21.160510, (float)-86.842466, (float)100, (float)0), new User())));
+            // Location "otrositio"
+            logger.info("Preloading " + service.saveDevice(new Device("4", new Location((float)41.402899, (float)2.121561, (float)100, (float)0), new User())));
         };
     }
 
