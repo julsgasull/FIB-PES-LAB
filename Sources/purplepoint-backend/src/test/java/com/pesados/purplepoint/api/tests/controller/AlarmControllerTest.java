@@ -272,7 +272,7 @@ public class AlarmControllerTest {
 		Alarm stubAlarm = new Alarm("isma", "2", bar);
 
 		List<Device> expectedResult = new ArrayList<Device>();
-		Optional<Device> deviceOpt = deviceService.getDeviceByFirebaseToken("1");
+		Optional<Device> deviceOpt = deviceService.getDeviceByFirebaseToken("f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
 		expectedResult.add(deviceOpt.get());
 
 		AlarmController alarmController = new AlarmController(this.alarmService, this.deviceService, this.pushNotificationService);
