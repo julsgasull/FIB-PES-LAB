@@ -60,7 +60,7 @@ public class AlarmController {
 	}
 
 	private void sendPushNotificationToDevices(List<Device> devices) {
-
+		/* franco es puta */
 		List<String> registrationTokens = new ArrayList<>();
 
 		for (int i = 0; i < devices.size(); ++i) {
@@ -68,7 +68,6 @@ public class AlarmController {
 		}
 
 		pushNotificationService.sendMulticastPushNotification(registrationTokens);
-
 	}
 
 	// Encuentra todos los devices que están cerca de la localización de la alarma

@@ -43,7 +43,7 @@ public class DeviceControllerTest {
         user.put("password", "1234");
 
         JSONObject device = new JSONObject();
-        device.put("firebaseToken", "1");
+        device.put("firebaseToken", "f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
         device.put("location", location);
         device.put("user", user);
 
@@ -63,7 +63,7 @@ public class DeviceControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().is(200))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.token").value("1"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firebaseToken").value("1"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.location.latitude").value("5.0"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.location.longitude").value("7.0"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.location.accuracy").value("9.0"))

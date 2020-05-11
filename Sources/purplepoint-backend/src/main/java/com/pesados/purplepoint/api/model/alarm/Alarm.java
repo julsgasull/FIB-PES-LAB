@@ -26,8 +26,8 @@ public class Alarm {
 	public Alarm() {}
 
 	public Alarm(String username, String deviceToken, Location location) {
-		this.username = username;
 		this.deviceToken = deviceToken;
+		this.username = username;
 		this.location = location;
 	}
 

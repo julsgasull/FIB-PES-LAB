@@ -57,6 +57,7 @@ public class AlarmControllerTest {
 		JSONObject alarm = new JSONObject();
 
 		alarm.put("username", "amandi");
+		alarm.put("deviceToken", "f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
 		alarm.put("location", location);
 
 		JSONObject user = new JSONObject();
@@ -93,6 +94,7 @@ public class AlarmControllerTest {
 		JSONObject alarm = new JSONObject();
 
 		alarm.put("username", "isma");
+		alarm.put("deviceToken", "f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
 		alarm.put("location", location);
 
 		JSONObject user = new JSONObject();
@@ -128,17 +130,16 @@ public class AlarmControllerTest {
 	}
 
 	@Test
-	public void shouldReturnLocationbyId() throws Exception {
+	public void shouldReturnAlarmbyId() throws Exception {
 		JSONObject location = new JSONObject();
-
 		location.put("latitude", 15.0);
 		location.put("longitude", 2.0);
 		location.put("accuracy", 8.0);
 		location.put("timestamp", 6.0);
 
 		JSONObject alarm = new JSONObject();
-
 		alarm.put("username", "franco");
+		alarm.put("deviceToken", "f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
 		alarm.put("location", location);
 
 		JSONObject user = new JSONObject();
@@ -184,6 +185,7 @@ public class AlarmControllerTest {
 		JSONObject alarm = new JSONObject();
 
 		alarm.put("username", "julia");
+		alarm.put("deviceToken", "f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
 		alarm.put("location", location);
 
 		JSONObject user = new JSONObject();
@@ -224,6 +226,7 @@ public class AlarmControllerTest {
 
 		JSONObject alarm = new JSONObject();
 		alarm.put("username", "adri");
+		alarm.put("deviceToken", "f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
 		alarm.put("location", location);
 
 		JSONObject user = new JSONObject();

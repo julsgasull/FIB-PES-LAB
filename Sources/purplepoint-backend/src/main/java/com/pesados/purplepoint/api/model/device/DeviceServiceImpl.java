@@ -13,23 +13,17 @@ public class DeviceServiceImpl implements DeviceService {
     private DeviceRepository deviceRepository;
 
     @Override
-    public Optional<Device> getDeviceById(Long id) { return this.deviceRepository.findById(id); }
-
+    public Optional<Device> getDeviceById(Long id) { return deviceRepository.findById(id); }
     @Override
     public Optional<Device> getDeviceByFirebaseToken(String token) { return deviceRepository.findByFirebaseToken(token); }
-
     @Override
     public List<Device> getAll() {
-        return this.deviceRepository.findAll();
+        return deviceRepository.findAll();
     }
-
     @Override
     public void deleteDeviceById(Long id) {
-        this.deviceRepository.deleteById(id);
+        deviceRepository.deleteById(id);
     }
-
     @Override
-    public Device saveDevice(Device newRep) {
-        return this.deviceRepository.save(newRep);
-    }
+    public Device saveDevice(Device newRep) { return deviceRepository.save(newRep); }
 }
