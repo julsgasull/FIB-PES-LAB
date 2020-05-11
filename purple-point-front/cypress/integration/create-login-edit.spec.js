@@ -13,8 +13,6 @@ describe('Testing Purple point front creating a new user, login and edit profile
     it('Signup should fill all the form fields and redirect to principal view', () => {
         cy.get('#email').type('email@gmail.com');
         cy.wait(300);
-        cy.get('#username').type('example');
-        cy.wait(300);
         cy.get('#name').type('nameExample');
         cy.wait(300);
         cy.get('#password').type('1234');
@@ -26,6 +24,12 @@ describe('Testing Purple point front creating a new user, login and edit profile
         cy.get('.principalButton').
         should('be.visible').
         click();
+        cy.get('#username').type('example');
+        cy.wait(300);
+        cy.get('.principalButton').
+        should('be.visible').
+        click();
+        cy.wait(300);
         cy.url().should('include', 'login');
     });
 
@@ -49,8 +53,8 @@ describe('Testing Purple point front creating a new user, login and edit profile
         cy.get('.principalButton').
         click();
         cy.wait(500);
-        cy.get(':nth-child(1) > .col-9 > .form-control').
-        type('12345');
+        cy.get('.userData > :nth-child(2) > .col-9 > .form-control')
+        .select('Mujer');
         cy.wait(500);
         cy.get(':nth-child(3) > .principalButton').
         should('be.visible').
