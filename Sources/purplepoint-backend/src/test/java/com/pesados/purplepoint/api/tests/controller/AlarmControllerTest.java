@@ -48,11 +48,10 @@ public class AlarmControllerTest {
 	@Test
 	public void shouldReturnNewLocation() throws Exception {
 		JSONObject location = new JSONObject();
-
-		location.put("latitude", 5.0);
-		location.put("longitude", 7.0);
-		location.put("accuracy", 9.0);
-		location.put("timestamp", 20.0);
+		location.put("latitude", 41.447612);
+		location.put("longitude", 2.224417);
+		location.put("accuracy", 100);
+		location.put("timestamp", 0);
 
 		JSONObject alarm = new JSONObject();
 
@@ -85,11 +84,10 @@ public class AlarmControllerTest {
 	@Test
 	public void shouldReturnAlarmsinfo() throws Exception {
 		JSONObject location = new JSONObject();
-
-		location.put("latitude", 21.0);
-		location.put("longitude", 12.0);
-		location.put("accuracy", 98.0);
-		location.put("timestamp", 21.0);
+		location.put("latitude", 41.447612);
+		location.put("longitude", 2.224417);
+		location.put("accuracy", 100);
+		location.put("timestamp", 0);
 
 		JSONObject alarm = new JSONObject();
 
@@ -132,10 +130,10 @@ public class AlarmControllerTest {
 	@Test
 	public void shouldReturnAlarmbyId() throws Exception {
 		JSONObject location = new JSONObject();
-		location.put("latitude", 15.0);
-		location.put("longitude", 2.0);
-		location.put("accuracy", 8.0);
-		location.put("timestamp", 6.0);
+		location.put("latitude", 41.447612);
+		location.put("longitude", 2.224417);
+		location.put("accuracy", 100);
+		location.put("timestamp", 0);
 
 		JSONObject alarm = new JSONObject();
 		alarm.put("username", "franco");
@@ -176,11 +174,10 @@ public class AlarmControllerTest {
 
 	public void shouldReturnLocationbyUsername() throws Exception {
 		JSONObject location = new JSONObject();
-
-		location.put("latitude", 58.5);
-		location.put("longitude", 69.2);
-		location.put("accuracy", 12.0);
-		location.put("timestamp", 21.0);
+		location.put("latitude", 41.447612);
+		location.put("longitude", 2.224417);
+		location.put("accuracy", 100);
+		location.put("timestamp", 0);
 
 		JSONObject alarm = new JSONObject();
 
@@ -219,10 +216,10 @@ public class AlarmControllerTest {
 	@Test
 	public void shouldDeleteUser() throws Exception {
 		JSONObject location = new JSONObject();
-		location.put("latitude", 58.0);
-		location.put("longitude", 25.05);
-		location.put("accuracy", 9.05);
-		location.put("timestamp", 1.20);
+		location.put("latitude", 41.447612);
+		location.put("longitude", 2.224417);
+		location.put("accuracy", 100);
+		location.put("timestamp", 0);
 
 		JSONObject alarm = new JSONObject();
 		alarm.put("username", "adri");
