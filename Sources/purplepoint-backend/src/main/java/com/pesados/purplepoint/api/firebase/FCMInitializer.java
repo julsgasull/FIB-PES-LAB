@@ -16,7 +16,7 @@ import java.io.IOException;
 public class FCMInitializer {
 
     //@Value("${app.firebase-configuration-file}")
-    private String firebaseConfigPath = "google\\purplepoint-f2abf-firebase-adminsdk-unh8s-38169d9605.json";
+    private String firebaseConfigPath = "purplepoint-f2abf-firebase-adminsdk-unh8s-38169d9605.json";
 
     Logger logger = LoggerFactory.getLogger(FCMInitializer.class);
 
