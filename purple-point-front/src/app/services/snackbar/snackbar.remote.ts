@@ -6,9 +6,12 @@ import { MatSnackBar,
          MatSnackBarVerticalPosition
         } from '@angular/material/snack-bar';
 import { SnackbarComponent } from 'src/app/common/components/snackbar/snackbar.component';
+import { pushData } from 'src/app/models/pushdata.interface';
 
 @Injectable()
 export class SnackbarRemote {
+
+    pData: pushData = {longitude: "", latitude: "", token: ""};
 
     constructor(private httpClient: HttpClient,
                 private snackbar: MatSnackBar,
@@ -17,7 +20,13 @@ export class SnackbarRemote {
     openSnackbar(title, message, data) {
         this.zone.run(() => {
             const notification: string = title+'\n'+message;
+            this.pData.latitude = data.latitude;
+            this.pData.longitude = data.longitude;
+            this.pData.token = data.token;
+            console.log("data: ");
             console.log(data);
+            console.log("---------------------")
+            this.saveData(data);
             const snackbarRef = this.snackbar.openFromComponent(
                 SnackbarComponent, 
                 {
@@ -25,24 +34,15 @@ export class SnackbarRemote {
                     panelClass: ['snackbar'],
                     politeness: 'polite'
                 });
-            //this.showMap(data);
         });
     }
 
-    incrementHelped() {
-        console.log("Incremented!");
+    saveData(data) {
+        this.pData.latitude = data.latitude;
+        this.pData.longitude = data.longitude;
+        this.pData.token = data.token;
+        localStorage.setItem('p_lat', this.pData.latitude);
+        localStorage.setItem('p_lon', this.pData.longitude);
+        localStorage.setItem('p_token', this.pData.token);
     }
-
-    sendNotif(data) {
-        console.log("Sent!");
-    }
-
-    showMap(data) {
-        console.log("Here we treat the notification's action");
-        console.log("First we increment the user's helped value for the helper");
-        this.incrementHelped();
-        console.log("Then we send a notification to the victim");
-        this.sendNotif(data);
-        console.log("Last but not least, we redirect to the map with the victim's location");
-    }    
 }
