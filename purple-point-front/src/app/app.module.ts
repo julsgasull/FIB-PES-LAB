@@ -34,6 +34,10 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { LanguageButtonModule } from './common/components/language-button/language-button.module';
 import { MessagingService } from './shared/messaging.service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SnackbarService } from './services/snackbar/snackbar.service';
+import { SnackbarRemote } from './services/snackbar/snackbar.remote';
 
 @NgModule({
   declarations: [
@@ -56,6 +60,8 @@ import { MessagingService } from './shared/messaging.service';
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireMessagingModule,
+    MatSnackBarModule,
+    BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     LanguageButtonModule,
@@ -84,7 +90,9 @@ import { MessagingService } from './shared/messaging.service';
     PanicButtonRemote,
     UtilsService,
     UtilsRemote,
-    MessagingService
+    MessagingService,
+    SnackbarService,
+    SnackbarRemote
   ],
   bootstrap: [AppComponent]
 })

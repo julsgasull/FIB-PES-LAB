@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireMessaging } from '@angular/fire/messaging';
@@ -7,7 +7,8 @@ import { BehaviorSubject } from 'rxjs'
 import { Observable } from 'rxjs';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-
+import { SnackbarService } from '../services/snackbar/snackbar.service';
+      
 @Injectable()
 export class MessagingService {
 
@@ -15,20 +16,23 @@ export class MessagingService {
 
   constructor(
     private httpClient: HttpClient,
+    private snackbarService: SnackbarService,
+    private zone: NgZone,
     private angularFireDB: AngularFireDatabase,
     private angularFireAuth: AngularFireAuth,
     private angularFireMessaging: AngularFireMessaging) {
       this.angularFireMessaging.messaging.subscribe(
       (_messaging) => {
         _messaging.onMessage = _messaging.onMessage((payload) => {
-          console.log("new message received. ", payload);
-          this.currentMessage.next(payload);
+          this.zone.run(() => {
+            this.snackbarService.openSnackbar(payload.notification.title, payload.notification.body);
+          });
         }).bind(_messaging);
         _messaging.onMessage =_messaging.onTokenRefresh(() => {
           _messaging.getToken().then((refreshedToken) => {
             console.log("TokenRefreshed");
             this.updateToken(refreshedToken);
-          })
+          });
         }).bind(_messaging);
       });
     }

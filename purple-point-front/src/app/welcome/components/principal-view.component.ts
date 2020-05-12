@@ -11,6 +11,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 export class PrincipalViewComponent implements OnInit {
 
   message;
+  readonly VAPID_PUBLIC_KEY = "BEgN4WXXXJDXda6Kume2gWGGT4-aCDjvhUFWIhfCHfoUMeCnwOCf8bI2Ir0jU3bXF1tlJ2uWsglCV_0VuU21hfk";
 
   constructor(
     private route: Router,

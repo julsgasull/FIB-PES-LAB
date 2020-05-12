@@ -201,3 +201,14 @@ td, tr {
     font-size: 12px;
     color:  #8F4DEC !important;
 }
+
+.snackbar {
+    background: #341860 !important;
+    color: white !important;
+    white-space: pre-wrap;
+}
+
+.snackbar .mat-simple-snackbar-action {
+    color: black !important;
+    background: blue !important; 
+}
