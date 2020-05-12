@@ -283,9 +283,7 @@ public class UserController {
 	@PutMapping(path = "/users/increaseHelpedUsers")
 	User increaseHelpedUser(
 			@Parameter(description = "Information for the user who has helped.", required = true)
-			@RequestBody User helperUser,
-			@Parameter(description = "New information for the user who needed help.", required = true)
-			@RequestBody String helpedUserDeviceToken
+			@RequestBody User helperUser
 	) {
 		return userService.getUserByEmail(helperUser.getEmail())
 				.map(user -> {

@@ -189,8 +189,11 @@ public class UserControllerTest {
 	public void shouldIncreaseHelpedUsers() throws Exception {
 		// Login with mockup user in the database.
 		JSONObject user = new JSONObject();
-		user.put("email", "isma@gmail.com");
+		user.put("name", "amandi");
 		user.put("password", "1234");
+		user.put("email", "isma@gmail.com");
+		user.put("gender", "female");
+
 
 		MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders
 				.post("/api/v1/users/login")
@@ -202,8 +205,9 @@ public class UserControllerTest {
 		JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
 		String token =((String) respUser.get("token"));
 
+
 		this.mockMvc.perform(put("/api/v1/users/increaseHelpedUsers").header("Authorization",token)
-				.content(asJsonString(new User("Ismael", "isma", "amadolider@gmail.com", "1234", "nonbinary")))
+				.content(asJsonString(new User("Ismael", "isma", "isma@gmail.com", "1234", "nonbinary")))
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(MockMvcResultHandlers.print())
