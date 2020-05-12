@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { SnackbarService } from '../snackbar/snackbar.service';
+import { NotificationsService } from '../notifications/notifications.service';
       
 @Injectable()
 export class MessagingService {
@@ -16,6 +17,7 @@ export class MessagingService {
 
   constructor(
     private httpClient: HttpClient,
+    private notificationsService: NotificationsService,
     private snackbarService: SnackbarService,
     private zone: NgZone,
     private angularFireDB: AngularFireDatabase,
@@ -39,16 +41,7 @@ export class MessagingService {
 
   updateToken(token): any/*Observable<any>*/ {
     console.log("Estas updateando el token");
-    // we can change this function to request our backend service
-    /*return this.httpClient.put<string>(`${environment.API_URL}/device/token/`, //endpoint a realizar
-    {   
-      'token': token
-    },
-    {
-        headers:{
-          'Content-Type':"application/json"
-        }
-    });*/
+    this.notificationsService.saveFireBaseToken(token);
   }
 
   /*

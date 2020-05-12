@@ -39,6 +39,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SnackbarService } from './services/snackbar/snackbar.service';
 import { SnackbarRemote } from './services/snackbar/snackbar.remote';
 import { SnackbarComponent } from './common/components/snackbar/snackbar.component'
+import { NotificationsService } from './services/notifications/notifications.service';
+import { NotificationsRemote } from './services/notifications/notifications.remote';
 
 @NgModule({
   declarations: [
@@ -95,7 +97,9 @@ import { SnackbarComponent } from './common/components/snackbar/snackbar.compone
     UtilsRemote,
     MessagingService,
     SnackbarService,
-    SnackbarRemote
+    SnackbarRemote,
+    NotificationsService,
+    NotificationsRemote
   ],
   bootstrap: [AppComponent]
 })
