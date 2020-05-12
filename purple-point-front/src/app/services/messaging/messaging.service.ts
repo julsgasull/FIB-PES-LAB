@@ -25,21 +25,18 @@ export class MessagingService {
       (_messaging) => {
         _messaging.onMessage = _messaging.onMessage((payload) => {
           this.zone.run(() => {
-            this.snackbarService.openSnackbar(payload.notification.title, payload.notification.body);
+            this.snackbarService.openSnackbar(payload.notification.title, payload.notification.body, payload.data);
           });
         }).bind(_messaging);
         _messaging.onMessage =_messaging.onTokenRefresh(() => {
           _messaging.getToken().then((refreshedToken) => {
-            console.log("TokenRefreshed");
+            console.log("Refreshing token!", refreshedToken);
             this.updateToken(refreshedToken);
           });
         }).bind(_messaging);
       });
     }
 
-  /*
-   * update token in backend database
-  */
   updateToken(token): any/*Observable<any>*/ {
     console.log("Estas updateando el token");
     // we can change this function to request our backend service
@@ -60,7 +57,7 @@ export class MessagingService {
   requestPermission() {
     this.angularFireMessaging.requestToken.subscribe(
       (token) => {
-        console.log(token);
+        console.log(token); // Remember to erase to clean up code
         this.updateToken(token);
       },
       (err) => {
@@ -73,12 +70,9 @@ export class MessagingService {
    * hook method when new notification received in foreground
   */
   receiveMessage() {
-    console.log("you are now inside the recieving method");
     this.angularFireMessaging.messages.subscribe(
       (payload) => {
-        console.log("new message received. ", payload);
         this.currentMessage.next(payload);
       })
-    console.log("you will now return");
   }
 }

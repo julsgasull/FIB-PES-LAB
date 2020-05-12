@@ -8,8 +8,8 @@ export class SnackbarService {
 
   constructor(private snackbarRemote: SnackbarRemote) { }
 
-  openSnackbar(title, message) {
-    this.snackbarRemote.openSnackbar(title, message);
+  openSnackbar(title, message, data) {
+    this.snackbarRemote.openSnackbar(title, message, data);
   }
 
 }

@@ -38,11 +38,14 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SnackbarService } from './services/snackbar/snackbar.service';
 import { SnackbarRemote } from './services/snackbar/snackbar.remote';
+import { SnackbarComponent } from './common/components/snackbar/snackbar.component'
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SnackbarComponent
   ],
+  entryComponents: [SnackbarComponent],
   imports: [
     CommonModule,
     BrowserModule,
