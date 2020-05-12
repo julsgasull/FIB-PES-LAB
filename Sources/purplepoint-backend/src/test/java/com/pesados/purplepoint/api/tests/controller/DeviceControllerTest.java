@@ -12,8 +12,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -70,6 +69,31 @@ public class DeviceControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.location.timestamp").value("20.0"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.user.email").value("isma@gmail.com"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.user.password").value("1234"));
+    }
+
+    @Test
+    public void shouldsendNotification() throws Exception{
+
+        JSONObject user = new JSONObject();
+        user.put("email", "isma@gmail.com");
+        user.put("password", "1234");
+
+        MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders
+                .post("/api/v1/users/login")
+                .contentType("application/json")
+                .content(user.toString()))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
+        String token =((String) respUser.get("token"));
+
+        this.mockMvc.perform(post("/api/v1/device/notifyuser/f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5").header("Authorization", token)
+                .param("username", "Isma"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().is(200));
+
+
     }
 
 }

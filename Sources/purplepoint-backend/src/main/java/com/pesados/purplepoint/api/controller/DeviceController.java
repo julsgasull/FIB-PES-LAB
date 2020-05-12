@@ -3,6 +3,7 @@ package com.pesados.purplepoint.api.controller;
 import com.pesados.purplepoint.api.exception.DeviceNotFoundException;
 import com.pesados.purplepoint.api.model.device.Device;
 import com.pesados.purplepoint.api.model.device.DeviceService;
+import com.pesados.purplepoint.api.model.firebase.PushNotificationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -20,9 +21,13 @@ import java.util.List;
 public class DeviceController {
 
     private final DeviceService deviceService;
+    private final PushNotificationService pushNotificationService;
 
-    public DeviceController(DeviceService deviceService) {
+
+    public DeviceController(DeviceService deviceService, PushNotificationService pushNotificationService) {
         this.deviceService = deviceService;
+        this.pushNotificationService = pushNotificationService;
+
     }
 
     @Operation(summary = "Add a new device",
@@ -95,4 +100,23 @@ public class DeviceController {
                     return deviceService.saveDevice(newDevice);
                 });
     }
+
+    // Notify user of incoming help
+    @Operation(summary = "Sends a notification to the user", description = "Notify the user who requested help that someone is coming.", tags = {"users"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation"),
+            @ApiResponse(responseCode = "404", description = "User not found"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized")
+    })
+    @PostMapping(path = "/device/notifyuser/{firebasetoken}")
+    void notifyUser(
+            @Parameter(description = "Username of the user who is going to receive the notification.", required = true)
+            @RequestParam String username,
+            @Parameter(description = "Token of the device that must recieve notification.", required = true)
+            @PathVariable String firebasetoken
+    ) {
+        pushNotificationService.sendNotification(firebasetoken, username);
+    }
+
+
 }
