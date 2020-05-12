@@ -280,12 +280,12 @@ public class UserController {
 			@ApiResponse(responseCode = "404", description = "User not found"),
 			@ApiResponse(responseCode = "401", description = "Unauthorized")
 	})
-	@DeleteMapping(path = "/users/{id}")
+	@PutMapping(path = "/users/increaseHelpedUsers")
 	User increaseHelpedUser(
 			@Parameter(description = "Information for the user who has helped.", required = true)
 			@RequestBody User helperUser,
 			@Parameter(description = "New information for the user who needed help.", required = true)
-			@RequestBody User helpedUser
+			@RequestBody String helpedUserDeviceToken
 	) {
 		return userService.getUserByEmail(helperUser.getEmail())
 				.map(user -> {

@@ -184,9 +184,9 @@ public class UserControllerTest {
 				.andExpect(MockMvcResultMatchers.jsonPath("$.password").value("1234"))
 				.andExpect(MockMvcResultMatchers.jsonPath("$.gender").value("nonbinary"));
 	}
-/*
+
 	@Test
-	public void shouldModifyLocationAndReturnAlarms() throws Exception {
+	public void shouldIncreaseHelpedUsers() throws Exception {
 		// Login with mockup user in the database.
 		JSONObject user = new JSONObject();
 		user.put("email", "isma@gmail.com");
@@ -202,27 +202,15 @@ public class UserControllerTest {
 		JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
 		String token =((String) respUser.get("token"));
 
-		// Lista esperada como resultado (estas alarmas están en el DataLoader. Si se eliminan de allí, bastará con insertarlas manualmente en este test)
-		List<Alarm> resultList = new ArrayList<>();
-		resultList.add(new Alarm("isma", new Location((float)41.447612, (float)2.224417, 100, 0), true));
-		resultList.add(new Alarm("isma", new Location((float)41.447379, (float)2.226842, 100, 0), true));
-		String resultListJSON = new Gson().toJson(resultList);
-
-		this.mockMvc.perform(put("/api/v1/users/location/isma@gmail.com").header("Authorization",token)
-				.content(asJsonString(new Location((float)41.447612, (float)2.224417, 100, 7)))
+		this.mockMvc.perform(put("/api/v1/users/increaseHelpedUsers").header("Authorization",token)
+				.content(asJsonString(new User("Ismael", "isma", "amadolider@gmail.com", "1234", "nonbinary")))
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(MockMvcResultHandlers.print())
 				.andExpect(status().is(200))
-				.andExpect(MockMvcResultMatchers.content().json(resultListJSON));
-
-		// Comprueba que se ha actualizado el usuario. No se como hacerlo unitario así que lo dejo para un hotfix :) Isma help
-
-		userService.getUserByEmail("isma@gmail.com").ifPresent(	user1 ->
-				Assert.assertTrue(user1.getLastLocation().equals(new Location((float)41.447612, (float)2.224417, 100, 7)))
-		);
+				.andExpect(MockMvcResultMatchers.jsonPath("$.helpedUsers").value(1));
 	}
-	*/
+
 
 	public static String asJsonString(final Object obj) {
 		try {
