@@ -130,7 +130,6 @@ public class AlarmController {
 
 
 	//Update an alarm
-
 	@Operation(summary = "Update an existing alarm by ID", description = "Update the username, Location, given the ID of an existing alarm", tags = {"alarms"})
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "successful operation"),
@@ -157,7 +156,6 @@ public class AlarmController {
 	}
 
 	//Delete an Alarm
-
 	@Operation(summary = "Delete an alarm", description = "Delete an existing alarm given its id", tags = { "alarms" })
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "successful operation"),
