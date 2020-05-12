@@ -2,6 +2,7 @@ package com.pesados.purplepoint.api.model.firebase;
 
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.pesados.purplepoint.api.firebase.FCMService;
+import com.pesados.purplepoint.api.model.alarm.Alarm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class PushNotificationService {
@@ -39,41 +42,33 @@ public class PushNotificationService {
         }
     }
 
-    public void sendPushNotification(PushNotificationRequest request) {
+
+     */
+
+
+    public void sendNotification(String token, String username) {
         try {
-            fcmService.sendMessage(getSamplePayloadData(), request);
-        } catch (InterruptedException | ExecutionException e) {
-            logger.error(e.getMessage());
-        }
-    }
-    */
-    public void sendPushNotificationWithoutData(PushNotificationRequest request) {
-        try {
-            fcmService.sendMessageWithoutData(request);
+            fcmService.sendMessage(token, username);
         } catch (InterruptedException | ExecutionException e) {
             logger.error(e.getMessage());
         }
     }
 
-    public void sendMulticastPushNotification(List<String> tokens){
+    public void sendMulticastPushNotification(List<String> tokens, Alarm alarmNew){
         Map<String, String> data = new HashMap<>();
 
         data.put("body", "A person near to you needs your help");
         data.put("title", "Your help is needed");
+
+        data.put("latitude", String.valueOf(alarmNew.getLocation().getLatitude()));
+        data.put("longitude", String.valueOf((alarmNew.getLocation().getLongitude())));
+        data.put("token", alarmNew.getDeviceToken());
         try {
             fcmService.sendMulticastMessageWithoutData(tokens, data);
         } catch (FirebaseMessagingException e) {
             logger.error(e.getMessage());
         }
 
-    }
-
-    public void sendPushNotificationToToken(PushNotificationRequest request) {
-        try {
-            fcmService.sendMessageToToken(request);
-        } catch (InterruptedException | ExecutionException e) {
-            logger.error(e.getMessage());
-        }
     }
 
     /*

@@ -55,11 +55,11 @@ public class AlarmController {
 					required=true, schema=@Schema(implementation = Alarm.class))
 			@Valid @RequestBody Alarm alarmNew
 	) {	List<Device> nearbyDevices = findNearbyDevices(alarmNew);
-		sendPushNotificationToDevices(nearbyDevices);
+		sendPushNotificationToDevices(nearbyDevices, alarmNew);
 		return alarmService.saveAlarm(alarmNew);
 	}
 
-	private void sendPushNotificationToDevices(List<Device> devices) {
+	private void sendPushNotificationToDevices(List<Device> devices, Alarm alarmNew) {
 		/* franco es puta */
 		List<String> registrationTokens = new ArrayList<>();
 
@@ -67,7 +67,7 @@ public class AlarmController {
 			registrationTokens.add(devices.get(i).getFirebaseToken());
 		}
 
-		pushNotificationService.sendMulticastPushNotification(registrationTokens);
+		pushNotificationService.sendMulticastPushNotification(registrationTokens, alarmNew);
 	}
 
 	// Encuentra todos los devices que están cerca de la localización de la alarma
