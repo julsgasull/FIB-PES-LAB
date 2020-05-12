@@ -262,7 +262,7 @@ public class UserController {
 	// Delete user
 	@Operation(summary = "Delete an user", description = "Delete an existing user given its id", tags = {"users"})
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "successful operation"),
+			@ApiResponse(responseCode = "200", description = "Successful operation"),
 			@ApiResponse(responseCode = "404", description = "User not found")})
 	@DeleteMapping(path = "/users/{id}")
 	void deleteUser(
@@ -273,36 +273,28 @@ public class UserController {
 		userService.deleteUserById(id);
 	}
 
-/*
-// Won't work until changed to search by device.
-	@Operation(summary = "Update user's location", description = "Updates the last location for the given user", tags = {"location"})
+	// Increase helpedUser
+	@Operation(summary = "Increase helpedUsers", description = "Indicate a user is going to help another user. Returns the helperUser updated.", tags = {"users"})
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "201", description = "Location modified",
-					content = @Content(schema = @Schema(implementation = User.class))),
-			@ApiResponse(responseCode = "400", description = "Invalid input"),
-			@ApiResponse(responseCode = "401", description = "Unauthorized"),
-			@ApiResponse(responseCode = "404", description = "User not found")})
-	@PutMapping(value = "/users/location/{email}", consumes = {"application/json", "application/xml"})
-	List<Alarm> updateLocation(
-			@Parameter(description = "New location for the user.", required = true)
-			@RequestBody Location newLocation,
-			@Parameter(description = "email of the user to update.", required = true)
-			@PathVariable String email
+			@ApiResponse(responseCode = "200", description = "Successful operation"),
+			@ApiResponse(responseCode = "404", description = "User not found"),
+			@ApiResponse(responseCode = "401", description = "Unauthorized")
+	})
+	@DeleteMapping(path = "/users/{id}")
+	User increaseHelpedUser(
+			@Parameter(description = "Information for the user who has helped.", required = true)
+			@RequestBody User helperUser,
+			@Parameter(description = "New information for the user who needed help.", required = true)
+			@RequestBody User helpedUser
 	) {
-		return userService.getUserByEmail(email)
+		return userService.getUserByEmail(helperUser.getEmail())
 				.map(user -> {
-					user.setLastLocation(newLocation);
-					List<Alarm> allAlarms = alarmService.getAll();
-					List<Alarm> nearbyAlarms = new ArrayList<>();
-					for (Alarm alarm : allAlarms) {
-						if (LocationController.isLocationInA500MeterRadius(newLocation.getLatitude(), newLocation.getLongitude(), alarm.getLocation().getLatitude(), alarm.getLocation().getLongitude()))
-							nearbyAlarms.add(alarm);
-					}
-					userService.saveUser(user);
-					return nearbyAlarms;
+					user.setHelpedUsers(helperUser.getHelpedUsers()+1);
+					return userService.saveUser(user);
 				})
-				.orElseThrow(() -> new UserNotFoundException(email));
+				.orElseGet(() -> {
+					helperUser.setEmail(helperUser.getEmail());
+					return userService.saveUser(helperUser);
+				});
 	}
-
- */
 }
