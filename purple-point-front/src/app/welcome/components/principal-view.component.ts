@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MessagingService } from 'src/app/shared/messaging.service';
+import { MessagingService } from 'src/app/services/messaging/messaging.service';
 import {HttpClient, HttpParams} from '@angular/common/http';
 
 @Component({

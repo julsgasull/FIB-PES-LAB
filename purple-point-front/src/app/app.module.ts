@@ -33,7 +33,7 @@ import { AngularFireModule } from '@angular/fire';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { LanguageButtonModule } from './common/components/language-button/language-button.module';
-import { MessagingService } from './shared/messaging.service';
+import { MessagingService } from './services/messaging/messaging.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SnackbarService } from './services/snackbar/snackbar.service';

@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs'
 import { Observable } from 'rxjs';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { SnackbarService } from '../services/snackbar/snackbar.service';
+import { SnackbarService } from '../snackbar/snackbar.service';
       
 @Injectable()
 export class MessagingService {
