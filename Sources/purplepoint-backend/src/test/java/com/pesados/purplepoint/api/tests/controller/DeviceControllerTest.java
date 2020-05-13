@@ -75,6 +75,7 @@ public class DeviceControllerTest {
         userLogin.put("id", mockUser.getID());
         userLogin.put("profilePic", null);
 
+
         JSONObject device = new JSONObject();
         device.put("firebaseToken", "f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
         device.put("location", location);

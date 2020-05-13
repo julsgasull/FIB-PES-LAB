@@ -60,6 +60,8 @@ public class PushNotificationService {
         data.put("latitude", String.valueOf(alarmNew.getLocation().getLatitude()));
         data.put("longitude", String.valueOf((alarmNew.getLocation().getLongitude())));
         data.put("token", alarmNew.getDeviceToken());
+        data.put("title", "notification.title");
+        data.put("body", "notification.body");
         try {
             fcmService.sendMulticastMessageWithoutData(tokens, data);
         } catch (FirebaseMessagingException e) {

@@ -65,7 +65,7 @@ public class FCMService {
     }
 
     private MulticastMessage getPreconfiguredMulticatsMessageWithoutData(PushNotificationRequest request, List<String> tokens, Map<String, String> data) {
-        return getPreconfiguredMulticastMessageBuilder(request, tokens).build();
+        return getPreconfiguredMulticastMessageBuilder(request, tokens).putAllData(data).build();
     }
 
     private Message.Builder getPreconfiguredMessageBuilder(PushNotificationRequest request, String token) {
