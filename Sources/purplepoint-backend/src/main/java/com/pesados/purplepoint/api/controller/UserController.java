@@ -4,7 +4,6 @@ package com.pesados.purplepoint.api.controller;
 import com.pesados.purplepoint.api.exception.UserNotFoundException;
 import com.pesados.purplepoint.api.exception.UserRegisterBadRequestException;
 import com.pesados.purplepoint.api.exception.WrongPasswordException;
-import com.pesados.purplepoint.api.model.alarm.AlarmService;
 import com.pesados.purplepoint.api.model.image.Image;
 import com.pesados.purplepoint.api.model.image.ImageService;
 import com.pesados.purplepoint.api.model.user.User;
@@ -279,19 +278,20 @@ public class UserController {
 			@ApiResponse(responseCode = "404", description = "User not found"),
 			@ApiResponse(responseCode = "401", description = "Unauthorized")
 	})
-	@PutMapping(path = "/users/increaseHelpedUsers")
+	@PutMapping(path = "/users/increaseHelpedUsers/{userEmail}")
 	User increaseHelpedUser(
 			@Parameter(description = "Information for the user who has helped.", required = true)
-			@RequestBody User helperUser
+			@PathVariable String userEmail
 	) {
-		return userService.getUserByEmail(helperUser.getEmail())
+		return userService.getUserByEmail(userEmail)
 				.map(user -> {
-					user.setHelpedUsers(helperUser.getHelpedUsers()+1);
+					user.setHelpedUsers(user.getHelpedUsers()+1);
 					return userService.saveUser(user);
 				})
 				.orElseGet(() -> {
-					helperUser.setEmail(helperUser.getEmail());
-					return userService.saveUser(helperUser);
+					User newUser = new User();
+					newUser.setEmail(userEmail);
+					return userService.saveUser(newUser);
 				});
 	}
 }

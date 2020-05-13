@@ -205,8 +205,7 @@ public class UserControllerTest {
 		String token =((String) respUser.get("token"));
 
 
-		this.mockMvc.perform(put("/api/v1/users/increaseHelpedUsers").header("Authorization",token)
-				.content(asJsonString(new User("Ismael", "isma", "isma@gmail.com", "1234", "nonbinary")))
+		this.mockMvc.perform(put("/api/v1/users/increaseHelpedUsers/isma@gmail.com").header("Authorization",token)
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(MockMvcResultHandlers.print())

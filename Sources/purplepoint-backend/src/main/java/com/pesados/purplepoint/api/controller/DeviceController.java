@@ -89,9 +89,9 @@ public class DeviceController {
             @ApiResponse(responseCode = "404", description = "User not found"),
             @ApiResponse(responseCode = "405", description = "Validation exception")})
     @PutMapping(value = "/device/{token}", consumes = {"application/json", "application/xml"})
-    Device replaceDeviceByToken(@Parameter(description = "New information for the device.", required = true)
+    Device updateDeviceToken(@Parameter(description = "New information for the device.", required = true)
                             @RequestBody Device newDevice,
-                            @Parameter(description = "Token of the device to replace.", required = true)
+                             @Parameter(description = "Token of the device to replace.", required = true)
                             @PathVariable String token
     ) {
         User deviceUser = null;
@@ -133,7 +133,6 @@ public class DeviceController {
             @ApiResponse(responseCode = "401", description = "Unauthorized")
     })
     @PostMapping(path = "/device/notifyuser/{firebasetoken}")
-
     void notifyUser(
             @Parameter(description = "Username of the user who is going to receive the notification.", required = true)
             @RequestParam String username,
@@ -154,10 +153,10 @@ public class DeviceController {
             @ApiResponse(responseCode = "404", description = "User not found"),
             @ApiResponse(responseCode = "405", description = "Validation exception")})
     @PutMapping(value = "/device/updatetoken/{token}", consumes = {"application/json", "application/xml"})
-    Device replaceDeviceByToken(@Parameter(description = "New information for the device.", required = true)
-                                @RequestBody String oldDeviceToken,
-                                @Parameter(description = "Token of the device to replace.", required = true)
-                                @PathVariable String token
+    Device updateDeviceToken(@Parameter(description = "New information for the device.", required = true)
+                                @PathVariable String token,
+                             @Parameter(description = "Token of the device to replace.", required = true)
+                                @RequestBody String oldDeviceToken
     ) {
         return deviceService.getDeviceByFirebaseToken(oldDeviceToken)
                 .map(device -> {
