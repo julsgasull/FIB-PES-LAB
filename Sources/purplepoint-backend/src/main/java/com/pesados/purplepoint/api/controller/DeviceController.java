@@ -4,6 +4,8 @@ import com.pesados.purplepoint.api.exception.DeviceNotFoundException;
 import com.pesados.purplepoint.api.model.device.Device;
 import com.pesados.purplepoint.api.model.device.DeviceService;
 import com.pesados.purplepoint.api.model.firebase.PushNotificationService;
+import com.pesados.purplepoint.api.model.location.Location;
+import com.pesados.purplepoint.api.model.user.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -31,7 +33,7 @@ public class DeviceController {
     }
 
     @Operation(summary = "Add a new device",
-            description = "Adds a new device to the database with the information provided. ", tags = { "device" })
+            description = "Adds a new device to the database with the information provided.", tags = { "device" })
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "device created",
                     content = @Content(schema = @Schema(implementation = Device.class))),
@@ -46,7 +48,7 @@ public class DeviceController {
         return this.deviceService.saveDevice(newRep);
     }
 
-    @Operation(summary = "Get All devices", description = "Get ", tags = {"device"})
+    @Operation(summary = "Get All devices", description = "Get all devices created.", tags = {"device"})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation",
                     content = @Content(array = @ArraySchema(schema = @Schema(implementation = Device.class)))) })
@@ -75,7 +77,7 @@ public class DeviceController {
         deviceService.deleteDeviceById(id);
     }
 
-    @Operation(summary = "Update an existing Device by token", description = "Update the token, user and/or location given the token of an existing user", tags = { "device" })
+    @Operation(summary = "Update an existing Device by token", description = "Update the token, user and/or location given the token of an existing device.", tags = { "device" })
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation"),
             @ApiResponse(responseCode = "400", description = "Invalid username supplied"),
@@ -101,6 +103,7 @@ public class DeviceController {
                 });
     }
 
+
     // Notify user of incoming help
     @Operation(summary = "Sends a notification to the user", description = "Notify the user who requested help that someone is coming.", tags = {"users"})
     @ApiResponses(value = {
@@ -122,5 +125,27 @@ public class DeviceController {
             pushNotificationService.sendNotification(firebasetoken, username);
     }
 
-
+    @Operation(summary = "Update an existing Device's token providing the old token", description = "Update the token of an existing device. If it doesn't exists, it is created.", tags = { "device" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation"),
+            @ApiResponse(responseCode = "400", description = "Invalid username supplied"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "404", description = "User not found"),
+            @ApiResponse(responseCode = "405", description = "Validation exception")})
+    @PutMapping(value = "/device/updatetoken/{token}", consumes = {"application/json", "application/xml"})
+    Device replaceDeviceByToken(@Parameter(description = "New information for the device.", required = true)
+                                @RequestBody String oldDeviceToken,
+                                @Parameter(description = "Token of the device to replace.", required = true)
+                                @PathVariable String token
+    ) {
+        return deviceService.getDeviceByFirebaseToken(oldDeviceToken)
+                .map(device -> {
+                    device.setFirebaseToken(token);
+                    return deviceService.saveDevice(device);
+                })
+                .orElseGet(() -> {
+                    Device newDevice = new Device(token, new Location(), new User());
+                    return newDevice;
+                });
+    }
 }
