@@ -7,6 +7,7 @@ import { MatSnackBar,
         } from '@angular/material/snack-bar';
 import { SnackbarComponent } from 'src/app/common/components/snackbar/snackbar.component';
 import { pushData } from 'src/app/models/pushdata.interface';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class SnackbarRemote {
@@ -15,11 +16,14 @@ export class SnackbarRemote {
 
     constructor(private httpClient: HttpClient,
                 private snackbar: MatSnackBar,
+                private translate: TranslateService,
                 private zone: NgZone) {}
 
-    openSnackbar(title, message, data) {
+    openSnackbar(data) {
         this.zone.run(() => {
-            const notification: string = title+'\n'+message;
+            let title = this.translate.instant(data.title);
+            let message = this.translate.instant(data.body);
+            const notification: string = (title+'\n'+message);
             this.pData.latitude = data.latitude;
             this.pData.longitude = data.longitude;
             this.pData.token = data.token;

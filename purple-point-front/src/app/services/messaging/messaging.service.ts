@@ -27,7 +27,7 @@ export class MessagingService {
       (_messaging) => {
         _messaging.onMessage = _messaging.onMessage((payload) => {
           this.zone.run(() => {
-            this.snackbarService.openSnackbar(payload.notification.title, payload.notification.body, payload.data);
+            this.snackbarService.openSnackbar(payload.data);
           });
         }).bind(_messaging);
         _messaging.onMessage =_messaging.onTokenRefresh(() => {

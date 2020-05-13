@@ -19,6 +19,7 @@ export class PrincipalViewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    localStorage.setItem('token', null);
     this.messagingService.requestPermission();
     this.messagingService.receiveMessage();
     this.message = this.messagingService.currentMessage;

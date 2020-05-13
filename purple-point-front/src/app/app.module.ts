@@ -41,11 +41,11 @@ import { SnackbarRemote } from './services/snackbar/snackbar.remote';
 import { SnackbarComponent } from './common/components/snackbar/snackbar.component'
 import { NotificationsService } from './services/notifications/notifications.service';
 import { NotificationsRemote } from './services/notifications/notifications.remote';
+import { SnackbarModule } from './common/components/snackbar/snackbar.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    SnackbarComponent
+    AppComponent
   ],
   entryComponents: [SnackbarComponent],
   imports: [
@@ -67,6 +67,7 @@ import { NotificationsRemote } from './services/notifications/notifications.remo
     AngularFireMessagingModule,
     MatSnackBarModule,
     BrowserAnimationsModule,
+    SnackbarModule,
     AngularFireModule.initializeApp(environment.firebase),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     LanguageButtonModule,
