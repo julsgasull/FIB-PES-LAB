@@ -57,9 +57,6 @@ public class PushNotificationService {
     public void sendMulticastPushNotification(List<String> tokens, Alarm alarmNew){
         Map<String, String> data = new HashMap<>();
 
-        data.put("body", "A person near to you needs your help");
-        data.put("title", "Your help is needed");
-
         data.put("latitude", String.valueOf(alarmNew.getLocation().getLatitude()));
         data.put("longitude", String.valueOf((alarmNew.getLocation().getLongitude())));
         data.put("token", alarmNew.getDeviceToken());

@@ -109,13 +109,17 @@ public class DeviceController {
             @ApiResponse(responseCode = "401", description = "Unauthorized")
     })
     @PostMapping(path = "/device/notifyuser/{firebasetoken}")
+
     void notifyUser(
             @Parameter(description = "Username of the user who is going to receive the notification.", required = true)
             @RequestParam String username,
             @Parameter(description = "Token of the device that must recieve notification.", required = true)
             @PathVariable String firebasetoken
     ) {
-        pushNotificationService.sendNotification(firebasetoken, username);
+        if (username == "")
+            pushNotificationService.sendNotification(firebasetoken, "Someone");
+        else
+            pushNotificationService.sendNotification(firebasetoken, username);
     }
 
 

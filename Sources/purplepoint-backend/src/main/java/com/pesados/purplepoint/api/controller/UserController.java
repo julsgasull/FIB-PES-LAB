@@ -37,17 +37,16 @@ import java.util.stream.Collectors;
 public class UserController {
 	private final UserService userService;
 	private final ImageService imgService;
-	private final AlarmService alarmService;
 
 	@ModelAttribute
 	public void setResponseHeader(HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 	}
 
-	UserController(UserService userService, ImageService imgService, AlarmService alarmService) {
+	UserController(UserService userService, ImageService imgService) {
 		this.userService = userService;
 		this.imgService = imgService;
-		this.alarmService = alarmService;
+
 	}
 
 	@Operation(summary = "Login User with E-mail and Password", description = "Login an %user% with an exising correct combination of password and email", tags = {"authorizations"})

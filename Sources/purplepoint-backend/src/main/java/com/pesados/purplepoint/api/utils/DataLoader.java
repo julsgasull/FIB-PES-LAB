@@ -59,7 +59,7 @@ class LoadDatabase {
   	  User usr = new User("test5", "test5","testingthis@gmail.com", "1234", "others");
   	  
       return args -> {
-        logger.info("Preloading " + service.saveReport(new Report(null, usr)));
+        logger.info("Preloading " + service.saveReport(new Report((new Location((float)41.447615, (float)2.224420, (float)100, (float)0)), usr)));
       };
     }
 
