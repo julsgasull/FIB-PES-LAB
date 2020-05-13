@@ -41,7 +41,9 @@ export class MessagingService {
 
   updateToken(token): any/*Observable<any>*/ {
     console.log("Estas updateando el token");
-    this.notificationsService.saveFireBaseToken(token);
+    const oldToken: String = localStorage.getItem('deviceToken');
+    localStorage.setItem('deviceToken', token);
+    this.notificationsService.saveFireBaseToken(token, oldToken);
   }
 
   /*

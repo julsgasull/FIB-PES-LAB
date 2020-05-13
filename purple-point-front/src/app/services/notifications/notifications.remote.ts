@@ -7,11 +7,12 @@ export class NotificationsRemote {
 
     constructor(private httpClient: HttpClient) {}
 
-    saveFireBaseToken(token) {
+    saveFireBaseToken(token, oldToken) {
+        //pasar token antiguo por body
         console.log("Saving token");
-        /*return this.httpClient.put<string>(`${environment.API_URL}/device/token/`, //endpoint a realizar
+        /*return this.httpClient.put<string>(`${environment.API_URL}/device/updatetoken/`+token, //endpoint a realizar
         {   
-            'token': token
+            'oldToken': newToken
         },
         {
         headers:{
@@ -33,7 +34,7 @@ export class NotificationsRemote {
         // console.log("email: ", email);
 
         console.log("Increasing number of people helped");
-        /*return this.httpClient.put<string>(`${environment.API_URL}/users/increaseHelpedUsers`, //endpoint a realizar
+        /*return this.httpClient.put<string>(`${environment.API_URL}/users/increaseHelpedUsers/`+email, //endpoint a realizar
         {   
             'email': email
         },
