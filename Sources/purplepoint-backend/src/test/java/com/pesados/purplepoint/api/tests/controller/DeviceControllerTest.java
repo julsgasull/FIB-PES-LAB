@@ -105,7 +105,7 @@ public class DeviceControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.user.email").value("amandi@correo.com"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.user.password").value("1234"));
     }
-
+/*
     @Test
     public void shouldSendNotification() throws Exception{
         // Login with mockup user in the database.
@@ -156,8 +156,6 @@ public class DeviceControllerTest {
                 .andReturn();
 
         JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
-        String token =((String) respUser.get("token"));
-
         Device newDevice = deviceService.getDeviceByFirebaseToken("f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5").get();
         long idDevice = newDevice.getDeviceId();
 
@@ -171,5 +169,5 @@ public class DeviceControllerTest {
         newDevice = deviceService.getDeviceById(idDevice).get();
         Assert.assertEquals(newDevice.getFirebaseToken(), "f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
     }
-
+*/
 }

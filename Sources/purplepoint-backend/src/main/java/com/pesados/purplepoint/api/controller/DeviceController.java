@@ -1,9 +1,11 @@
 package com.pesados.purplepoint.api.controller;
 
+import com.google.firebase.auth.FirebaseToken;
 import com.pesados.purplepoint.api.exception.DeviceNotFoundException;
 import com.pesados.purplepoint.api.exception.UserNotFoundException;
 import com.pesados.purplepoint.api.model.device.Device;
 import com.pesados.purplepoint.api.model.device.DeviceService;
+import com.pesados.purplepoint.api.model.firebase.FirebaseTokenHolder;
 import com.pesados.purplepoint.api.model.firebase.PushNotificationService;
 import com.pesados.purplepoint.api.model.location.Location;
 import com.pesados.purplepoint.api.model.user.User;

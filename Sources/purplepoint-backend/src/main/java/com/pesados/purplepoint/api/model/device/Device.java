@@ -1,5 +1,6 @@
 package com.pesados.purplepoint.api.model.device;
 
+import com.pesados.purplepoint.api.model.firebase.FirebaseTokenHolder;
 import com.pesados.purplepoint.api.model.location.Location;
 import com.pesados.purplepoint.api.model.user.User;
 import io.swagger.v3.oas.annotations.media.Schema;
