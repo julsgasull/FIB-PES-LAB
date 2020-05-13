@@ -35,7 +35,7 @@ export class UserRemote {
         },
         {
             headers:{
-                'X-Skip-Interceptor': '',
+                'X-Skip-Interceptor-Firebase': '',
                 'Content-Type':"application/json"
             }
         });

@@ -36,4 +36,8 @@ export class AuthService {
       return token;
     } return this.refreshToken();
   }
+
+  public getDeviceToken(): string {
+    return localStorage.getItem('deviceToken');
+  }
 }

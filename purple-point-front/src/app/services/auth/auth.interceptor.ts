@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 
 
 export const InterceptorSkipHeader = 'X-Skip-Interceptor';
+export const InterceptorSkipHeaderFirebase = 'X-Skip-Interceptor-Firebase';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -16,10 +17,18 @@ export class AuthInterceptor implements HttpInterceptor {
     if (request.headers.has(InterceptorSkipHeader)) {
       const headers = request.headers.delete(InterceptorSkipHeader);
       return next.handle(request.clone({ headers }));
+    } else if (request.headers.has(InterceptorSkipHeaderFirebase)) {
+      request = request.clone({
+        setHeaders: {
+          DeviceAuthorization: `${auth.getDeviceToken()}`
+        }
+      });
+      return next.handle(request);
     } else {
       request = request.clone({
         setHeaders: {
-          Authorization: `${auth.getToken()}`
+          Authorization: `${auth.getToken()}`,
+          DeviceAuthorization: `${auth.getDeviceToken()}`
         }
       });
       return next.handle(request);
