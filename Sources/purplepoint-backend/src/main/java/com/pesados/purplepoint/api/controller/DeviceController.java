@@ -1,11 +1,13 @@
 package com.pesados.purplepoint.api.controller;
 
 import com.pesados.purplepoint.api.exception.DeviceNotFoundException;
+import com.pesados.purplepoint.api.exception.UserNotFoundException;
 import com.pesados.purplepoint.api.model.device.Device;
 import com.pesados.purplepoint.api.model.device.DeviceService;
 import com.pesados.purplepoint.api.model.firebase.PushNotificationService;
 import com.pesados.purplepoint.api.model.location.Location;
 import com.pesados.purplepoint.api.model.user.User;
+import com.pesados.purplepoint.api.model.user.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -23,11 +25,13 @@ import java.util.List;
 public class DeviceController {
 
     private final DeviceService deviceService;
+    private final UserService userService;
     private final PushNotificationService pushNotificationService;
 
 
-    public DeviceController(DeviceService deviceService, PushNotificationService pushNotificationService) {
+    public DeviceController(DeviceService deviceService, UserService userService, PushNotificationService pushNotificationService) {
         this.deviceService = deviceService;
+        this.userService = userService;
         this.pushNotificationService = pushNotificationService;
 
     }
@@ -90,11 +94,28 @@ public class DeviceController {
                             @Parameter(description = "Token of the device to replace.", required = true)
                             @PathVariable String token
     ) {
+        User deviceUser = null;
+        try  {
+            deviceUser = userService.getUserByEmail(newDevice.getUser().getEmail()).orElseThrow(() -> new UserNotFoundException(newDevice.getUser().getEmail()));
+        } catch (UserNotFoundException e) {
+            return deviceService.getDeviceByFirebaseToken(token)
+                    .map(device -> {
+                        device.setFirebaseToken(newDevice.getFirebaseToken());
+                        device.setLocation(newDevice.getLocation());
+                        device.setUser(newDevice.getUser());
+                        return deviceService.saveDevice(device);
+                    })
+                    .orElseGet(() -> {
+                        newDevice.setFirebaseToken(token);
+                        return deviceService.saveDevice(newDevice);
+                    });
+        }
+        User finalDeviceUser = deviceUser;
         return deviceService.getDeviceByFirebaseToken(token)
                 .map(device -> {
                     device.setFirebaseToken(newDevice.getFirebaseToken());
                     device.setLocation(newDevice.getLocation());
-                    device.setUser(newDevice.getUser());
+                    device.setUser(userService.saveUser(finalDeviceUser));
                     return deviceService.saveDevice(device);
                 })
                 .orElseGet(() -> {

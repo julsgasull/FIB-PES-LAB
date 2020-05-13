@@ -2,6 +2,8 @@ package com.pesados.purplepoint.api.tests.controller;
 
 import com.pesados.purplepoint.api.model.device.Device;
 import com.pesados.purplepoint.api.model.device.DeviceService;
+import com.pesados.purplepoint.api.model.user.User;
+import com.pesados.purplepoint.api.model.user.UserService;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -28,6 +30,9 @@ public class DeviceControllerTest {
     @Autowired
     DeviceService deviceService;
 
+    @Autowired
+    UserService userService;
+
     @Test
     public void shouldReturnUnauthorized() throws Exception {
         this.mockMvc.perform(get("/api/v1/device/1")).andExpect(status().is(401));
@@ -36,6 +41,9 @@ public class DeviceControllerTest {
 
     @Test
     public void shouldModifyDevice() throws Exception {
+        // Get mock user from prefidined database. It always should exist.
+        User mockUser = userService.getUserByEmail("isma@gmail.com").get();
+
         // Login with mockup user in the database.
         JSONObject location = new JSONObject();
         location.put("latitude", 5.0);
@@ -43,19 +51,39 @@ public class DeviceControllerTest {
         location.put("accuracy", 9.0);
         location.put("timestamp", 20.0);
 
-        JSONObject user = new JSONObject();
-        user.put("email", "isma@gmail.com");
-        user.put("password", "1234");
+        JSONObject userU = new JSONObject();
+        userU.put("name", mockUser.getName());
+        userU.put("username", "amandi");
+        userU.put("email", "amandi@correo.com");
+        userU.put("password", mockUser.getPassword());
+        userU.put("gender", mockUser.getGender());
+        userU.put("token", mockUser.getToken());
+        userU.put("helpedUsers", mockUser.getHelpedUsers());
+        userU.put("markedSpots", mockUser.getMarkedSpots());
+        userU.put("profilePic", null);
+
+
+        JSONObject userLogin = new JSONObject();
+        userLogin.put("name", mockUser.getName());
+        userLogin.put("username", mockUser.getUsername());
+        userLogin.put("email", mockUser.getEmail());
+        userLogin.put("password", mockUser.getPassword());
+        userLogin.put("gender", mockUser.getGender());
+        userLogin.put("token", mockUser.getToken());
+        userLogin.put("helpedUsers", mockUser.getHelpedUsers());
+        userLogin.put("markedSpots", mockUser.getMarkedSpots());
+        userLogin.put("id", mockUser.getID());
+        userLogin.put("profilePic", null);
 
         JSONObject device = new JSONObject();
         device.put("firebaseToken", "f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
         device.put("location", location);
-        device.put("user", user);
+        device.put("user", userU);
 
         MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders
                 .post("/api/v1/users/login")
                 .contentType("application/json")
-                .content(user.toString()))
+                .content(userLogin.toString()))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -73,7 +101,7 @@ public class DeviceControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.location.longitude").value("7.0"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.location.accuracy").value("9.0"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.location.timestamp").value("20.0"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.user.email").value("isma@gmail.com"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.user.email").value("amandi@correo.com"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.user.password").value("1234"));
     }
 
