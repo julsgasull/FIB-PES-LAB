@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-
 @Service
 public class AlarmServiceImpl implements AlarmService {
 
@@ -34,5 +33,5 @@ public class AlarmServiceImpl implements AlarmService {
 		return alarmRepository.findByUsername(usernamme);
 	}
 
-	public List<Alarm> getAlarmByLocation(float latitude, float longitude) { return alarmRepository.findByNearbyLocation(latitude, longitude); }
+	// public List<Alarm> getAlarmByLocation(float latitude, float longitude) { return alarmRepository.findByNearbyLocation(latitude, longitude); }
 }

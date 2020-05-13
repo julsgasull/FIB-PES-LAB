@@ -33,7 +33,8 @@ public class OpenApiConfig {
                 .components(new Components())
                 .servers(serverList)
                 .info(new Info().title("PurplePoint Application API").description(
-                        "This is PurplePoint's Spring Boot API service using springdoc-openapi and OpenAPI 3."));
+                        "This is PurplePoint's Spring Boot API service using springdoc-openapi and OpenAPI 3.")
+						.version("v1"));
     }
 
 }

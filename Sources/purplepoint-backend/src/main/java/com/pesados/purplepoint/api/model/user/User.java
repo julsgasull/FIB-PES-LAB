@@ -1,19 +1,10 @@
 package com.pesados.purplepoint.api.model.user;
 
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
 import com.pesados.purplepoint.api.model.image.Image;
-import com.pesados.purplepoint.api.model.location.Location;
-
 import io.swagger.v3.oas.annotations.media.Schema;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Users")
@@ -24,8 +15,10 @@ public class User {
 	@Schema(description = "Name of the user.", example = "Claudia/Isma", required = true)
 	private String name;
 	@Schema(description = "Username of the user.", example = "OhAmadoLider", required = true)
+	@Column(unique = true)
 	private String username;
 	@Schema(description = "Email of the user.", example = "ohamadoslideres@gmail.com", required = true)
+	@Column(unique = true)
 	private String email;
 	@Schema(description = "Password of the user.", required = true)
 	private String password;
@@ -43,16 +36,6 @@ public class User {
 	@JoinColumn(name = "imageid") 
 	private Image profilePic;
 
-
-	@Schema(description = "Firebase token to send push notifications.", required = true)
-	private String firebaseToken;
-	
-
-	@Schema(description = "The last recorded location of the user.", required = false)
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="locationId")
-	private Location lastLocation;
-
 	public User() {}
 
 	public User(String name, String username, String email, String password, String gender) {
@@ -65,10 +48,9 @@ public class User {
 		this.helpedUsers = 0;
 		this.markedSpots = 0;
 		this.profilePic = null;
-		this.firebaseToken = null;
 	}
-	
-	
+
+
 	
 	public Long getID() {
 		return id; 
@@ -148,17 +130,5 @@ public class User {
 
 	public void setProfilePic(Image profilePic) {
 		this.profilePic = profilePic;
-	}
-
-	public Location getLastLocation() { return lastLocation; }
-
-	public void setLastLocation(Location lastLocation) { this.lastLocation = lastLocation; }
-
-	public String getFirebaseToken() {
-		return firebaseToken;
-	}
-
-	public void setFirebaseToken(String firebaseToken) {
-		this.firebaseToken = firebaseToken;
 	}
 }

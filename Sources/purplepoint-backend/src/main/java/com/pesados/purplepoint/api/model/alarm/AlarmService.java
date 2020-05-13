@@ -9,7 +9,7 @@ public interface AlarmService {
 
 	Optional<Alarm> getAlarmByUsername(String username);
 
-	List<Alarm> getAlarmByLocation(float latitude, float longitude);
+	// List<Alarm> getAlarmByLocation(float latitude, float longitude);
 
 	List<Alarm> getAll();
 

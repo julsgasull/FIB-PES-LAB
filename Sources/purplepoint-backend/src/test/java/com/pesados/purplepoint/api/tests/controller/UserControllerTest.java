@@ -1,9 +1,6 @@
 package com.pesados.purplepoint.api.tests.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.pesados.purplepoint.api.model.alarm.Alarm;
-import com.pesados.purplepoint.api.model.location.Location;
 import com.pesados.purplepoint.api.model.user.User;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
@@ -17,11 +14,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -192,11 +185,14 @@ public class UserControllerTest {
 	}
 
 	@Test
-	public void shouldModifyLocationAndReturnAlarms() throws Exception {
+	public void shouldIncreaseHelpedUsers() throws Exception {
 		// Login with mockup user in the database.
 		JSONObject user = new JSONObject();
-		user.put("email", "isma@gmail.com");
+		user.put("name", "amandi");
 		user.put("password", "1234");
+		user.put("email", "isma@gmail.com");
+		user.put("gender", "female");
+
 
 		MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders
 				.post("/api/v1/users/login")
@@ -208,53 +204,14 @@ public class UserControllerTest {
 		JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
 		String token =((String) respUser.get("token"));
 
-		// Lista esperada como resultado (estas alarmas están en el DataLoader. Si se eliminan de allí, bastará con insertarlas manualmente en este test)
-		List<Alarm> resultList = new ArrayList<>();
-		resultList.add(new Alarm("isma", new Location((float)41.447612, (float)2.224417, 100, 0), true));
-		resultList.add(new Alarm("isma", new Location((float)41.447379, (float)2.226842, 100, 0), true));
-		String resultListJSON = new Gson().toJson(resultList);
 
-		this.mockMvc.perform(put("/api/v1/users/location/isma@gmail.com").header("Authorization",token)
-				.content(asJsonString(new Location((float)41.447612, (float)2.224417, 100, 7)))
+		this.mockMvc.perform(put("/api/v1/users/increaseHelpedUsers/isma@gmail.com").header("Authorization",token)
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(MockMvcResultHandlers.print())
 				.andExpect(status().is(200))
-				.andExpect(MockMvcResultMatchers.content().json(resultListJSON));
-
-		// Comprueba que se ha actualizado el usuario. No se como hacerlo unitario así que lo dejo para un hotfix :) Isma help
-		/*
-		userService.getUserByEmail("isma@gmail.com").ifPresent(	user1 ->
-				Assert.assertTrue(user1.getLastLocation().equals(new Location((float)41.447612, (float)2.224417, 100, 7)))
-		);
-		 */
+				.andExpect(MockMvcResultMatchers.jsonPath("$.helpedUsers").value(1));
 	}
-
-	@Test
-	public void shouldModifyFirebaseToken() throws Exception {
-		// Login with mockup user in the database.
-		JSONObject user = new JSONObject();
-		user.put("email", "isma@gmail.com");
-		user.put("password", "1234");
-
-		MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders
-				.post("/api/v1/users/login")
-				.contentType("application/json")
-				.content(user.toString()))
-				.andExpect(status().isOk())
-				.andReturn();
-
-		JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
-		String token =((String) respUser.get("token"));
-
-		this.mockMvc.perform(put("/api/v1/users/firebase/isma@gmail.com").header("Authorization",token)
-				.content(asJsonString("ddld51d5d"))
-				.accept(MediaType.APPLICATION_JSON))
-				.andDo(MockMvcResultHandlers.print())
-				.andExpect(status().is(200))
-				.andExpect(MockMvcResultMatchers.jsonPath("$.firebaseToken").value("ddld51d5d"));
-	}
-
 
 
 	public static String asJsonString(final Object obj) {

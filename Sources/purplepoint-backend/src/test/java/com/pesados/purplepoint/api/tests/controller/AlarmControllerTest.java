@@ -1,13 +1,16 @@
 package com.pesados.purplepoint.api.tests.controller;
 
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import com.pesados.purplepoint.api.controller.AlarmController;
+import com.pesados.purplepoint.api.model.alarm.Alarm;
+import com.pesados.purplepoint.api.model.alarm.AlarmService;
+import com.pesados.purplepoint.api.model.device.Device;
+import com.pesados.purplepoint.api.model.device.DeviceService;
+import com.pesados.purplepoint.api.model.firebase.PushNotificationService;
+import com.pesados.purplepoint.api.model.location.Location;
+import com.pesados.purplepoint.api.model.user.User;
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,6 +20,14 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -25,21 +36,28 @@ public class AlarmControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 
+	@Autowired
+	private DeviceService deviceService;
+
+	@Autowired
+	private AlarmService alarmService;
+
+	@Autowired
+	private PushNotificationService pushNotificationService;
 
 	@Test
 	public void shouldReturnNewLocation() throws Exception {
 		JSONObject location = new JSONObject();
-
-		location.put("latitude", 5.0);
-		location.put("longitude", 7.0);
-		location.put("accuracy", 9.0);
-		location.put("timestamp", 20.0);
+		location.put("latitude", 41.447612);
+		location.put("longitude", 2.224417);
+		location.put("accuracy", 100);
+		location.put("timestamp", 0);
 
 		JSONObject alarm = new JSONObject();
 
 		alarm.put("username", "amandi");
+		alarm.put("deviceToken", "f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
 		alarm.put("location", location);
-		alarm.put("panicbutton", true);
 
 		JSONObject user = new JSONObject();
 		user.put("email", "isma@gmail.com");
@@ -66,17 +84,16 @@ public class AlarmControllerTest {
 	@Test
 	public void shouldReturnAlarmsinfo() throws Exception {
 		JSONObject location = new JSONObject();
-
-		location.put("latitude", 21.0);
-		location.put("longitude", 12.0);
-		location.put("accuracy", 98.0);
-		location.put("timestamp", 21.0);
+		location.put("latitude", 41.447612);
+		location.put("longitude", 2.224417);
+		location.put("accuracy", 100);
+		location.put("timestamp", 0);
 
 		JSONObject alarm = new JSONObject();
 
 		alarm.put("username", "isma");
+		alarm.put("deviceToken", "f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
 		alarm.put("location", location);
-		alarm.put("panicbutton", false);
 
 		JSONObject user = new JSONObject();
 		user.put("email", "isma@gmail.com");
@@ -111,20 +128,18 @@ public class AlarmControllerTest {
 	}
 
 	@Test
-	public void shouldReturnLocationbyId() throws Exception {
+	public void shouldReturnAlarmbyId() throws Exception {
 		JSONObject location = new JSONObject();
-
-		location.put("latitude", 15.0);
-		location.put("longitude", 2.0);
-		location.put("accuracy", 8.0);
-		location.put("timestamp", 6.0);
+		location.put("latitude", 41.447612);
+		location.put("longitude", 2.224417);
+		location.put("accuracy", 100);
+		location.put("timestamp", 0);
 
 		JSONObject alarm = new JSONObject();
-
 		alarm.put("username", "franco");
+		alarm.put("deviceToken", "f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
 		alarm.put("location", location);
-		alarm.put("panicbutton", false);
-
+		alarm.put("deviceToken", "f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
 		JSONObject user = new JSONObject();
 		user.put("email", "isma@gmail.com");
 		user.put("password", "1234");
@@ -159,17 +174,16 @@ public class AlarmControllerTest {
 
 	public void shouldReturnLocationbyUsername() throws Exception {
 		JSONObject location = new JSONObject();
-
-		location.put("latitude", 58.5);
-		location.put("longitude", 69.2);
-		location.put("accuracy", 12.0);
-		location.put("timestamp", 21.0);
+		location.put("latitude", 41.447612);
+		location.put("longitude", 2.224417);
+		location.put("accuracy", 100);
+		location.put("timestamp", 0);
 
 		JSONObject alarm = new JSONObject();
 
 		alarm.put("username", "julia");
+		alarm.put("deviceToken", "f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
 		alarm.put("location", location);
-		alarm.put("panicbutton", false);
 
 		JSONObject user = new JSONObject();
 		user.put("email", "isma@gmail.com");
@@ -202,17 +216,15 @@ public class AlarmControllerTest {
 	@Test
 	public void shouldDeleteUser() throws Exception {
 		JSONObject location = new JSONObject();
-
-		location.put("latitude", 58.0);
-		location.put("longitude", 25.05);
-		location.put("accuracy", 9.05);
-		location.put("timestamp", 1.20);
+		location.put("latitude", 41.447612);
+		location.put("longitude", 2.224417);
+		location.put("accuracy", 100);
+		location.put("timestamp", 0);
 
 		JSONObject alarm = new JSONObject();
-
 		alarm.put("username", "adri");
+		alarm.put("deviceToken", "f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
 		alarm.put("location", location);
-		alarm.put("panicbutton", false);
 
 		JSONObject user = new JSONObject();
 		user.put("email", "isma@gmail.com");
@@ -245,6 +257,25 @@ public class AlarmControllerTest {
 				.andExpect(status().isOk());
 	}
 
+	// integration and findNearbyDevices (AlarmController) test
+	@Test
+	public void shouldReturnNearbyDevices() throws Exception {
+		Location miCasa = new Location((float)41.447612, (float)2.224417, 100, 0);
+		Location bar = new Location((float)41.447379, (float)2.226842, 100, 0);
+		Location cancun = new Location((float)21.160510, (float)-86.842466, 100, 0);
+		Location sarria = new Location((float)41.402899, (float)2.121561, 100, 0);
 
+		User testUser = new User();
+		Alarm stubAlarm = new Alarm("isma", "2", bar);
 
+		List<Device> expectedResult = new ArrayList<Device>();
+		Optional<Device> deviceOpt = deviceService.getDeviceByFirebaseToken("f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
+		expectedResult.add(deviceOpt.get());
+
+		AlarmController alarmController = new AlarmController(this.alarmService, this.deviceService, this.pushNotificationService);
+
+		List<Device> result = alarmController.findNearbyDevices(stubAlarm);
+
+		Assert.assertEquals(expectedResult.get(0).getFirebaseToken(), result.get(0).getFirebaseToken());
+	}
 }
