@@ -2,6 +2,8 @@ package com.pesados.purplepoint.api.tests.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pesados.purplepoint.api.model.user.User;
+import com.pesados.purplepoint.api.tests.utils.TestUtils;
+
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -27,62 +28,34 @@ public class UserControllerTest {
 
     @Test
     public void shouldReturnUnauthorized() throws Exception {
-    	this.mockMvc.perform(get("/api/v1/users")).andExpect(status().is(401));
+    	this.mockMvc.perform(get("/api/v1/users")).andExpect(status().isUnauthorized());
     }
 
     @Test
     public void shouldReturnCredentials() throws Exception {
-    	JSONObject user = new JSONObject();
-    	user.put("email", "isma@gmail.com");
-    	user.put("password", "1234");
-
-    	this.mockMvc.perform(MockMvcRequestBuilders
-    						.post("/api/v1/users/login")
-    						.contentType("application/json")
-    						.content(user.toString()))
-    						.andExpect(status().isOk());
+    	TestUtils.doLogin(this.mockMvc);
     }
 
     @Test
     public void shouldBeAbleToAccessResourcesWithCredentials() throws Exception {
     	//login
-    	JSONObject user = new JSONObject();
-    	user.put("email", "isma@gmail.com");
-    	user.put("password", "1234");
+    	String token = TestUtils.doLogin(this.mockMvc);
 
-    	MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders
-							    						.post("/api/v1/users/login")
-							    						.contentType("application/json")
-							    						.content(user.toString()))
-							    						.andExpect(status().isOk())
-							    						.andReturn();
-
-    	JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
-    	String token =((String) respUser.get("token"));
-
-    	this.mockMvc.perform(get("/api/v1/users").header("Authorization", token))
-    				.andDo(MockMvcResultHandlers.print())
-    				.andExpect(status().is(200));
+    	this.mockMvc.perform(get("/api/v1/users")
+    			.header("Authorization", token)
+    			.header(TestUtils.firebaseHeaderName, TestUtils.firebaseToken))
+				.andDo(MockMvcResultHandlers.print())
+				.andExpect(status().is(200));
     }
     
     @Test
     public void shouldRefreshCredentials() throws Exception {
-    	JSONObject user = new JSONObject();
-    	user.put("email", "isma@gmail.com");
-    	user.put("password", "1234");
-
-    	MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders
-							    						.post("/api/v1/users/login")
-							    						.contentType("application/json")
-							    						.content(user.toString()))
-							    						.andExpect(status().isOk())
-							    						.andReturn();
-
-    	JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
-    	String token =((String) respUser.get("token"));
+    	
+    	String token = TestUtils.doLogin(this.mockMvc);
 
     	this.mockMvc.perform(put("/api/v1/users/refresh").header("Authorization", token)
 				.contentType(MediaType.APPLICATION_JSON)
+				.header(TestUtils.firebaseHeaderName, TestUtils.firebaseToken)
 				.content(""))
     				.andDo(MockMvcResultHandlers.print())
 	    				.andExpect(status().is(200));
@@ -101,6 +74,7 @@ public class UserControllerTest {
 		this.mockMvc.perform(MockMvcRequestBuilders
 				.post("/api/v1/users/register")
 				.contentType("application/json")
+				.header(TestUtils.firebaseHeaderName, TestUtils.firebaseToken)
 				.content(user.toString()))
 				.andExpect(status().isOk());
 	}
@@ -108,40 +82,17 @@ public class UserControllerTest {
 	@Test
 	public void shouldBeAbleToAccesUserByEmailWihCredentials() throws Exception {
 		// Login with mockup user in the database.
-		JSONObject user = new JSONObject();
-		user.put("email", "isma@gmail.com");
-		user.put("password", "1234");
+		String token = TestUtils.doLogin(this.mockMvc);
 
-		MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders
-				.post("/api/v1/users/login")
-				.contentType("application/json")
-				.content(user.toString()))
-				.andExpect(status().isOk())
-				.andReturn();
-
-		JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
-		String token =((String) respUser.get("token"));
-
-		this.mockMvc.perform(get("/api/v1/users/email/isma@gmail.com").header("Authorization",token))
+		this.mockMvc.perform(get("/api/v1/users/email/isma@gmail.com")
+				.header("Authorization",token)
+				.header(TestUtils.firebaseHeaderName, TestUtils.firebaseToken))
 				.andDo(MockMvcResultHandlers.print())
 				.andExpect(status().is(200));
 	}
 
 	@Test
 	public void shouldReturnUserinfo() throws Exception {
-    JSONObject user = new JSONObject();
-		user.put("email", "isma@gmail.com");
-		user.put("password", "1234");
-
-		MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders
-				.post("/api/v1/users/login")
-				.contentType("application/json")
-				.content(user.toString()))
-				.andExpect(status().isOk())
-				.andReturn();
-
-		JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
-		String token =((String) respUser.get("token"));
 /*
  * tret del test perque falla amb cada nova feature y me tiene arto
  * amandi: isma eres el amo
@@ -149,7 +100,10 @@ public class UserControllerTest {
 			token +
 			"\",\"helpedUsers\":0,\"markedSpots\":0}";
 */
-		this.mockMvc.perform(get("/api/v1/users/1").header("Authorization",token))
+		String token = TestUtils.doLogin(this.mockMvc);
+		this.mockMvc.perform(get("/api/v1/users/1")
+				.header("Authorization",token)
+				.header(TestUtils.firebaseHeaderName, TestUtils.firebaseToken))
 				.andDo(MockMvcResultHandlers.print())
 				.andExpect(status().is(200));
 	}
@@ -157,23 +111,12 @@ public class UserControllerTest {
 	@Test
 	public void shouldModifyUser() throws Exception {
 		// Login with mockup user in the database.
-		JSONObject user = new JSONObject();
-		user.put("email", "isma@gmail.com");
-		user.put("password", "1234");
-
-		MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders
-				.post("/api/v1/users/login")
-				.contentType("application/json")
-				.content(user.toString()))
-				.andExpect(status().isOk())
-				.andReturn();
-
-		JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
-		String token =((String) respUser.get("token"));
+		String token = TestUtils.doLogin(this.mockMvc);
 
 		this.mockMvc.perform(put("/api/v1/users/email/testmail1@gmail.com").header("Authorization",token)
 				.content(asJsonString(new User("Ismael", "isma", "amadolider@gmail.com", "1234", "nonbinary")))
 				.contentType(MediaType.APPLICATION_JSON)
+				.header(TestUtils.firebaseHeaderName, TestUtils.firebaseToken)
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(MockMvcResultHandlers.print())
 				.andExpect(status().is(200))
@@ -187,26 +130,13 @@ public class UserControllerTest {
 	@Test
 	public void shouldIncreaseHelpedUsers() throws Exception {
 		// Login with mockup user in the database.
-		JSONObject user = new JSONObject();
-		user.put("name", "amandi");
-		user.put("password", "1234");
-		user.put("email", "isma@gmail.com");
-		user.put("gender", "female");
-
-
-		MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders
-				.post("/api/v1/users/login")
-				.contentType("application/json")
-				.content(user.toString()))
-				.andExpect(status().isOk())
-				.andReturn();
-
-		JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
-		String token =((String) respUser.get("token"));
+		
+		String token = TestUtils.doLogin(this.mockMvc);
 
 
 		this.mockMvc.perform(put("/api/v1/users/increaseHelpedUsers/isma@gmail.com").header("Authorization",token)
 				.contentType(MediaType.APPLICATION_JSON)
+				.header(TestUtils.firebaseHeaderName, TestUtils.firebaseToken)
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(MockMvcResultHandlers.print())
 				.andExpect(status().is(200))

@@ -73,7 +73,7 @@ public class UserController {
 	private String getJWTToken(String email) {
 		String secretKey = "adivinaestacrack";
 		List<GrantedAuthority> grantedAuthorities = AuthorityUtils
-				.commaSeparatedStringToAuthorityList("ROLE_USER");
+				.commaSeparatedStringToAuthorityList("ROLE_USER, ROLE_DEVICE");
 
 		String token = Jwts
 				.builder()

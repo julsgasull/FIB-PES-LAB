@@ -32,6 +32,11 @@ public class FirebaseTokenHolder {
 	public String getUid() {
 		return token.getUid();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public ArrayList<String> getAuthorities() {
+		return (ArrayList<String>) token.getClaims().get("authorities");
+	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public String getGoogleId() {

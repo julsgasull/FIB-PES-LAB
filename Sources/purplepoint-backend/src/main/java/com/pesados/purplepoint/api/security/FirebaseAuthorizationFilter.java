@@ -1,6 +1,9 @@
 package com.pesados.purplepoint.api.security;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -11,6 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -46,7 +52,11 @@ public class FirebaseAuthorizationFilter extends OncePerRequestFilter {
 				if (holder != null) {
 					logger.debug("Authenticating device");
 					String userName = holder.getUid();
-					Authentication auth = new FirebaseAuthenticationToken(userName, holder);
+					
+					@SuppressWarnings("unchecked")
+					ArrayList<String> list = holder.getAuthorities();
+					List<GrantedAuthority> res = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_DEVICE");
+					Authentication auth = new FirebaseAuthenticationToken(userName, holder, res);
 					SecurityContextHolder.getContext().setAuthentication(auth);
 				}
 				

@@ -23,6 +23,7 @@ public class AuthServer extends WebSecurityConfigurerAdapter {
 			      	.antMatchers(HttpMethod.OPTIONS,"/**").permitAll()//allow CORS option calls
 			        .antMatchers(HttpMethod.POST, "/api/v1/users/login").permitAll()
 					.antMatchers(HttpMethod.POST, "/api/v1/users/register").permitAll()
+					.antMatchers(HttpMethod.PUT, "/api/v1/devices/**/location").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint());
