@@ -1,24 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
-import { MarkerService } from 'src/app/services/marker/marker.service';
-import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
 import { GeoLocation } from 'src/app/models/geoLocation.interface';
 import { Router } from '@angular/router';
+import { MarkerService } from 'src/app/services/marker/marker.service';
+import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
 
 var locationIcon = L.icon({
   iconUrl:      '../../../assets/images/location.svg',
-  iconSize:     [50, 50],   // size of the icon
-  iconAnchor:   [25, 25],   // point of the icon which will correspond to marker's location
-  popupAnchor:  [0, -25]    // point from which the popup should open relative to the iconAnchor
+  iconSize:     [50, 50], // size of the icon
+  iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location
+  popupAnchor:  [0, -25] // point from which the popup should open relative to the iconAnchor
 });
 
-
 @Component({
-  selector: 'app-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss'],
+  selector: 'app-add-point-to-map',
+  templateUrl: './add-point-to-map.component.html',
+  styleUrls: ['./add-point-to-map.component.scss']
 })
-export class MapComponent implements OnInit {
+export class AddPointToMapComponent implements OnInit {
   private map: L.Map;
   private userLocation: GeoLocation = ({
     latitude:   -1, 
@@ -70,10 +69,8 @@ export class MapComponent implements OnInit {
     this.map.invalidateSize();
   }
 
-  redirectToAddPointToMap() {
-    this.route.navigate(['/addpointtotmap']);
+  redirectToMap() {
+    this.route.navigate(['/map']);
   }
-  redirectToMainMenu() {
-    this.route.navigate(['/mainmenu']);
-  }
+
 }

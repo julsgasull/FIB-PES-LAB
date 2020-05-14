@@ -26,11 +26,13 @@ import { OpeningViewModule } from './opening-view/opening-view.module';
 import { MainMenuModule } from './main-menu/main-menu.module';
 import { MapComponent } from './map/components/map.component';
 import { MarkerService } from './services/marker/marker.service';
+import { AddPointToMapComponent } from './add-point-to-map/add-point-to-map.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MapComponent
+    MapComponent,
+    AddPointToMapComponent
   ],
   imports: [
     CommonModule,

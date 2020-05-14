@@ -9,4 +9,4 @@ import { MapComponent } from './components/map.component';
     ],
     exports: []
   })
-  export class MainMenuModule { } 
+  export class MapModule { } 

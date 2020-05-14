@@ -1,5 +1,23 @@
-<div class="map-container">
-    <div class="map-frame">
-        <div id="map"></div>
-    </div>
-</div>
+<table>
+    <tbody>
+        <td>
+            <td style="text-align: right;">
+                <div class="crossButton" (click)="redirectToMainMenu()">
+                    <p class="cross">x</p>
+                </div>
+            </td>
+        </td>
+        <td>
+            <div class="map-container">
+                <div class="map-frame">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </td>
+        <td style="text-align: right;">
+            <div class="plusButton" (click)="redirectToAddPointToMap()">
+                <p class="plus">+</p>
+            </div>
+        </td>
+    </tbody>
+</table>

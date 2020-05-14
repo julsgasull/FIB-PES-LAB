@@ -211,4 +211,44 @@ td, tr {
 #map {
     height: 100%;
 }
+
+.plusButton {
+    background-image: linear-gradient(-90deg, #8F4DEC 0%, #6730BE 100%);
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.50);
+    border-radius: 30px;
+}
+.plus {
+    font-family: Montserrat;
+    text-align: center;
+    color: white;
+    font-size: 50px;
+}
+.crossButton {
+    background-color: transparent;
+}
+.cross {
+    font-family: Montserrat;
+    text-align: center;
+    color: white;
+    font-size: 50px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.50);
+}
+.addpointinfo {
+    background: #202020;
+    box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 41px;
+}  
+.addpointtitles {
+    font-family: Montserrat;
+    font-size: 14px;
+    color: #9F9F9F;
+    letter-spacing: 0;
+    text-align: center;
+}
+.instructions {
+    font-family: Montserrat;
+    font-size: 14px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+   }
   

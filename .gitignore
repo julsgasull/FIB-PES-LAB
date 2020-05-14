@@ -198,3 +198,7 @@ purple-point-front/src/assets/.gitkeep 7
 purple-point-front/src/assets/.gitkeep 8
 
 purple-point-front/src/assets/.gitkeep 9
+
+purple-point-front/functions/node_modules/
+
+purple-point-front/ngsw-config.json 2

@@ -1,0 +1,51 @@
+<table style="width:100%">
+  <tr style="text-align: right;">
+    <div class="crossButton" (click)="redirectToMap()">
+        <p class="cross">x</p>
+    </div>
+  </tr>
+  <tr>
+    <div class="map-container">
+      <div class="map-frame">
+        <div id="map"></div>
+      </div>
+    </div>
+  </tr>
+  <tr>
+    <div class="addpointinfo" >
+      <table style="width:100%">
+        <tr>
+          <h1>Locate it</h1>
+        </tr>
+        <tr>
+          <td>
+            <table style="width:100%">
+              <tr>
+                <td>
+                  <img class="imageClass" src="/src/assets/images/location.svg">
+                </td>
+                <td class="addpointtitles">you are here</td>
+              </tr>
+              <tr>
+                <td>
+                  <img class="imageClass" src="/src/assets/images/pin.svg">
+                </td>
+                <td class="addpointtitles">marked spot</td>
+              </tr>
+            </table>
+          </td>
+          <td>
+            <p class="instructions">
+              drag the map until the<br>
+              <b style="color:#8F4DEC">marked spot</b><br>
+              is where you have been harassed
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <button class="principalButton" (click)="addPoint()">Locate it</button>
+        </tr>
+      </table>
+    </div>
+  </tr>
+</table>

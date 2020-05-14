@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import * as L from 'leaflet';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { UserData } from 'src/app/models/userData.interface';
 
 var pointIcon = L.icon({
   iconUrl: '../../../assets/images/pin.svg',
@@ -18,13 +20,29 @@ var pointIcon = L.icon({
 })
 export class MarkerService {
 
-  constructor() {
-  }
+  constructor(private httpClient: HttpClient) {}
 
-  getAllMarks(map: L.Map) {
+  getMark(map: L.Map) {
     L.marker([51.5, -0.09], {icon: pointIcon}).addTo(map)
       .bindPopup('this is a test mark')
     ;
   }
+
+  getAllMarks(map: L.Map) {
+    this.httpClient.get(`${environment.API_URL}/map`).subscribe((result: any) => {
+      for(const c of result.features) {
+        const lat = c.geometry.coordinates[0];
+        const lon = c.geometry.coordinates[1];
+        L.marker([lon, lat], {icon: pointIcon}).addTo(map);
+      }
+    });
+  }
   
+  addMark(location: Geolocation, user: UserData) {
+    return this.httpClient.post(`${environment.API_URL}/map`,
+    {   
+      'user':     user,
+      'location': location
+    });
+  }
 }
