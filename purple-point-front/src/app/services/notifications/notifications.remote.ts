@@ -4,12 +4,20 @@ import { environment } from 'src/environments/environment';
 import { UserData } from 'src/app/models/userData.interface';
 import { UserService } from '../user/user.service';
 import { GeoLocation } from 'src/app/models/geoLocation.interface';
+import { Device } from 'src/app/models/device.interface';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable()
 export class NotificationsRemote {
 
     constructor(private httpClient: HttpClient,
                 private userService: UserService) {}
+
+    device: Device = {
+        user: null,
+        location: null,
+        firebaseToken: null
+    };
 
     user: UserData;
     geolocation: GeoLocation = ({
@@ -25,6 +33,7 @@ export class NotificationsRemote {
         this.userService.getUserByEmailUnauthorized(email).subscribe((userResponse: UserData) => {
             this.user = userResponse;
         });
+        this.device.user = this.user;
     }
 
     getLocationInfo() {
@@ -32,32 +41,37 @@ export class NotificationsRemote {
         this.geolocation.longitude = +localStorage.getItem('longitude');
         this.geolocation.accuracy = +localStorage.getItem('accuracy');
         this.geolocation.timestamp = +localStorage.getItem('timestamp');
+        this.device.location = this.geolocation;
     }
  
-    updateFireBaseToken(refreshedToken, oldToken) {
+    updateFireBaseToken(refreshedToken, oldToken): Observable<Device> {
         console.log("ESTOY EN UPDATE FB TOKEN");
-        // console.log("oldToken: ", oldToken);
-        // console.log("refreshedToken: ", refreshedToken);
+        console.log("oldToken: ", oldToken);
+        console.log("refreshedToken: ", refreshedToken);
         if (localStorage.getItem('token') !== 'null') { //logged user
             console.log("logged; ", localStorage.getItem('token'));
             this.getUserInfo();
-            return this.httpClient.put<string>(`${environment.API_URL}/devices/`+oldToken, //endpoint a realizar
+            return this.httpClient.put<Device>(`${environment.API_URL}/devices/`+oldToken, //endpoint a realizar
             {   
                 'firebaseToken':    refreshedToken,
-                'latitude':         this.geolocation.latitude,
-                'longitude':        this.geolocation.longitude,
-                'accuracy':         this.geolocation.accuracy,
-                'timestamp':        this.geolocation.timestamp,
-                'id':               this.user.id,
-                'name':             this.user.name,
-                'email':            this.user.email,
-                'username':         this.user.username,
-                'password':         this.user.password,
-                'gender':           this.user.gender,
-                'token':            this.user.token,
-                'markedSpots':      this.user.markedSpots,
-                'helpedUsers':      this.user.helpedUsers,
-                'profilePic':       this.user.profilePic
+                "location": {
+                    'latitude':         this.geolocation.latitude,
+                    'longitude':        this.geolocation.longitude,
+                    'accuracy':         this.geolocation.accuracy,
+                    'timestamp':        this.geolocation.timestamp
+                },
+                "user": {
+                    'id':               this.user.id,
+                    'name':             this.user.name,
+                    'email':            this.user.email,
+                    'username':         this.user.username,
+                    'password':         this.user.password,
+                    'gender':           this.user.gender,
+                    'token':            this.user.token,
+                    'markedSpots':      this.user.markedSpots,
+                    'helpedUsers':      this.user.helpedUsers,
+                    'profilePic':       this.user.profilePic
+                }
             },
             {
             headers:{
@@ -66,14 +80,17 @@ export class NotificationsRemote {
             }
             });
         } else { // unlogged user
-            return this.httpClient.put<string>(`${environment.API_URL}/devices/`+oldToken, //endpoint a realizar
+            console.log("unlogged update request")
+            return this.httpClient.put<Device>(`${environment.API_URL}/devices/`+oldToken, //endpoint a realizar
             {   
                 'firebaseToken':    refreshedToken,
-                'latitude':         this.geolocation.latitude,
-                'longitude':        this.geolocation.longitude,
-                'accuracy':         this.geolocation.accuracy,
-                'timestamp':        this.geolocation.timestamp,
-                'user':             null
+                "location": {
+                    'latitude':     this.geolocation.latitude,
+                    'longitude':    this.geolocation.longitude,
+                    'accuracy':     this.geolocation.accuracy,
+                    'timestamp':    this.geolocation.timestamp
+                },
+                'user':     null
             },
             {
             headers:{
@@ -84,28 +101,32 @@ export class NotificationsRemote {
         }
     }
 
-    registerFirebaseToken(refreshedToken) {
+    registerFirebaseToken(refreshedToken): Observable<Device> {
         console.log("ESTOY REGISTRANDO EL DEVICE");
         this.getLocationInfo();
         if (localStorage.getItem('token') !== 'null') { //logged user
             this.getUserInfo();
-            return this.httpClient.put<string>(`${environment.API_URL}/devices`, //endpoint a realizar
+            return this.httpClient.post<Device>(`${environment.API_URL}/devices`, //endpoint a realizar
             {   
                 'firebaseToken':    refreshedToken,
-                'latitude':         this.geolocation.latitude,
-                'longitude':        this.geolocation.longitude,
-                'accuracy':         this.geolocation.accuracy,
-                'timestamp':        this.geolocation.timestamp,
-                'id':               this.user.id,
-                'name':             this.user.name,
-                'email':            this.user.email,
-                'username':         this.user.username,
-                'password':         this.user.password,
-                'gender':           this.user.gender,
-                'token':            this.user.token,
-                'markedSpots':      this.user.markedSpots,
-                'helpedUsers':      this.user.helpedUsers,
-                'profilePic':       this.user.profilePic
+                "location": {
+                    'latitude':         this.geolocation.latitude,
+                    'longitude':        this.geolocation.longitude,
+                    'accuracy':         this.geolocation.accuracy,
+                    'timestamp':        this.geolocation.timestamp
+                },
+                "user": {
+                    'id':               this.user.id,
+                    'name':             this.user.name,
+                    'email':            this.user.email,
+                    'username':         this.user.username,
+                    'password':         this.user.password,
+                    'gender':           this.user.gender,
+                    'token':            this.user.token,
+                    'markedSpots':      this.user.markedSpots,
+                    'helpedUsers':      this.user.helpedUsers,
+                    'profilePic':       this.user.profilePic
+                }
             },
             {
             headers:{
@@ -114,14 +135,17 @@ export class NotificationsRemote {
             }
             });
         } else { // unlogged user
-            return this.httpClient.put<string>(`${environment.API_URL}/devices`, //endpoint a realizar
+            console.log("HAGO LA REQUEST ISMA MIRA")
+            return this.httpClient.post<Device>(`${environment.API_URL}/devices`, //endpoint a realizar
             {   
                 'firebaseToken':    refreshedToken,
-                'latitude':         this.geolocation.latitude,
-                'longitude':        this.geolocation.longitude,
-                'accuracy':         this.geolocation.accuracy,
-                'timestamp':        this.geolocation.timestamp,
-                'user':             null
+                "location": {
+                    'latitude':         this.geolocation.latitude,
+                    'longitude':        this.geolocation.longitude,
+                    'accuracy':         this.geolocation.accuracy,
+                    'timestamp':        this.geolocation.timestamp
+                },
+                "user": null
             },
             {
             headers:{
@@ -132,23 +156,16 @@ export class NotificationsRemote {
         }
     }
 
-    increaseHelped(){
+    increaseHelped(): Observable<UserData> {
         var username: String;
         var email: String;
         if (localStorage.getItem('token') != 'null') { //logged user
             username = localStorage.getItem('username');
             email = localStorage.getItem('userEmail');
         }
-
-        // console.log("logged? ", localStorage.getItem('token'))
-        // console.log("username: ", username);
-        // console.log("email: ", email);
-
-        console.log("Increasing number of people helped");
-        return this.httpClient.put<string>(`${environment.API_URL}/users/increaseHelpedUsers/`+email, //endpoint a realizar
-        {   
-            'email': email
-        },
+        console.log("Increasing number of people helped: ", email);
+        return this.httpClient.put<UserData>(`${environment.API_URL}/users/increaseHelpedUsers/`+email, //endpoint a realizar
+        {},
         {
         headers:{
             'Content-Type':"application/json",
@@ -170,7 +187,7 @@ export class NotificationsRemote {
         console.log("Sending notification to victim");
         return this.httpClient.post<string>(`${environment.API_URL}/devices/notifyuser/`+token, //endpoint a realizar
         {   
-            'username': username
+            'username': username,
         },
         {
         headers:{

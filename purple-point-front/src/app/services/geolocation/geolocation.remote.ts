@@ -50,10 +50,10 @@ export class GeoLocationRemote {
         //do request here
         return this.httpClient.put<GeoLocation>(`${environment.API_URL}/devices/`+token+`/location`, //endpoint a realizar
         {   
-            'latitude':     loc.latitude,
-            'longitude':    loc.longitude,
-            'accuracy':     loc.accuracy,
-            'timestamp':    loc.timestamp
+            "latitude":     loc.latitude,
+            "longitude":    loc.longitude,
+            "accuracy":     loc.accuracy,
+            "timestamp":    loc.timestamp
         },
         {
             headers:{

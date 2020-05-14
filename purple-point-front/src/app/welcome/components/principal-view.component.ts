@@ -40,13 +40,13 @@ export class PrincipalViewComponent implements OnInit {
 
     const timeout = 5 * 1000; // in ms
 
-    // this.geoLocationService.getLocation(this.geolocation);
+    this.geoLocationService.getLocation(this.geolocation);
     
-    // setInterval(() => {
-    //   this.geoLocationService.getLocation(this.geolocation).subscribe((location: GeoLocation) => {
-    //     this.geolocation = location;
-    //   });
-    // }, timeout);
+    setInterval(() => {
+      this.geoLocationService.getLocation(this.geolocation).subscribe((location: GeoLocation) => {
+        this.geolocation = location;
+      });
+    }, timeout);
   }
 
   redirectToLogin() {

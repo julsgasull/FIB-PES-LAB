@@ -17,36 +17,17 @@ export class MessagingService {
     private snackbarService: SnackbarService,
     private zone: NgZone,
     private angularFireMessaging: AngularFireMessaging) {
-      // this.angularFireMessaging.messaging.subscribe(
-      //   (_messaging) => {
-      //     _messaging.usePublicVapidKey(this.VAPID_PUBLIC_KEY);
-      //     _messaging.onTokenRefresh(() => {
-      //       _messaging.getToken().then((refreshedToken) => {
-      //         console.log("Refreshing token!", refreshedToken);
-      //       });
-      //       _messaging.onMessage((payload) => {
-      //         this.zone.run(() => {
-      //           this.snackbarService.openSnackbar(payload.data);
-      //         });
-      //       });
-      //     });
-      //   } 
-      // )
       this.angularFireMessaging.messaging.subscribe(
-        (_messaging: any) => {
-          // _messaging.onMessage = _messaging.onMessage.bind(_messaging);
-          _messaging._next = (payload: any) => {
-            console.log(payload);
-            this.currentMessage.next(payload);
-          };
-          _messaging.onTokenRefresh = _messaging.onTokenRefresh.bind(_messaging);
-          }
-        );
-      /*this.angularFireMessaging.messaging.subscribe(
       (_messaging) => {
+        _messaging.usePublicVapidKey(this.VAPID_PUBLIC_KEY);
         _messaging.onMessage = _messaging.onMessage((payload) => {
             this.zone.run(() => {
-              this.snackbarService.openSnackbar(payload.data);
+              _messaging.getToken().then((refreshedToken) => {
+                if (refreshedToken != localStorage.getItem('deviceToken')) console.log("tu mama");
+                console.log("Message on foreground: ", payload);
+                console.log("Token: ", refreshedToken);
+                this.snackbarService.openSnackbar(payload.data);
+              });
             });
         }).bind(_messaging);
         _messaging.onMessage =_messaging.onTokenRefresh(() => {
@@ -56,8 +37,6 @@ export class MessagingService {
           });
         }).bind(_messaging);
       });
-        
-      );*/
     }
 
   updateToken(refreshedToken): any/*Observable<any>*/ {
