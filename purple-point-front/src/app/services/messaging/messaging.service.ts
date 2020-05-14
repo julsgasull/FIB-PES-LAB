@@ -9,6 +9,7 @@ import { NotificationsService } from '../notifications/notifications.service';
 export class MessagingService {
 
   currentMessage = new BehaviorSubject(null);
+  readonly VAPID_PUBLIC_KEY = "BJM5CDS_biG4eLsDbh5gbZVIJwzUuh9fI-fIALUoOg6wrCREkI02jI62Q9SaAmtDdL2GVHE8aGkmypfiRprTZ5g";
 
   constructor(
     private httpClient: HttpClient,
@@ -16,29 +17,61 @@ export class MessagingService {
     private snackbarService: SnackbarService,
     private zone: NgZone,
     private angularFireMessaging: AngularFireMessaging) {
+      // this.angularFireMessaging.messaging.subscribe(
+      //   (_messaging) => {
+      //     _messaging.usePublicVapidKey(this.VAPID_PUBLIC_KEY);
+      //     _messaging.onTokenRefresh(() => {
+      //       _messaging.getToken().then((refreshedToken) => {
+      //         console.log("Refreshing token!", refreshedToken);
+      //       });
+      //       _messaging.onMessage((payload) => {
+      //         this.zone.run(() => {
+      //           this.snackbarService.openSnackbar(payload.data);
+      //         });
+      //       });
+      //     });
+      //   } 
+      // )
       this.angularFireMessaging.messaging.subscribe(
+        (_messaging: any) => {
+          // _messaging.onMessage = _messaging.onMessage.bind(_messaging);
+          _messaging._next = (payload: any) => {
+            console.log(payload);
+            this.currentMessage.next(payload);
+          };
+          _messaging.onTokenRefresh = _messaging.onTokenRefresh.bind(_messaging);
+          }
+        );
+      /*this.angularFireMessaging.messaging.subscribe(
       (_messaging) => {
         _messaging.onMessage = _messaging.onMessage((payload) => {
-          this.zone.run(() => {
-            this.snackbarService.openSnackbar(payload.data);
-          });
+            this.zone.run(() => {
+              this.snackbarService.openSnackbar(payload.data);
+            });
         }).bind(_messaging);
-        _messaging.onTokenRefresh =_messaging.onTokenRefresh(() => {
+        _messaging.onMessage =_messaging.onTokenRefresh(() => {
           _messaging.getToken().then((refreshedToken) => {
             console.log("Refreshing token!", refreshedToken);
             this.updateToken(refreshedToken);
           });
         }).bind(_messaging);
       });
+        
+      );*/
     }
 
   updateToken(refreshedToken): any/*Observable<any>*/ {
     console.log("Estas updateando el token");
     const oldToken: String = localStorage.getItem('deviceToken');
-    if (oldToken === null) { // user not logged
+    console.log("oldToken: ", oldToken);
+    console.log("refreshedToken: ", refreshedToken);
+
+    if (oldToken === 'null') { // device not registered
+      console.log("Quiero registrarme");
       localStorage.setItem('deviceToken', refreshedToken);
       this.notificationsService.registerFirebaseToken(refreshedToken);
-    } else { // user logged
+    } else { // device registered
+      console.log("Quiero updatear mi token existente");
       localStorage.setItem('deviceToken', refreshedToken);
       this.notificationsService.updateFireBaseToken(refreshedToken, oldToken);
     }

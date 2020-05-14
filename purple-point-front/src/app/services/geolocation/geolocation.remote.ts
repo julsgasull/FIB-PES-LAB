@@ -11,7 +11,8 @@ export class GeoLocationRemote {
 
     getLocation(loc: GeoLocation): Observable<any> {
         const token: string = localStorage.getItem("deviceToken");
-        console.log("Geolocation remote token: ", token);
+        console.log("Geolocation storage token: ", token);
+        
         const enableHighAccuracy = true;
         const maximumAge = 3600000;
         const options = {
@@ -63,9 +64,8 @@ export class GeoLocationRemote {
     }
 
     getFirstLocation(loc:GeoLocation): GeoLocation {
-        console.log("ESTOY EN FIRST LOCATION");
         const token: string = localStorage.getItem("deviceToken");
-        console.log("Geolocation remote token: ", token);
+        // console.log("Geolocation remote token: ", token);
 
         const enableHighAccuracy = true;
         const maximumAge = 3600000;

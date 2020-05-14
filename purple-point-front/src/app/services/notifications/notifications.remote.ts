@@ -36,8 +36,8 @@ export class NotificationsRemote {
  
     updateFireBaseToken(refreshedToken, oldToken) {
         console.log("ESTOY EN UPDATE FB TOKEN");
-        console.log("oldToken: ", oldToken);
-        console.log("refreshedToken: ", refreshedToken);
+        // console.log("oldToken: ", oldToken);
+        // console.log("refreshedToken: ", refreshedToken);
         if (localStorage.getItem('token') !== 'null') { //logged user
             console.log("logged; ", localStorage.getItem('token'));
             this.getUserInfo();
@@ -84,8 +84,8 @@ export class NotificationsRemote {
         }
     }
 
-    registerFirebaseToken(token) {
-        /*console.log("ESTOY REGISTRANDO EL DEVICE");
+    registerFirebaseToken(refreshedToken) {
+        console.log("ESTOY REGISTRANDO EL DEVICE");
         this.getLocationInfo();
         if (localStorage.getItem('token') !== 'null') { //logged user
             this.getUserInfo();
@@ -99,7 +99,7 @@ export class NotificationsRemote {
                 'id':               this.user.id,
                 'name':             this.user.name,
                 'email':            this.user.email,
-                'username':         this.user.username;
+                'username':         this.user.username,
                 'password':         this.user.password,
                 'gender':           this.user.gender,
                 'token':            this.user.token,
@@ -129,7 +129,7 @@ export class NotificationsRemote {
                 'X-Skip-Interceptor-Login': '',
             }
             });
-        }*/
+        }
     }
 
     increaseHelped(){
@@ -145,7 +145,7 @@ export class NotificationsRemote {
         // console.log("email: ", email);
 
         console.log("Increasing number of people helped");
-        /*return this.httpClient.put<string>(`${environment.API_URL}/users/increaseHelpedUsers/`+email, //endpoint a realizar
+        return this.httpClient.put<string>(`${environment.API_URL}/users/increaseHelpedUsers/`+email, //endpoint a realizar
         {   
             'email': email
         },
@@ -154,7 +154,7 @@ export class NotificationsRemote {
             'Content-Type':"application/json",
             'X-Skip-Interceptor-Login': '',
         }
-        });*/
+        });
     }
 
     sendNotificationToVictim(token) {
@@ -168,7 +168,7 @@ export class NotificationsRemote {
         console.log("logged? ", localStorage.getItem('token'))
         console.log("username: ", username);
         console.log("Sending notification to victim");
-        /*return this.httpClient.post<string>(`${environment.API_URL}/devices/notifyuser/`+token, //endpoint a realizar
+        return this.httpClient.post<string>(`${environment.API_URL}/devices/notifyuser/`+token, //endpoint a realizar
         {   
             'username': username
         },
@@ -177,7 +177,7 @@ export class NotificationsRemote {
             'Content-Type':"application/json",
             'X-Skip-Interceptor-Login': '',
         }
-        });*/
+        });
     }
 
 }
