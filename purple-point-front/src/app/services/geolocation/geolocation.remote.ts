@@ -62,7 +62,6 @@ export class GeoLocationRemote {
 
     // DEBUG ONLY
     mockGetPosition(loc:GeoLocation): void {
-
         const enableHighAccuracy = true;
         const maximumAge = 3600000;
         const options = {

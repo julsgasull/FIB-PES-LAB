@@ -39,11 +39,16 @@ export class MessagingService {
       });
     }
 
-  updateToken(token): any/*Observable<any>*/ {
+  updateToken(refreshedToken): any/*Observable<any>*/ {
     console.log("Estas updateando el token");
     const oldToken: String = localStorage.getItem('deviceToken');
-    localStorage.setItem('deviceToken', token);
-    this.notificationsService.saveFireBaseToken(token, oldToken);
+    if (oldToken === null) { // user not logged
+      localStorage.setItem('deviceToken', refreshedToken);
+      this.notificationsService.registerFirebaseToken(refreshedToken);
+    } else { // user logged
+      localStorage.setItem('deviceToken', refreshedToken);
+      this.notificationsService.updateFireBaseToken(refreshedToken, oldToken);
+    }
   }
 
   /*

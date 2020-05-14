@@ -1,24 +1,98 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { UserData } from 'src/app/models/userData.interface';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class NotificationsRemote {
 
-    constructor(private httpClient: HttpClient) {}
+    constructor(private httpClient: HttpClient,
+                private userService: UserService) {}
 
-    saveFireBaseToken(token, oldToken) {
-        //pasar token antiguo por body
-        console.log("Saving token");
-        /*return this.httpClient.put<string>(`${environment.API_URL}/device/updatetoken/`+token, //endpoint a realizar
-        {   
-            'oldToken': newToken
-        },
-        {
-        headers:{
-            'Content-Type':"application/json"
+    user: UserData;
+
+    getUserInfo() {
+        const email = localStorage.getItem('userEmail');
+        this.userService.getUserByEmail(email).subscribe((userResponse: UserData) => {
+            this.user = userResponse;
+        });
+    }
+
+    updateFireBaseToken(refreshedToken, oldToken) {
+        if (localStorage.getItem('token') !== null) { //logged user
+            this.getUserInfo();
+            /*return this.httpClient.put<string>(`${environment.API_URL}/devices/`+oldToken, //endpoint a realizar
+            {   
+                'firebaseToken':    refreshedToken
+                'location':         null
+                'id':               this.user.id,
+                'name':             this.user.name,
+                'email':            this.user.email,
+                'username':         this.user.username;
+                'password':         this.user.password,
+                'gender':           this.user.gender,
+                'token':            this.user.token,
+                'markedSpots':      this.user.markedSpots,
+                'helpedUsers':      this.user.helpedUsers,
+                'profilePic':       this.user.profilePic
+            },
+            {
+            headers:{
+                'Content-Type':"application/json"
+            }
+            });*/
+        } else { // unlogged user
+            /*return this.httpClient.put<string>(`${environment.API_URL}/devices/`+oldToken, //endpoint a realizar
+            {   
+                'firebaseToken':    refreshedToken
+                'location':         null
+                'user':             null
+            },
+            {
+            headers:{
+                'Content-Type':"application/json"
+            }
+            });*/
         }
-        });*/
+    }
+
+    registerFirebaseToken(token) {
+        if (localStorage.getItem('token') !== null) { //logged user
+            this.getUserInfo();
+            /*return this.httpClient.put<string>(`${environment.API_URL}/devices`, //endpoint a realizar
+            {   
+                'firebaseToken':    refreshedToken
+                'location':         null
+                'id':               this.user.id,
+                'name':             this.user.name,
+                'email':            this.user.email,
+                'username':         this.user.username;
+                'password':         this.user.password,
+                'gender':           this.user.gender,
+                'token':            this.user.token,
+                'markedSpots':      this.user.markedSpots,
+                'helpedUsers':      this.user.helpedUsers,
+                'profilePic':       this.user.profilePic
+            },
+            {
+            headers:{
+                'Content-Type':"application/json"
+            }
+            });*/
+        } else { // unlogged user
+            /*return this.httpClient.put<string>(`${environment.API_URL}/devices`, //endpoint a realizar
+            {   
+                'firebaseToken':    refreshedToken
+                'location':         null
+                'user':             null
+            },
+            {
+            headers:{
+                'Content-Type':"application/json"
+            }
+            });*/
+        }
     }
 
     increaseHelped(){
@@ -56,7 +130,7 @@ export class NotificationsRemote {
         console.log("logged? ", localStorage.getItem('token'))
         console.log("username: ", username);
         console.log("Sending notification to victim");
-        /*return this.httpClient.post<string>(`${environment.API_URL}/device/notifyuser/`+token, //endpoint a realizar
+        /*return this.httpClient.post<string>(`${environment.API_URL}/devices/notifyuser/`+token, //endpoint a realizar
         {   
             'username': username
         },

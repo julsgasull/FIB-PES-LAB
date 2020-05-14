@@ -20,7 +20,7 @@ export class AuthInterceptor implements HttpInterceptor {
     } else if (request.headers.has(InterceptorSkipHeaderFirebase)) {
       request = request.clone({
         setHeaders: {
-          DeviceAuthorization: `${auth.getDeviceToken()}`
+          'X-Authorization-Firebase': `${auth.getDeviceToken()}`
         }
       });
       return next.handle(request);
@@ -28,7 +28,7 @@ export class AuthInterceptor implements HttpInterceptor {
       request = request.clone({
         setHeaders: {
           Authorization: `${auth.getToken()}`,
-          DeviceAuthorization: `${auth.getDeviceToken()}`
+          'X-Authorization-Firebase': `${auth.getDeviceToken()}`
         }
       });
       return next.handle(request);

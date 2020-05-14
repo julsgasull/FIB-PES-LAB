@@ -9,8 +9,12 @@ export class NotificationsService {
 
   constructor(private notificationsRemote: NotificationsRemote) { }
 
-  saveFireBaseToken(token, oldToken) {
-    this.notificationsRemote.saveFireBaseToken(token, oldToken);
+  updateFireBaseToken(refreshedToken, oldToken) {
+    this.notificationsRemote.updateFireBaseToken(refreshedToken, oldToken);
+  }
+
+  registerFirebaseToken(token) {
+    this.notificationsRemote.registerFirebaseToken(token);
   }
 
   increaseHelped() {
