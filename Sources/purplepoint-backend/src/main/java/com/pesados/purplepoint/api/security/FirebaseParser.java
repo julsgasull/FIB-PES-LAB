@@ -6,7 +6,7 @@ import com.pesados.purplepoint.api.exception.FirebaseTokenInvalidException;
 import com.pesados.purplepoint.api.model.firebase.FirebaseTokenHolder;
 
 public class FirebaseParser {
-	public FirebaseTokenHolder parseToken(String idToken) {
+	public boolean parseToken(String idToken) {
 		if (idToken == null || idToken == "") {
 			throw new IllegalArgumentException("FirebaseTokenBlank");
 		}
@@ -19,8 +19,9 @@ public class FirebaseParser {
 
 			return new FirebaseTokenHolder(authTask.getResult());*/
 			
-			FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
-			return new FirebaseTokenHolder(decodedToken);
+			if (FirebaseAuth.getInstance().verifyIdToken(idToken) == null)
+				return false;
+			else return true;
 		} catch (Exception e) {
 			throw new FirebaseTokenInvalidException(e.getMessage());
 		}

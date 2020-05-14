@@ -9,12 +9,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import com.pesados.purplepoint.api.exception.FirebaseUserNotExistsException;
+import com.pesados.purplepoint.api.exception.UserNotFoundException;
+import com.pesados.purplepoint.api.model.user.UserService;
 
 @Component
 public class FirebaseAuthenticationProvider implements AuthenticationProvider {
 
 	@Autowired
-	private UserDetailsService userService;
+	private UserService userService;
 
 	public boolean supports(Class<?> authentication) {
 		return (FirebaseAuthenticationToken.class.isAssignableFrom(authentication));
@@ -27,7 +29,8 @@ public class FirebaseAuthenticationProvider implements AuthenticationProvider {
 		}
 
 		FirebaseAuthenticationToken authenticationToken = (FirebaseAuthenticationToken) authentication;
-		UserDetails details = userService.loadUserByUsername(authenticationToken.getName());
+		UserDetails details = userService.getUserByEmail(authenticationToken.getName())
+				.orElseThrow(()-> new UserNotFoundException(authenticationToken.getName()));
 		if (details == null) {
 			throw new FirebaseUserNotExistsException();
 		}
