@@ -3,6 +3,7 @@ import * as L from 'leaflet';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { UserData } from 'src/app/models/userData.interface';
+import { GeoLocation } from 'src/app/models/geoLocation.interface';
 
 var pointIcon = L.icon({
   iconUrl: '../../../assets/images/pin.svg',
@@ -38,7 +39,7 @@ export class MarkerService {
     });
   }
   
-  addMark(location: Geolocation, user: UserData) {
+  addMark(location: GeoLocation, user: UserData) {
     return this.httpClient.post(`${environment.API_URL}/map`,
     {   
       'user':     user,
