@@ -23,14 +23,13 @@ export class PrincipalViewComponent implements OnInit {
 
   constructor(
     private route: Router,
-    /*private messagingService: MessagingService,
-    private geoLocationService: GeoLocationService*/
+    private messagingService: MessagingService,
+    private geoLocationService: GeoLocationService
   ) { }
 
   ngOnInit(): void {
-    console.log("WTF: ", localStorage.getItem('deviceToken'));
     localStorage.setItem('token', null);
-    /*
+    
     this.geolocation = this.geoLocationService.getFirstLocation(this.geolocation);
     this.messagingService.requestPermission();
     this.messagingService.receiveMessage();
@@ -42,7 +41,7 @@ export class PrincipalViewComponent implements OnInit {
       this.geoLocationService.getLocation(this.geolocation).subscribe((location: GeoLocation) => {
         this.geolocation = location;
       });
-    }, timeout);*/
+    }, timeout);
   }
 
   redirectToLogin() {
