@@ -30,19 +30,18 @@ export class PrincipalViewComponent implements OnInit {
   ngOnInit(): void {
     localStorage.setItem('token', null);
 
-    this.geolocation =this.geoLocationService.getFirstLocation(this.geolocation);
-
+    this.geolocation = this.geoLocationService.getFirstLocation(this.geolocation);
     this.messagingService.requestPermission();
     this.messagingService.receiveMessage();
     this.message = this.messagingService.currentMessage;
 
     const timeout = 5 * 1000; // in ms
     
-    setInterval(() => {
+    /*setInterval(() => {
       this.geoLocationService.getLocation(this.geolocation).subscribe((location: GeoLocation) => {
         this.geolocation = location;
       });
-    }, timeout);
+    }, timeout);*/
   }
 
   redirectToLogin() {
@@ -54,5 +53,4 @@ export class PrincipalViewComponent implements OnInit {
   redirectToProfile() {
     this.route.navigate(['/profile']);
   }
-
 }

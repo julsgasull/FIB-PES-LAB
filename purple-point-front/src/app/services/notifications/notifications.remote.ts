@@ -20,8 +20,9 @@ export class NotificationsRemote {
       });
 
     getUserInfo() {
+        console.log("ESTOY COGIENDO LA INFO DEL USER");
         const email = localStorage.getItem('userEmail');
-        this.userService.getUserByEmail(email).subscribe((userResponse: UserData) => {
+        this.userService.getUserByEmailUnauthorized(email).subscribe((userResponse: UserData) => {
             this.user = userResponse;
         });
     }
@@ -34,19 +35,24 @@ export class NotificationsRemote {
     }
  
     updateFireBaseToken(refreshedToken, oldToken) {
-        if (localStorage.getItem('token') !== null) { //logged user
+        console.log("ESTOY EN UPDATE FB TOKEN");
+        console.log("oldToken: ", oldToken);
+        console.log("refreshedToken: ", refreshedToken);
+        oldToken = "f2EJYEQeYyYq-v2ubvL7x5:APA91bEnuNyD72sMX7KJsg_ilfGNYu7BcShClp34qW5ZPgNh9FDd3_XvoSGQJEQ_pSHadk1NI6WkEeba7cpz2WXyyj616VKHLxpU6i0ZRJ9ap3pieNpGdgAhH1aqcD6Fkewmf0LcUNvC";
+        if (localStorage.getItem('token') !== 'null') { //logged user
+            console.log("logged; ", localStorage.getItem('token'));
             this.getUserInfo();
-            /*return this.httpClient.put<string>(`${environment.API_URL}/devices/`+oldToken, //endpoint a realizar
+            return this.httpClient.put<string>(`${environment.API_URL}/devices/`+oldToken, //endpoint a realizar
             {   
-                'firebaseToken':    refreshedToken
-                'latitude':         this.geolocation.latitude
-                'longitude':        this.geolocation.longitude
-                'accuracy':         this.geolocation.accuracy
-                'timestamp':        this.geolocation.timestamp
+                'firebaseToken':    refreshedToken,
+                'latitude':         this.geolocation.latitude,
+                'longitude':        this.geolocation.longitude,
+                'accuracy':         this.geolocation.accuracy,
+                'timestamp':        this.geolocation.timestamp,
                 'id':               this.user.id,
                 'name':             this.user.name,
                 'email':            this.user.email,
-                'username':         this.user.username;
+                'username':         this.user.username,
                 'password':         this.user.password,
                 'gender':           this.user.gender,
                 'token':            this.user.token,
@@ -56,38 +62,41 @@ export class NotificationsRemote {
             },
             {
             headers:{
-                'Content-Type':"application/json"
+                'Content-Type':"application/json",
+                'X-Skip-Interceptor-Firebase': ''
             }
-            });*/
+            });
         } else { // unlogged user
-            /*return this.httpClient.put<string>(`${environment.API_URL}/devices/`+oldToken, //endpoint a realizar
+            return this.httpClient.put<string>(`${environment.API_URL}/devices/`+oldToken, //endpoint a realizar
             {   
-                'firebaseToken':    refreshedToken
-                'latitude':         this.geolocation.latitude
-                'longitude':        this.geolocation.longitude
-                'accuracy':         this.geolocation.accuracy
-                'timestamp':        this.geolocation.timestamp
+                'firebaseToken':    refreshedToken,
+                'latitude':         this.geolocation.latitude,
+                'longitude':        this.geolocation.longitude,
+                'accuracy':         this.geolocation.accuracy,
+                'timestamp':        this.geolocation.timestamp,
                 'user':             null
             },
             {
             headers:{
-                'Content-Type':"application/json"
+                'Content-Type':"application/json",
+                'X-Skip-Interceptor-Firebase': ''
             }
-            });*/
+            });
         }
     }
 
     registerFirebaseToken(token) {
+        /*console.log("ESTOY REGISTRANDO EL DEVICE");
         this.getLocationInfo();
-        if (localStorage.getItem('token') !== null) { //logged user
+        if (localStorage.getItem('token') !== 'null') { //logged user
             this.getUserInfo();
-            /*return this.httpClient.put<string>(`${environment.API_URL}/devices`, //endpoint a realizar
+            return this.httpClient.put<string>(`${environment.API_URL}/devices`, //endpoint a realizar
             {   
-                'firebaseToken':    refreshedToken
-                'latitude':         this.geolocation.latitude
-                'longitude':        this.geolocation.longitude
-                'accuracy':         this.geolocation.accuracy
-                'timestamp':        this.geolocation.timestamp
+                'firebaseToken':    refreshedToken,
+                'latitude':         this.geolocation.latitude,
+                'longitude':        this.geolocation.longitude,
+                'accuracy':         this.geolocation.accuracy,
+                'timestamp':        this.geolocation.timestamp,
                 'id':               this.user.id,
                 'name':             this.user.name,
                 'email':            this.user.email,
@@ -101,31 +110,33 @@ export class NotificationsRemote {
             },
             {
             headers:{
-                'Content-Type':"application/json"
+                'Content-Type':"application/json",
+                'X-Skip-Interceptor-Firebase': '',
             }
-            });*/
+            });
         } else { // unlogged user
-            /*return this.httpClient.put<string>(`${environment.API_URL}/devices`, //endpoint a realizar
+            return this.httpClient.put<string>(`${environment.API_URL}/devices`, //endpoint a realizar
             {   
-                'firebaseToken':    refreshedToken
-                'latitude':         this.geolocation.latitude
-                'longitude':        this.geolocation.longitude
-                'accuracy':         this.geolocation.accuracy
-                'timestamp':        this.geolocation.timestamp
+                'firebaseToken':    refreshedToken,
+                'latitude':         this.geolocation.latitude,
+                'longitude':        this.geolocation.longitude,
+                'accuracy':         this.geolocation.accuracy,
+                'timestamp':        this.geolocation.timestamp,
                 'user':             null
             },
             {
             headers:{
-                'Content-Type':"application/json"
+                'Content-Type':"application/json",
+                'X-Skip-Interceptor-Firebase': '',
             }
-            });*/
-        }
+            });
+        }*/
     }
 
     increaseHelped(){
         var username: String;
         var email: String;
-        if (localStorage.getItem('token') != null) { //logged user
+        if (localStorage.getItem('token') != 'null') { //logged user
             username = localStorage.getItem('username');
             email = localStorage.getItem('userEmail');
         }
@@ -141,7 +152,8 @@ export class NotificationsRemote {
         },
         {
         headers:{
-            'Content-Type':"application/json"
+            'Content-Type':"application/json",
+            'X-Skip-Interceptor-Firebase': '',
         }
         });*/
     }
@@ -151,7 +163,7 @@ export class NotificationsRemote {
         const bool: String = localStorage.getItem('token');
         if (bool == null) {
             username = localStorage.getItem('username');
-            console.log("Inside if ", localStorage.getItem('token') != null);
+            console.log("Inside if ", localStorage.getItem('token') != 'null');
         }
         else username = "";
         console.log("logged? ", localStorage.getItem('token'))
@@ -163,7 +175,8 @@ export class NotificationsRemote {
         },
         {
         headers:{
-            'Content-Type':"application/json"
+            'Content-Type':"application/json",
+            'X-Skip-Interceptor-Firebase': '',
         }
         });*/
     }

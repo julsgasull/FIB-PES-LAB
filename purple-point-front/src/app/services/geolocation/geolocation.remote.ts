@@ -11,6 +11,7 @@ export class GeoLocationRemote {
 
     getLocation(loc: GeoLocation): Observable<any> {
         const token: string = localStorage.getItem("deviceToken");
+        console.log("Geolocation remote token: ", token);
         const enableHighAccuracy = true;
         const maximumAge = 3600000;
         const options = {
@@ -55,12 +56,17 @@ export class GeoLocationRemote {
         },
         {
             headers:{
-              'Content-Type':"application/json"
+              'Content-Type':"application/json",
+              'X-Skip-Interceptor-Firebase': ''              
             }
         }); //return location
     }
 
     getFirstLocation(loc:GeoLocation): GeoLocation {
+        console.log("ESTOY EN FIRST LOCATION");
+        const token: string = localStorage.getItem("deviceToken");
+        console.log("Geolocation remote token: ", token);
+
         const enableHighAccuracy = true;
         const maximumAge = 3600000;
         const options = {
