@@ -22,7 +22,8 @@ export class UserRemote {
         },
         {
             headers:{
-              'Content-Type':"application/json"
+              'Content-Type':"application/json",
+              'X-Skip-Interceptor-Login': ''
             }
         });
     }
@@ -35,7 +36,7 @@ export class UserRemote {
         },
         {
             headers:{
-                'X-Skip-Interceptor': '',
+                'X-Skip-Interceptor-Login': '',
                 'Content-Type':"application/json"
             }
         });
@@ -58,6 +59,17 @@ export class UserRemote {
             'markedSpots':  user.markedSpots,
             'helpedUsers':  user.helpedUsers,
             'profilePic':   user.profilePic
+        });
+    }
+
+    getUserByEmailUnauthorized(email: string) {
+        console.log("GET USER UNAUTHORIZED");
+        return this.httpClient.get<UserData>(`${environment.API_URL}/users/email/`+email, 
+        {
+            headers:{
+                'X-Skip-Interceptor-Login': '',
+                'Content-Type':"application/json"
+            }
         });
     }
 }

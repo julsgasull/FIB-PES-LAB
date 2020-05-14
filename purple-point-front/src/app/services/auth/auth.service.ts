@@ -18,6 +18,7 @@ export class AuthService {
     let userData: UserData = {email: '', password: ''};
     userData.email = localStorage.getItem('userEmail');
     userData.password = localStorage.getItem('password');
+    console.log("Estas en auth refresh token");
     this.userService.loginUser(userData).subscribe((response: UserData) => {
       newToken = response.token;
       localStorage.setItem('token', newToken);
@@ -28,12 +29,18 @@ export class AuthService {
 
   public getToken(): string {
     const token = localStorage.getItem('token');
+    const disable = localStorage.getItem('disable');
     let isTokenExpired = true;
     if (token !== 'null') {
       isTokenExpired = this.decoder.isTokenExpired(token);
     }
     if (!isTokenExpired) {
       return token;
-    } return this.refreshToken();
+    } 
+    else if(disable !== 'null') return this.refreshToken();
+  }
+
+  public getDeviceToken(): string {
+    return localStorage.getItem('deviceToken');
   }
 }

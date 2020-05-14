@@ -28,5 +28,8 @@ export class UserService {
   editProfile(user: UserData): Observable<any> {
     return this.userRemote.editProfile(user);
   }
-
+  
+  getUserByEmailUnauthorized(email: string): Observable<UserData> {
+    return this.userRemote.getUserByEmailUnauthorized(email);
+  }
 }
