@@ -174,3 +174,40 @@ purple-point-front/plugins
 
 
 cordova-project/purple-point
+purple-point-front/.firebaserc
+
+purple-point-front/angular.json
+
+purple-point-front/firebase.json
+
+purple-point-front/ngsw-config.json
+
+purple-point-front/ngsw-config.json 2
+
+purple-point-front/package-lock.json
+
+purple-point-front/package.json
+
+purple-point-front/functions/package-lock.json
+
+purple-point-front/functions/package.json
+
+purple-point-front/functions/tsconfig.json
+
+purple-point-front/functions/src/index.ts
+
+purple-point-front/src/assets/icons/icon-128x128.png
+
+purple-point-front/src/assets/icons/icon-144x144.png
+
+purple-point-front/src/assets/icons/icon-152x152.png
+
+purple-point-front/src/assets/icons/icon-192x192.png
+
+purple-point-front/src/assets/icons/icon-384x384.png
+
+purple-point-front/src/assets/icons/icon-512x512.png
+
+purple-point-front/src/assets/icons/icon-72x72.png
+
+purple-point-front/src/assets/icons/icon-96x96.png
