@@ -77,7 +77,8 @@ import { SnackbarModule } from './common/components/snackbar/snackbar.module';
           useFactory: HttpLoaderFactory,
           deps: [HttpClient]
       }
-  })
+  }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
 
   ],
   providers: [
