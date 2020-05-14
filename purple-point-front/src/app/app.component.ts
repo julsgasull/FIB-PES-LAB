@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
     
     localStorage.setItem('disable', null);
     translate.setDefaultLang('es');
+    localStorage.setItem('disable', 'notNull');
   }
   
   ngOnInit() {
