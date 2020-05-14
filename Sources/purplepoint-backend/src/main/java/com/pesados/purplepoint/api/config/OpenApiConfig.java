@@ -23,9 +23,9 @@ public class OpenApiConfig {
     @Bean
     public OpenAPI customOpenAPI() {
     	Server myServer = new Server();
-    	myServer.setUrl("http://10.4.41.153/");
     	ArrayList<Server> serverList = new ArrayList<Server> ();
-    	serverList.add(myServer);
+		myServer.setUrl("https://purplepoint.herokuapp.com/");
+		serverList.add(myServer);
         myServer.setUrl("http://localhost:5001/");
         serverList.add(myServer);
 
