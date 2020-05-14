@@ -1,12 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireMessaging } from '@angular/fire/messaging';
-import { take } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs'
-import { Observable } from 'rxjs';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 import { SnackbarService } from '../snackbar/snackbar.service';
 import { NotificationsService } from '../notifications/notifications.service';
       
@@ -20,8 +15,6 @@ export class MessagingService {
     private notificationsService: NotificationsService,
     private snackbarService: SnackbarService,
     private zone: NgZone,
-    private angularFireDB: AngularFireDatabase,
-    private angularFireAuth: AngularFireAuth,
     private angularFireMessaging: AngularFireMessaging) {
       this.angularFireMessaging.messaging.subscribe(
       (_messaging) => {

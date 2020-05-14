@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { UserData } from 'src/app/models/userData.interface';
 import { UserService } from '../user/user.service';
+import { GeoLocation } from 'src/app/models/geoLocation.interface';
 
 @Injectable()
 export class NotificationsRemote {
@@ -11,6 +12,12 @@ export class NotificationsRemote {
                 private userService: UserService) {}
 
     user: UserData;
+    geolocation: GeoLocation = ({
+        latitude: -1, 
+        longitude: -1, 
+        accuracy: -1,
+        timestamp: -1
+      });
 
     getUserInfo() {
         const email = localStorage.getItem('userEmail');
@@ -19,13 +26,23 @@ export class NotificationsRemote {
         });
     }
 
+    getLocationInfo() {
+        this.geolocation.latitude = +localStorage.getItem('latitude');
+        this.geolocation.longitude = +localStorage.getItem('longitude');
+        this.geolocation.accuracy = +localStorage.getItem('accuracy');
+        this.geolocation.timestamp = +localStorage.getItem('timestamp');
+    }
+ 
     updateFireBaseToken(refreshedToken, oldToken) {
         if (localStorage.getItem('token') !== null) { //logged user
             this.getUserInfo();
             /*return this.httpClient.put<string>(`${environment.API_URL}/devices/`+oldToken, //endpoint a realizar
             {   
                 'firebaseToken':    refreshedToken
-                'location':         null
+                'latitude':         this.geolocation.latitude
+                'longitude':        this.geolocation.longitude
+                'accuracy':         this.geolocation.accuracy
+                'timestamp':        this.geolocation.timestamp
                 'id':               this.user.id,
                 'name':             this.user.name,
                 'email':            this.user.email,
@@ -46,7 +63,10 @@ export class NotificationsRemote {
             /*return this.httpClient.put<string>(`${environment.API_URL}/devices/`+oldToken, //endpoint a realizar
             {   
                 'firebaseToken':    refreshedToken
-                'location':         null
+                'latitude':         this.geolocation.latitude
+                'longitude':        this.geolocation.longitude
+                'accuracy':         this.geolocation.accuracy
+                'timestamp':        this.geolocation.timestamp
                 'user':             null
             },
             {
@@ -58,12 +78,16 @@ export class NotificationsRemote {
     }
 
     registerFirebaseToken(token) {
+        this.getLocationInfo();
         if (localStorage.getItem('token') !== null) { //logged user
             this.getUserInfo();
             /*return this.httpClient.put<string>(`${environment.API_URL}/devices`, //endpoint a realizar
             {   
                 'firebaseToken':    refreshedToken
-                'location':         null
+                'latitude':         this.geolocation.latitude
+                'longitude':        this.geolocation.longitude
+                'accuracy':         this.geolocation.accuracy
+                'timestamp':        this.geolocation.timestamp
                 'id':               this.user.id,
                 'name':             this.user.name,
                 'email':            this.user.email,
@@ -84,7 +108,10 @@ export class NotificationsRemote {
             /*return this.httpClient.put<string>(`${environment.API_URL}/devices`, //endpoint a realizar
             {   
                 'firebaseToken':    refreshedToken
-                'location':         null
+                'latitude':         this.geolocation.latitude
+                'longitude':        this.geolocation.longitude
+                'accuracy':         this.geolocation.accuracy
+                'timestamp':        this.geolocation.timestamp
                 'user':             null
             },
             {
