@@ -1,6 +1,7 @@
 package com.pesados.purplepoint.api.tests.controller;
 
 import com.pesados.purplepoint.api.model.device.Device;
+import com.pesados.purplepoint.api.tests.utils.TestUtils;
 import com.pesados.purplepoint.api.model.device.DeviceService;
 import com.pesados.purplepoint.api.model.user.User;
 import com.pesados.purplepoint.api.model.user.UserService;
@@ -8,6 +9,7 @@ import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -33,9 +35,10 @@ public class DeviceControllerTest {
     @Autowired
     UserService userService;
 
+    
     @Test
     public void shouldReturnUnauthorized() throws Exception {
-        this.mockMvc.perform(get("/api/v1/device/1")).andExpect(status().is(401));
+        this.mockMvc.perform(get("/api/v1/devices/1")).andExpect(status().is(401));
     }
 
 
@@ -52,57 +55,30 @@ public class DeviceControllerTest {
         location.put("timestamp", 20.0);
 
         JSONObject userU = new JSONObject();
-        userU.put("name", mockUser.getName());
-        userU.put("username", "amandi");
-        userU.put("email", "amandi@correo.com");
-        userU.put("password", mockUser.getPassword());
-        userU.put("gender", mockUser.getGender());
-        userU.put("token", mockUser.getToken());
-        userU.put("helpedUsers", mockUser.getHelpedUsers());
-        userU.put("markedSpots", mockUser.getMarkedSpots());
-        userU.put("profilePic", null);
-
-
-        JSONObject userLogin = new JSONObject();
-        userLogin.put("name", mockUser.getName());
-        userLogin.put("username", mockUser.getUsername());
-        userLogin.put("email", mockUser.getEmail());
-        userLogin.put("password", mockUser.getPassword());
-        userLogin.put("gender", mockUser.getGender());
-        userLogin.put("token", mockUser.getToken());
-        userLogin.put("helpedUsers", mockUser.getHelpedUsers());
-        userLogin.put("markedSpots", mockUser.getMarkedSpots());
-        userLogin.put("id", mockUser.getID());
-        userLogin.put("profilePic", null);
-
+        userU.put("email", "isma@gmail.com");
+  
 
         JSONObject device = new JSONObject();
-        device.put("firebaseToken", "f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
+        device.put("firebaseToken", TestUtils.firebaseToken);
         device.put("location", location);
         device.put("user", userU);
 
-        MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders
-                .post("/api/v1/users/login")
-                .contentType("application/json")
-                .content(userLogin.toString()))
-                .andExpect(status().isOk())
-                .andReturn();
+        String token = TestUtils.doLogin(this.mockMvc);
 
-        JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
-        String token =((String) respUser.get("token"));
-
-        this.mockMvc.perform(put("/api/v1/device/1").header("Authorization",token)
+        this.mockMvc.perform(put("/api/v1/devices/"+TestUtils.firebaseToken)
+        		.header("Authorization",token)                
+        		.header(TestUtils.firebaseHeaderName, TestUtils.firebaseToken)
                 .content(String.valueOf(device))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().is(200))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.firebaseToken").value("1"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firebaseToken").value(TestUtils.firebaseToken))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.location.latitude").value("5.0"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.location.longitude").value("7.0"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.location.accuracy").value("9.0"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.location.timestamp").value("20.0"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.user.email").value("amandi@correo.com"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.user.email").value("isma@gmail.com"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.user.password").value("1234"));
     }
 
@@ -120,27 +96,24 @@ public class DeviceControllerTest {
         user.put("password", "1234");
 
         JSONObject device = new JSONObject();
-        device.put("firebaseToken", "f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
+        device.put("firebaseToken", TestUtils.firebaseToken);
         device.put("location", location);
         device.put("user", user);
 
-        MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders
-                .post("/api/v1/users/login")
-                .contentType("application/json")
-                .content(user.toString()))
-                .andExpect(status().isOk())
-                .andReturn();
+        String token = TestUtils.doLogin(this.mockMvc);
 
-        JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
-        String token =((String) respUser.get("token"));
-
-        this.mockMvc.perform(post("/api/v1/device/notifyuser/f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5").header("Authorization", token)
-                .param("username", "Isma"))
+        this.mockMvc.perform(post("/api/v1/devices/notifyuser/"+TestUtils.firebaseToken)
+        		.header("Authorization", token)
+        		.header(TestUtils.firebaseHeaderName, TestUtils.firebaseToken)
+                .param("username", "Isma")
+                .header(TestUtils.firebaseHeaderName, TestUtils.firebaseToken))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().is(200));
     }
-
-
+    /*
+     * REDUNDANT, ara es fa a update device
+     */
+/*
     @Test
     public void shouldUpdateToken() throws Exception {
         // Login with mockup user in the database.
@@ -151,6 +124,7 @@ public class DeviceControllerTest {
         MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders
                 .post("/api/v1/users/login")
                 .contentType("application/json")
+                
                 .content(user.toString()))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -158,10 +132,10 @@ public class DeviceControllerTest {
         JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
         String token =((String) respUser.get("token"));
 
-        Device newDevice = deviceService.getDeviceByFirebaseToken("f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5").get();
+        Device newDevice = deviceService.getDeviceByFirebaseToken(TestUtils.firebaseToken).get();
         long idDevice = newDevice.getDeviceId();
 
-        this.mockMvc.perform(put("/api/v1/device/updatetoken/f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5").header("Authorization",token)
+        this.mockMvc.perform(put("/api/v1/devices/"+TestUtils.firebaseToken).header("Authorization",token)
                 .content("1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -169,7 +143,7 @@ public class DeviceControllerTest {
                 .andExpect(status().is(200));
 
         newDevice = deviceService.getDeviceById(idDevice).get();
-        Assert.assertEquals(newDevice.getFirebaseToken(), "f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
+        Assert.assertEquals(newDevice.getFirebaseToken(), TestUtils.firebaseToken);
     }
-
+*/
 }

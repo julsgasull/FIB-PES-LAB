@@ -1,14 +1,16 @@
 package com.pesados.purplepoint.api.tests.controller;
 
 
-import com.pesados.purplepoint.api.controller.AlarmController;
-import com.pesados.purplepoint.api.model.alarm.Alarm;
-import com.pesados.purplepoint.api.model.alarm.AlarmService;
-import com.pesados.purplepoint.api.model.device.Device;
-import com.pesados.purplepoint.api.model.device.DeviceService;
-import com.pesados.purplepoint.api.model.firebase.PushNotificationService;
-import com.pesados.purplepoint.api.model.location.Location;
-import com.pesados.purplepoint.api.model.user.User;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -20,14 +22,15 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import com.pesados.purplepoint.api.controller.AlarmController;
+import com.pesados.purplepoint.api.model.alarm.Alarm;
+import com.pesados.purplepoint.api.model.alarm.AlarmService;
+import com.pesados.purplepoint.api.model.device.Device;
+import com.pesados.purplepoint.api.model.device.DeviceService;
+import com.pesados.purplepoint.api.model.firebase.PushNotificationService;
+import com.pesados.purplepoint.api.model.location.Location;
+import com.pesados.purplepoint.api.model.user.User;
+import com.pesados.purplepoint.api.tests.utils.TestUtils;;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -44,7 +47,7 @@ public class AlarmControllerTest {
 
 	@Autowired
 	private PushNotificationService pushNotificationService;
-
+	
 	@Test
 	public void shouldReturnNewLocation() throws Exception {
 		JSONObject location = new JSONObject();
@@ -56,25 +59,14 @@ public class AlarmControllerTest {
 		JSONObject alarm = new JSONObject();
 
 		alarm.put("username", "amandi");
-		alarm.put("deviceToken", "f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
+		alarm.put("deviceToken", TestUtils.firebaseToken);
 		alarm.put("location", location);
 
-		JSONObject user = new JSONObject();
-		user.put("email", "isma@gmail.com");
-		user.put("password", "1234");
-
-		MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders
-				.post("/api/v1/users/login")
-				.contentType("application/json")
-				.content(user.toString()))
-				.andExpect(status().isOk())
-				.andReturn();
-
-		JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
-		String token =((String) respUser.get("token"));
+		String token = TestUtils.doLogin(this.mockMvc);
 
 		this.mockMvc.perform(post("/api/v1/alarms/create").header("Authorization", token)
 				.contentType("application/json")
+				.header(TestUtils.firebaseHeaderName, TestUtils.firebaseToken)
 				.content(alarm.toString()))
 				.andDo(print())
 				.andExpect(status().isOk());
@@ -92,37 +84,29 @@ public class AlarmControllerTest {
 		JSONObject alarm = new JSONObject();
 
 		alarm.put("username", "isma");
-		alarm.put("deviceToken", "f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
+		alarm.put("deviceToken", TestUtils.firebaseToken);
 		alarm.put("location", location);
 
-		JSONObject user = new JSONObject();
-		user.put("email", "isma@gmail.com");
-		user.put("password", "1234");
-
-		MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders
-				.post("/api/v1/users/login")
-				.contentType("application/json")
-				.content(user.toString()))
-				.andExpect(status().isOk())
-				.andReturn();
-
-		JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
-		String token =((String) respUser.get("token"));
-
+		String token = TestUtils.doLogin(this.mockMvc);
+		
 		this.mockMvc.perform(post("/api/v1/alarms/create").header("Authorization", token)
 				.contentType("application/json")
+				.header(TestUtils.firebaseHeaderName, TestUtils.firebaseToken)
 				.content(alarm.toString()))
 				.andDo(print())
 				.andExpect(status().isOk());
 
 		/*
-		 * tret del test perque falla amb cada nova feature y me tiene arto
+		 * tret del test perque falla amb cada nova feature y me tiene ...
 		 * amandi: isma eres el amo
+		 * isma: jajaja lots of love
 				String user_bd = "{\"id\":1,\"name\":\"test\",\"username\":\"test1\",\"email\":\"isma@gmail.com\",\"password\":\"1234\",\"gender\":\"others\",\"token\":\"" +
 					token +
 					"\",\"helpedUsers\":0,\"markedSpots\":0}";
 		*/
-		this.mockMvc.perform(get("/api/v1/alarms").header("Authorization",token))
+		this.mockMvc.perform(get("/api/v1/alarms")
+				.header("Authorization",token)
+				.header(TestUtils.firebaseHeaderName, TestUtils.firebaseToken))
 				.andDo(MockMvcResultHandlers.print())
 				.andExpect(status().is(200));
 	}
@@ -137,26 +121,14 @@ public class AlarmControllerTest {
 
 		JSONObject alarm = new JSONObject();
 		alarm.put("username", "franco");
-		alarm.put("deviceToken", "f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
+		alarm.put("deviceToken", TestUtils.firebaseToken);
 		alarm.put("location", location);
-		alarm.put("deviceToken", "f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
-		JSONObject user = new JSONObject();
-		user.put("email", "isma@gmail.com");
-		user.put("password", "1234");
-
-		MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders
-				.post("/api/v1/users/login")
-				.contentType("application/json")
-				.content(user.toString()))
-				.andExpect(status().isOk())
-				.andReturn();
-
-
-		JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
-		String token = ((String) respUser.get("token"));
+		
+		String token = TestUtils.doLogin(this.mockMvc);
 
 		MvcResult responsecreate = this.mockMvc.perform(post("/api/v1/alarms/create").header("Authorization", token)
 				.contentType("application/json")
+				.header(TestUtils.firebaseHeaderName, TestUtils.firebaseToken)
 				.content(alarm.toString()))
 				.andDo(print())
 				.andExpect(status().isOk())
@@ -167,6 +139,7 @@ public class AlarmControllerTest {
 
 		this.mockMvc.perform(get("/api/v1/alarms/"+id).header("Authorization", token)
 				.contentType("application/json")
+				.header(TestUtils.firebaseHeaderName, TestUtils.firebaseToken)
 				.content(""))
 				.andDo(print())
 				.andExpect(status().isOk());
@@ -182,37 +155,28 @@ public class AlarmControllerTest {
 		JSONObject alarm = new JSONObject();
 
 		alarm.put("username", "julia");
-		alarm.put("deviceToken", "f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
+		alarm.put("deviceToken", TestUtils.firebaseToken);
 		alarm.put("location", location);
 
-		JSONObject user = new JSONObject();
-		user.put("email", "isma@gmail.com");
-		user.put("password", "1234");
-
-		MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders
-				.post("/api/v1/users/login")
-				.contentType("application/json")
-				.content(user.toString()))
-				.andExpect(status().isOk())
-				.andReturn();
-
-		JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
-		String token = ((String) respUser.get("token"));
+		String token = TestUtils.doLogin(this.mockMvc);
 
 		this.mockMvc.perform(post("/api/v1/alarms/create").header("Authorization", token)
 				.contentType("application/json")
+				.header(TestUtils.firebaseHeaderName, TestUtils.firebaseToken)
 				.content(alarm.toString()))
 				.andDo(print())
 				.andExpect(status().isOk());
 
 		this.mockMvc.perform(get("/api/v1/alarms/julia").header("Authorization", token)
 				.contentType("application/json")
+				.header(TestUtils.firebaseHeaderName, TestUtils.firebaseToken)
 				.content(""))
 				.andDo(print())
 				.andExpect(status().isOk());
 
 
 	}
+	
 	@Test
 	public void shouldDeleteUser() throws Exception {
 		JSONObject location = new JSONObject();
@@ -223,25 +187,14 @@ public class AlarmControllerTest {
 
 		JSONObject alarm = new JSONObject();
 		alarm.put("username", "adri");
-		alarm.put("deviceToken", "f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
+		alarm.put("deviceToken", TestUtils.firebaseToken);
 		alarm.put("location", location);
 
-		JSONObject user = new JSONObject();
-		user.put("email", "isma@gmail.com");
-		user.put("password", "1234");
-
-		MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders
-				.post("/api/v1/users/login")
-				.contentType("application/json")
-				.content(user.toString()))
-				.andExpect(status().isOk())
-				.andReturn();
-
-		JSONObject respUser = new JSONObject(response.getResponse().getContentAsString());
-		String token = ((String) respUser.get("token"));
+		String token = TestUtils.doLogin(this.mockMvc);
 
 		MvcResult responsecreate = this.mockMvc.perform(post("/api/v1/alarms/create").header("Authorization", token)
 				.contentType("application/json")
+				.header(TestUtils.firebaseHeaderName, TestUtils.firebaseToken)
 				.content(alarm.toString()))
 				.andDo(print())
 				.andExpect(status().isOk())
@@ -252,6 +205,7 @@ public class AlarmControllerTest {
 
 		this.mockMvc.perform(delete("/api/v1/alarms/delete/"+id).header("Authorization", token)
 				.contentType("application/json")
+				.header(TestUtils.firebaseHeaderName, TestUtils.firebaseToken)
 				.content(""))
 				.andDo(print())
 				.andExpect(status().isOk());
@@ -269,7 +223,7 @@ public class AlarmControllerTest {
 		Alarm stubAlarm = new Alarm("isma", "2", bar);
 
 		List<Device> expectedResult = new ArrayList<Device>();
-		Optional<Device> deviceOpt = deviceService.getDeviceByFirebaseToken("f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5");
+		Optional<Device> deviceOpt = deviceService.getDeviceByFirebaseToken(TestUtils.firebaseToken);
 		expectedResult.add(deviceOpt.get());
 
 		AlarmController alarmController = new AlarmController(this.alarmService, this.deviceService, this.pushNotificationService);

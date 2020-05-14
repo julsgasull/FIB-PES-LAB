@@ -6,4 +6,8 @@ public class DeviceNotFoundException extends RuntimeException{
         public DeviceNotFoundException(Long id) {
             super("Could not find device with id: " + id);
         }
+
+		public DeviceNotFoundException(String firebaseToken) {
+			super("Could not find device with token: " + firebaseToken);		
+		}
 }
