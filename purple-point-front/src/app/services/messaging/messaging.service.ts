@@ -23,7 +23,7 @@ export class MessagingService {
             this.snackbarService.openSnackbar(payload.data);
           });
         }).bind(_messaging);
-        _messaging.onMessage =_messaging.onTokenRefresh(() => {
+        _messaging.onTokenRefresh =_messaging.onTokenRefresh(() => {
           _messaging.getToken().then((refreshedToken) => {
             console.log("Refreshing token!", refreshedToken);
             this.updateToken(refreshedToken);

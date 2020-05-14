@@ -18,6 +18,7 @@ export class AuthService {
     let userData: UserData = {email: '', password: ''};
     userData.email = localStorage.getItem('userEmail');
     userData.password = localStorage.getItem('password');
+    console.log("Estas en auth refresh token");
     this.userService.loginUser(userData).subscribe((response: UserData) => {
       newToken = response.token;
       localStorage.setItem('token', newToken);

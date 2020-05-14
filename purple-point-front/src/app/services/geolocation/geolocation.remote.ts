@@ -57,7 +57,7 @@ export class GeoLocationRemote {
         {
             headers:{
               'Content-Type':"application/json",
-              'X-Skip-Interceptor-Firebase': ''              
+              'X-Skip-Interceptor-Login': ''              
             }
         }); //return location
     }

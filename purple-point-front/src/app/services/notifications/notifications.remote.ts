@@ -38,7 +38,6 @@ export class NotificationsRemote {
         console.log("ESTOY EN UPDATE FB TOKEN");
         console.log("oldToken: ", oldToken);
         console.log("refreshedToken: ", refreshedToken);
-        oldToken = "f2EJYEQeYyYq-v2ubvL7x5:APA91bEnuNyD72sMX7KJsg_ilfGNYu7BcShClp34qW5ZPgNh9FDd3_XvoSGQJEQ_pSHadk1NI6WkEeba7cpz2WXyyj616VKHLxpU6i0ZRJ9ap3pieNpGdgAhH1aqcD6Fkewmf0LcUNvC";
         if (localStorage.getItem('token') !== 'null') { //logged user
             console.log("logged; ", localStorage.getItem('token'));
             this.getUserInfo();
@@ -63,7 +62,7 @@ export class NotificationsRemote {
             {
             headers:{
                 'Content-Type':"application/json",
-                'X-Skip-Interceptor-Firebase': ''
+                'X-Skip-Interceptor-Login': ''
             }
             });
         } else { // unlogged user
@@ -79,7 +78,7 @@ export class NotificationsRemote {
             {
             headers:{
                 'Content-Type':"application/json",
-                'X-Skip-Interceptor-Firebase': ''
+                'X-Skip-Interceptor-Login': ''
             }
             });
         }
@@ -111,7 +110,7 @@ export class NotificationsRemote {
             {
             headers:{
                 'Content-Type':"application/json",
-                'X-Skip-Interceptor-Firebase': '',
+                'X-Skip-Interceptor-Login': '',
             }
             });
         } else { // unlogged user
@@ -127,7 +126,7 @@ export class NotificationsRemote {
             {
             headers:{
                 'Content-Type':"application/json",
-                'X-Skip-Interceptor-Firebase': '',
+                'X-Skip-Interceptor-Login': '',
             }
             });
         }*/
@@ -153,7 +152,7 @@ export class NotificationsRemote {
         {
         headers:{
             'Content-Type':"application/json",
-            'X-Skip-Interceptor-Firebase': '',
+            'X-Skip-Interceptor-Login': '',
         }
         });*/
     }
@@ -176,7 +175,7 @@ export class NotificationsRemote {
         {
         headers:{
             'Content-Type':"application/json",
-            'X-Skip-Interceptor-Firebase': '',
+            'X-Skip-Interceptor-Login': '',
         }
         });*/
     }
