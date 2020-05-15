@@ -31,6 +31,8 @@ purple-point-front/.editorconfig
 
 Sources/
 
+purple-point-front/src/assets/
+
 purple-point-front/.editorconfig 2
 
 purple-point-front/package 2.json

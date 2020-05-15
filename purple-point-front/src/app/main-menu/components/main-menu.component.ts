@@ -14,35 +14,21 @@ import { GeoLocationService } from 'src/app/services/geolocation/geolocation.ser
 })
 export class MainMenuComponent implements OnInit {
 
-  // images
-  profileImage/* = require(agafar foto de perfil de la bd)*/;
+  profileImage: any;
 
   public userInfo: UserData;
-  geolocation: GeoLocation = ({
-    latitude: -1, 
-    longitude: -1, 
-    accuracy: -1,
-    timestamp: -1
-  });
 
   constructor(
     private route: Router,
-    private userService: UserService,
-    private geoLocationService: GeoLocationService
+    private userService: UserService
   ) {}
-
 
   ngOnInit(): void {
     const userEmail = localStorage.getItem('userEmail');
     this.userService.getUserByEmail(userEmail).subscribe((response: UserData) => {
       this.userInfo = response;
+      this.profileImage = 'data:'+this.userInfo.profilePic.type +';base64,' + this.userInfo.profilePic.picByteB64;
     });
-
-    const timeout = 5 * 1000; // in ms
-    
-    setInterval(() => {
-      this.geoLocationService.getLocation(this.geolocation);
-    }, timeout);
   }
 
   logout() {

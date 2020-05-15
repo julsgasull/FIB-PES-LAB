@@ -5,6 +5,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { UserData } from 'src/app/models/userData.interface';
 import { Router } from '@angular/router';
 import { UtilsService } from 'src/app/services/utils/utils.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'sign-up',
@@ -13,15 +14,14 @@ import { UtilsService } from 'src/app/services/utils/utils.service';
 })
 export class SignUpComponent implements OnInit {
 
-  genders = ['Gender', 'Male', 'Female', 'Non binary', 'Other'];
-  
   isSubmitted = false;
   userForm: FormGroup;
 	constructor(
     private formBuilder: FormBuilder, 
     private userService: UserService,
     private route: Router,
-    private utilsService : UtilsService) { }
+    private utilsService : UtilsService,
+    private translate: TranslateService) {}
 
   ngOnInit(): void {
     this.userForm = this.formBuilder.group({
@@ -37,6 +37,7 @@ export class SignUpComponent implements OnInit {
     });
   }
 
+
   private createUserForm() {
     const userFormValue = JSON.parse(JSON.stringify(this.userForm.value));
     const userData: UserData = {
@@ -48,16 +49,18 @@ export class SignUpComponent implements OnInit {
     }
     return userData;
   }
+
   onSubmit() {
     this.isSubmitted = true;
     if (this.userForm.valid) {
       this.userService.createUser(this.createUserForm()).subscribe((response: any) => {
+        alert(this.translate.instant('alerts.createdUser'));
         this.redirectToLogin();
       });
-      
-  } else {
-    return
-  }
+    } else {
+      alert(this.translate.instant('alerts.tryLater'));
+      return
+    }
   }
 
   setSubmittedToFalse() {

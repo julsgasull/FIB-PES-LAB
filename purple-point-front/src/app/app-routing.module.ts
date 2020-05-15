@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PrincipalViewComponent } from './welcome/views/principal-view.component';
+import { PrincipalViewComponent } from './welcome/components/principal-view.component';
 import { LoginComponent } from './login/components/login.component';
 import { ProfileComponent } from './profile/components/profile.component';
 import { MainMenuComponent } from './main-menu/components/main-menu.component';

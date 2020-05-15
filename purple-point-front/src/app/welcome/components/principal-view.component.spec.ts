@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PrincipalViewComponent } from './principal-view.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
 
 describe('PrincipalViewComponent', () => {
   let component: PrincipalViewComponent;
@@ -8,6 +10,15 @@ describe('PrincipalViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateFakeLoader
+          }
+        }),
+      ],
       declarations: [ PrincipalViewComponent ]
     })
     .compileComponents();

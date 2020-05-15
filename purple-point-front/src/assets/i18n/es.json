@@ -1,0 +1,70 @@
+{
+    "titles": {
+        "purplepoint": "Purple Point",
+        "sign-up": "Registro",
+        "login": "Login",
+        "panicButton": "Panic button"
+    },
+    "formFields": {
+        "email": "email",
+        "password": "contraseña",
+        "username": "usuario",
+        "name": "nombre",
+        "confirmPassword": "confirmar contraseña"
+    },
+    "formErrors": {
+        "emailRequired": "Email obligatorio",
+        "emailNotValid": "Email no válido",
+        "passwordRequired": "Contraseña obligatoria",
+        "usernameRequired": "Usuario obligatorio",
+        "nameRequired": "Nombre obligatorio",
+        "genderRequired": "Género obligatorio",
+        "incorrectUserOrPwd": "Email y/o contraseña incorrectos",
+        "internalServerError": "Internal Server Error",
+        "confirmPasswordRequired": "Confirmar contraseña obligatorio",
+        "passwordMustMatch": "Las contraseñas deben coincidir",
+        "notAuthenticated": "No autenticado"
+    },
+    "alerts": {
+        "savedChanges":"Los cambios se han guardado correctamente",
+        "tryLater": "Ha habido un error, por favor pruébalo más tarde",
+        "createdUser": "El usuario se ha creado correctamente"
+    },
+    "profileFields": {
+        "name": "nombre",
+        "gender": "género",
+        "password": "contraseña",
+        "profilePic": "foto perfil"
+    },
+    "genders": {
+        "female": "Mujer",
+        "male": "Hombre",
+        "nonBinary": "No binario",
+        "other": "Otro"
+    },
+    "buttons" : {
+        "panic": "PANIC",
+        "login": "Entrar",
+        "logout": "Salir",
+        "saveChanges": "Guardar cambios",
+        "editProfile": "Editar perfil",
+        "register": "Registrarse",
+        "dismiss": "Ignorar",
+        "onMyWay": "En Camino!"
+    },
+    "text": {
+        "hello": "Hola, ",
+        "markSpots": "¿Quieres ver o marcar algún punto?",
+        "goToMap": "Ves al mapa",
+        "doubts": "¿Dudas?",
+        "visitWiki": "Visita la wiki",
+        "imageAdv": "Si cambias la imagen, por favor espera unos segundas al apretar el botón 'Guardar cambios'"
+    },
+    "notification" : {
+		"title": "Alguien necesita tu ayuda!",
+    	"body" : "Porfavor ve a ayudarle!"
+    },
+    "onMyWay": {
+        "body": " está en camino a ayudarle!"
+    }
+}
