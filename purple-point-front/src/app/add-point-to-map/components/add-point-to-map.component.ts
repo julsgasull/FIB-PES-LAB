@@ -30,7 +30,7 @@ export class AddPointToMapComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.initMap();  
+    this.initMap(); 
     this.map.on('click', <LeafletMouseEvent>(e) => { 
       this.addPoint(e.latlng);
       this.redirectToMap();

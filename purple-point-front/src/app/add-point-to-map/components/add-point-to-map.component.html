@@ -1,34 +1,33 @@
-<table style="width:100%">
+<div class="map-container">
+    <div class="map-frame">
+        <div id="map"></div>
+    </div>
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<table style="width:100%; top:50%">
   <tr style="text-align: right;">
     <div class="crossButton" (click)="redirectToMap()">
         <p class="cross">x</p>
     </div>
   </tr>
   <tr>
-    <div class="map-container">
-      <div class="map-frame">
-        <div id="map"></div>
-      </div>
-    </div>
-  </tr>
-  <tr>
     <div class="addpointinfo" >
       <table style="width:100%">
         <tr>
-          <h1>Locate it</h1>
+          <h1 style="text-align: center;">Locate it</h1>
         </tr>
         <tr>
           <td>
             <table style="width:100%">
               <tr>
                 <td>
-                  <img class="imageClass" src="/src/assets/images/location.svg">
+                  <img class="imageClass" src="../../../assets/images/location.svg" style="height:25px; width:25px">
                 </td>
                 <td class="addpointtitles">you are here</td>
               </tr>
               <tr>
                 <td>
-                  <img class="imageClass" src="/src/assets/images/pin.svg">
+                  <img class="imageClass" src="../../../assets/images/pin.svg" style="height:25px; width:25px">
                 </td>
                 <td class="addpointtitles">marked spot</td>
               </tr>
