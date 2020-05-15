@@ -62,6 +62,18 @@ public class User {
 		this.markedSpots = 0;
 		this.profilePic = null;
 	}
+
+	public User(String username, String email) {
+		this.name = "mock";
+		this.username = username;
+		this.email = email;
+		this.password = "1234";
+		this.gender = null;
+		this.token = null;
+		this.helpedUsers = 0;
+		this.markedSpots = 0;
+		this.profilePic = null;
+	}
 	
 	
 	
