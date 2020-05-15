@@ -44,12 +44,12 @@ import { SnackbarComponent } from './common/components/snackbar/components/snack
 import { NotificationsService } from './services/notifications/notifications.service';
 import { NotificationsRemote } from './services/notifications/notifications.remote';
 import { SnackbarModule } from './common/components/snackbar/snackbar.module';
+import { MapModule } from './map/map.module';
+import { AddPointToMapComponentModule } from './add-point-to-map/add-point-to-map.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    MapComponent,
-    AddPointToMapComponent
+    AppComponent
   ],
   entryComponents: [SnackbarComponent],
   imports: [
@@ -66,6 +66,8 @@ import { SnackbarModule } from './common/components/snackbar/snackbar.module';
     PanicbuttonModule,
     OpeningViewModule,
     MainMenuModule,
+    MapModule,
+    AddPointToMapComponentModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireMessagingModule,
@@ -99,8 +101,12 @@ import { SnackbarModule } from './common/components/snackbar/snackbar.module';
     PanicButtonService,
     PanicButtonRemote,
     UtilsService,
-    UtilsRemote
-
+    UtilsRemote,
+    MessagingService,
+    SnackbarService,
+    SnackbarRemote,
+    NotificationsService,
+    NotificationsRemote
   ],
   bootstrap: [AppComponent]
 })

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MarkerService } from 'src/app/services/marker/marker.service';
 import { UserData } from 'src/app/models/userData.interface';
 import { UserService } from 'src/app/services/user/user.service';
+import { Report } from 'src/app/models/report.interace';
 
 var locationIcon = L.icon({
   iconUrl:      '../../../assets/images/location.svg',
@@ -20,12 +21,21 @@ var locationIcon = L.icon({
 })
 export class AddPointToMapComponent implements OnInit {
   private map:      L.Map;
-  private userInfo: UserData;
-  private point: GeoLocation = ({
-    latitude: -1, 
-    longitude: -1, 
-    accuracy: -1,
-    timestamp: -1
+  private userInfo: UserData = ({
+    password: "",
+    email: localStorage.getItem('userEmail')
+  })
+  private point:    GeoLocation = ({
+    latitude:   -1, 
+    longitude:  -1, 
+    accuracy:   0,
+    timestamp:  0
+  });
+  private report:   Report = ({
+    reportid:     -1,
+    description:  "",
+    location:     this.point,
+    user:         this.userInfo
   });
 
 
@@ -73,11 +83,11 @@ export class AddPointToMapComponent implements OnInit {
   }
 
   addPoint(latlng: L.LatLng) {
-    this.point.latitude   = latlng.lat;
-    this.point.longitude  = latlng.lng;
-    console.log(this.point);
-    this.userService.getUserByEmail(localStorage.getItem('userEmail')).subscribe((response: UserData) => { this.userInfo = response; });
-    this.markerService.addMark(this.point, this.userInfo);
+    this.report.location.latitude   = latlng.lat;
+    this.report.location.longitude  = latlng.lng;
+    this.report.location.timestamp  = (new Date).getTime();
+    this.report.user                = this.userInfo;
+    this.markerService.addMark(this.report);
   }
 
   redirectToMap() { this.route.navigate(['/map']); }

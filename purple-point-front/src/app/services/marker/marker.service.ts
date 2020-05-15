@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import * as L from 'leaflet';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { UserData } from 'src/app/models/userData.interface';
-import { GeoLocation } from 'src/app/models/geoLocation.interface';
+import { Report } from 'src/app/models/report.interace';
 
 var pointIcon = L.icon({
   iconUrl: '../../../assets/images/pin.svg',
@@ -30,20 +29,16 @@ export class MarkerService {
   }
 
   getAllMarks(map: L.Map) {
-    this.httpClient.get<GeoLocation[]>(`${environment.API_URL}/map`).subscribe((result: GeoLocation[]) => {
+    this.httpClient.get<Report[]>(`${environment.API_URL}/map`).subscribe((result: Report[]) => {
       for(const c of result) {
-        const lat = c.latitude;
-        const lon = c.longitude;
-        L.marker([lon, lat], {icon: pointIcon}).addTo(map);
+        const lat = c.location.latitude;
+        const lon = c.location.longitude;
+        L.marker([lat, lon], {icon: pointIcon}).addTo(map).bindPopup('reported by '+ c.user.username);
       }
     });
   }
   
-  addMark(location: GeoLocation, user: UserData) {
-    return this.httpClient.post(`${environment.API_URL}/map`,
-    {   
-      'user':     user,
-      'location': location
-    });
+  addMark(report: Report) {
+    this.httpClient.post(`${environment.API_URL}/map`, report).subscribe((result) => {});
   }
 }
