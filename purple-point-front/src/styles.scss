@@ -193,21 +193,16 @@ td, tr {
     text-align: left;
     text-shadow: 0 2px 4px rgba(0,0,0,0.50);
 }
-
-.map-container {
+   .map-container-point {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     margin: 30px;
-}   .map-container-point {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: 30px;
+    width: 85%;
+    height: 78%;
+    margin-top: 205px;
 } 
 
 .map-frame {
@@ -215,7 +210,8 @@ td, tr {
     height: 100%;
 }   .map-frame-point {
     border: 2px solid black;
-    height: 50%;
+    height: 85%;
+    padding: 0;
 }
 
 #map {
@@ -225,13 +221,16 @@ td, tr {
 .plusButton {
     background-image: linear-gradient(-90deg, #8F4DEC 0%, #6730BE 100%);
     box-shadow: 0 0 10px 0 rgba(0,0,0,0.50);
-    border-radius: 30px;
+    border-radius: 100px;
+    margin-left: 14px;
+    margin-top: 14px;
 }
 .plus {
     font-family: Montserrat;
     text-align: center;
     color: white;
-    font-size: 50px;
+    font-size: 45px;
+    margin: auto;
 }
 .crossButton {
     background-color: transparent;
@@ -244,6 +243,7 @@ td, tr {
     box-shadow: 0 0 10px 0 rgba(0,0,0,0.50);
 }
 .addpointinfo {
+    margin-top: 30px;
     background: #202020;
     box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.5);
     border-radius: 41px;
@@ -260,6 +260,7 @@ td, tr {
     font-size: 14px;
     color: #FFFFFF;
     letter-spacing: 0;
+    text-align: left;
    }
   
 
@@ -313,4 +314,11 @@ td, tr {
 
 .snackbardivButtons {
     margin: auto;
+}
+
+.imageClass {
+    float:right;
+    height:20px;
+    width:20px;
+    margin-bottom: 5%;
 }

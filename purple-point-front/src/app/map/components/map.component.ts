@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import * as L from 'leaflet';
 import { MarkerService } from 'src/app/services/marker/marker.service';
 import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
@@ -42,7 +42,8 @@ export class MapComponent implements OnInit {
       setView:            true,
       maxZoom:            15,
       watch:              true,
-      enableHighAccuracy: true
+      enableHighAccuracy: true,
+      timeout:            2000
     })
       .on("locationfound", e => { 
         L.marker(e.latlng,{icon : locationIcon}).addTo(this.map)
@@ -54,7 +55,9 @@ export class MapComponent implements OnInit {
           fillOpacity:  0.2
         }).addTo(this.map);
       })
-      .on("locationerror", error => { alert(error.message); })
+      .on("locationerror", error => {
+        location.reload(); 
+      })
     ;
     this.map.invalidateSize();
   }
