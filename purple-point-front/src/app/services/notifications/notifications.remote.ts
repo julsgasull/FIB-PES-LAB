@@ -187,7 +187,7 @@ export class NotificationsRemote {
         console.log("Sending notification to victim");
         return this.httpClient.post<string>(`${environment.API_URL}/devices/notifyuser/`+token, //endpoint a realizar
         {   
-            'username': username,
+            'username': username
         },
         {
         headers:{

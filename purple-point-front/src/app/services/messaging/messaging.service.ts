@@ -26,7 +26,16 @@ export class MessagingService {
                 if (refreshedToken != localStorage.getItem('deviceToken')) console.log("tu mama");
                 console.log("Message on foreground: ", payload);
                 console.log("Token: ", refreshedToken);
-                this.snackbarService.openSnackbar(payload.data);
+                const omw = payload.data.onMyWay.toString();
+                console.log("onMyWay: ", omw);
+                if (payload.data.onMyWay === "true") {
+                  console.log("ñaksldjfñlaksjdf");
+                  this.snackbarService.openSimpleSnackbar(payload.data);
+                }
+                else {
+                  console.log("Tu mama no sabe hacer un ===");
+                  this.snackbarService.openSnackbar(payload.data);
+                }
               });
             });
         }).bind(_messaging);

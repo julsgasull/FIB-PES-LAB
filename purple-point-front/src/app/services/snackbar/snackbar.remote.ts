@@ -49,4 +49,13 @@ export class SnackbarRemote {
         localStorage.setItem('p_lon', this.pData.longitude);
         localStorage.setItem('p_token', this.pData.token);
     }
+
+    openSimpleSnackBar(data) {
+        let user = data.username;
+        console.log("user: ", user.username);
+        let message = this.translate.instant(data.body);
+        const notification = user+message;
+        const snackBarConfig: MatSnackBarConfig = { duration: 5000, panelClass: ['mockSnackbar'] }
+        this.snackbar.open(notification, "", snackBarConfig);
+    }
 }

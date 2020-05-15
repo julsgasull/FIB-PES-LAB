@@ -12,4 +12,8 @@ export class SnackbarService {
     this.snackbarRemote.openSnackbar(data);
   }
 
+  openSimpleSnackbar(data) {
+    this.snackbarRemote.openSimpleSnackBar(data);
+  }
+
 }

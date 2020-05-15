@@ -63,5 +63,8 @@
     "notification" : {
 		"title": "Alguien necesita tu ayuda!",
     	"body" : "Porfavor ve a ayudarle!"
-	}
+    },
+    "onMyWay": {
+        "body": " está en camino a ayudarle!"
+    }
 }
