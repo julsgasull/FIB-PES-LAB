@@ -30,10 +30,10 @@ export class MarkerService {
   }
 
   getAllMarks(map: L.Map) {
-    this.httpClient.get(`${environment.API_URL}/map`).subscribe((result: any) => {
-      for(const c of result.features) {
-        const lat = c.geometry.coordinates[0];
-        const lon = c.geometry.coordinates[1];
+    this.httpClient.get<GeoLocation[]>(`${environment.API_URL}/map`).subscribe((result: GeoLocation[]) => {
+      for(const c of result) {
+        const lat = c.latitude;
+        const lon = c.longitude;
         L.marker([lon, lat], {icon: pointIcon}).addTo(map);
       }
     });

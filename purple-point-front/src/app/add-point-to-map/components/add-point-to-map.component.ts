@@ -21,7 +21,13 @@ var locationIcon = L.icon({
 export class AddPointToMapComponent implements OnInit {
   private map:      L.Map;
   private userInfo: UserData;
-  private point:    GeoLocation;
+  private point: GeoLocation = ({
+    latitude: -1, 
+    longitude: -1, 
+    accuracy: -1,
+    timestamp: -1
+  });
+
 
   constructor (
     private markerService:  MarkerService,
@@ -31,10 +37,11 @@ export class AddPointToMapComponent implements OnInit {
 
   ngOnInit(): void {
     this.initMap(); 
-    // this.map.on('click', <LeafletMouseEvent>(e) => { 
-    //   this.addPoint(e.latlng);
-    //   this.redirectToMap();
-    // });
+    this.map.on('click', <LeafletMouseEvent>(e) => { 
+      console.log(e.latlng);
+      this.addPoint(e.latlng);
+      this.redirectToMap();
+    });
   }
 
   initMap(): void {
@@ -68,6 +75,7 @@ export class AddPointToMapComponent implements OnInit {
   addPoint(latlng: L.LatLng) {
     this.point.latitude   = latlng.lat;
     this.point.longitude  = latlng.lng;
+    console.log(this.point);
     this.userService.getUserByEmail(localStorage.getItem('userEmail')).subscribe((response: UserData) => { this.userInfo = response; });
     this.markerService.addMark(this.point, this.userInfo);
   }
