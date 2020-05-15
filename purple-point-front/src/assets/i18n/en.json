@@ -63,5 +63,8 @@
     "notification" : {
 		"title": "Someone needs help!",
     	"body" : "Please go help them they are in need!"
-	}
+    },
+    "onMyWay": {
+        "body": " is on their way to help you!"
+    }
 }

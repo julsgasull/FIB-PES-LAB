@@ -1,12 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireMessaging } from '@angular/fire/messaging';
-import { take } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs'
-import { Observable } from 'rxjs';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 import { SnackbarService } from '../snackbar/snackbar.service';
 import { NotificationsService } from '../notifications/notifications.service';
       
@@ -14,21 +9,35 @@ import { NotificationsService } from '../notifications/notifications.service';
 export class MessagingService {
 
   currentMessage = new BehaviorSubject(null);
+  readonly VAPID_PUBLIC_KEY = "BJM5CDS_biG4eLsDbh5gbZVIJwzUuh9fI-fIALUoOg6wrCREkI02jI62Q9SaAmtDdL2GVHE8aGkmypfiRprTZ5g";
 
   constructor(
     private httpClient: HttpClient,
     private notificationsService: NotificationsService,
     private snackbarService: SnackbarService,
     private zone: NgZone,
-    private angularFireDB: AngularFireDatabase,
-    private angularFireAuth: AngularFireAuth,
     private angularFireMessaging: AngularFireMessaging) {
       this.angularFireMessaging.messaging.subscribe(
       (_messaging) => {
+        _messaging.usePublicVapidKey(this.VAPID_PUBLIC_KEY);
         _messaging.onMessage = _messaging.onMessage((payload) => {
-          this.zone.run(() => {
-            this.snackbarService.openSnackbar(payload.data);
-          });
+            this.zone.run(() => {
+              _messaging.getToken().then((refreshedToken) => {
+                if (refreshedToken != localStorage.getItem('deviceToken')) console.log("tu mama");
+                console.log("Message on foreground: ", payload);
+                console.log("Token: ", refreshedToken);
+                const omw = payload.data.onMyWay.toString();
+                console.log("onMyWay: ", omw);
+                if (payload.data.onMyWay === "true") {
+                  console.log("ñaksldjfñlaksjdf");
+                  this.snackbarService.openSimpleSnackbar(payload.data);
+                }
+                else {
+                  console.log("Tu mama no sabe hacer un ===");
+                  this.snackbarService.openSnackbar(payload.data);
+                }
+              });
+            });
         }).bind(_messaging);
         _messaging.onMessage =_messaging.onTokenRefresh(() => {
           _messaging.getToken().then((refreshedToken) => {
@@ -39,11 +48,21 @@ export class MessagingService {
       });
     }
 
-  updateToken(token): any/*Observable<any>*/ {
+  updateToken(refreshedToken): any/*Observable<any>*/ {
     console.log("Estas updateando el token");
     const oldToken: String = localStorage.getItem('deviceToken');
-    localStorage.setItem('deviceToken', token);
-    this.notificationsService.saveFireBaseToken(token, oldToken);
+    console.log("oldToken: ", oldToken);
+    console.log("refreshedToken: ", refreshedToken);
+
+    if (oldToken === 'null') { // device not registered
+      console.log("Quiero registrarme");
+      localStorage.setItem('deviceToken', refreshedToken);
+      this.notificationsService.registerFirebaseToken(refreshedToken);
+    } else { // device registered
+      console.log("Quiero updatear mi token existente");
+      localStorage.setItem('deviceToken', refreshedToken);
+      this.notificationsService.updateFireBaseToken(refreshedToken, oldToken);
+    }
   }
 
   /*
