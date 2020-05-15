@@ -202,7 +202,8 @@ td, tr {
     color:  #8F4DEC !important;
 }
 
-.snackbar {
+.snackbarbox {
+    width: 85%;
     position: relative;
     bottom: 20px !important;
     margin-left: 15px;
@@ -215,10 +216,11 @@ td, tr {
     white-space: pre-wrap !important;
     color: white !important;
     .snackbar-text {
-        //text-align: center !important;
-        font-size: 1.3em ;
+        text-align: center !important;
+        font-size: 1em ;
         color: white !important;
         margin: 0;
+        padding-left: 25px;
     }
 }
 
@@ -230,11 +232,15 @@ td, tr {
     font-size: 14px;
     color: #FFFFFF;
     letter-spacing: 0;
-    text-align: right !important;
+    margin: 5px;
 }
 
 .mockSnackbar {
     background: #341860 !important;
     white-space: pre-wrap !important;
     color: white !important;
+}
+
+.snackbardivButtons {
+    margin: auto;
 }
