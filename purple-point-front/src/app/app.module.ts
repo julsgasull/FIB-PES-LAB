@@ -38,7 +38,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SnackbarService } from './services/snackbar/snackbar.service';
 import { SnackbarRemote } from './services/snackbar/snackbar.remote';
-import { SnackbarComponent } from './common/components/snackbar/snackbar.component'
+import { SnackbarComponent } from './common/components/snackbar/components/snackbar.component'
 import { NotificationsService } from './services/notifications/notifications.service';
 import { NotificationsRemote } from './services/notifications/notifications.remote';
 import { SnackbarModule } from './common/components/snackbar/snackbar.module';

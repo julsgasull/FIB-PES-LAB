@@ -5,7 +5,7 @@ import { MatSnackBar,
          MatSnackBarHorizontalPosition, 
          MatSnackBarVerticalPosition
         } from '@angular/material/snack-bar';
-import { SnackbarComponent } from 'src/app/common/components/snackbar/snackbar.component';
+import { SnackbarComponent } from 'src/app/common/components/snackbar/components/snackbar.component';
 import { pushData } from 'src/app/models/pushdata.interface';
 import { TranslateService } from '@ngx-translate/core';
 
