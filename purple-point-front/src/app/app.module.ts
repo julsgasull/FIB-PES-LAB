@@ -23,15 +23,31 @@ import { UtilsService } from './services/utils/utils.service';
 import { UtilsRemote } from './services/utils/utils.remote';
 import { OpeningViewModule } from './opening-view/opening-view.module';
 import { MainMenuModule } from './main-menu/main-menu.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFireModule } from '@angular/fire';
 
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { LanguageButtonModule } from './common/components/language-button/language-button.module';
+import { MessagingService } from './services/messaging/messaging.service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SnackbarService } from './services/snackbar/snackbar.service';
+import { SnackbarRemote } from './services/snackbar/snackbar.remote';
+import { SnackbarComponent } from './common/components/snackbar/snackbar.component'
+import { NotificationsService } from './services/notifications/notifications.service';
+import { NotificationsRemote } from './services/notifications/notifications.remote';
+import { SnackbarModule } from './common/components/snackbar/snackbar.module';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
+  entryComponents: [SnackbarComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -46,6 +62,14 @@ import { LanguageButtonModule } from './common/components/language-button/langua
     PanicbuttonModule,
     OpeningViewModule,
     MainMenuModule,
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    AngularFireMessagingModule,
+    MatSnackBarModule,
+    BrowserAnimationsModule,
+    SnackbarModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     LanguageButtonModule,
     TranslateModule.forRoot({
       loader: {
@@ -71,8 +95,12 @@ import { LanguageButtonModule } from './common/components/language-button/langua
     PanicButtonService,
     PanicButtonRemote,
     UtilsService,
-    UtilsRemote
-
+    UtilsRemote,
+    MessagingService,
+    SnackbarService,
+    SnackbarRemote,
+    NotificationsService,
+    NotificationsRemote
   ],
   bootstrap: [AppComponent]
 })

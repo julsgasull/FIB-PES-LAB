@@ -48,7 +48,9 @@
         "logout": "Salir",
         "saveChanges": "Guardar cambios",
         "editProfile": "Editar perfil",
-        "register": "Registrarse"
+        "register": "Registrarse",
+        "dismiss": "Ignorar",
+        "onMyWay": "En Camino!"
     },
     "text": {
         "hello": "Hola, ",
@@ -57,5 +59,12 @@
         "doubts": "¿Dudas?",
         "visitWiki": "Visita la wiki",
         "imageAdv": "Si cambias la imagen, por favor espera unos segundas al apretar el botón 'Guardar cambios'"
+    },
+    "notification" : {
+		"title": "Alguien necesita tu ayuda!",
+    	"body" : "Porfavor ve a ayudarle!"
+    },
+    "onMyWay": {
+        "body": " está en camino a ayudarle!"
     }
 }

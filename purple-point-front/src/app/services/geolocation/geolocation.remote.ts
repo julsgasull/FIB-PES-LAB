@@ -10,7 +10,9 @@ export class GeoLocationRemote {
     constructor(private httpClient: HttpClient) {}
 
     getLocation(loc: GeoLocation): Observable<any> {
-        const useremail: string = localStorage.getItem("userEmail");
+        const token: string = localStorage.getItem("deviceToken");
+        console.log("Geolocation storage token: ", token);
+        
         const enableHighAccuracy = true;
         const maximumAge = 3600000;
         const options = {
@@ -46,22 +48,24 @@ export class GeoLocationRemote {
         }
         
         //do request here
-        return this.httpClient.put<GeoLocation>(`${environment.API_URL}/users/location/`+useremail, //endpoint a realizar
+        return this.httpClient.put<GeoLocation>(`${environment.API_URL}/devices/`+token+`/location`, //endpoint a realizar
         {   
-            'latitude':     loc.latitude,
-            'longitude':    loc.longitude,
-            'accuracy':     loc.accuracy,
-            'timestamp':    loc.timestamp
+            "latitude":     loc.latitude,
+            "longitude":    loc.longitude,
+            "accuracy":     loc.accuracy,
+            "timestamp":    loc.timestamp
         },
         {
             headers:{
-              'Content-Type':"application/json"
+              'Content-Type':"application/json",
+              'X-Skip-Interceptor-Login': ''              
             }
-        }); //return location*/
+        }); //return location
     }
 
-    // DEBUG ONLY
-    mockGetPosition(loc:GeoLocation): void {
+    getFirstLocation(loc:GeoLocation): GeoLocation {
+        const token: string = localStorage.getItem("deviceToken");
+        // console.log("Geolocation remote token: ", token);
 
         const enableHighAccuracy = true;
         const maximumAge = 3600000;
@@ -94,7 +98,6 @@ export class GeoLocationRemote {
             console.log("Accuracy: "    + loc.accuracy.toString()    + "\n");
             console.log("Timpestamp: "  + loc.timestamp.toString()   + "\n");
             console.log("-----------------------------------------------\n");
-            
         }
 
         function onError(er): void {
@@ -103,6 +106,6 @@ export class GeoLocationRemote {
             // do an error alert of er.code with message er.message
             console.log("Error: " + code + " with message: " + message);
         }
-
+        return loc;
     }
 }

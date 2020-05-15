@@ -10,16 +10,22 @@ export class PanicButtonRemote {
     constructor(private httpClient: HttpClient) {}
 
     sendAlert(panicAlarm: PanicAlarm ): Observable<any> {
+        const token = localStorage.getItem('deviceToken');
           return this.httpClient.post<any>(`${environment.API_URL}/alarms/create`,
         {   
             'username': panicAlarm.username,
+            "deviceToken": token,
             'location': {
                 'latitude': panicAlarm.latitude,
                 'longitude': panicAlarm.longitude,
                 'accuracy': panicAlarm.accuracy,
                 'timestamp': panicAlarm.timestamp
-            },
-            'panicbutton': panicAlarm.panicbutton
+            }
+        },
+        {
+            headers:{
+                'Content-Type':"application/json"
+            }
         });
     }
 }
