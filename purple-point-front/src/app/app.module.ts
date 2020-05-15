@@ -26,9 +26,11 @@ import { MainMenuModule } from './main-menu/main-menu.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireModule } from '@angular/fire';
+import { MapComponent } from './map/components/map.component';
+import { AddPointToMapComponent } from './add-point-to-map/components/add-point-to-map.component';
 
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
@@ -45,7 +47,9 @@ import { SnackbarModule } from './common/components/snackbar/snackbar.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MapComponent,
+    AddPointToMapComponent
   ],
   entryComponents: [SnackbarComponent],
   imports: [
@@ -95,12 +99,8 @@ import { SnackbarModule } from './common/components/snackbar/snackbar.module';
     PanicButtonService,
     PanicButtonRemote,
     UtilsService,
-    UtilsRemote,
-    MessagingService,
-    SnackbarService,
-    SnackbarRemote,
-    NotificationsService,
-    NotificationsRemote
+    UtilsRemote
+
   ],
   bootstrap: [AppComponent]
 })
