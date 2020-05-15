@@ -192,7 +192,7 @@ export class NotificationsRemote {
         {
         headers:{
             'Content-Type':"application/json",
-            'X-Skip-Interceptor-Login': '',
+            'X-Skip-Interceptor-Login': ''
         }
         });
     }
