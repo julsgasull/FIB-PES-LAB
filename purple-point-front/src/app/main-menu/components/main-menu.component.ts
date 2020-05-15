@@ -41,7 +41,7 @@ export class MainMenuComponent implements OnInit {
     this.route.navigate(['/profile']);
   }
   redirectToMap() {
-    //to-do
+    this.route.navigate(['/map']);
   }
   redirectToWiki() {
     //to-do

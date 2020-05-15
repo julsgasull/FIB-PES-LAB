@@ -31,6 +31,7 @@ purple-point-front/.editorconfig
 
 Sources/
 
+purple-point-front/src/assets/
 
 purple-point-front/.editorconfig 2
 
@@ -174,3 +175,32 @@ purple-point-front/plugins
 
 
 cordova-project/purple-point
+Design/.appDesign.sketch.icloud
+
+purple-point-front/src/assets/.gitkeep 10
+
+purple-point-front/src/assets/.gitkeep 11
+
+purple-point-front/src/assets/.gitkeep 12
+
+purple-point-front/src/assets/.gitkeep 13
+
+purple-point-front/src/assets/.gitkeep 2
+
+purple-point-front/src/assets/.gitkeep 3
+
+purple-point-front/src/assets/.gitkeep 4
+
+purple-point-front/src/assets/.gitkeep 5
+
+purple-point-front/src/assets/.gitkeep 6
+
+purple-point-front/src/assets/.gitkeep 7
+
+purple-point-front/src/assets/.gitkeep 8
+
+purple-point-front/src/assets/.gitkeep 9
+
+purple-point-front/functions/node_modules/
+
+purple-point-front/ngsw-config.json 2
