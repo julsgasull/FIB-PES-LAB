@@ -66,5 +66,12 @@
     },
     "onMyWay": {
         "body": " is on their way to help you!"
+    },
+    "map": {
+        "locate": "Locate it",
+        "youAreHere": "you are here",
+        "markedSpot": "marked spot",
+        "clickMap": "click the map to add the ",
+        "harrased": "where you have been harassed"
     }
 }
