@@ -66,5 +66,12 @@
     },
     "onMyWay": {
         "body": " está en camino a ayudarle!"
+    },
+    "map": {
+        "locate": "Sitúa",
+        "youAreHere": "estás aquí",
+        "markedSpot": "punto de conflicto",
+        "clickMap": "clica en el mapa para añadir un ",
+        "harrased": "donde has sido agredido"
     }
 }

@@ -1,4 +1,10 @@
 <div class="container addpoint-container">
+  <div class="row" style="position: fixed; top: 0; right: 0;">
+    <div class="col-12 language-buttonDiv">
+      <language-button></language-button>
+    </div>
+  </div>
+  <div class="row"></div>
   <div class="row map-container-point">
     <div class="col map-frame-point">
         <div id="map"></div>
@@ -7,7 +13,9 @@
   <div class="addpointinfo">
     <div class="row">
       <div class="col">
-        <h1 style="text-align: center;">Locate it</h1>
+        <h1 style="text-align: center;">
+          {{'map.locate' | translate }}
+        </h1>
       </div>
     </div>
     <div class="row textImageRow">
@@ -15,7 +23,9 @@
         <img class="imageClass" src="../../../assets/images/location.svg" style="height:25px; width:25px">
       </div>
       <div class="col-4">
-        <span class="addpointtitles">you are here</span>
+        <span class="addpointtitles">
+          {{'map.youAreHere' | translate }}
+        </span>
       </div>
     </div>
     <div class="row textImageRow">
@@ -23,18 +33,24 @@
         <img class="imageClass" src="../../../assets/images/pin.svg" style="height:25px; width:25px">
       </div>
       <div class="col-4">
-        <span class="addpointtitles">marked spot</span>
+        <span class="addpointtitles">
+          {{'map.markedSpot' | translate }}
+        </span>
       </div>
     </div>
     <div class="row">
       <div class="col">
         <span class="instructions">
-          click the map to add the
-          <b style="color:#8F4DEC">marked spot</b>
-          where you have been harassed
+          {{'map.clickMap' | translate }}
+          <b style="color:#8F4DEC">
+            {{'map.markedSpot' | translate }}
+          </b>
+          {{'map.harrased' | translate }}
         </span>
       </div>
   </div>
+  
+  <div class="row"></div>
 </div>
 
 <!-- <div style="text-align: right;">
