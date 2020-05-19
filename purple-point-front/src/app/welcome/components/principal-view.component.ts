@@ -4,6 +4,8 @@ import { MessagingService } from 'src/app/services/messaging/messaging.service';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
 import { GeoLocation } from 'src/app/models/geoLocation.interface';
+import { SocialOauthService } from '../../services/social-oauth/social-oauth.service'
+
 
 @Component({
   selector: 'principal-view',
@@ -24,7 +26,8 @@ export class PrincipalViewComponent implements OnInit {
   constructor(
     private route: Router,
     private messagingService: MessagingService,
-    private geoLocationService: GeoLocationService
+    private geoLocationService: GeoLocationService,
+    private socialOauthService: SocialOauthService
   ) { }
 
   ngOnInit(): void {
@@ -57,5 +60,9 @@ export class PrincipalViewComponent implements OnInit {
   }
   redirectToProfile() {
     this.route.navigate(['/profile']);
+  }
+
+  googleLogin() {
+    console.log(this.socialOauthService.doGoogleLogin());
   }
 }

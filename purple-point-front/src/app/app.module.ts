@@ -29,6 +29,12 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireModule } from '@angular/fire';
+
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { SocialOauthService } from './services/social-oauth/social-oauth.service';
+import { SocialOauthRemote } from './services/social-oauth/social-oauth.remote'; 
+
+
 import { MapComponent } from './map/components/map.component';
 import { AddPointToMapComponent } from './add-point-to-map/components/add-point-to-map.component';
 
@@ -69,6 +75,8 @@ import { AddPointToMapComponentModule } from './add-point-to-map/add-point-to-ma
     MapModule,
     AddPointToMapComponentModule,
     AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireMessagingModule,
     MatSnackBarModule,
@@ -106,7 +114,9 @@ import { AddPointToMapComponentModule } from './add-point-to-map/add-point-to-ma
     SnackbarService,
     SnackbarRemote,
     NotificationsService,
-    NotificationsRemote
+    NotificationsRemote,
+    SocialOauthService,
+    SocialOauthRemote
   ],
   bootstrap: [AppComponent]
 })
