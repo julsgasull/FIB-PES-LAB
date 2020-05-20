@@ -277,17 +277,16 @@ td, tr {
 
 .snackbarbox {
     width: 85%;
-    position: relative;
-    bottom: 20px !important;
-    margin-left: 15px;
-    margin-right: 15px;
+    position: fixed;
+    bottom: 71px !important;
     padding: 20px 0px !important;
     border-radius: 10px !important;
     min-width: 20% !important;
-    transform-origin: center center !important;
+    // transform-origin: center center !important;
     background: #341860 !important;
     white-space: pre-wrap !important;
     color: white !important;
+    margin-bottom: 57px !important;
     .snackbar-text {
         text-align: center !important;
         font-size: 1em ;
@@ -324,3 +323,7 @@ td, tr {
     width:20px;
     margin-bottom: 5%;
 }
+
+.mat-snack-bar-container {
+    margin-top: 50px !important;
+   }
