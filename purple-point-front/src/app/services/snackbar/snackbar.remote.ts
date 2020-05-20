@@ -53,7 +53,6 @@ export class SnackbarRemote {
 
     openSimpleSnackBar(data) {
         let user = data.username;
-        console.log("user: ", user.username);
         let message = this.translate.instant(data.body);
         const notification = user+message;
 

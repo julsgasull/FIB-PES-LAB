@@ -277,7 +277,6 @@ td, tr {
 
 .snackbarbox {
     width: 85%;
-    position: fixed;
     bottom: 71px !important;
     padding: 20px 0px !important;
     border-radius: 10px !important;
@@ -325,5 +324,8 @@ td, tr {
 }
 
 .mat-snack-bar-container {
+    position: fixed !important;
+    top: 0 !important;
+    margin: 0 !important;
     margin-top: 50px !important;
    }
