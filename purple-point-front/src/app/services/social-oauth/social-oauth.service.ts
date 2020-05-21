@@ -13,4 +13,7 @@ export class SocialOauthService {
   doGoogleLogin(){
     return this.socialOauthRemote.doGoogleLogin()
   }
+  socialLogin(){
+    return this.socialOauthRemote.socialLogin()
+  }
 }

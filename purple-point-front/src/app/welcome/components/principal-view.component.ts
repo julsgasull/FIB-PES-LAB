@@ -63,6 +63,6 @@ export class PrincipalViewComponent implements OnInit {
   }
 
   googleLogin() {
-    console.log(this.socialOauthService.doGoogleLogin());
+    this.socialOauthService.socialLogin();
   }
 }
