@@ -63,14 +63,19 @@ login_or_register(user: UserData){
     console.log("registre bo")
     this.userService.loginUser(user).subscribe((response: UserData) => {
       console.log("login de registre  bo")
-      this.route.navigate(['/mainmenu']);
+      localStorage.setItem('userEmail', response.email);
+      localStorage.setItem('password', response.password);
+      localStorage.setItem('token', response.token);
+      localStorage.setItem('username', response.username)
+      this.route.navigate(['/mainmenu']); 
    },
    errorrResponse=>{
-     alert("sistem error")
+    console.log(alert("sistem error"))
    });
  },
  errorrResponse=>{
-   console.log("registre malament")
+  console.log(alert("sistem error"))
+  console.log("registre malament")
  });
  });
 
