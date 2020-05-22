@@ -53,15 +53,16 @@ export class SnackbarRemote {
 
     openSimpleSnackBar(data) {
         let user = data.username;
+        if (user === "") user = this.translate.instant(data.someone);
         console.log("user: ", user.username);
         let message = this.translate.instant(data.body);
-        const notification = user+message;
+        const notification = user + " " + message;
 
         const snackbarRef = this.snackbar.openFromComponent(
             SimpleSnackbarComponent, 
             {
                 data:  notification,
-                // duration: 5000,
+                duration: 5000,
                 panelClass: ['snackbar'],
                 politeness: 'polite'
             });

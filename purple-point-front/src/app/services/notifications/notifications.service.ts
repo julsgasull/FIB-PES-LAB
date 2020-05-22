@@ -37,7 +37,12 @@ export class NotificationsService {
   }
 
   sendNotificationToVictim(token) {
-    this.notificationsRemote.sendNotificationToVictim(token);
+    this.notificationsRemote.sendNotificationToVictim(token).subscribe((response) => {
+      console.log("RESPONSE NOTIFICATION: ", response);
+    },
+    (error) => {
+      console.log("ERROR: ", error);
+    });
   }
 
 }

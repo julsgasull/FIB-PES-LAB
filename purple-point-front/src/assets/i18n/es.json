@@ -65,6 +65,7 @@
     	"body" : "Por favor ve a ayudarle!"
     },
     "onMyWay": {
+        "someone" : "Alguien",
         "body": " está en camino a ayudarle!"
     }
 }
