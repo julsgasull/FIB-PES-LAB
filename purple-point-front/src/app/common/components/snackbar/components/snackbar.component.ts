@@ -16,8 +16,7 @@ export class SnackbarComponent implements OnInit {
               private snackRef: MatSnackBarRef<SnackbarComponent>,
               private notificationsService: NotificationsService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   getData() {
     this.pushData.latitude  = localStorage.getItem('p_lat');
@@ -47,7 +46,6 @@ export class SnackbarComponent implements OnInit {
   }
 
   dismiss() {
-    console.log("Clicked on cancel!");
     this.snackRef.dismiss();
   }
 
