@@ -29,9 +29,6 @@ export class PrincipalViewComponent implements OnInit {
 
   ngOnInit(): void {
     localStorage.setItem('token', null);
-    // console.log("FB Token before erasing:", localStorage.getItem('deviceToken'));
-    // localStorage.setItem('deviceToken', null);
-    console.log("FB Token after delete", localStorage.getItem('deviceToken'));
     
     this.geolocation = this.geoLocationService.getFirstLocation(this.geolocation);
     this.messagingService.requestPermission();
