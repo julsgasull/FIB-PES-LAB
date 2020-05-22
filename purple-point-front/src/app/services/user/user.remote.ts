@@ -63,7 +63,6 @@ export class UserRemote {
     }
 
     getUserByEmailUnauthorized(email: string) {
-        console.log("GET USER UNAUTHORIZED");
         return this.httpClient.get<UserData>(`${environment.API_URL}/users/email/`+email, 
         {
             headers:{

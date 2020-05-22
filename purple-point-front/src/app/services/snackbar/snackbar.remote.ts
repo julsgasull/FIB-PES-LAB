@@ -28,9 +28,6 @@ export class SnackbarRemote {
             this.pData.latitude = data.latitude;
             this.pData.longitude = data.longitude;
             this.pData.token = data.token;
-            console.log("data: ");
-            console.log(data);
-            console.log("---------------------")
             this.saveData(data);
             const snackbarRef = this.snackbar.openFromComponent(
                 SnackbarComponent, 
@@ -54,7 +51,6 @@ export class SnackbarRemote {
     openSimpleSnackBar(data) {
         let user = data.username;
         if (user === "") user = this.translate.instant(data.someone);
-        console.log("user: ", user.username);
         let message = this.translate.instant(data.body);
         const notification = user + " " + message;
 
