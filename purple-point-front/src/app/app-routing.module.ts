@@ -8,6 +8,7 @@ import { SignUpComponent } from './sign-up/components/sign-up.component';
 import { OpeningViewComponent } from './opening-view/components/opening-view.component';
 import { MapComponent } from './map/components/map.component';
 import { AddPointToMapComponent } from './add-point-to-map/components/add-point-to-map.component';
+import { MapOnPanicComponent } from './map-on-panic/components/map-on-panic.component';
 
 
 const routes: Routes = [
@@ -42,6 +43,10 @@ const routes: Routes = [
   {
     path: 'addpointtotmap',
     component: AddPointToMapComponent, pathMatch: 'full'
+  },
+  {
+    path: 'maponpanic',
+    component: MapOnPanicComponent, pathMatch: 'maponpanic'
   }
 ];
 

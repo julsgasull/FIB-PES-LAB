@@ -48,10 +48,12 @@ import { MapModule } from './map/map.module';
 import { AddPointToMapComponentModule } from './add-point-to-map/add-point-to-map.module';
 import { SimpleSnackbarComponent } from './common/components/simple-snackbar/components/simple-snackbar.component';
 import { SimpleSnackbarModule } from './common/components/simple-snackbar/simple-snackbar.module';
+import { MapOnPanicComponent } from './map-on-panic/map-on-panic.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MapOnPanicComponent
   ],
   entryComponents: [SnackbarComponent, SimpleSnackbarComponent],
   imports: [
