@@ -64,6 +64,9 @@
     "tslint": "~5.18.0",
     "typescript": "~3.7.5"
   },
+  "browser": {
+    "crypto": false
+  },
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},
