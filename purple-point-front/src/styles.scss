@@ -322,54 +322,27 @@ td, tr {
     width:20px;
     margin-bottom: 5%;
 }
-.abcRioButtonBlue {
-    background-color: #4285f4;
-    border: none;
-    color: #333333;
-}
-.abcRioButton {
-    -webkit-border-radius: 1px;
-    border-radius: 1px;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,.25);
-    -webkit-box-sizing: border-box;
+
+// social login
+.socialButton {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
     box-sizing: border-box;
-    -webkit-transition: background-color .218s,border-color .218s,box-shadow .218s;
-    transition: background-color .218s,border-color .218s,box-shadow .218s;
-    -webkit-user-select: none;
-    -webkit-appearance: none;
     background-color: #333333;
-    background-image: none;
     color: #ffffff;
-    cursor: pointer;
-    outline: none;
-    overflow: hidden;
-    position: relative;
     text-align: center;
     vertical-align: middle;
-    white-space: nowrap;
-    width: auto;
-}
-.abcRioButtonContentWrapper {
-	border: 1px solid transparent;
-    height: 100%;
-    width: 100%;
-}
-
-.abcRioButtonIcon {
-    background-color: #333333;
-    -webkit-border-radius: 1px;
-    border-radius: 1px;
-    float: left;
-}
-.abcRioButtonSvg {
-    display: block;
-}
-.abcRioButtonContents {
-    font-family: Roboto,arial,sans-serif;
+    max-width: fit-content;
+    padding: 1%;
+    width: 30%;
+    margin-top: 4%;
+} .googleLogo {
+    width: 18px;
+    height: 18px;
+} .googleSigninText {
     font-size: 14px;
     font-weight: 500;
     letter-spacing: .21px;
     margin-left: 6px;
     margin-right: 6px;
-    vertical-align: top;
+    vertical-align: middle;
 }
