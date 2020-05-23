@@ -46,4 +46,8 @@ export class MainMenuComponent implements OnInit {
   redirectToWiki() {
     //to-do
   }
+
+  redirectToMapOnPanic() {
+    this.route.navigate(['/maponpanic']);
+  }
 }

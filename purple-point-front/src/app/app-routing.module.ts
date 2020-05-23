@@ -46,7 +46,7 @@ const routes: Routes = [
   },
   {
     path: 'maponpanic',
-    component: MapOnPanicComponent, pathMatch: 'maponpanic'
+    component: MapOnPanicComponent, pathMatch: 'full'
   }
 ];
 
