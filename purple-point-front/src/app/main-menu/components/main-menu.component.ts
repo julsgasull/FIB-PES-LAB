@@ -27,7 +27,9 @@ export class MainMenuComponent implements OnInit {
     const userEmail = localStorage.getItem('userEmail');
     this.userService.getUserByEmail(userEmail).subscribe((response: UserData) => {
       this.userInfo = response;
-      this.profileImage = 'data:'+this.userInfo.profilePic.type +';base64,' + this.userInfo.profilePic.picByteB64;
+      //console.log("userinfo image", this.userInfo.profilePic.picByte);
+      this.profileImage = 'data:'+this.userInfo.profilePic.type +';base64,' + this.userInfo.profilePic.picByte;
+      //console.log("profile image", this.profileImage);
     });
   }
 

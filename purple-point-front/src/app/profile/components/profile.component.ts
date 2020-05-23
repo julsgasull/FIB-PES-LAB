@@ -32,7 +32,7 @@ export class ProfileComponent implements OnInit {
   public isSubmitted: boolean = false;
   public selectedFile: File;
   public message: string;
-  public image: ProfilePicData = {imageid:123456789, type:"", picByteB64:null, name:""};
+  public image: ProfilePicData = {imageid:123456789, type:"", picByte:null, name:""};
   public retrievedImage: any;
 
   constructor(
@@ -46,7 +46,7 @@ export class ProfileComponent implements OnInit {
     const userEmail = localStorage.getItem('userEmail');
     this.userService.getUserByEmail(userEmail).subscribe((response: UserData) => {
       this.userInfo = response;
-      this.retrievedImage = 'data:'+this.userInfo.profilePic.type +';base64,' + this.userInfo.profilePic.picByteB64;
+      this.retrievedImage = 'data:'+this.userInfo.profilePic.type +';base64,' + this.userInfo.profilePic.picByte;
       this.editProfileForm = new FormGroup({
         id:           new FormControl( { value: response.id,          disabled: true }, Validators.required),
         name:         new FormControl( { value: response.name,        disabled: true }, Validators.required),
@@ -68,7 +68,7 @@ export class ProfileComponent implements OnInit {
     this.httpClient.post<ProfilePicData>(`${environment.API_URL}/images/parser`, uploadImageData, {observe:'response'}).toPromise().then((response:HttpResponse<ProfilePicData>) => {
       this.image.imageid      = response.body.imageid;
       this.image.type         = response.body.type;
-      this.image.picByteB64   = response.body.picByteB64;
+      this.image.picByte      = response.body.picByte;
       this.image.name         = response.body.name;
     })
     const timeout = 1 * 1000; // in ms
