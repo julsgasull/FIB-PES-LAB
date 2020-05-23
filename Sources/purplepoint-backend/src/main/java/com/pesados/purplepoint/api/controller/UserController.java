@@ -25,7 +25,6 @@ import com.pesados.purplepoint.api.exception.UserNotFoundException;
 import com.pesados.purplepoint.api.exception.UserRegisterBadRequestException;
 import com.pesados.purplepoint.api.exception.WrongPasswordException;
 import com.pesados.purplepoint.api.model.image.ImageService;
-import com.pesados.purplepoint.api.model.location.Location;
 import com.pesados.purplepoint.api.model.user.User;
 import com.pesados.purplepoint.api.model.user.UserService;
 
@@ -33,7 +32,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -54,13 +52,14 @@ public class UserController {
 
 	UserController(UserService userService, ImageService imgService) {
 		this.userService = userService;
+		this.imgService = imgService;
 	}
 
 	@Operation(summary = "Login User with E-mail and Password", description = "Login an %user% with an exising correct combination of password and email", tags = {"authorizations"})
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "successful login",
 					content = @Content(array = @ArraySchema(schema = @Schema(implementation = User.class))))})
-	@PostMapping(value = "/users/login", produces = { "application/json", "application/xml" })
+	@PostMapping(value = "/users/login", produces = {"application/json", "application/xml"})
 
 	public User login(@RequestBody User aUser) throws WrongPasswordException {
 		String email = aUser.getEmail();
@@ -81,7 +80,7 @@ public class UserController {
 	private String getJWTToken(String email) {
 		String secretKey = "adivinaestacrack";
 		List<GrantedAuthority> grantedAuthorities = AuthorityUtils
-				.commaSeparatedStringToAuthorityList("ROLE_USER");
+				.commaSeparatedStringToAuthorityList("ROLE_USER, ROLE_DEVICE");
 
 		String token = Jwts
 				.builder()
@@ -92,7 +91,7 @@ public class UserController {
 								.map(GrantedAuthority::getAuthority)
 								.collect(Collectors.toList()))
 				.setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + 1000*60*5)) // 5 minutos
+				.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 5)) // 5 minutos
 
 				.signWith(SignatureAlgorithm.HS512,
 						secretKey.getBytes()).compact();
@@ -106,7 +105,7 @@ public class UserController {
 			@ApiResponse(responseCode = "201", description = "Token refreshed",
 					content = @Content(schema = @Schema(implementation = User.class))),
 			@ApiResponse(responseCode = "400", description = "Invalid input")})
-	@PutMapping(value = "/users/refresh", consumes = { "application/json", "application/xml"})
+	@PutMapping(value = "/users/refresh", consumes = {"application/json", "application/xml"})
 	public User refresh(
 			@RequestHeader("Authorization") String unformatedJWT
 	) {
@@ -122,16 +121,16 @@ public class UserController {
 	@Operation(summary = "Add a new user",
 			description = "Adds a new user to the database with the information provided. "
 					+ "To create a new user please provide:\n- A valid e-mail \n- An username\n- "
-					+ "An e-mail \n- A password \n- The user's gender", tags = { "authorizations" })
+					+ "An e-mail \n- A password \n- The user's gender", tags = {"authorizations"})
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "201", description = "User created",
 					content = @Content(schema = @Schema(implementation = User.class))),
 			@ApiResponse(responseCode = "400", description = "Invalid input"),
-			@ApiResponse(responseCode = "409", description = "User already exists") })
-	@PostMapping(value = "/users/register", consumes = { "application/json", "application/xml" })
+			@ApiResponse(responseCode = "409", description = "User already exists")})
+	@PostMapping(value = "/users/register", consumes = {"application/json", "application/xml"})
 	User newUser(
-			@Parameter(description="User to add. Cannot null or empty.",
-					required=true, schema=@Schema(implementation = Contact.class))
+			@Parameter(description = "User to add. Cannot null or empty.",
+					required = true, schema = @Schema(implementation = User.class))
 			@Valid @RequestBody User userNew
 	) {
 		if (!userService.getUserByEmail(userNew.getEmail()).isPresent()) {
@@ -146,8 +145,8 @@ public class UserController {
 	@Operation(summary = "Get All Users", description = "Get ", tags = {"users"})
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "successful operation",
-					content = @Content(array = @ArraySchema(schema = @Schema(implementation = User.class)))) })
-	@GetMapping(value = "/users", produces = { "application/json", "application/xml"})
+					content = @Content(array = @ArraySchema(schema = @Schema(implementation = User.class))))})
+	@GetMapping(value = "/users", produces = {"application/json", "application/xml"})
 	List<User> all() {
 		return userService.getAll();
 	}
@@ -157,10 +156,10 @@ public class UserController {
 	@Operation(summary = "Get User By ID", description = "Get User from an existing ID value you want to look up", tags = {"users"})
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "successful operation",
-					content = @Content(array = @ArraySchema(schema = @Schema(implementation = User.class)))) })
-	@GetMapping(value = "/users/{id}", produces = { "application/json", "application/xml"})
+					content = @Content(array = @ArraySchema(schema = @Schema(implementation = User.class))))})
+	@GetMapping(value = "/users/{id}", produces = {"application/json", "application/xml"})
 	User idUser(
-			@Parameter(description="ID of the contact to search.", required = true)
+			@Parameter(description = "ID of the contact to search.", required = true)
 			@PathVariable long id) {
 		return userService.getUserById(id).orElseThrow(() -> new UserNotFoundException(id));
 	}
@@ -168,26 +167,26 @@ public class UserController {
 	@Operation(summary = "Get User By email", description = "Get User from an existing email you want to look up", tags = {"users"})
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "successful operation",
-					content = @Content(array = @ArraySchema(schema = @Schema(implementation = User.class)))) })
-	@GetMapping(value = "/users/email/{email}", produces = { "application/json", "application/xml"})
+					content = @Content(array = @ArraySchema(schema = @Schema(implementation = User.class))))})
+	@GetMapping(value = "/users/email/{email}", produces = {"application/json", "application/xml"})
 	User emailUser(
-			@Parameter(description="email of the contact to search.", required = true)
+			@Parameter(description = "email of the contact to search.", required = true)
 			@PathVariable String email) {
 		return userService.getUserByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
 	}
 
 	// Update users
-	@Operation(summary = "Update an existing User by ID", description = "Update the Name, username, email, password, gender given the ID of an existing user", tags = { "users" })
+	@Operation(summary = "Update an existing User by ID", description = "Update the Name, username, email, password, gender given the ID of an existing user", tags = {"users"})
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "successful operation"),
 			@ApiResponse(responseCode = "400", description = "Invalid username supplied"),
 			@ApiResponse(responseCode = "401", description = "Unauthorized"),
 			@ApiResponse(responseCode = "404", description = "User not found"),
-			@ApiResponse(responseCode = "405", description = "Validation exception") })
+			@ApiResponse(responseCode = "405", description = "Validation exception")})
 	@PutMapping("/users/{id}")
-	User replaceUserbyID(@Parameter(description="New information for the user.", required = true)
+	User replaceUserbyID(@Parameter(description = "New information for the user.", required = true)
 						 @RequestBody User newUser,
-						 @Parameter(description="id of the user to replace.", required = true)
+						 @Parameter(description = "id of the user to replace.", required = true)
 						 @PathVariable long id
 	) {
 		return userService.getUserById(id)
@@ -207,18 +206,50 @@ public class UserController {
 
 	}
 
+
+	//Update users pic
+	@Operation(summary = "Update an existing User profile picture by User Id",
+			description = "profile pic",
+			tags = {"users"})
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "successful operation"),
+			@ApiResponse(responseCode = "400", description = "Invalid username supplied"),
+			@ApiResponse(responseCode = "401", description = "Unauthorized"),
+			@ApiResponse(responseCode = "404", description = "User not found"),
+			@ApiResponse(responseCode = "405", description = "Validation exception")})
+	@PutMapping(value = "/users/{id}/image", consumes = {"multipart/form-data"})
+	User updatePic(@Parameter(description = "New pic for the user.", required = true) @RequestParam("file") MultipartFile file,
+				   @Parameter(description = "id of the user to replace.", required = true)
+				   @PathVariable long id
+	) throws IOException {
+		Image img = imgService.saveImage(new Image(file.getName(), "image/jpg", file.getBytes()));
+		return userService.getUserById(id)
+				.map(user -> {
+					user.setProfilePic(img);
+					return userService.saveUser(user);
+				})
+				.orElseGet(() -> {
+					User myUser = new User();
+					myUser.setId(id);
+					myUser.setProfilePic(img);
+					return userService.saveUser(myUser);
+				});
+
+	}
+
+
 	@Operation(summary = "Update an existing User by email", description = "Update the Name, username, email, password, gender given the email of an existing user", tags = { "users" })
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "successful operation"),
 			@ApiResponse(responseCode = "400", description = "Invalid username supplied"),
 			@ApiResponse(responseCode = "401", description = "Unauthorized"),
 			@ApiResponse(responseCode = "404", description = "User not found"),
-			@ApiResponse(responseCode = "405", description = "Validation exception") })
-	@PutMapping(value = "/users/email/{email}", consumes = { "application/json", "application/xml" })
-	User replaceUserbyEmail( @Parameter(description="New information for the user.", required = true)
-							 @RequestBody User newUser,
-							 @Parameter(description="Email of the user to replace.", required = true)
-							 @PathVariable String email
+			@ApiResponse(responseCode = "405", description = "Validation exception")})
+	@PutMapping(value = "/users/email/{email}", consumes = {"application/json", "application/xml"})
+	User replaceUserbyEmail(@Parameter(description = "New information for the user.", required = true)
+							@RequestBody User newUser,
+							@Parameter(description = "Email of the user to replace.", required = true)
+							@PathVariable String email
 	) {
 		return userService.getUserByEmail(email)
 				.map(user -> {
@@ -237,38 +268,40 @@ public class UserController {
 	}
 
 	// Delete user
-	@Operation(summary = "Delete an user", description = "Delete an existing user given its id", tags = { "users" })
+	@Operation(summary = "Delete an user", description = "Delete an existing user given its id", tags = {"users"})
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "successful operation"),
-			@ApiResponse(responseCode = "404", description = "User not found") })
-	@DeleteMapping(path="/users/{id}")
+			@ApiResponse(responseCode = "200", description = "Successful operation"),
+			@ApiResponse(responseCode = "404", description = "User not found")})
+	@DeleteMapping(path = "/users/{id}")
 	void deleteUser(
-			@Parameter(description="Id of the contact to be delete. Cannot be empty.",
-					required=true)
+			@Parameter(description = "Id of the contact to be delete. Cannot be empty.",
+					required = true)
 			@PathVariable long id
 	) {
 		userService.deleteUserById(id);
 	}
 
-	@Operation(summary = "Update user's location", description = "Updates the last location for the given user", tags = { "location" })
+	// Increase helpedUser
+	@Operation(summary = "Increase helpedUsers", description = "Indicate a user is going to help another user. Returns the helperUser updated.", tags = {"users"})
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "201", description = "Location modified",
-					content = @Content(schema = @Schema(implementation = User.class))),
-			@ApiResponse(responseCode = "400", description = "Invalid input"),
-			@ApiResponse(responseCode = "401", description = "Unauthorized"),
-			@ApiResponse(responseCode = "404", description = "User not found")})
-	@PutMapping(value = "/users/location/{email}", consumes = { "application/json", "application/xml" })
-	User establishLocation(
-			@Parameter(description="New location for the user.", required = true)
-			@RequestBody Location newLocation,
-			@Parameter(description="email of the user to update.", required = true)
-			@PathVariable String email
+			@ApiResponse(responseCode = "200", description = "Successful operation"),
+			@ApiResponse(responseCode = "404", description = "User not found"),
+			@ApiResponse(responseCode = "401", description = "Unauthorized")
+	})
+	@PutMapping(path = "/users/increaseHelpedUsers/{userEmail}")
+	User increaseHelpedUser(
+			@Parameter(description = "Information for the user who has helped.", required = true)
+			@PathVariable String userEmail
 	) {
-		return userService.getUserByEmail(email)
+		return userService.getUserByEmail(userEmail)
 				.map(user -> {
-					user.setLastLocation(newLocation);
+					user.setHelpedUsers(user.getHelpedUsers()+1);
 					return userService.saveUser(user);
 				})
-				.orElseThrow(() -> new UserNotFoundException(email));
+				.orElseGet(() -> {
+					User newUser = new User();
+					newUser.setEmail(userEmail);
+					return userService.saveUser(newUser);
+				});
 	}
 }

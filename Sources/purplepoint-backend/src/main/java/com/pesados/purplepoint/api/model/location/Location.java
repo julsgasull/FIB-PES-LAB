@@ -6,19 +6,26 @@ import javax.persistence.*;
 @Table(name = "Locations")
 public class Location {
     @Schema(description = "Id of the location.", required = true)
-    private @Id
-    @GeneratedValue
-    Long locationId;
+    @Column(name = "locationId")
+    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long locationId;
+
     @Schema(description = "Latitude.", required = true)
+    @Column(name = "latitude")
     private float latitude;
+
+    @Column(name = "longitude")
     @Schema(description = "Longitude.", required = true)
     private float longitude;
+
+    @Column(name = "accuracy")
     @Schema(description = "Accuracy.", required = true)
     private float accuracy;
+
+    @Column(name = "timestamp")
     @Schema(description = "Timestamp of the moment the location was created.", required = true)
     private float timestamp;
 
-    Location() {
+    public Location() {
     }
 
     public Location(float latitude, float longitude, float accuracy, float timestamp) {

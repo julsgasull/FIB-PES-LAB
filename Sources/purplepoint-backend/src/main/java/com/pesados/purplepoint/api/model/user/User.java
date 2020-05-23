@@ -2,11 +2,9 @@ package com.pesados.purplepoint.api.model.user;
 
 
 import com.pesados.purplepoint.api.model.image.Image;
-import com.pesados.purplepoint.api.model.location.Location;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.persistence.*;
-import java.io.IOException;
 
 @Entity
 @Table(name = "Users")
@@ -17,9 +15,13 @@ public class User {
 	@Schema(description = "Name of the user.", example = "Claudia/Isma", required = true)
 	private String name;
 	@Schema(description = "Username of the user.", example = "OhAmadoLider", required = true)
+	@Column(unique = true)
 	private String username;
-	@Schema(description = "Email of the user.", example = "isma@gmail.com", required = true)
-	private String email;
+
+	@Schema(description = "Email of the user.", example = "ohamadoslideres@gmail.com", required = true)
+	@Column(unique = true)
+
+  private String email;
 	@Schema(description = "Password of the user.", required = true)
 	private String password;
 	@Schema(description = "Gender of the user.", required = true)
@@ -35,16 +37,10 @@ public class User {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "imageid") 
 	private Image profilePic;
-	
-
-	@Schema(description = "The last recorded location of the user.", required = false)
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="locationId")
-	private Location lastLocation;
 
 	public User() {}
 
-	public User(String name, String username, String email, String password, String gender) throws IOException {
+	public User(String name, String username, String email, String password, String gender) {
 		this.name = name;
 		this.username = username;
 		this.email = email;
@@ -55,8 +51,18 @@ public class User {
 		this.markedSpots = 0;
 		this.profilePic = null;
 	}
-	
-	
+
+	public User(String username, String email) {
+		this.name = "mock";
+		this.username = username;
+		this.email = email;
+		this.password = "1234";
+		this.gender = null;
+		this.token = null;
+		this.helpedUsers = 0;
+		this.markedSpots = 0;
+		this.profilePic = null;
+	}
 	
 	public Long getID() {
 		return id; 
@@ -137,8 +143,4 @@ public class User {
 	public void setProfilePic(Image profilePic) {
 		this.profilePic = profilePic;
 	}
-
-	public Location getLastLocation() { return lastLocation; }
-
-	public void setLastLocation(Location lastLocation) { this.lastLocation = lastLocation; }
 }
