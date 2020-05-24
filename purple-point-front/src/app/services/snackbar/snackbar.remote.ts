@@ -8,6 +8,7 @@ import { MatSnackBar,
 import { SnackbarComponent } from 'src/app/common/components/snackbar/components/snackbar.component';
 import { pushData } from 'src/app/models/pushdata.interface';
 import { TranslateService } from '@ngx-translate/core';
+import { SimpleSnackbarComponent } from 'src/app/common/components/simple-snackbar/components/simple-snackbar.component';
 
 @Injectable()
 export class SnackbarRemote {
@@ -27,9 +28,6 @@ export class SnackbarRemote {
             this.pData.latitude = data.latitude;
             this.pData.longitude = data.longitude;
             this.pData.token = data.token;
-            console.log("data: ");
-            console.log(data);
-            console.log("---------------------")
             this.saveData(data);
             const snackbarRef = this.snackbar.openFromComponent(
                 SnackbarComponent, 
@@ -52,10 +50,17 @@ export class SnackbarRemote {
 
     openSimpleSnackBar(data) {
         let user = data.username;
-        console.log("user: ", user.username);
+        if (user === "") user = this.translate.instant(data.someone);
         let message = this.translate.instant(data.body);
-        const notification = user+message;
-        const snackBarConfig: MatSnackBarConfig = { duration: 5000, panelClass: ['mockSnackbar'] }
-        this.snackbar.open(notification, "", snackBarConfig);
+        const notification = user /*+ " "*/ + message;
+
+        const snackbarRef = this.snackbar.openFromComponent(
+            SimpleSnackbarComponent, 
+            {
+                data:  notification,
+                duration: 5000,
+                panelClass: ['snackbar'],
+                politeness: 'polite'
+            });
     }
 }

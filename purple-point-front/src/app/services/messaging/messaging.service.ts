@@ -23,28 +23,20 @@ export class MessagingService {
         _messaging.onMessage = _messaging.onMessage((payload) => {
             this.zone.run(() => {
               _messaging.getToken().then((refreshedToken) => {
-                if (refreshedToken != localStorage.getItem('deviceToken')) console.log("tu mama");
-                console.log("Message on foreground: ", payload);
-                console.log("Token: ", refreshedToken);
+                if (refreshedToken != localStorage.getItem('deviceToken')) console.log("Inconsistent token");
+                // console.log("Token: ", refreshedToken);
                 let omw;
                 if (payload.data.onMyWay){
                   omw = payload.data.onMyWay.toString();
                 }
-                console.log("onMyWay: ", omw);
-                if (payload.data.onMyWay === "true") {
-                  console.log("ñaksldjfñlaksjdf");
-                  this.snackbarService.openSimpleSnackbar(payload.data);
-                }
-                else {
-                  console.log("Tu mama no sabe hacer un ===");
-                  this.snackbarService.openSnackbar(payload.data);
-                }
+                if (payload.data.onMyWay === "true") this.snackbarService.openSimpleSnackbar(payload.data);
+                else this.snackbarService.openSnackbar(payload.data);
+                
               });
             });
         }).bind(_messaging);
         _messaging.onMessage =_messaging.onTokenRefresh(() => {
           _messaging.getToken().then((refreshedToken) => {
-            console.log("Refreshing token!", refreshedToken);
             this.updateToken(refreshedToken);
           });
         }).bind(_messaging);
@@ -52,17 +44,12 @@ export class MessagingService {
     }
 
   updateToken(refreshedToken): any/*Observable<any>*/ {
-    console.log("Estas updateando el token");
     const oldToken: String = localStorage.getItem('deviceToken');
-    console.log("oldToken: ", oldToken);
-    console.log("refreshedToken: ", refreshedToken);
 
     if (oldToken === 'null') { // device not registered
-      console.log("Quiero registrarme");
       localStorage.setItem('deviceToken', refreshedToken);
       this.notificationsService.registerFirebaseToken(refreshedToken);
     } else { // device registered
-      console.log("Quiero updatear mi token existente");
       localStorage.setItem('deviceToken', refreshedToken);
       this.notificationsService.updateFireBaseToken(refreshedToken, oldToken);
     }

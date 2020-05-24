@@ -65,6 +65,7 @@
     	"body" : "Please go help them they are in need!"
     },
     "onMyWay": {
+        "someone" : "Someone",
         "body": " is on their way to help you!"
     },
     "map": {

@@ -16,8 +16,7 @@ export class SnackbarComponent implements OnInit {
               private snackRef: MatSnackBarRef<SnackbarComponent>,
               private notificationsService: NotificationsService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   getData() {
     this.pushData.latitude  = localStorage.getItem('p_lat');
@@ -26,28 +25,18 @@ export class SnackbarComponent implements OnInit {
   }
 
   showMap() {
-    console.log("Here we treat the notification's action");
-    
-    console.log("First we increment the user's helped value for the helper");
     this.notificationsService.increaseHelped();
-    
-    console.log("Then we send a notification to the victim");
     this.notificationsService.sendNotificationToVictim(this.pushData.token);
-    
     this.dismiss();
     console.log("Last but not least, we redirect to the map with the victim's location");
   } 
   
   onMyWayAction() {
     this.getData();
-    console.log("Clicked On My Way!");
-    console.log(this.pushData);
-    
     this.showMap();
   }
 
   dismiss() {
-    console.log("Clicked on cancel!");
     this.snackRef.dismiss();
   }
 
