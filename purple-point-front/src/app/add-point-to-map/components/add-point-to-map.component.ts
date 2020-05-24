@@ -53,7 +53,6 @@ export class AddPointToMapComponent implements OnInit {
       this.redirectToMap();
     });
   }
-
   initMap(): void {
     this.map = L.map('map').fitWorld();
     L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {

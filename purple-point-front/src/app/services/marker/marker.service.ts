@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ɵConsole, ViewChild, ElementRef } from '@angular/core';
 import * as L from 'leaflet';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -19,6 +19,15 @@ var pointIcon = L.icon({
   providedIn: 'root'
 })
 export class MarkerService {
+  template = '\
+  <div>\
+    <button class="principalButton delete" id="button-delete" type="button" (click)="manageDeleteButton()">\
+      <img src="../../../assets/images/paperbin.png" style="height:50px; width:50px">\
+    </button>\
+    <button class="principalButton edit" id="button-edit" type="button">\
+      <img src="../../../assets/images/edit.png" style="height:50px; width:50px">\
+    </button>\
+  </div>';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -27,13 +36,38 @@ export class MarkerService {
       .bindPopup('this is a test mark')
     ;
   }
+  
+  manageDeleteButton(map, marker, locationId) {
+    map.removeLayer(marker);
+    this.httpClient.delete<Report[]>(`${environment.API_URL}/map/`+locationId).subscribe((result: Report[]) => {});
+  }
 
   getAllMarks(map: L.Map) {
     this.httpClient.get<Report[]>(`${environment.API_URL}/map`).subscribe((result: Report[]) => {
       for(const c of result) {
         const lat = c.location.latitude;
         const lon = c.location.longitude;
-        L.marker([lat, lon], {icon: pointIcon}).addTo(map).bindPopup('reported by '+ c.user.username);
+        if (c.user.email !== localStorage.getItem('userEmail')) {
+          L.marker([lat, lon], {icon: pointIcon}).addTo(map).bindPopup('reported by '+ c.user.username);
+        }
+        else if (c.user.email === localStorage.getItem('userEmail')) {
+          const marker = new L.marker([lat, lon], {icon: pointIcon, draggable: true}).addTo(map);
+          marker.bindPopup(this.template)
+          .on("popupopen", () => {
+            let buttonSubmit = L.DomUtil.get('button-delete');
+            buttonSubmit.addEventListener("click", e => {
+                this.manageDeleteButton(map, marker, c.id);
+              });
+            })
+            .on("popupopen", () => {
+              let buttonEdit = L.DomUtil.get('button-edit');
+              buttonEdit.addEventListener("click", e => {
+                  // TODO: editar punto
+                  // .marker([lat, lon], {icon: pointIcon, draggable: true} 
+                  // con el draggable se puede arrastrar
+              });
+            })
+        }
       }
     });
   }
