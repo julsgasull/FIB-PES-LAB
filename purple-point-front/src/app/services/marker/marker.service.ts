@@ -56,7 +56,7 @@ export class MarkerService {
           .on("popupopen", () => {
             let buttonSubmit = L.DomUtil.get('button-delete');
             buttonSubmit.addEventListener("click", e => {
-                this.manageDeleteButton(map, marker, c.location.locationId);
+                this.manageDeleteButton(map, marker, c.id);
               });
             })
             .on("popupopen", () => {
