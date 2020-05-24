@@ -50,9 +50,6 @@ public class MapController {
 					required=true, schema=@Schema(implementation = Report.class))
 			@Valid @RequestBody Report newRep
 	) {
-		newRep.setUser(userService.getUserByEmail(newRep.getUser().getEmail()).orElseGet(() -> {
-				return userService.saveUser(new User(newRep.getUser().getEmail(), "Default"));
-			}));
 		return this.reportService.saveReport(newRep);
 	} 
 		
