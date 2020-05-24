@@ -37,15 +37,9 @@ export class MarkerService {
     ;
   }
   
-  manageDeleteButton() {
-    console.log('botooon')
-    //TODO: eliminar punto y eliminarselo al user
-    // L.marker.closePopup();
-    // L.DomEvent.addListener(this.buttonDelete, 'click', function (e) {
-    //   console.log('deleteeeeee')
-    //   debugger
-    //   L.marker.closePopup();
-    // });
+  manageDeleteButton(map, marker, locationId) {
+    map.removeLayer(marker);
+    this.httpClient.delete<Report[]>(`${environment.API_URL}/map/`+locationId).subscribe((result: Report[]) => {});
   }
 
   getAllMarks(map: L.Map) {
@@ -57,17 +51,20 @@ export class MarkerService {
           L.marker([lat, lon], {icon: pointIcon}).addTo(map).bindPopup('reported by '+ c.user.username);
         }
         else if (c.user.email === localStorage.getItem('userEmail')) {
-          L.marker([lat, lon], {icon: pointIcon}).addTo(map).bindPopup(this.template)
+          const marker = new L.marker([lat, lon], {icon: pointIcon, draggable: true}).addTo(map);
+          marker.bindPopup(this.template)
           .on("popupopen", () => {
             let buttonSubmit = L.DomUtil.get('button-delete');
             buttonSubmit.addEventListener("click", e => {
-                this.manageDeleteButton();
+                this.manageDeleteButton(map, marker, c.location.locationId);
               });
             })
             .on("popupopen", () => {
               let buttonEdit = L.DomUtil.get('button-edit');
               buttonEdit.addEventListener("click", e => {
                   // TODO: editar punto
+                  // .marker([lat, lon], {icon: pointIcon, draggable: true} 
+                  // con el draggable se puede arrastrar
               });
             })
         }
