@@ -1,4 +1,4 @@
-package com.pesados.purplepoint.api.controller;
+package com.pesados.purplepoint.api.exception;
 
 public class UnauthorizedDeviceException extends RuntimeException {
 /**

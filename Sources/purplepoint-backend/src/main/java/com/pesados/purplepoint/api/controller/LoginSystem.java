@@ -6,10 +6,12 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import com.pesados.purplepoint.api.exception.UserNotFoundException;
+import org.springframework.web.bind.annotation.RestController;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RestController
 public class LoginSystem {
 
     private final UserService userService;

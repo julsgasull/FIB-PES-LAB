@@ -102,7 +102,7 @@ public class UserController {
 		return userService.saveUser(user);
 	}
 
-	// Visibilidad User
+	// Visibilidad Device
 	@Operation(summary = "Add a new user",
 			description = "Adds a new user to the database with the information provided. "
 					+ "To create a new user please provide:\n- A valid e-mail \n- An username\n- "
@@ -116,18 +116,12 @@ public class UserController {
 	User newUser(
 			@Parameter(description = "User to add. Cannot null or empty.",
 					required = true, schema = @Schema(implementation = User.class))
-			@RequestHeader("Authorization") String unformatedJWT,
 			@Valid @RequestBody User userNew
 	) {
-		
-		if (this.loginSystem.checkLoggedIn(unformatedJWT)) {
-			if (!userService.getUserByEmail(userNew.getEmail()).isPresent()) {
-				return userService.saveUser(userNew);
-			} else {
-				throw new UserRegisterBadRequestException();
-			}
+		if (!userService.getUserByEmail(userNew.getEmail()).isPresent()) {
+			return userService.saveUser(userNew);
 		} else {
-			throw new UnauthorizedDeviceException();
+			throw new UserRegisterBadRequestException();
 		}
 	}
 
@@ -151,28 +145,27 @@ public class UserController {
 			@ApiResponse(responseCode = "200", description = "successful operation",
 					content = @Content(array = @ArraySchema(schema = @Schema(implementation = User.class))))})
 	@GetMapping(value = "/users/{id}", produces = {"application/json", "application/xml"})
-	User idUser(
+	public User idUser(
 		@RequestHeader("Authorization") String unformatedJWT,
 		@Parameter(description = "ID of the contact to search.", required = true)
 		@PathVariable long id) {
 		if (this.loginSystem.checkLoggedIn(unformatedJWT)) {
-			if (this.loginSystem.checkLoggedIn(unformatedJWT)) {
 			return userService.getUserById(id).orElseThrow(() -> new UserNotFoundException(id));
-		} else {
-			throw new UnauthorizedDeviceException();
-		}		
+		} else throw new UnauthorizedDeviceException();
 	}
 
 	// Visibilidad User
-	@Operation(summary = "Get User By email", description = "Get User from an existing email you want to look up", tags = {"users"})
-	@ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful operation", content = @Content(array = @ArraySchema(schema = @Schema(implementation = User.class))))})
-	@GetMapping(value = "/users/email/{email}", produces = {"application/json", "application/xml" })
-	User emailUser(
-			@Parameter(description = "email of the contact to search.", required = true)
+	@Operation(summary = "Get User By email", description = "Get User from an existing email you want to look up", tags = "users")
+	@ApiResponse(
+		responseCode = "200", 
+		description = "successful operation", 
+		content = @Content(array = @ArraySchema(schema = @Schema(implementation = User.class))))
+	@GetMapping(value = "/users/email/{email}", produces = "application/json")
+	public User emailUser(
 			@RequestHeader("Authorization") String unformatedJWT,
-			@PathVariable String email) {
+			@Parameter(description = "email of the contact to search.", required = true) @PathVariable String email) {
 		if (this.loginSystem.checkLoggedIn(unformatedJWT)) {
-			return userService.getUserByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
+			return this.userService.getUserByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
 		} else {
 			throw new UnauthorizedDeviceException();
 		}
