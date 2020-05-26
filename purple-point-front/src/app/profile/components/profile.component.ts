@@ -34,6 +34,7 @@ export class ProfileComponent implements OnInit {
   public message: string;
   public image: ProfilePicData = {imageid:123456789, type:"", picByteB64:null, name:""};
   public retrievedImage: any;
+  public timeout = 1 * 1000;
 
   constructor(
     private route: Router,
@@ -71,8 +72,8 @@ export class ProfileComponent implements OnInit {
       this.image.picByteB64   = response.body.picByteB64;
       this.image.name         = response.body.name;
     })
-    const timeout = 1 * 1000; // in ms
-    setInterval(() => {}, timeout);
+    // const timeout = 1 * 1000; // in ms
+    setInterval(() => {}, this.timeout);
   }
 
   redirectToPrincipalView() {

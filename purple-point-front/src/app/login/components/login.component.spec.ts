@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { UserRemote } from 'src/app/services/user/user.remote';
 import { UtilsService } from 'src/app/services/utils/utils.service';
 import { UtilsRemote } from 'src/app/services/utils/utils.remote';
+import { LanguageButtonModule } from 'src/app/common/components/language-button/language-button.module';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -32,6 +33,7 @@ describe('LoginComponent', () => {
         HttpClientTestingModule,
         CommonModule,
         ReactiveFormsModule,
+        LanguageButtonModule
       ],
       declarations: [ LoginComponent ],
       providers: [
