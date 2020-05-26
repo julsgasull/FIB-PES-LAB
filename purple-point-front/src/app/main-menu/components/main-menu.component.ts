@@ -17,19 +17,11 @@ export class MainMenuComponent implements OnInit {
   profileImage: any;
 
   public userInfo: UserData;
-  geolocation: GeoLocation = ({
-    latitude: -1, 
-    longitude: -1, 
-    accuracy: -1,
-    timestamp: -1
-  });
 
   constructor(
     private route: Router,
-    private userService: UserService,
-    private geoLocationService: GeoLocationService
+    private userService: UserService
   ) {}
-
 
   ngOnInit(): void {
     const userEmail = localStorage.getItem('userEmail');
@@ -37,12 +29,6 @@ export class MainMenuComponent implements OnInit {
       this.userInfo = response;
       this.profileImage = 'data:'+this.userInfo.profilePic.type +';base64,' + this.userInfo.profilePic.picByteB64;
     });
-
-    const timeout = 5 * 1000; // in ms
-    
-    setInterval(() => {
-      this.geoLocationService.getLocation(this.geolocation);
-    }, timeout);
   }
 
   logout() {
@@ -55,7 +41,7 @@ export class MainMenuComponent implements OnInit {
     this.route.navigate(['/profile']);
   }
   redirectToMap() {
-    //to-do
+    this.route.navigate(['/map']);
   }
   redirectToWiki() {
     //to-do

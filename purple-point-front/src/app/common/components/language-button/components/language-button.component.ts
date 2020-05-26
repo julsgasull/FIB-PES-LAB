@@ -16,7 +16,9 @@ export class LanguageButtonComponent implements OnInit {
   }
 
   useLanguage(language: string) {
+    localStorage.setItem('disable', null);
     this.translate.use(language);
+    localStorage.setItem('disable', 'notNull');
 }
 
 }

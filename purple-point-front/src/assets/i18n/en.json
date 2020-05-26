@@ -48,7 +48,9 @@
         "logout": "Log out",
         "saveChanges": "Save changes",
         "editProfile": "Edit profile",
-        "register": "Register"
+        "register": "Register",
+        "dismiss": "Dismiss",
+        "onMyWay": "On My Way!"
     },
     "text": {
         "hello": "Hello, ",
@@ -57,5 +59,20 @@
         "doubts": "Doubts?",
         "visitWiki": "Visit the wiki",
         "imageAdv": "If you change the image, please wait for some seconds to press the 'Save changes' button."
+    },
+    "notification" : {
+		"title": "Someone needs help!",
+    	"body" : "Please go help them they are in need!"
+    },
+    "onMyWay": {
+        "someone" : "Someone",
+        "body": " is on their way to help you!"
+    },
+    "map": {
+        "locate": "Locate it",
+        "youAreHere": "you are here",
+        "markedSpot": "marked spot",
+        "clickMap": "click the map to add the ",
+        "harrased": "where you have been harassed"
     }
 }

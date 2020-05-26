@@ -14,8 +14,7 @@ export class GeoLocationService {
     return this.geolocationRemote.getLocation(loc);
   }
 
-  mockGetPosition(loc: GeoLocation): void {
-    this.geolocationRemote.mockGetPosition(loc);
+  getFirstLocation(loc: GeoLocation) {
+    return this.geolocationRemote.getFirstLocation(loc);
   }
-
 }

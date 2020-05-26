@@ -5,8 +5,6 @@ import { PanicbuttonModule } from '../common/components/panicbutton/panicbutton.
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageButtonModule } from '../common/components/language-button/language-button.module';
 
-
-
 @NgModule({
   declarations: [PrincipalViewComponent],
   imports: [

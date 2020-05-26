@@ -28,12 +28,19 @@ export class AuthService {
 
   public getToken(): string {
     const token = localStorage.getItem('token');
+    const disable = localStorage.getItem('disable');
+    const disablePanic = localStorage.getItem('disableLogin');
     let isTokenExpired = true;
     if (token !== 'null') {
       isTokenExpired = this.decoder.isTokenExpired(token);
     }
     if (!isTokenExpired) {
       return token;
-    } return this.refreshToken();
+    } 
+    else if(disable !== 'null' && disablePanic !== 'null') return this.refreshToken();
+  }
+
+  public getDeviceToken(): string {
+    return localStorage.getItem('deviceToken');
   }
 }
