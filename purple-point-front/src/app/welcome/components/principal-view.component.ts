@@ -4,7 +4,6 @@ import { MessagingService } from 'src/app/services/messaging/messaging.service';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
 import { GeoLocation } from 'src/app/models/geoLocation.interface';
-import { setInterval, clearInterval} from 'timers';
 
 @Component({
   selector: 'principal-view',
