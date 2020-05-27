@@ -49,10 +49,6 @@ export class PrincipalViewComponent implements OnInit {
     }, this.timeout);
   }
 
-  AixoEsUnaFuncioDeProva() {
-    console.log("Prova");
-  }
-
   redirectToLogin() {
     this.route.navigate(['/login']);
   }
