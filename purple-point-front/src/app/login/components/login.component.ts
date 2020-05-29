@@ -50,6 +50,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('password', response.password);
         localStorage.setItem('token', response.token);
         localStorage.setItem('username', response.username)
+        localStorage.setItem('userId', response.id.toString())
+        console.log("user", response)
         this.redirectToMainMenu();
       },
       errorrResponse => {

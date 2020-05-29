@@ -1,8 +1,6 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import * as L from 'leaflet';
 import { MarkerService } from 'src/app/services/marker/marker.service';
-import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
-import { GeoLocation } from 'src/app/models/geoLocation.interface';
 import { Router } from '@angular/router';
 
 var locationIcon = L.icon({

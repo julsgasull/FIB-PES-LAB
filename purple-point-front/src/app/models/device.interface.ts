@@ -3,6 +3,6 @@ import { GeoLocation } from './geoLocation.interface';
 
 export interface Device {
     location: GeoLocation,
-    user: UserData,
+    user?: UserData,
     firebaseToken: string 
 }

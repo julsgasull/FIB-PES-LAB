@@ -23,7 +23,8 @@ export class AddPointToMapComponent implements OnInit {
   private map:      L.Map;
   private userInfo: UserData = ({
     password: "",
-    email: localStorage.getItem('userEmail')
+    email: localStorage.getItem('userEmail'),
+    id: Number(localStorage.getItem('userId'))
   })
   private point:    GeoLocation = ({
     latitude:   -1, 
@@ -32,7 +33,7 @@ export class AddPointToMapComponent implements OnInit {
     timestamp:  0
   });
   private report:   Report = ({
-    reportid:     -1,
+    reportid:     5,
     description:  "",
     location:     this.point,
     user:         this.userInfo
@@ -85,6 +86,7 @@ export class AddPointToMapComponent implements OnInit {
   }
 
   addPoint(latlng: L.LatLng) {
+    console.log("id", this.report.user.id)
     this.report.location.latitude   = latlng.lat;
     this.report.location.longitude  = latlng.lng;
     this.report.location.timestamp  = (new Date).getTime();
