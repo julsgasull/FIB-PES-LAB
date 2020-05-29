@@ -31,8 +31,8 @@ export class NotificationsRemote {
         const email = localStorage.getItem('userEmail');
         this.userService.getUserByEmailUnauthorized(email).subscribe((userResponse: UserData) => {
             this.user = userResponse;
+            this.device.user = this.user;
         });
-        this.device.user = this.user;
     }
 
     getLocationInfo() {
@@ -165,7 +165,7 @@ export class NotificationsRemote {
         });
     }
 
-    sendNotificationToVictim(token) {
+    sendNotificationToVictim(token): Observable<string> {
         var username: String;
         const bool: String = localStorage.getItem('token');
         if (bool == null) username = localStorage.getItem('username');
