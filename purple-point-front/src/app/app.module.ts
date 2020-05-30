@@ -48,10 +48,12 @@ import { MapModule } from './map/map.module';
 import { AddPointToMapComponentModule } from './add-point-to-map/add-point-to-map.module';
 import { SimpleSnackbarComponent } from './common/components/simple-snackbar/components/simple-snackbar.component';
 import { SimpleSnackbarModule } from './common/components/simple-snackbar/simple-snackbar.module';
+import { WikiFaqComponent } from './wiki-faq/components/wiki-faq.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    WikiFaqComponent
   ],
   entryComponents: [SnackbarComponent, SimpleSnackbarComponent],
   imports: [
