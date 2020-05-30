@@ -12,10 +12,7 @@ import { Device } from 'src/app/models/device.interface';
 })
 export class PrincipalViewComponent implements OnInit {
 
-  message;
-  timeout = 5 * 1000; // in ms
-  interval;
-  
+  message;  
   geolocation: GeoLocation = ({
     latitude: -1, 
     longitude: -1, 
@@ -36,12 +33,8 @@ export class PrincipalViewComponent implements OnInit {
     this.messagingService.requestPermission();
     this.messagingService.receiveMessage();
     this.message = this.messagingService.currentMessage;
-    
-    this.interval = setInterval(() => {
-      this.geoLocationService.getLocation(this.geolocation).subscribe((dev: Device) => {
-        this.geolocation = dev.location;
-      });
-    }, this.timeout);
+
+    this.geolocation = this.geoLocationService.startGeoLocationService(this.geolocation);
   }
 
   redirectToLogin() {
