@@ -114,6 +114,7 @@ export class MarkerService {
   }
   
   addMark(report: Report) {
+    console.log("report", report)
     this.httpClient.post(`${environment.API_URL}/map`, report).subscribe((result) => {
       console.log(result)
     },
