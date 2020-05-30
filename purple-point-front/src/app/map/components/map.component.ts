@@ -32,18 +32,24 @@ export class MapComponent implements OnInit {
   }
   
   initMap(): void {
+    console.log("i'm iniziating the map");
     this.map = L.map('map').fitWorld();
     L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
 	    maxZoom:      15,
 	    attribution:  '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
     }).addTo(this.map);
 
+    this.locate();
+  }
+
+  locate() {
+    console.log("locating...");
     this.map.locate({
       setView:            true,
       maxZoom:            15,
-      watch:              true,
+      watch:              false,
       enableHighAccuracy: true,
-      timeout:            2000
+      timeout:            10000
     })
       .on("locationfound", e => { 
         L.marker(e.latlng,{icon : locationIcon}).addTo(this.map)
@@ -56,10 +62,11 @@ export class MapComponent implements OnInit {
         }).addTo(this.map);
       })
       .on("locationerror", error => {
-        location.reload(); 
+        console.log(error);
+        alert("could not locate you");
+        this.map.invalidateSize();
       })
     ;
-    this.map.invalidateSize();
   }
 
   redirectToAddPointToMap() { this.route.navigate(['/addpointtotmap']); }
