@@ -59,6 +59,7 @@ export class ProfileComponent implements OnInit {
         helpedUsers:  new FormControl( { value: response.helpedUsers, disabled: true }, Validators.required),
         profilePic:   new FormControl( { value: response.profilePic,  disabled: true }, Validators.required),
       });
+      this.image = response.profilePic
     });
   }
 

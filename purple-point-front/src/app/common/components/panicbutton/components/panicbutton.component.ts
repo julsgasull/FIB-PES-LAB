@@ -30,7 +30,7 @@ export class PanicbuttonComponent implements OnInit {
       accuracy: Number(localStorage.getItem('accuracy')),
       timestamp: Number(localStorage.getItem('timestamp')),
       panicbutton: true,
-   } 
+    } 
 
    this.disableLogin();
    this.panicButtonService.sendAlert(userAlarm).subscribe((response) => {
