@@ -6,6 +6,8 @@ import { UserData } from 'src/app/models/userData.interface';
 import { Router } from '@angular/router';
 import { UtilsService } from 'src/app/services/utils/utils.service';
 import { TranslateService } from '@ngx-translate/core';
+import { GeoLocation } from 'src/app/models/geoLocation.interface';
+import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
 
 @Component({
   selector: 'sign-up',
@@ -16,13 +18,23 @@ export class SignUpComponent implements OnInit {
 
   isSubmitted = false;
   userForm: FormGroup;
+  geolocation: GeoLocation = ({
+    latitude: -1, 
+    longitude: -1, 
+    accuracy: -1,
+    timestamp: -1
+  });
+
+
 	constructor(
     private formBuilder: FormBuilder, 
     private userService: UserService,
     private route: Router,
     private utilsService : UtilsService,
-    private translate: TranslateService) {}
-
+    private translate: TranslateService,
+    private geoLocationService: GeoLocationService)
+     {}
+    
   ngOnInit(): void {
     this.userForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -35,6 +47,7 @@ export class SignUpComponent implements OnInit {
     {
       validator: MustMatch('password', 'confirmPassword')
     });
+    this.geolocation = this.geoLocationService.startGeoLocationService(this.geolocation);
   }
 
 

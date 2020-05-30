@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
 import { UserData } from 'src/app/models/userData.interface';
+import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
+import { GeoLocation } from 'src/app/models/geoLocation.interface';
 
 @Component({
   selector: 'app-main-menu',
@@ -12,12 +14,18 @@ import { UserData } from 'src/app/models/userData.interface';
 export class MainMenuComponent implements OnInit {
 
   profileImage: any;
-
   public userInfo: UserData;
+  geolocation: GeoLocation = ({
+    latitude: -1, 
+    longitude: -1, 
+    accuracy: -1,
+    timestamp: -1
+  });
 
   constructor(
     private route: Router,
-    private userService: UserService
+    private userService: UserService,
+    private geoLocationService: GeoLocationService
   ) {}
 
   ngOnInit(): void {
@@ -26,6 +34,8 @@ export class MainMenuComponent implements OnInit {
       this.userInfo = response;
       this.profileImage = 'data:'+this.userInfo.profilePic.type +';base64,' + this.userInfo.profilePic.picByteB64;
     });
+
+    this.geolocation = this.geoLocationService.startGeoLocationService(this.geolocation);
   }
 
   logout() {
