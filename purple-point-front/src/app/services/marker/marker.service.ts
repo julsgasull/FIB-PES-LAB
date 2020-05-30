@@ -21,6 +21,7 @@ var pointIcon = L.icon({
 })
 export class MarkerService {
   private message: string;
+  //private markers[] = 
  
   template = '\
   <html>\

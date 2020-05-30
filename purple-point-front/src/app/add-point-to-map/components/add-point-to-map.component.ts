@@ -33,7 +33,7 @@ export class AddPointToMapComponent implements OnInit {
     timestamp:  0
   });
   private report:   Report = ({
-    reportid:     5,
+    id:           5,
     description:  "",
     location:     this.point,
     user:         this.userInfo
