@@ -33,9 +33,9 @@ export class MarkerService {
       </button>\
     </div>\
     <br>\
-    <div style="text-align: center;">\
-      \{\{ map.dragPosition | translate \}\}\
-    </div>\
+    <div style="text-align: center;">'+
+    localStorage.getItem("dragPosition") +
+    '</div>\
   </html>';
 
   constructor(
@@ -43,6 +43,7 @@ export class MarkerService {
     private translate: TranslateService
     ) {
       this.message = this.translate.instant("map.dragPosition");
+      console.log("msg", this.message)
     }
 
   getMark(map: L.Map) {
@@ -63,10 +64,16 @@ export class MarkerService {
   updatePointCoordinates(marker, map) {
     let pos = marker.getLatLng();
     marker.setLatLng(pos);
+    console.log("msg", this.translate.instant("map.dragPosition"))
+    this.message = this.translate.instant("map.dragPosition")
+    localStorage.setItem("dragPosition", this.message)
     console.log("Here we would update the marker's position at backend!")
   }
 
   getAllMarks(map: L.Map) {
+    this.message = this.translate.instant("map.dragPosition");
+    console.log("msg", this.message)
+
     this.httpClient.get<Report[]>(`${environment.API_URL}/map`).subscribe((result: Report[]) => {
       for(const c of result) {
         const lat = c.location.latitude;
@@ -91,14 +98,15 @@ export class MarkerService {
                   // con el draggable se puede arrastrar
               });
             });
-            marker.on("dragend", () => {
-              this.updatePointCoordinates(marker, map);
-            });
-            marker.on("drag", () => {
-              var pos = marker.getLatLng();
-              map.panTo(pos);
-              // console.log("position:", pos)
-            })
+
+          marker.on("dragend", () => {
+            this.updatePointCoordinates(marker, map);
+          });
+          marker.on("drag", () => {
+            var pos = marker.getLatLng();
+            map.panTo(pos);
+            // console.log("position:", pos)
+          })
         // }
       }
     });
@@ -111,5 +119,52 @@ export class MarkerService {
     (error) => {
       console.log(error)
     });
+  }
+
+  updateTemplate(msg) {
+    this.template = '\
+    <html>\
+      <div style="text-align: center;">\
+        <button class="principalButton delete" id="button-delete" type="button" (click)="manageDeleteButton()">\
+          <img src="../../../assets/images/paperbin.png" style="height:50px; width:50px">\
+        </button>\
+        <button class="principalButton edit" id="button-edit" type="button">\
+          <img src="../../../assets/images/edit.png" style="height:50px; width:50px">\
+        </button>\
+      </div>\
+      <br>\
+      <div style="text-align: center;">'+
+      msg +
+      '</div>\
+    </html>';
+    return this.template;
+  }
+
+  changePopupLanguage(language: string, map: L.Map) {
+    localStorage.setItem('disable', null);
+    this.translate.use(language);
+    localStorage.setItem('disable', 'notNull');
+
+    var msg = this.translate.instant("map.dragPosition");
+    const youMarkerId = Number(localStorage.getItem("youMarker"));
+    const accuracy = Number(localStorage.getItem("youAccuracy"));
+    const youMsg = this.translate.instant("map.youPartOne") + accuracy + this.translate.instant("map.youPartTwo");
+    console.log(youMarkerId)
+    console.log(msg)
+    // if (c.user.email === localStorage.getItem('userEmail')) {
+
+    // }
+    // else {
+      map.eachLayer((marker) => {
+        if (marker._leaflet_id === youMarkerId) marker.setPopupContent(youMsg);
+        else {
+          // if (c.user.email === localStorage.getItem('userEmail')) {
+
+          // }
+          // else {
+            marker.setPopupContent(this.updateTemplate(msg))
+          // }
+        }
+      })
   }
 }

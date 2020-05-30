@@ -4,6 +4,7 @@ import { MarkerService } from 'src/app/services/marker/marker.service';
 import { Router } from '@angular/router';
 import { GeoLocation } from 'src/app/models/geoLocation.interface';
 import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
+import { TranslateService } from '@ngx-translate/core';
 
 var locationIcon = L.icon({
   iconUrl:      '../../../assets/images/location.svg',
@@ -31,7 +32,8 @@ export class MapComponent implements OnInit {
   constructor (
     private markerService:      MarkerService,
     private route:              Router,
-    private geoLocationService: GeoLocationService
+    private geoLocationService: GeoLocationService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -61,14 +63,17 @@ export class MapComponent implements OnInit {
       timeout:            10000
     })
       .on("locationfound", e => { 
-        L.marker(e.latlng,{icon : locationIcon}).addTo(this.map)
-          .bindPopup("You are within " + e.accuracy + " meters from this point").openPopup();
+        const msg = this.translate.instant("map.youPartOne") + e.accuracy + this.translate.instant("map.youPartTwo");
+        const marker = L.marker(e.latlng,{icon : locationIcon}).addTo(this.map)
+          .bindPopup(msg).openPopup();
         ;
         L.circle(e.latlng, e.accuracy, {
           color:        '#8F4DEC',
           fillColor:    '#8F4DEC',
           fillOpacity:  0.2
         }).addTo(this.map);
+        localStorage.setItem("youMarker", marker._leaflet_id);
+        localStorage.setItem("youAccuracy", e.accuracy);        
       })
       .on("locationerror", error => {
         console.log(error);
@@ -76,6 +81,10 @@ export class MapComponent implements OnInit {
         this.map.invalidateSize();
       })
     ;
+  }
+
+  changePopupLanguage(language: string) {
+    this.markerService.changePopupLanguage(language, this.map);
   }
 
   redirectToAddPointToMap() { this.route.navigate(['/addpointtotmap']); }
