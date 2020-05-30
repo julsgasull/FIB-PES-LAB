@@ -1,3 +1,5 @@
+import { gzipSync } from "zlib";
+
 describe('Testing Purple point front creating a new user, login and edit profile', () => {
     before(() => {
         cy.visit('http://localhost:4200');
@@ -45,12 +47,6 @@ describe('Testing Purple point front creating a new user, login and edit profile
         cy.wait(300);
         cy.get('#password').type('1234');
         cy.wait(300);
-        cy.server();          // enable response stubbing
-        cy.route({
-        method: 'POST',      // Route all GET requests
-        url: 'https://purplepoint.herokuapp.com/api/v1/users/login',    // that have a URL that matches '/users/*'
-        response: ['fixture:users.json']        // and force the response to be: []
-        });
         cy.get('.principalButton').
         should('be.visible').
         click();
@@ -66,18 +62,36 @@ describe('Testing Purple point front creating a new user, login and edit profile
         response: ['fixture:users.json']        // and force the response to be: []
         });
         cy.wait(500);
+
+        cy.server()
+        cy.route({
+            method: 'POST',      // Route all GET requests
+            url: 'https://purplepoint.herokuapp.com/api/v1/users/login',
+            response: ['fixture:users.json']        // and force the response to be: []
+            }).as('login')
         cy.server();          // enable response stubbing
         cy.route({
-        method: 'GET',      // Route all GET requests
-        url: 'https://purplepoint.herokuapp.com/api/v1/users/email/email@gmail.com',    // that have a URL that matches '/users/*'
-        response: ['fixture:users.json']        // and force the response to be: []
-        });
-        cy.get('.expandImage > img').
-        click();
-        cy.get('.principalButton').
-        click();
-        cy.wait(500);
-        cy.get('.userData > :nth-child(2) > .col-9 > .form-control')
+            method: 'GET',      // Route all GET requests
+            url: 'https://purplepoint.herokuapp.com/api/v1/users/email/null',    // that have a URL that matches '/users/*'
+            response: ['fixture:users.json']        // and force the response to be: []
+        }).as('getUser');
+
+        cy.get('.expandImage > img').click();
+
+        cy.wait('@login').its('status').should('eq', 200)
+        cy.wait('@getUser').its('status').should('eq', 200)
+
+        cy.get('.principalButton').click();
+
+        cy.get('#username-profile').type('example');
+        cy.get('#name-profile').type('nameExample');
+        cy.get('#password-profile').type('1234');
+        cy.get('#gender-profile').select('Otro');
+    
+    // cy.get('.usernameTitle > .form-control').value('fixture:users.username')
+
+        cy.wait(5000);
+        cy.get('#gender-profile')
         .select('Mujer');
         cy.wait(500);
         cy.server();          // enable response stubbing
