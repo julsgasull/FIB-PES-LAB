@@ -45,7 +45,7 @@ const routes: Routes = [
     component: AddPointToMapComponent, pathMatch: 'full'
   },
   {
-    path: 'maponpanic',
+    path: 'maponpanic/:lat/:lng',
     component: MapOnPanicComponent, pathMatch: 'full'
   }
 ];

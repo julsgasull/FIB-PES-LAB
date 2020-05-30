@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
 import { UserData } from 'src/app/models/userData.interface';
+import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-main-menu',
@@ -17,7 +18,8 @@ export class MainMenuComponent implements OnInit {
 
   constructor(
     private route: Router,
-    private userService: UserService
+    private userService: UserService,
+    private snackbarService: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -45,6 +47,13 @@ export class MainMenuComponent implements OnInit {
   }
 
   redirectToMapOnPanic() {
-    this.route.navigate(['/maponpanic']);
+    // tot això anirà fora
+    let data = {
+      title:      "notification.title",
+      body:       "notification.body",
+      longitude:  2.175,
+      latitude:   41.41
+    }
+    this.snackbarService.openSnackbar(data);
   }
 }

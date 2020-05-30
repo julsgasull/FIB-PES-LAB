@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
 import { pushData } from 'src/app/models/pushdata.interface';
 import { NotificationsService } from 'src/app/services/notifications/notifications.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-snackbar',
@@ -14,7 +15,9 @@ export class SnackbarComponent implements OnInit {
 
   constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any,
               private snackRef: MatSnackBarRef<SnackbarComponent>,
-              private notificationsService: NotificationsService) { }
+              private notificationsService: NotificationsService,
+              private route: Router
+              ) { }
 
   ngOnInit(): void {}
 
@@ -32,8 +35,11 @@ export class SnackbarComponent implements OnInit {
     (error) => { console.log("error: ", error); }
     );
     this.dismiss();
-    console.log("Last but not least, we redirect to the map with the victim's location");
-  } 
+
+    console.log("From local storage: lat", localStorage.getItem('p_lat'), "lng", localStorage.getItem('p_lon'))
+    //console.log("sending ... latitude: ",this.pushData.latitude, "longitude: ", this.pushData.longitude);
+    this.redirectToMapOnPanic(this.pushData.latitude, this.pushData.longitude);
+  }
   
   onMyWayAction() {
     this.getData();
@@ -44,4 +50,7 @@ export class SnackbarComponent implements OnInit {
     this.snackRef.dismiss();
   }
 
+  redirectToMapOnPanic(lat: string, lng: string) {
+    this.route.navigate(['/maponpanic', lat, lng]);
+  }
 }

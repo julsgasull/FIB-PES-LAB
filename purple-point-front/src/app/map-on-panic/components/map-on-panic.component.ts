@@ -3,7 +3,7 @@ import * as L from 'leaflet';
 import { MarkerService } from 'src/app/services/marker/marker.service';
 import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
 import { GeoLocation } from 'src/app/models/geoLocation.interface';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 var locationIcon = L.icon({
   iconUrl:      '../../../assets/images/location.svg',
@@ -27,34 +27,39 @@ var victimIcon = L.icon({
 export class MapOnPanicComponent implements OnInit {
 
   private map: L.Map;
+  private lat: number;
+  private lng: number;
 
   constructor (
     private markerService:  MarkerService,
-    private route:          Router
-  ) {}
+    private route:          Router,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+    console.log("From activated route: ... latitude: ", this.activatedRoute.snapshot.paramMap.get("lat"), "longitude: ", this.activatedRoute.snapshot.paramMap.get("lng"));
+    this.lat = Number(this.activatedRoute.snapshot.paramMap.get("lat"));  
+    this.lng = Number(this.activatedRoute.snapshot.paramMap.get("lng"));  
     this.initMap();
     //this.markerService.getAllMarks(this.map);
   }
 
-  private initMap(): void {
-
+  initMap(): void {
     this.map = L.map('map').fitWorld();        
     L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
 	    maxZoom:      30,
 	    attribution:  '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
     }).addTo(this.map);
 
-    var coordsFromVictim = [41.41, 2.175];
+    var coordsFromVictim = [this.lat, this.lng];
     L.marker(coordsFromVictim, {icon: victimIcon}).addTo(this.map).bindPopup('the victim is here');
 
     this.map.locate({
       setView:            true,
       maxZoom:            30,
-      watch:              true,
+      watch:              false,
       enableHighAccuracy: true,
-      timeout:            2000
+      timeout:            10000
     }).on("locationfound", e => { 
       console.log(e.latlng);
         L.marker(e.latlng,{icon : locationIcon}).addTo(this.map).bindPopup('you are here');
@@ -64,7 +69,9 @@ export class MapOnPanicComponent implements OnInit {
           fillOpacity:  0.2
         }).addTo(this.map);
       }).on("locationerror", error => {
-        location.reload(); 
+        console.log(error);
+        alert("could not locate you");
+        this.map.invalidateSize();
       })
     ;
   ;
