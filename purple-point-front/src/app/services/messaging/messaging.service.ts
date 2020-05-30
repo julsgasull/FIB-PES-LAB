@@ -31,7 +31,6 @@ export class MessagingService {
                 }
                 if (payload.data.onMyWay === "true") this.snackbarService.openSimpleSnackbar(payload.data);
                 else this.snackbarService.openSnackbar(payload.data);
-                
               });
             });
         }).bind(_messaging);

@@ -2,6 +2,8 @@ import { Component, OnInit, OnChanges } from '@angular/core';
 import * as L from 'leaflet';
 import { MarkerService } from 'src/app/services/marker/marker.service';
 import { Router } from '@angular/router';
+import { GeoLocation } from 'src/app/models/geoLocation.interface';
+import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
 
 var locationIcon = L.icon({
   iconUrl:      '../../../assets/images/location.svg',
@@ -17,16 +19,25 @@ var locationIcon = L.icon({
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit {
+  
   private map: L.Map;
+  geolocation: GeoLocation = ({
+    latitude: -1, 
+    longitude: -1, 
+    accuracy: -1,
+    timestamp: -1
+  });
 
   constructor (
-    private markerService:  MarkerService,
-    private route:          Router
+    private markerService:      MarkerService,
+    private route:              Router,
+    private geoLocationService: GeoLocationService
   ) {}
 
   ngOnInit(): void {
     this.initMap();
     this.markerService.getAllMarks(this.map);
+    this.geolocation = this.geoLocationService.startGeoLocationService(this.geolocation);
   }
   
   initMap(): void {

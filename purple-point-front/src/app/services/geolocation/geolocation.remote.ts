@@ -8,7 +8,21 @@ import { Device } from 'src/app/models/device.interface';
 @Injectable()
 export class GeoLocationRemote {
 
+    timeout = 5 * 1000; // in ms
+    interval;
+
     constructor(private httpClient: HttpClient) {}
+
+    startGeoLocationService(loc: GeoLocation): GeoLocation {
+        clearInterval(this.interval);
+        this.interval = setInterval(() => {
+            this.getLocation(loc).subscribe((dev: Device) => {
+                loc = dev.location;
+            });
+          }, this.timeout);
+        return loc;
+    }
+
     getLocation(loc: GeoLocation): Observable<Device> {
         const token: string = localStorage.getItem("deviceToken");
         console.log("Geolocation storage token: ", token);
