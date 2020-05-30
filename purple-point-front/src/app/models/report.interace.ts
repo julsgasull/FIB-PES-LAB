@@ -6,4 +6,5 @@ export interface Report {
   description?:   string;
   location?:      GeoLocation;
   user?:          UserData;
+  id?:             number;
 }

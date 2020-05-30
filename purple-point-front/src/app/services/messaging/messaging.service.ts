@@ -48,10 +48,14 @@ export class MessagingService {
 
     if (oldToken === 'null') { // device not registered
       localStorage.setItem('deviceToken', refreshedToken);
-      this.notificationsService.registerFirebaseToken(refreshedToken);
+      this.notificationsService.registerFirebaseToken(refreshedToken).subscribe((response) => {},
+      (error) => { console.log("error: ", error); }
+      );
     } else { // device registered
       localStorage.setItem('deviceToken', refreshedToken);
-      this.notificationsService.updateFireBaseToken(refreshedToken, oldToken);
+      this.notificationsService.updateFireBaseToken(refreshedToken, oldToken).subscribe((response) => {},
+      (error) => { console.log("error: ", error); }
+      );
     }
   }
 

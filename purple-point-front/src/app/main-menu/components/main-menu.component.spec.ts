@@ -10,6 +10,9 @@ import { CommonModule } from '@angular/common';
 import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
 import { GeoLocationRemote } from 'src/app/services/geolocation/geolocation.remote';
 import { GeolocationMockService } from 'src/app/services/geolocation/geolocation.mock.service';
+import { LanguageButtonModule } from 'src/app/common/components/language-button/language-button.module';
+import { PanicbuttonModule } from 'src/app/common/components/panicbutton/panicbutton.module';
+import { PanicButtonRemote } from 'src/app/services/panic-button/panic-button.remote';
 
 describe('MainMenuComponent', () => {
   let component: MainMenuComponent;
@@ -27,13 +30,16 @@ describe('MainMenuComponent', () => {
         }),
         HttpClientTestingModule,
         CommonModule,
+        LanguageButtonModule,
+        PanicbuttonModule
       ],
       declarations: [ MainMenuComponent ],
       providers: [
         UserService,
         UserRemote,
         GeolocationMockService,
-        GeoLocationRemote
+        GeoLocationRemote,
+        PanicButtonRemote
       ]
     })
     .compileComponents();

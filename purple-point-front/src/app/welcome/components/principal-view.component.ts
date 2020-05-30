@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessagingService } from 'src/app/services/messaging/messaging.service';
-import {HttpClient, HttpParams} from '@angular/common/http';
 import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
 import { GeoLocation } from 'src/app/models/geoLocation.interface';
+import { Device } from 'src/app/models/device.interface';
 
 @Component({
   selector: 'principal-view',
@@ -13,6 +13,8 @@ import { GeoLocation } from 'src/app/models/geoLocation.interface';
 export class PrincipalViewComponent implements OnInit {
 
   message;
+  timeout = 5 * 1000; // in ms
+  interval;
   
   geolocation: GeoLocation = ({
     latitude: -1, 
@@ -34,16 +36,12 @@ export class PrincipalViewComponent implements OnInit {
     this.messagingService.requestPermission();
     this.messagingService.receiveMessage();
     this.message = this.messagingService.currentMessage;
-
-    const timeout = 5 * 1000; // in ms
-
-    this.geoLocationService.getLocation(this.geolocation);
     
-    setInterval(() => {
-      this.geoLocationService.getLocation(this.geolocation).subscribe((location: GeoLocation) => {
-        this.geolocation = location;
+    this.interval = setInterval(() => {
+      this.geoLocationService.getLocation(this.geolocation).subscribe((dev: Device) => {
+        this.geolocation = dev.location;
       });
-    }, timeout);
+    }, this.timeout);
   }
 
   redirectToLogin() {

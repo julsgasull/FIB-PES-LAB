@@ -23,7 +23,8 @@ export class AddPointToMapComponent implements OnInit {
   private map:      L.Map;
   private userInfo: UserData = ({
     password: "",
-    email: localStorage.getItem('userEmail')
+    email: localStorage.getItem('userEmail'),
+    id: Number(localStorage.getItem('userId'))
   })
   private point:    GeoLocation = ({
     latitude:   -1, 
@@ -32,7 +33,7 @@ export class AddPointToMapComponent implements OnInit {
     timestamp:  0
   });
   private report:   Report = ({
-    reportid:     -1,
+    reportid:     5,
     description:  "",
     location:     this.point,
     user:         this.userInfo
@@ -53,20 +54,25 @@ export class AddPointToMapComponent implements OnInit {
       this.redirectToMap();
     });
   }
-
   initMap(): void {
+    console.log("i'm iniziating the map");
     this.map = L.map('map').fitWorld();
     L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
 	    maxZoom:      15,
 	    attribution:  '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
     }).addTo(this.map);
 
+    this.locate();
+  }
+
+  locate() {
+    console.log("locating...");
     this.map.locate({
       setView:            true,
       maxZoom:            15,
-      watch:              true,
+      watch:              false,
       enableHighAccuracy: true,
-      timeout:            2000
+      timeout:            10000
     })
       .on("locationfound", e => { 
         L.marker(e.latlng,{icon : locationIcon}).addTo(this.map)
@@ -79,13 +85,15 @@ export class AddPointToMapComponent implements OnInit {
         }).addTo(this.map);
       })
       .on("locationerror", error => {
-        location.reload(); 
+        console.log(error);
+        alert("could not locate you");
+        this.map.invalidateSize();
       })
     ;
-    this.map.invalidateSize();
   }
 
   addPoint(latlng: L.LatLng) {
+    console.log("id", this.report.user.id)
     this.report.location.latitude   = latlng.lat;
     this.report.location.longitude  = latlng.lng;
     this.report.location.timestamp  = (new Date).getTime();

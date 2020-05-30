@@ -52,7 +52,7 @@ export class SnackbarRemote {
         let user = data.username;
         if (user === "") user = this.translate.instant(data.someone);
         let message = this.translate.instant(data.body);
-        const notification = user + " " + message;
+        const notification = user /*+ " "*/ + message;
 
         const snackbarRef = this.snackbar.openFromComponent(
             SimpleSnackbarComponent, 
