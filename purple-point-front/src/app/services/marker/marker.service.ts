@@ -3,6 +3,7 @@ import * as L from 'leaflet';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Report } from 'src/app/models/report.interace';
+import { TranslateService } from '@ngx-translate/core';
 
 var pointIcon = L.icon({
   iconUrl: '../../../assets/images/pin.svg',
@@ -19,17 +20,30 @@ var pointIcon = L.icon({
   providedIn: 'root'
 })
 export class MarkerService {
+  private message: string;
+ 
   template = '\
-  <div>\
-    <button class="principalButton delete" id="button-delete" type="button" (click)="manageDeleteButton()">\
-      <img src="../../../assets/images/paperbin.png" style="height:50px; width:50px">\
-    </button>\
-    <button class="principalButton edit" id="button-edit" type="button">\
-      <img src="../../../assets/images/edit.png" style="height:50px; width:50px">\
-    </button>\
-  </div>';
+  <html>\
+    <div style="text-align: center;">\
+      <button class="principalButton delete" id="button-delete" type="button" (click)="manageDeleteButton()">\
+        <img src="../../../assets/images/paperbin.png" style="height:50px; width:50px">\
+      </button>\
+      <button class="principalButton edit" id="button-edit" type="button">\
+        <img src="../../../assets/images/edit.png" style="height:50px; width:50px">\
+      </button>\
+    </div>\
+    <br>\
+    <div style="text-align: center;">\
+      \{\{ map.dragPosition | translate \}\}\
+    </div>\
+  </html>';
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private translate: TranslateService
+    ) {
+      this.message = this.translate.instant("map.dragPosition");
+    }
 
   getMark(map: L.Map) {
     L.marker([51.5, -0.09], {icon: pointIcon}).addTo(map)
@@ -42,15 +56,25 @@ export class MarkerService {
     this.httpClient.delete<Report[]>(`${environment.API_URL}/map/`+locationId).subscribe((result: Report[]) => {});
   }
 
+  manageEditButton(map, marker, locationID, pos) {
+    // popup for definition
+  }
+
+  updatePointCoordinates(marker, map) {
+    let pos = marker.getLatLng();
+    marker.setLatLng(pos);
+    console.log("Here we would update the marker's position at backend!")
+  }
+
   getAllMarks(map: L.Map) {
     this.httpClient.get<Report[]>(`${environment.API_URL}/map`).subscribe((result: Report[]) => {
       for(const c of result) {
         const lat = c.location.latitude;
         const lon = c.location.longitude;
-        if (c.user.email !== localStorage.getItem('userEmail')) {
-          L.marker([lat, lon], {icon: pointIcon}).addTo(map).bindPopup('reported by '+ c.user.username);
-        }
-        else if (c.user.email === localStorage.getItem('userEmail')) {
+        // if (c.user.email !== localStorage.getItem('userEmail')) {
+        //   L.marker([lat, lon], {icon: pointIcon}).addTo(map).bindPopup('reported by '+ c.user.username);
+        // }
+        // else if (c.user.email === localStorage.getItem('userEmail')) {
           const marker = new L.marker([lat, lon], {icon: pointIcon, draggable: true}).addTo(map);
           marker.bindPopup(this.template)
           .on("popupopen", () => {
@@ -66,8 +90,16 @@ export class MarkerService {
                   // .marker([lat, lon], {icon: pointIcon, draggable: true} 
                   // con el draggable se puede arrastrar
               });
+            });
+            marker.on("dragend", () => {
+              this.updatePointCoordinates(marker, map);
+            });
+            marker.on("drag", () => {
+              var pos = marker.getLatLng();
+              map.panTo(pos);
+              // console.log("position:", pos)
             })
-        }
+        // }
       }
     });
   }

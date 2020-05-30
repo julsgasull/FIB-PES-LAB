@@ -73,6 +73,7 @@
         "youAreHere": "estás aquí",
         "markedSpot": "punto de conflicto",
         "clickMap": "clica en el mapa para añadir un ",
-        "harrased": "donde has sido agredido"
+        "harrased": "donde has sido agredido",
+        "dragPosition": "Arrastra la marca para cambiar su posición"
     }
 }
