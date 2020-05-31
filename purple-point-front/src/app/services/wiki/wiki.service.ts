@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable} from 'rxjs';
 import { WikiRemote } from './wiki.remote';
 import { FAQ } from 'src/app/models/faq.interface';
+import { UserData } from 'src/app/models/userData.interface';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +14,13 @@ export class WikiService {
     private wikiRemote: WikiRemote
   ) { }
 
-  getFAQs(email: string): Observable<FAQ[]> {
-    return this.wikiRemote.getFAQs(email);
+  getFAQs(user: UserData, language: string): Observable<FAQ[]> {
+    return this.wikiRemote.getFAQs(user, language);
   }
-  upvote(faqid: number) {
-    return this.wikiRemote.upvote(faqid);
+  upvote(faq: FAQ) {
+    return this.wikiRemote.upvote(faq);
   }
-  downvote(faqid: number) {
-    return this.wikiRemote.downvote(faqid);
+  downvote(faq: FAQ) {
+    return this.wikiRemote.downvote(faq);
   }
 }

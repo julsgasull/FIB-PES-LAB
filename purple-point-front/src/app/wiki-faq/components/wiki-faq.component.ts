@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FAQ } from 'src/app/models/faq.interface';
-//import { WikiService } from 'src/app/services/wiki/wiki.service';
+import { UserData } from 'src/app/models/userData.interface';
+import { WikiService } from 'src/app/services/wiki/wiki.service';
+import { UserService } from 'src/app/services/user/user.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-wiki-faq',
@@ -9,19 +12,28 @@ import { FAQ } from 'src/app/models/faq.interface';
   styleUrls: ['./wiki-faq.component.scss']
 })
 export class WikiFaqComponent implements OnInit {
+  public userInfo: UserData;
+
 
   faqs: FAQ[];
   constructor(
-    private route:        Router,
-    //private wikiService:  WikiService
+    private route:            Router,
+    private wikiService:      WikiService,
+    private userService:      UserService,
+    private translateService: TranslateService
   ) { }
 
   ngOnInit(): void {
-    // this.wikiService.getFAQs().subscribe((response: FAQ[]) => {
-    //   this.faqs = response;
-    // })
-    
-
+    const userEmail   = localStorage.getItem('userEmail');
+    const language    = this.translateService.getDefaultLang();
+    this.userService.getUserByEmail(userEmail).subscribe((response: UserData) => {
+      this.userInfo   = response;
+      this.wikiService.getFAQs(this.userInfo, language).subscribe((response: FAQ[])=>{
+        this.faqs     = response;
+      });
+    });
+  
+    // to - remove
     var faq1: FAQ = {
       id: 1,
       question: "Lorem ipsum dolor sit amet, sed aperiri admodum reformidans no?",
@@ -49,15 +61,16 @@ export class WikiFaqComponent implements OnInit {
       numUpvotes: 6,
       numDownvotes: 2
     }
-
     this.faqs = [faq1, faq2, faq3];
   }
 
-  upvote(id: number) {
-    //this.wikiService.upvote(id);
+  upvote(faq: FAQ) {
+    console.log("upvote");
+    this.wikiService.upvote(faq);
   } 
-  downvote(id: number) {
-    //this.wikiService.upvote(id);
+  downvote(faq: FAQ) {
+    console.log("downvote");
+    this.wikiService.downvote(faq);
   }
 
   redirectToFAQs() {

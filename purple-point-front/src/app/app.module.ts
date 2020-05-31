@@ -49,6 +49,8 @@ import { AddPointToMapComponentModule } from './add-point-to-map/add-point-to-ma
 import { SimpleSnackbarComponent } from './common/components/simple-snackbar/components/simple-snackbar.component';
 import { SimpleSnackbarModule } from './common/components/simple-snackbar/simple-snackbar.module';
 import { WikiFaqComponent } from './wiki-faq/components/wiki-faq.component';
+import { WikiService } from './services/wiki/wiki.service';
+import { WikiRemote } from './services/wiki/wiki.remote';
 
 @NgModule({
   declarations: [
@@ -111,7 +113,9 @@ import { WikiFaqComponent } from './wiki-faq/components/wiki-faq.component';
     SnackbarService,
     SnackbarRemote,
     NotificationsService,
-    NotificationsRemote
+    NotificationsRemote,
+    WikiService,
+    WikiRemote
   ],
   bootstrap: [AppComponent]
 })
