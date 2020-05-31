@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pesados.purplepoint.api.exception.ReportNotFoundException;
 import com.pesados.purplepoint.api.exception.UnauthorizedDeviceException;
+import com.pesados.purplepoint.api.exception.UnexpectedSQLError;
 import com.pesados.purplepoint.api.model.report.Report;
 import com.pesados.purplepoint.api.model.report.ReportService;
 
@@ -52,7 +53,11 @@ public class MapController {
 			@Valid @RequestBody Report newRep
 	) {
 		if (this.loginSystem.checkLoggedIn(unformatedJWT)) {
-			return this.reportService.saveReport(newRep);
+			try {
+				return this.reportService.saveReport(newRep);
+			} catch (Exception e) {
+				throw new UnexpectedSQLError(e.getMessage());
+			}
 		} else {
 			throw new UnauthorizedDeviceException();
 		}
@@ -66,7 +71,11 @@ public class MapController {
 	@GetMapping(value = "/map", produces = { "application/json", "application/xml"})
 	List<Report> all(@RequestHeader("Authorization") String unformatedJWT) {
 		if (this.loginSystem.checkLoggedIn(unformatedJWT)) {
-			return reportService.getAll();
+			try {
+				return reportService.getAll();
+			} catch (Exception e) {
+				throw new UnexpectedSQLError(e.getMessage());
+			}
 		} else {
 			throw new UnauthorizedDeviceException();
 		}
@@ -80,8 +89,11 @@ public class MapController {
 	Report getOne(@RequestHeader("Authorization") String unformatedJWT,
 			@Parameter(description="id of the report.", required = true) @PathVariable long id) {
 		if (this.loginSystem.checkLoggedIn(unformatedJWT)) {				
-			return reportService.getReportById(id).orElseThrow(() -> new ReportNotFoundException(id));
-
+			try {			
+				return reportService.getReportById(id).orElseThrow(() -> new ReportNotFoundException(id));
+			} catch (Exception e) {
+				throw new UnexpectedSQLError(e.getMessage());
+			}
 		} else {
 			throw new UnauthorizedDeviceException();
 		}	
@@ -95,8 +107,12 @@ public class MapController {
 	@DeleteMapping(value = "/map/{id}", produces = { "application/json", "application/xml"})
 	void delOne(@RequestHeader("Authorization") String unformatedJWT,
 			@Parameter(description="id of the report.", required = true) @PathVariable long id) {
-		if (this.loginSystem.checkLoggedIn(unformatedJWT)) {		
-			reportService.deleteReportById(id);
+		if (this.loginSystem.checkLoggedIn(unformatedJWT)) {
+			try {
+				reportService.deleteReportById(id);
+			} catch (Exception e) {
+				throw new UnexpectedSQLError(e.getMessage());
+			}		
 		} else {
 			throw new UnauthorizedDeviceException();
 		}

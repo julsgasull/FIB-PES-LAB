@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import io.swagger.v3.oas.annotations.requests;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -88,7 +89,7 @@ public class UserController {
 			@ApiResponse(responseCode = "400", description = "Invalid input")})
 	@PutMapping(value = "/users/refresh", consumes = {"application/json", "application/xml"})
 	public User refresh(
-			@RequestHeader("Authorization") String unformatedJWT
+		@Parameter(required = false, hidden=true) @RequestHeader("Authorization") String unformatedJWT
 	) {
 		User user = this.userService.getUserByToken(unformatedJWT).orElseThrow(() -> new UserNotFoundException(unformatedJWT));
 		String newToken = this.loginSystem.getJWTToken(user.getEmail());
@@ -126,7 +127,7 @@ public class UserController {
 			@ApiResponse(responseCode = "200", description = "successful operation",
 					content = @Content(array = @ArraySchema(schema = @Schema(implementation = User.class))))})
 	@GetMapping(value = "/users", produces = {"application/json", "application/xml"})
-	List<User> all(@RequestHeader("Authorization") String unformatedJWT) {
+	List<User> all(@Parameter(required = false, hidden=true) @RequestHeader("Authorization") String unformatedJWT) {
 		if (this.loginSystem.checkLoggedIn(unformatedJWT)) {
 			return userService.getAll();
 		} else {
@@ -141,7 +142,7 @@ public class UserController {
 					content = @Content(array = @ArraySchema(schema = @Schema(implementation = User.class))))})
 	@GetMapping(value = "/users/{id}", produces = {"application/json", "application/xml"})
 	public User idUser(
-		@RequestHeader("Authorization") String unformatedJWT,
+		@Parameter(required = false, hidden=true) @RequestHeader("Authorization") String unformatedJWT,
 		@Parameter(description = "ID of the contact to search.", required = true)
 		@PathVariable long id) {
 		if (this.loginSystem.checkLoggedIn(unformatedJWT)) {
@@ -157,7 +158,7 @@ public class UserController {
 		content = @Content(array = @ArraySchema(schema = @Schema(implementation = User.class))))
 	@GetMapping(value = "/users/email/{email}", produces = "application/json")
 	public User emailUser(
-			@RequestHeader("Authorization") String unformatedJWT,
+			@Parameter(required = false, hidden=true) @RequestHeader("Authorization") String unformatedJWT,
 			@Parameter(description = "email of the contact to search.", required = true) @PathVariable String email) {
 		if (this.loginSystem.checkLoggedIn(unformatedJWT)) {
 			return this.userService.getUserByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
@@ -177,7 +178,7 @@ public class UserController {
 			@ApiResponse(responseCode = "405", description = "Validation exception")})
 	@PutMapping("/users/{id}")
 	User replaceUserbyID(@Parameter(description = "New information for the user.", required = true)
-		@RequestHeader("Authorization") String unformatedJWT,
+	@Parameter(required = false, hidden=true) @RequestHeader("Authorization") String unformatedJWT,
 		@RequestBody User newUser,
 		@Parameter(description = "id of the user to replace.", required = true)
 		@PathVariable long id
@@ -214,7 +215,7 @@ public class UserController {
 			@ApiResponse(responseCode = "404", description = "User not found"),
 			@ApiResponse(responseCode = "405", description = "Validation exception")})
 	@PutMapping(value = "/users/{id}/image", consumes = {"multipart/form-data"})
-	User updatePic(@RequestHeader("Authorization") String unformatedJWT,
+	User updatePic(@Parameter(required = false, hidden=true) @RequestHeader("Authorization") String unformatedJWT,
 		@Parameter(description = "New pic for the user.", required = true) @RequestParam("file") MultipartFile file,
 		@Parameter(description = "id of the user to replace.", required = true)
 		@PathVariable long id
@@ -247,7 +248,7 @@ public class UserController {
 			@ApiResponse(responseCode = "405", description = "Validation exception")})
 	@PutMapping(value = "/users/email/{email}", consumes = {"application/json", "application/xml"})
 	User replaceUserbyEmail(
-		@RequestHeader("Authorization") String unformatedJWT,
+		@Parameter(required = false, hidden=true) @RequestHeader("Authorization") String unformatedJWT,
 		@Parameter(description = "New information for the user.", required = true)
 		@RequestBody User newUser,
 		@Parameter(description = "Email of the user to replace.", required = true)
@@ -280,7 +281,7 @@ public class UserController {
 			@ApiResponse(responseCode = "404", description = "User not found")})
 	@DeleteMapping(path = "/users/{id}")
 	void deleteUser(
-		@RequestHeader("Authorization") String unformatedJWT,
+		@Parameter(required = false, hidden=true) @RequestHeader("Authorization") String unformatedJWT,
 		@Parameter(description = "Id of the contact to be delete. Cannot be empty.", required = true)
 		@PathVariable long id
 	) {
@@ -300,7 +301,7 @@ public class UserController {
 	})
 	@PutMapping(path = "/users/increaseHelpedUsers/{userEmail}")
 	User increaseHelpedUser(
-		@RequestHeader("Authorization") String unformatedJWT,
+		@Parameter(required = false, hidden=true) @RequestHeader("Authorization") String unformatedJWT,
 		@Parameter(description = "Information for the user who has helped.", required = true)
 		@PathVariable String userEmail
 	) {
