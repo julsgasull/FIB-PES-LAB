@@ -81,7 +81,7 @@ export class AddPointToMapComponent implements OnInit {
   private report:   Report = ({
     //id:           5,
     description:  null,
-    location: {
+    location: { 
       latitude: 40.447617,
       longitude: 2.22442,
       accuracy: 100,
