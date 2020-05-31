@@ -41,7 +41,7 @@ export class MapComponent implements OnInit {
     this.map.locate({
       setView:            true,
       maxZoom:            15,
-      watch:              true,
+      watch:              false,
       enableHighAccuracy: true,
       timeout:            2000
     })

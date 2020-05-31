@@ -22,8 +22,16 @@ var locationIcon = L.icon({
 export class AddPointToMapComponent implements OnInit {
   private map:      L.Map;
   private userInfo: UserData = ({
-    password: "",
-    email: localStorage.getItem('userEmail')
+      email: localStorage.getItem('userEmail'),
+      id: Number(localStorage.getItem('userId')),
+      token: localStorage.getItem('token'),
+      name: localStorage.getItem('name'),
+      username: localStorage.getItem('username'),
+      password: localStorage.getItem('password'),
+      gender: localStorage.getItem('gender'),
+      markedSpots:  Number(localStorage.getItem('markedSpots')),
+      helpedUsers: Number(localStorage.getItem('helpedUsers')),
+      profilePic: null
   })
   private point:    GeoLocation = ({
     latitude:   -1, 
@@ -63,7 +71,7 @@ export class AddPointToMapComponent implements OnInit {
     this.map.locate({
       setView:            true,
       maxZoom:            15,
-      watch:              true,
+      watch:              false,
       enableHighAccuracy: true,
       timeout:            2000
     })
