@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,8 @@ import com.pesados.purplepoint.api.exception.UnauthorizedDeviceException;
 import com.pesados.purplepoint.api.exception.UnexpectedSQLError;
 import com.pesados.purplepoint.api.model.report.Report;
 import com.pesados.purplepoint.api.model.report.ReportService;
+import com.pesados.purplepoint.api.model.user.User;
+import com.pesados.purplepoint.api.model.user.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -33,6 +36,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 public class MapController {
 	@Autowired
 	private ReportService reportService;
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private LoginSystem loginSystem;
 
@@ -53,7 +58,14 @@ public class MapController {
 			@Valid @RequestBody Report newRep
 	) {
 		if (this.loginSystem.checkLoggedIn(unformatedJWT)) {
+			int length = 6;
+			boolean useLetters = true;
+			boolean useNumbers = true;
+			String generatedString = RandomStringUtils.random(length, useLetters, useNumbers);
 			try {
+				newRep.setUser(userService.getUserByEmail(newRep.getUser().getEmail()).orElseGet(() -> {
+					return userService.saveUser(new User(newRep.getUser().getEmail(), "Default_"+generatedString));
+				}));
 				return this.reportService.saveReport(newRep);
 			} catch (Exception e) {
 				throw new UnexpectedSQLError(e.getMessage());

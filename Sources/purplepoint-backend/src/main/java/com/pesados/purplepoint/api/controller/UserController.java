@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import io.swagger.v3.oas.annotations.requests;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -177,11 +176,10 @@ public class UserController {
 			@ApiResponse(responseCode = "404", description = "User not found"),
 			@ApiResponse(responseCode = "405", description = "Validation exception")})
 	@PutMapping("/users/{id}")
-	User replaceUserbyID(@Parameter(description = "New information for the user.", required = true)
-	@Parameter(required = false, hidden=true) @RequestHeader("Authorization") String unformatedJWT,
-		@RequestBody User newUser,
-		@Parameter(description = "id of the user to replace.", required = true)
-		@PathVariable long id
+	User replaceUserbyID(
+		@Parameter(required = false, hidden=true) @RequestHeader("Authorization") String unformatedJWT,
+		@Parameter(description = "New information for the user.", required = true) @RequestBody User newUser,
+		@Parameter(description = "id of the user to replace.", required = true) @PathVariable long id
 	) {
 		if (this.loginSystem.checkLoggedIn(unformatedJWT)) {
 			return userService.getUserById(id)
