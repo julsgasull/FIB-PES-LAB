@@ -21,15 +21,15 @@ export class ProfileComponent implements OnInit {
   public disableInputs: boolean = true;
   public enableSaveButton: boolean = false;
   public editProfileForm: FormGroup = new FormGroup({
-    id:           new FormControl( { value: null, disabled: true }, Validators.required),
+    id:           new FormControl( { value: null, disabled: true }),
     name:         new FormControl( { value: null, disabled: true }, Validators.required),
-    email:        new FormControl( { value: null, disabled: true }, Validators.required),
+    email:        new FormControl( { value: null, disabled: true }),
     username:     new FormControl( { value: null, disabled: true }, Validators.required),
     password:     new FormControl( { value: null, disabled: true }, Validators.required),
     gender:       new FormControl( { value: null, disabled: true }, Validators.required),
-    markedSpots:  new FormControl( { value: null, disabled: true }, Validators.required),
-    helpedUsers:  new FormControl( { value: null, disabled: true }, Validators.required),
-    profilePic:   new FormControl( { value: null, disabled: true }, Validators.required),
+    markedSpots:  new FormControl( { value: null, disabled: true }),
+    helpedUsers:  new FormControl( { value: null, disabled: true }),
+    profilePic:   new FormControl( { value: null, disabled: true }),
   });
   public isSubmitted: boolean = false;
   public selectedFile: File;
@@ -58,15 +58,15 @@ export class ProfileComponent implements OnInit {
       this.userInfo = response;
       this.retrievedImage = 'data:'+this.userInfo.profilePic.type +';base64,' + this.userInfo.profilePic.picByteB64;
       this.editProfileForm = new FormGroup({
-        id:           new FormControl( { value: response.id,          disabled: true }, Validators.required),
+        id:           new FormControl( { value: response.id,          disabled: true }),
         name:         new FormControl( { value: response.name,        disabled: true }, Validators.required),
-        email:        new FormControl( { value: response.email,       disabled: true }, Validators.required),
+        email:        new FormControl( { value: response.email,       disabled: true }),
         username:     new FormControl( { value: response.username,    disabled: true }, Validators.required),
         password:     new FormControl( { value: response.password,    disabled: true }, Validators.required),
         gender:       new FormControl( { value: response.gender,      disabled: true }, Validators.required),
-        markedSpots:  new FormControl( { value: response.markedSpots, disabled: true }, Validators.required),
-        helpedUsers:  new FormControl( { value: response.helpedUsers, disabled: true }, Validators.required),
-        profilePic:   new FormControl( { value: response.profilePic,  disabled: true }, Validators.required),
+        markedSpots:  new FormControl( { value: response.markedSpots, disabled: true }),
+        helpedUsers:  new FormControl( { value: response.helpedUsers, disabled: true }),
+        profilePic:   new FormControl( { value: response.profilePic,  disabled: true }),
       });
       this.image = response.profilePic
     });
