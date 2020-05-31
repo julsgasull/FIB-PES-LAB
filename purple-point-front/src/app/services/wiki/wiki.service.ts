@@ -3,6 +3,7 @@ import { Observable} from 'rxjs';
 import { WikiRemote } from './wiki.remote';
 import { FAQ } from 'src/app/models/faq.interface';
 import { UserData } from 'src/app/models/userData.interface';
+import { Definition } from 'src/app/models/definition.interface';
 
 
 @Injectable({
@@ -22,5 +23,8 @@ export class WikiService {
   }
   downvote(faq: FAQ) {
     return this.wikiRemote.downvote(faq);
+  }
+  getDefinitions(language: string): Observable<Definition[]> {
+    return this.wikiRemote.getDefinitions(language);
   }
 }

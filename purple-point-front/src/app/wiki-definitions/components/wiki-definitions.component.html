@@ -1,0 +1,54 @@
+<div class="container wiki-container">
+    <div class="row" style="position: fixed; top: 0; right: 0;">
+      <div class="col-12">
+        <language-button></language-button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <h1> {{'wiki.definitionsTitle' | translate}} </h1>
+      </div>
+    </div>
+    <div class="row wikimenu">
+      <div (click)="redirectToFAQs()" class="col-4 wikibutton"> {{'wiki.FAQButton' | translate }} </div>
+      <div (click)="redirectToPhones()" class="col-4 wikibutton"> {{'wiki.phonesButton' | translate }} </div>
+      <div (click)="redirectToDefinitions()" class="col-4 wikihighlightbutton"> {{'wiki.definitionsButton' | translate }} </div>
+    </div>
+    <div class="row" *ngFor="let def of definitions;">
+      <div>
+        <div class="row">
+          <div class="col-10">
+            <b>
+              {{ def.word}}
+            </b>
+          </div>
+          <div class="col-1">
+            <span>
+              {{ def.kind}}
+            </span>
+          </div>
+        </div>
+        <div class="row">
+          <div class=" line">
+            <div class="col-12">
+              <span>
+                {{def.definition}}
+              </span>
+            </div>
+          </div>
+          
+        </div>
+        <div class="row">
+          <div class="line">
+            <div class="col-12">
+              <i>
+                "{{def.example}}"
+              </i>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      <div class="row wikifaqspace"><br></div>
+    </div>
+</div>

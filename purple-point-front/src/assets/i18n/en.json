@@ -74,5 +74,12 @@
         "markedSpot": "marked spot",
         "clickMap": "click the map to add the ",
         "harrased": "where you have been harassed"
+    },
+    "wiki": {
+        "FAQButton": "FAQ",
+        "phonesButton": "phones",
+        "definitionsButton": "definitions",
+        "definitionsTitle": "Definitions",
+        "wikiTitle": "Wiki"
     }
 }
