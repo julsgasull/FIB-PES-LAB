@@ -1,7 +1,6 @@
 package com.pesados.purplepoint.api.security;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.FilterChain;
@@ -50,7 +49,6 @@ public class FirebaseAuthorizationFilter extends OncePerRequestFilter {
 					logger.debug("Authenticating device");
 					String userName = holder.getUid();
 					
-					ArrayList<String> list = holder.getAuthorities();
 					List<GrantedAuthority> res = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_DEVICE");
 					Authentication auth = new FirebaseAuthenticationToken(userName, holder, res);
 					SecurityContextHolder.getContext().setAuthentication(auth);

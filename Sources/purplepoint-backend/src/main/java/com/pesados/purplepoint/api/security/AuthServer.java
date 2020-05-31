@@ -6,7 +6,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import  com.pesados.purplepoint.api.security.firebase.FirebaseParser;
 
 @Configuration
 public class AuthServer extends WebSecurityConfigurerAdapter {

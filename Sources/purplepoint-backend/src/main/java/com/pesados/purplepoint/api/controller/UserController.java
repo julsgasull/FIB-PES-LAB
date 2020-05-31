@@ -1,15 +1,22 @@
 package com.pesados.purplepoint.api.controller;
 
 
-import java.util.Date;
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
+import com.pesados.purplepoint.api.exception.UnauthorizedDeviceException;
+import com.pesados.purplepoint.api.exception.UserNotFoundException;
+import com.pesados.purplepoint.api.exception.UserRegisterBadRequestException;
+import com.pesados.purplepoint.api.exception.WrongPasswordException;
+import com.pesados.purplepoint.api.model.image.Image;
+import com.pesados.purplepoint.api.model.image.ImageService;
+import com.pesados.purplepoint.api.model.user.User;
+import com.pesados.purplepoint.api.model.user.UserService;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,21 +26,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import com.pesados.purplepoint.api.controller.LoginSystem;
-import com.pesados.purplepoint.api.exception.UserNotFoundException;
-import com.pesados.purplepoint.api.exception.UserRegisterBadRequestException;
-import com.pesados.purplepoint.api.exception.WrongPasswordException;
-import com.pesados.purplepoint.api.model.image.Image;
-import com.pesados.purplepoint.api.model.image.ImageService;
-import com.pesados.purplepoint.api.model.user.User;
-import com.pesados.purplepoint.api.model.user.UserService;
-import com.pesados.purplepoint.api.exception.UnauthorizedDeviceException;
-import java.io.IOException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -41,7 +37,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import java.util.Base64;
 
 @RestController
 @RequestMapping("/api/v1")

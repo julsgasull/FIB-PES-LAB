@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pesados.purplepoint.api.exception.ReportNotFoundException;
+import com.pesados.purplepoint.api.exception.UnauthorizedDeviceException;
 import com.pesados.purplepoint.api.model.report.Report;
 import com.pesados.purplepoint.api.model.report.ReportService;
-import com.pesados.purplepoint.api.model.user.User;
-import com.pesados.purplepoint.api.model.user.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -33,7 +33,7 @@ public class MapController {
 	@Autowired
 	private ReportService reportService;
 	@Autowired
-	private UserService userService;
+	private LoginSystem loginSystem;
 
 	// Visibilidad User
 	@Operation(summary = "Add a new report",
@@ -46,11 +46,16 @@ public class MapController {
 			@ApiResponse(responseCode = "409", description = "Report already exists") })
 	@PostMapping(value = "/map", consumes = { "application/json", "application/xml" })
 	Report newReport(
+			@RequestHeader("Authorization") String unformatedJWT,
 			@Parameter(description="Report to add. Cannot null or empty.",
 					required=true, schema=@Schema(implementation = Report.class))
 			@Valid @RequestBody Report newRep
 	) {
-		return this.reportService.saveReport(newRep);
+		if (this.loginSystem.checkLoggedIn(unformatedJWT)) {
+			return this.reportService.saveReport(newRep);
+		} else {
+			throw new UnauthorizedDeviceException();
+		}
 	} 
 		
 	// Visibilidad User
@@ -59,8 +64,12 @@ public class MapController {
 	          @ApiResponse(responseCode = "200", description = "successful operation",
 	                  content = @Content(array = @ArraySchema(schema = @Schema(implementation = Report.class)))) })
 	@GetMapping(value = "/map", produces = { "application/json", "application/xml"})
-	List<Report> all() {
-		return reportService.getAll();
+	List<Report> all(@RequestHeader("Authorization") String unformatedJWT) {
+		if (this.loginSystem.checkLoggedIn(unformatedJWT)) {
+			return reportService.getAll();
+		} else {
+			throw new UnauthorizedDeviceException();
+		}
 	}
 	
 	@Operation(summary = "Get a report", description = "Get ", tags = {"reports"})
@@ -68,9 +77,14 @@ public class MapController {
 	          @ApiResponse(responseCode = "200", description = "successful operation",
 	                  content = @Content(array = @ArraySchema(schema = @Schema(implementation = Report.class)))) })
 	@GetMapping(value = "/map/{id}", produces = { "application/json", "application/xml"})
-	Report getOne(
+	Report getOne(@RequestHeader("Authorization") String unformatedJWT,
 			@Parameter(description="id of the report.", required = true) @PathVariable long id) {
-		return reportService.getReportById(id).orElseThrow(() -> new ReportNotFoundException(id));
+		if (this.loginSystem.checkLoggedIn(unformatedJWT)) {				
+			return reportService.getReportById(id).orElseThrow(() -> new ReportNotFoundException(id));
+
+		} else {
+			throw new UnauthorizedDeviceException();
+		}	
 	}
 	
 	// Visibilidad User
@@ -79,8 +93,12 @@ public class MapController {
 	          @ApiResponse(responseCode = "200", description = "successful operation",
 	                  content = @Content(array = @ArraySchema(schema = @Schema(implementation = Report.class)))) })
 	@DeleteMapping(value = "/map/{id}", produces = { "application/json", "application/xml"})
-	void delOne(
+	void delOne(@RequestHeader("Authorization") String unformatedJWT,
 			@Parameter(description="id of the report.", required = true) @PathVariable long id) {
-		reportService.deleteReportById(id);
+		if (this.loginSystem.checkLoggedIn(unformatedJWT)) {		
+			reportService.deleteReportById(id);
+		} else {
+			throw new UnauthorizedDeviceException();
+		}
 	}
 }
