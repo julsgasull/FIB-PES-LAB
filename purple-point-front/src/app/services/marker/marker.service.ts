@@ -21,8 +21,9 @@ var pointIcon = L.icon({
 })
 export class MarkerService {
   private message: string;
-  //private markers[] = 
- 
+  private markers;          // map for usernames
+  private markerMails;      // map for emails
+
   template = '\
   <html>\
     <div style="text-align: center;">\
@@ -45,6 +46,8 @@ export class MarkerService {
     ) {
       this.message = this.translate.instant("map.dragPosition");
       console.log("msg", this.message)
+      this.markers = new Map();
+      this.markerMails = new Map();
     }
 
   getMark(map: L.Map) {
@@ -53,12 +56,14 @@ export class MarkerService {
     ;
   }
   
-  manageDeleteButton(map, marker, locationId) {
+  manageDeleteButton(map, marker, reportID) {
     map.removeLayer(marker);
-    this.httpClient.delete<Report[]>(`${environment.API_URL}/map/`+locationId).subscribe((result: Report[]) => {});
+    console.log("ID", reportID, "type", typeof reportID);
+    this.httpClient.get<Report>(`${environment.API_URL}/map/`+reportID).subscribe((result: Report) => {console.log("report en delete", result)});
+    this.httpClient.delete<Report[]>(`${environment.API_URL}/map/`+reportID).subscribe((result: Report[]) => {});
   }
 
-  manageEditButton(map, marker, locationID, pos) {
+  manageEditButton(map, marker, reportID, pos) {
     // popup for definition
   }
 
@@ -73,22 +78,29 @@ export class MarkerService {
 
   getAllMarks(map: L.Map) {
     this.message = this.translate.instant("map.dragPosition");
-    console.log("msg", this.message)
+    console.log("msg", this.message);
 
     this.httpClient.get<Report[]>(`${environment.API_URL}/map`).subscribe((result: Report[]) => {
       for(const c of result) {
+        this.markers.set(c.id, c.user.username);
+        this.markerMails.set(c.id, c.user.email);
+
         const lat = c.location.latitude;
         const lon = c.location.longitude;
-        // if (c.user.email !== localStorage.getItem('userEmail')) {
-        //   L.marker([lat, lon], {icon: pointIcon}).addTo(map).bindPopup('reported by '+ c.user.username);
-        // }
-        // else if (c.user.email === localStorage.getItem('userEmail')) {
+        if (c.user.email !== localStorage.getItem('userEmail')) {
+          const marker = new L.marker([lat, lon], {icon: pointIcon}).addTo(map).bindPopup('reported by '+ c.user.username);
+          
+        }
+        else if (c.user.email === localStorage.getItem('userEmail')) {
           const marker = new L.marker([lat, lon], {icon: pointIcon, draggable: true}).addTo(map);
           marker.bindPopup(this.template)
           .on("popupopen", () => {
             let buttonSubmit = L.DomUtil.get('button-delete');
             buttonSubmit.addEventListener("click", e => {
+                console.log("ID", c.id, "type", typeof c.id);
+                console.log("report", c);
                 this.manageDeleteButton(map, marker, c.id);
+                
               });
             })
             .on("popupopen", () => {
@@ -102,21 +114,26 @@ export class MarkerService {
 
           marker.on("dragend", () => {
             this.updatePointCoordinates(marker, map);
+            // var pos = marker.getLatLng();
+            // map.panTo(pos);
           });
           marker.on("drag", () => {
             var pos = marker.getLatLng();
             map.panTo(pos);
             // console.log("position:", pos)
           })
-        // }
+
+
+        }
       }
     });
+    console.log("map", this.markers)
   }
   
   addMark(report: Report) {
-    console.log("report", report)
+    console.log("add a report", report)
     this.httpClient.post(`${environment.API_URL}/map`, report).subscribe((result) => {
-      console.log(result)
+      console.log("result from adding", result)
     },
     (error) => {
       console.log(error)
@@ -151,22 +168,23 @@ export class MarkerService {
     const youMarkerId = Number(localStorage.getItem("youMarker"));
     const accuracy = Number(localStorage.getItem("youAccuracy"));
     const youMsg = this.translate.instant("map.youPartOne") + accuracy + this.translate.instant("map.youPartTwo");
+    const repByMsg = "Esto funca";
     console.log(youMarkerId)
     console.log(msg)
-    // if (c.user.email === localStorage.getItem('userEmail')) {
 
-    // }
-    // else {
-      map.eachLayer((marker) => {
-        if (marker._leaflet_id === youMarkerId) marker.setPopupContent(youMsg);
-        else {
-          // if (c.user.email === localStorage.getItem('userEmail')) {
-
-          // }
-          // else {
+    map.eachLayer((marker) => {
+      let id = marker._leaflet_id;
+      if (id === youMarkerId) marker.setPopupContent(youMsg);
+      else {
+        if (this.markers.has(id)) {
+          if (this.markers.get(id) === localStorage.getItem('userEmail')) {
             marker.setPopupContent(this.updateTemplate(msg))
-          // }
-        }
-      })
+          }
+          else {
+            marker.setPopupContent(repByMsg);
+          }
+        } else { console.log("This shit bugged")}
+      }
+    })
   }
 }
