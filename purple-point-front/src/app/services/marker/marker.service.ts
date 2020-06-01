@@ -20,9 +20,7 @@ var pointIcon = L.icon({
   providedIn: 'root'
 })
 export class MarkerService {
-  private message: string;
-  private markers;          // map for usernames
-  private markerMails;      // map for emails
+  private markers: [Number, L.Marker, string, string][] = []; // ID from back, marker, email, username
 
   template = '\
   <html>\
@@ -43,12 +41,7 @@ export class MarkerService {
   constructor(
     private httpClient: HttpClient,
     private translate: TranslateService
-    ) {
-      this.message = this.translate.instant("map.dragPosition");
-      console.log("msg", this.message)
-      this.markers = new Map();
-      this.markerMails = new Map();
-    }
+    ) {}
 
   getMark(map: L.Map) {
     L.marker([51.5, -0.09], {icon: pointIcon}).addTo(map)
@@ -70,37 +63,36 @@ export class MarkerService {
   updatePointCoordinates(marker, map) {
     let pos = marker.getLatLng();
     marker.setLatLng(pos);
-    console.log("msg", this.translate.instant("map.dragPosition"))
-    this.message = this.translate.instant("map.dragPosition")
-    localStorage.setItem("dragPosition", this.message)
     console.log("Here we would update the marker's position at backend!")
   }
 
   getAllMarks(map: L.Map) {
-    this.message = this.translate.instant("map.dragPosition");
-    console.log("msg", this.message);
+    localStorage.setItem('disable', null);
+    this.translate.use(localStorage.getItem('currentLang'));
+    localStorage.setItem('disable', 'notNull');
+
+    const message = this.translate.instant("map.dragPosition");
 
     this.httpClient.get<Report[]>(`${environment.API_URL}/map`).subscribe((result: Report[]) => {
       for(const c of result) {
-        this.markers.set(c.id, c.user.username);
-        this.markerMails.set(c.id, c.user.email);
 
         const lat = c.location.latitude;
         const lon = c.location.longitude;
         if (c.user.email !== localStorage.getItem('userEmail')) {
-          const marker = new L.marker([lat, lon], {icon: pointIcon}).addTo(map).bindPopup('reported by '+ c.user.username);
+          const repByMsg = this.translate.instant("map.reportedBy") + c.user.username;
+          const marker = new L.marker([lat, lon], {icon: pointIcon}).addTo(map).bindPopup(repByMsg);
           
+          this.markers.push([c.id, marker, c.user.email, c.user.username]);
         }
         else if (c.user.email === localStorage.getItem('userEmail')) {
           const marker = new L.marker([lat, lon], {icon: pointIcon, draggable: true}).addTo(map);
-          marker.bindPopup(this.template)
+          marker.bindPopup(this.updateTemplate(message))
           .on("popupopen", () => {
             let buttonSubmit = L.DomUtil.get('button-delete');
             buttonSubmit.addEventListener("click", e => {
                 console.log("ID", c.id, "type", typeof c.id);
                 console.log("report", c);
                 this.manageDeleteButton(map, marker, c.id);
-                
               });
             })
             .on("popupopen", () => {
@@ -123,7 +115,7 @@ export class MarkerService {
             // console.log("position:", pos)
           })
 
-
+          this.markers.push([c.id, marker, c.user.email, c.user.username]);
         }
       }
     });
@@ -131,10 +123,7 @@ export class MarkerService {
   }
   
   addMark(report: Report) {
-    console.log("add a report", report)
-    this.httpClient.post(`${environment.API_URL}/map`, report).subscribe((result) => {
-      console.log("result from adding", result)
-    },
+    this.httpClient.post(`${environment.API_URL}/map`, report).subscribe((result) => {},
     (error) => {
       console.log(error)
     });
@@ -160,31 +149,20 @@ export class MarkerService {
   }
 
   changePopupLanguage(language: string, map: L.Map) {
-    localStorage.setItem('disable', null);
-    this.translate.use(language);
-    localStorage.setItem('disable', 'notNull');
-
     var msg = this.translate.instant("map.dragPosition");
-    const youMarkerId = Number(localStorage.getItem("youMarker"));
-    const accuracy = Number(localStorage.getItem("youAccuracy"));
-    const youMsg = this.translate.instant("map.youPartOne") + accuracy + this.translate.instant("map.youPartTwo");
-    const repByMsg = "Esto funca";
-    console.log(youMarkerId)
     console.log(msg)
 
-    map.eachLayer((marker) => {
-      let id = marker._leaflet_id;
-      if (id === youMarkerId) marker.setPopupContent(youMsg);
+    console.log("map", this.markers) 
+    for (const index in this.markers) {
+      console.log("id:", this.markers[index][0])
+
+      let markerInfo = this.markers[index]
+      if (markerInfo[2] === localStorage.getItem('userEmail'))
+        markerInfo[1].setPopupContent(this.updateTemplate(msg));
       else {
-        if (this.markers.has(id)) {
-          if (this.markers.get(id) === localStorage.getItem('userEmail')) {
-            marker.setPopupContent(this.updateTemplate(msg))
-          }
-          else {
-            marker.setPopupContent(repByMsg);
-          }
-        } else { console.log("This shit bugged")}
+        const repByMsg = this.translate.instant("map.reportedBy") + markerInfo[3];
+        markerInfo[1].setPopupContent(repByMsg);
       }
-    })
+    }
   }
 }

@@ -76,6 +76,7 @@
         "harrased": "donde has sido agredido",
         "dragPosition": "Arrastra la marca para cambiar su posición",
         "youPartOne": "Está a menos de ",
-        "youPartTwo": " metros de este punto"
+        "youPartTwo": " metros de este punto",
+        "reportedBy": "Reportado por "
     }
 }

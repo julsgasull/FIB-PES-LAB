@@ -22,6 +22,7 @@ var locationIcon = L.icon({
 export class MapComponent implements OnInit {
   
   private map: L.Map;
+  private youMarker: [L.Marker, Number]; // marker, accuracy
   geolocation: GeoLocation = ({
     latitude: -1, 
     longitude: -1, 
@@ -40,6 +41,9 @@ export class MapComponent implements OnInit {
     this.initMap();
     this.markerService.getAllMarks(this.map);
     this.geolocation = this.geoLocationService.startGeoLocationService(this.geolocation);
+    localStorage.setItem('disable', null);
+    this.translate.use(localStorage.getItem('currentLang'));
+    localStorage.setItem('disable', 'notNull');
   }
   
   initMap(): void {
@@ -67,6 +71,7 @@ export class MapComponent implements OnInit {
         const marker = L.marker(e.latlng,{icon : locationIcon}).addTo(this.map)
           .bindPopup(msg).openPopup();
         ;
+        this.youMarker = [marker, e.accuracy];
         L.circle(e.latlng, e.accuracy, {
           color:        '#8F4DEC',
           fillColor:    '#8F4DEC',
@@ -84,6 +89,20 @@ export class MapComponent implements OnInit {
   }
 
   changePopupLanguage(language: string) {
+    // change language
+    localStorage.setItem('disable', null);
+    this.translate.use(language);
+    localStorage.setItem('disable', 'notNull');
+    localStorage.setItem('currentLang', this.translate.currentLang);
+
+    // change you Marker
+    const msg = this.translate.instant("map.youPartOne")  + 
+                this.youMarker[1]                         + 
+                this.translate.instant("map.youPartTwo");
+    this.youMarker[0].setPopupContent(msg);
+    console.log("you message", msg)
+
+    //change all other markers
     this.markerService.changePopupLanguage(language, this.map);
   }
 
