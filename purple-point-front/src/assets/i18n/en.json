@@ -28,7 +28,8 @@
     "alerts": {
         "savedChanges":"The changes have been saved correctly",
         "tryLater": "There's been an error, please try it later",
-        "createdUser": "The user has been created correctly"
+        "createdUser": "The user has been created correctly",
+        "alreadyExists": "Already exists a user with this email!!!"
     },
     "profileFields": {
         "name": "name",

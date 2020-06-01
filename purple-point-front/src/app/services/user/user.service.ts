@@ -17,7 +17,7 @@ export class UserService {
     return this.userRemote.login(user);
   }
 
-  createUser(user: UserData): Observable<UserData> {
+  createUser(user: UserData): Observable<any> {
     return this.userRemote.createUser(user);
   }
 
