@@ -6,6 +6,7 @@ import { MarkerService } from 'src/app/services/marker/marker.service';
 import { UserData } from 'src/app/models/userData.interface';
 import { UserService } from 'src/app/services/user/user.service';
 import { Report } from 'src/app/models/report.interace';
+import { TranslateService } from '@ngx-translate/core';
 
 var locationIcon = L.icon({
   iconUrl:      '../../../assets/images/location.svg',
@@ -21,6 +22,7 @@ var locationIcon = L.icon({
 })
 export class AddPointToMapComponent implements OnInit {
   private map:      L.Map;
+  private youMarker: [L.Marker, Number]; // marker, accuracy
 
   private userInfo: UserData = ({
     email: localStorage.getItem('userEmail'),
@@ -50,7 +52,8 @@ export class AddPointToMapComponent implements OnInit {
   constructor (
     private markerService:  MarkerService,
     private route:          Router,
-    private userService:    UserService
+    private userService:    UserService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -82,9 +85,13 @@ export class AddPointToMapComponent implements OnInit {
       timeout:            10000
     })
       .on("locationfound", e => { 
-        L.marker(e.latlng,{icon : locationIcon}).addTo(this.map)
-          .bindPopup("You are within " + e.accuracy + " meters from this point").openPopup();
+        const msg = this.translate.instant("map.youPartOne")  + 
+                    e.accuracy                                + 
+                    this.translate.instant("map.youPartTwo");
+        const marker = L.marker(e.latlng,{icon : locationIcon}).addTo(this.map)
+          .bindPopup(msg).openPopup();
         ;
+        this.youMarker = [marker, e.accuracy];
         L.circle(e.latlng, e.accuracy, {
           color:        '#8F4DEC',
           fillColor:    '#8F4DEC',
@@ -106,6 +113,19 @@ export class AddPointToMapComponent implements OnInit {
     this.report.location.timestamp  = (new Date).getTime();
     this.report.user                = this.userInfo;
     this.markerService.addMark(this.report);
+  }
+
+  changePopupLang(language: string) {
+    localStorage.setItem('disable', null);
+    this.translate.use(language);
+    localStorage.setItem('disable', 'notNull');
+    localStorage.setItem('currentLang', this.translate.currentLang);
+
+    // change you Marker
+    const msg = this.translate.instant("map.youPartOne")  + 
+    this.youMarker[1]                         + 
+    this.translate.instant("map.youPartTwo");
+    this.youMarker[0].setPopupContent(msg);
   }
 
   redirectToMap() { this.route.navigate(['/map']); }

@@ -67,7 +67,9 @@ export class MapComponent implements OnInit {
       timeout:            10000
     })
       .on("locationfound", e => { 
-        const msg = this.translate.instant("map.youPartOne") + e.accuracy + this.translate.instant("map.youPartTwo");
+        const msg = this.translate.instant("map.youPartOne")  + 
+                    e.accuracy                                + 
+                    this.translate.instant("map.youPartTwo");
         const marker = L.marker(e.latlng,{icon : locationIcon}).addTo(this.map)
           .bindPopup(msg).openPopup();
         ;
@@ -100,7 +102,6 @@ export class MapComponent implements OnInit {
                 this.youMarker[1]                         + 
                 this.translate.instant("map.youPartTwo");
     this.youMarker[0].setPopupContent(msg);
-    console.log("you message", msg)
 
     //change all other markers
     this.markerService.changePopupLanguage(language, this.map);
