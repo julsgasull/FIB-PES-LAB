@@ -28,7 +28,8 @@
     "alerts": {
         "savedChanges":"Los cambios se han guardado correctamente",
         "tryLater": "Ha habido un error, por favor pruébalo más tarde",
-        "createdUser": "El usuario se ha creado correctamente"
+        "createdUser": "El usuario se ha creado correctamente",
+        "alreadyExists": "Ya existe un usuario con este email!!!"
     },
     "profileFields": {
         "name": "nombre",

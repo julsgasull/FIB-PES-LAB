@@ -4,14 +4,17 @@ import { environment } from 'src/environments/environment';
 import { Observable, of } from 'rxjs';
 import { UserData } from 'src/app/models/userData.interface';
 import { catchError } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Injectable()
 export class UserRemote {
 
-    constructor(private httpClient: HttpClient) {}
+    constructor(
+        private httpClient: HttpClient,
+        private translate: TranslateService,) {}
 
-    createUser(user: UserData): Observable<UserData> {
+    createUser(user: UserData): Observable<any> {
         return this.httpClient.post<UserData>(`${environment.API_URL}/users/register`, 
         {   
             'email':    user.email,
@@ -26,16 +29,22 @@ export class UserRemote {
               'X-Skip-Interceptor-Login': ''
             }
         }).pipe(
-            catchError(this.handleError<UserData>())
+            catchError(this.handleError<any>())
           );
     }
 
     private handleError<T>(result?: T) {
         return (error: any): Observable<T> => {
-          console.error(error);
-          alert("already exists a user with this email " + error.error.email);
-          location.reload();
-          return of(result as T);
+            if (error.status === 400) {
+                alert(this.translate.instant('alerts.alreadyExists'));
+                location.reload();
+                return of(error as T);
+            }  
+            else {
+                alert(this.translate.instant('alerts.tryLater'));
+                location.reload();
+                return of(error as T);
+              } 
         }
       }
 
