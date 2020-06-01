@@ -74,5 +74,12 @@
         "markedSpot": "punto de conflicto",
         "clickMap": "clica en el mapa para añadir un ",
         "harrased": "donde has sido agredido"
+    },
+    "wiki": {
+        "FAQButton": "FAQ",
+        "phonesButton": "teléfonos",
+        "definitionsButton": "definiciones",
+        "definitionsTitle": "Definiciones",
+        "wikiTitle": "Wiki"
     }
 }
