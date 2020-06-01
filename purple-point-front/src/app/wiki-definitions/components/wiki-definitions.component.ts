@@ -4,6 +4,8 @@ import { Definition } from 'src/app/models/definition.interface';
 import { WikiService } from 'src/app/services/wiki/wiki.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { TranslateService } from '@ngx-translate/core';
+import { GeoLocation } from 'src/app/models/geoLocation.interface';
+import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
 
 @Component({
   selector: 'wiki-definitions',
@@ -13,15 +15,23 @@ import { TranslateService } from '@ngx-translate/core';
 export class WikiDefinitionsComponent implements OnInit {
 
   definitions: Definition[];
-
+  geolocation: GeoLocation = ({
+    latitude: -1, 
+    longitude: -1, 
+    accuracy: -1,
+    timestamp: -1
+  });
+  
   constructor(
     private route:            Router,
     private wikiService:      WikiService,
     private userService:      UserService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private geoLocationService: GeoLocationService
   ) { }
 
   ngOnInit(): void {
+    this.geolocation = this.geoLocationService.startGeoLocationService(this.geolocation);
     const language    = this.translateService.getDefaultLang();
     this.wikiService.getDefinitions(language).subscribe((response: Definition[])=>{
       this.definitions     = response;
