@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { FAQ } from 'src/app/models/faq.interface';
 import { UserData } from 'src/app/models/userData.interface';
+import { Definition } from 'src/app/models/definition.interface';
 
 
 @Injectable()
@@ -23,5 +24,8 @@ export class WikiRemote {
     return this.httpClient.put(`${environment.API_URL}/wiki/downvote`, {
       faq_id: faq.id
     })
+  }
+  getDefinitions(language: string): Observable<Definition[]> {
+    return this.httpClient.get<Definition[]>(`${environment.API_URL}/wiki/definitions/` + language);
   }
 }

@@ -9,6 +9,7 @@ import { OpeningViewComponent } from './opening-view/components/opening-view.com
 import { MapComponent } from './map/components/map.component';
 import { AddPointToMapComponent } from './add-point-to-map/components/add-point-to-map.component';
 import { WikiFaqComponent } from './wiki-faq/components/wiki-faq.component';
+import { WikiDefinitionsComponent } from './wiki-definitions/components/wiki-definitions.component';
 
 
 const routes: Routes = [
@@ -47,6 +48,10 @@ const routes: Routes = [
   {
     path: 'wikifaq',
     component: WikiFaqComponent, pathMatch: 'full'
+  },
+  {
+    path: 'wikidefinitions',
+    component: WikiDefinitionsComponent, pathMatch: 'full'
   }
 ];
 

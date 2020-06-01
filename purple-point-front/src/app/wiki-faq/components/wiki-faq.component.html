@@ -5,16 +5,19 @@
     </div>
   </div>
   <div class="row">
+    <br>
+  </div>
+  <div class="row">
     <div class="col-12">
-      <h1>Wiki</h1>
+      <h1> {{'wiki.wikiTitle' | translate }} </h1>
     </div>
   </div>
   <div class="row wikimenu">
-    <div (click)="redirectToFAQs()" class="col-4 wikihighlightbutton">FAQ</div>
-    <div (click)="redirectToPhones()" class="col-4 wikibutton">phones</div>
-    <div (click)="redirectToDefinitions()" class="col-4 wikibutton">definitions</div>
+    <div (click)="redirectToFAQs()" class="col-4 wikihighlightbutton"> {{'wiki.FAQButton' | translate }} </div>
+    <div (click)="redirectToPhones()" class="col-4 wikibutton"> {{'wiki.phonesButton' | translate }} </div>
+    <div (click)="redirectToDefinitions()" class="col-4 wikibutton"> {{'wiki.definitionsButton' | translate }} </div>
   </div>
-  <div class="row wikicontent" *ngFor="let faq of faqs;">
+  <div class="wikicontent" *ngFor="let faq of faqs;">
     <div class="row wikifaqcontent">
       <div class="col wikifaq">
         <div class="row wikiquestion">{{faq.question}}</div>
