@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { UserData } from 'src/app/models/userData.interface';
-import { ProfilePicData } from 'src/app/models/profilepicdata.interface';
+import { catchError } from 'rxjs/operators';
 
 
 @Injectable()
@@ -25,8 +25,19 @@ export class UserRemote {
               'Content-Type':"application/json",
               'X-Skip-Interceptor-Login': ''
             }
-        });
+        }).pipe(
+            catchError(this.handleError<UserData>())
+          );
     }
+
+    private handleError<T>(result?: T) {
+        return (error: any): Observable<T> => {
+          console.error(error);
+          alert("already exists a user with this email " + error.error.email);
+          location.reload();
+          return of(result as T);
+        }
+      }
 
     login(user: UserData): Observable<UserData> {
         return this.httpClient.post<UserData>(`${environment.API_URL}/users/login`, 
