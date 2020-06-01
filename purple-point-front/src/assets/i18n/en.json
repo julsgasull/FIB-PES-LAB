@@ -78,5 +78,12 @@
         "youPartOne": "You are within ",
         "youPartTwo": " meters from this point",
         "reportedBy": "Reported by "
+    },
+    "wiki": {
+        "FAQButton": "FAQ",
+        "phonesButton": "phones",
+        "definitionsButton": "definitions",
+        "definitionsTitle": "Definitions",
+        "wikiTitle": "Wiki"
     }
 }

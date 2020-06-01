@@ -51,6 +51,6 @@ export class MainMenuComponent implements OnInit {
     this.route.navigate(['/map']);
   }
   redirectToWiki() {
-    //to-do
+    this.route.navigate(['wikifaq']);
   }
 }

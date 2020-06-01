@@ -78,5 +78,12 @@
         "youPartOne": "Está a menos de ",
         "youPartTwo": " metros de este punto",
         "reportedBy": "Reportado por "
+    },
+    "wiki": {
+        "FAQButton": "FAQ",
+        "phonesButton": "teléfonos",
+        "definitionsButton": "definiciones",
+        "definitionsTitle": "Definiciones",
+        "wikiTitle": "Wiki"
     }
 }
