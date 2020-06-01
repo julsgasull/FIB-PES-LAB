@@ -3,7 +3,8 @@
         "purplepoint": "Purple Point",
         "sign-up": "Sign up",
         "login": "Login",
-        "panicButton": "Panic button"
+        "panicButton": "Panic button",
+        "forgotPwd": "Forgot password"
     },
     "formFields": {
         "email": "email",
@@ -29,7 +30,8 @@
         "savedChanges":"The changes have been saved correctly",
         "tryLater": "There's been an error, please try it later",
         "createdUser": "The user has been created correctly",
-        "alreadyExists": "Already exists a user with this email!!!"
+        "alreadyExists": "Already exists a user with this email!!!",
+        "changedPwd": "The password has been changed successfully"
     },
     "profileFields": {
         "name": "name",

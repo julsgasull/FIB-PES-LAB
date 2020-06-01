@@ -1,22 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UserService } from '../../services/user/user.service';
-import { UserData } from '../../models/userData.interface';
+import { GeoLocation } from 'src/app/models/geoLocation.interface';
+import { UserService } from 'src/app/services/user/user.service';
 import { Router } from '@angular/router';
 import { UtilsService } from 'src/app/services/utils/utils.service';
 import { TranslateService } from '@ngx-translate/core';
-import { GeoLocation } from 'src/app/models/geoLocation.interface';
 import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
+import { UserData } from 'src/app/models/userData.interface';
+import { MustMatch } from 'src/app/common/must-match.validator';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-forgot-pwd',
+  templateUrl: './forgot-pwd.component.html',
+  styleUrls: ['./forgot-pwd.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class ForgotPwdComponent implements OnInit {
 
   public isSubmitted = false;
-  public loginForm: FormGroup;
+  public passwordForm: FormGroup;
   public wrongCredentials = false;
   public internalError = false;
   geolocation: GeoLocation = ({
@@ -36,16 +37,20 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loginForm = this.formBuilder.group({
+    this.passwordForm = this.formBuilder.group({
       email:    ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
+      password: ['', [Validators.required]],
+      confirmPassword: ['', [Validators.required]],
+    },
+    {
+      validator: MustMatch('password', 'confirmPassword')
     });
 
     this.geolocation = this.geoLocationService.startGeoLocationService(this.geolocation);
   }
 
   private createUserForm() {
-    const userFormValue = JSON.parse(JSON.stringify(this.loginForm.value));
+    const userFormValue = JSON.parse(JSON.stringify(this.passwordForm.value));
     const userData: UserData = {
       email:    userFormValue.email,
       password: this.utilsService.encryptSha256(userFormValue.password)
@@ -55,15 +60,10 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.isSubmitted = true;
-    if (this.loginForm.valid){
-      this.userService.loginUser(this.createUserForm()).subscribe((response: UserData) => {
-        localStorage.setItem('userEmail', response.email);
-        localStorage.setItem('password', response.password);
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('username', response.username)
-        localStorage.setItem('userId', response.id.toString())
-        console.log("user", response)
-        this.redirectToMainMenu();
+    if (this.passwordForm.valid){
+      this.userService.editProfile(this.createUserForm()).subscribe((response: UserData) => {
+        alert(this.translate.instant('alerts.changedPwd'))
+        this.redirectToLogin();
       },
       errorrResponse => {
         if (errorrResponse.status == 403 || errorrResponse.status == 404)this.wrongCredentials = true;
@@ -74,24 +74,16 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  get formControls() {
+    return this.passwordForm.controls;
+  }
+
   setSubmittedToFalse() { 
     this.isSubmitted = false; 
   }
 
-  get formControls() {
-    return this.loginForm.controls;
-  }
-
-  redirectToUserInfo() {
-    this.route.navigate(['/profile']);
-  }
-
-  redirectToMainMenu() {
-    this.route.navigate(['/mainmenu']);
-  }
-
-  forgotPassword() {
-    this.route.navigate(['/forgotPwd']);
+  redirectToLogin() {
+    this.route.navigate(['/login']);
   }
 
 }
