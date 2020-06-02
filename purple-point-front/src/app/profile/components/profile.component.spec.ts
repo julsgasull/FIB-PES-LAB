@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { UserRemote } from 'src/app/services/user/user.remote';
 import { UserData } from 'src/app/models/userData.interface';
 import { LanguageButtonModule } from 'src/app/common/components/language-button/language-button.module';
+import { GeoLocationRemote } from 'src/app/services/geolocation/geolocation.remote';
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
@@ -37,7 +38,8 @@ describe('ProfileComponent', () => {
       providers: [
         UserService,
         UserRemote,
-        { provide: FormBuilder, useValue: formBuilder }
+        { provide: FormBuilder, useValue: formBuilder },
+        GeoLocationRemote
       ]
     })
     .compileComponents();

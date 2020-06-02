@@ -6,12 +6,11 @@ import { UserRemote } from '../user/user.remote';
 import { UserService } from '../user/user.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CommonModule } from '@angular/common';
-import { componentFactoryName } from '@angular/compiler';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
-import { messaging } from 'firebase';
-import { MessagingService } from '../messaging/messaging.service';
+import { LanguageButtonModule } from 'src/app/common/components/language-button/language-button.module';
+import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -31,6 +30,13 @@ describe('AuthService', () => {
         CommonModule,
         AngularFireMessagingModule,
         AngularFireModule.initializeApp(environment.firebase),
+        LanguageButtonModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateFakeLoader
+          }
+        }),
       ],
       providers: [
         JwtHelperService,
