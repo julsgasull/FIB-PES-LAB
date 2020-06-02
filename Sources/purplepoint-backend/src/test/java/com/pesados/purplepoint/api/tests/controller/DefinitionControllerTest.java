@@ -45,9 +45,10 @@ public class DefinitionControllerTest {
 	public void shouldReturnAllReports() throws Exception {
 		String token = TestUtils.doLogin(this.mockMvc);
 
-		this.mockMvc.perform(get("/api/v1/definitions/esp")
+		this.mockMvc.perform(get("/api/v1/definitions")
 				.header("Authorization", token)
 				.header(TestUtils.firebaseHeaderName, TestUtils.firebaseToken)
+				.queryParam("lang","esp")
 				.contentType("application/json"))
 				.andDo(print())
 				.andExpect(status().isOk());

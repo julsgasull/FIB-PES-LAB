@@ -56,10 +56,10 @@ public class DefinitionController {
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "successful operation",
 					content = @Content(array = @ArraySchema(schema = @Schema(implementation = Report.class)))) })
-	@GetMapping(value = "/definitions/{lang}", produces = { "application/json", "application/xml"})
+	@GetMapping(value = "/definitions", produces = { "application/json", "application/xml"})
 	List<Definition> all(
 			@Parameter(description = "Language of the desired definitions. Must be ESP or EN", required = true)
-			@PathVariable String lang) {
+			@RequestParam String lang) {
 
 		return defService.getDefinitionByLanguage(lang);
 
