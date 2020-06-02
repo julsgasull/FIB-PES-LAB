@@ -39,8 +39,8 @@ export class AddPointToMapComponent implements OnInit {
   private point:    GeoLocation = ({
     latitude:   -1, 
     longitude:  -1, 
-    accuracy:   0,
-    timestamp:  0
+    accuracy:    0,
+    timestamp:   0
   });
   private report:   Report = ({
     description:  null,
@@ -53,22 +53,20 @@ export class AddPointToMapComponent implements OnInit {
     private markerService:  MarkerService,
     private route:          Router,
     private userService:    UserService,
-    private translate: TranslateService
+    private translate:      TranslateService
   ) {}
 
   ngOnInit(): void {
     this.initMap(); 
-    this.map.on('click', <LeafletMouseEvent>(e) => { 
-      console.log(e.latlng);
+    this.map.on('click', <LeafletMouseEvent>(e) => {
       this.addPoint(e.latlng);
       this.redirectToMap();
     });
   }
   initMap(): void {
-    console.log("I'm iniziating the map");
     this.map = L.map('map').fitWorld();
     L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
-	    maxZoom:      15,
+	    maxZoom:      20,
 	    attribution:  '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
     }).addTo(this.map);
 
@@ -76,7 +74,6 @@ export class AddPointToMapComponent implements OnInit {
   }
 
   locate() {
-    console.log("locating...");
     this.map.locate({
       setView:            true,
       maxZoom:            15,
@@ -107,7 +104,6 @@ export class AddPointToMapComponent implements OnInit {
   }
 
   addPoint(latlng: L.LatLng) {
-    console.log("id", this.report.user.id)
     this.report.location.latitude   = latlng.lat;
     this.report.location.longitude  = latlng.lng;
     this.report.location.timestamp  = (new Date).getTime();
@@ -119,11 +115,10 @@ export class AddPointToMapComponent implements OnInit {
     localStorage.setItem('disable', null);
     this.translate.use(language);
     localStorage.setItem('disable', 'notNull');
-    localStorage.setItem('currentLang', this.translate.currentLang);
 
     // change you Marker
     const msg = this.translate.instant("map.youPartOne")  + 
-    this.youMarker[1]                         + 
+    this.youMarker[1]                                     + 
     this.translate.instant("map.youPartTwo");
     this.youMarker[0].setPopupContent(msg);
   }

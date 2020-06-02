@@ -44,8 +44,8 @@
     },
     "buttons" : {
         "panic": "PANIC",
-        "login": "Entrar",
-        "logout": "Salir",
+        "login": "Iniciar Sesión",
+        "logout": "Cerrar Sesión",
         "saveChanges": "Guardar cambios",
         "editProfile": "Editar perfil",
         "register": "Registrarse",

@@ -26,44 +26,47 @@ export class MarkerService {
   <html>\
     <div style="text-align: center;">\
       <button class="principalButton delete" id="button-delete" type="button" (click)="manageDeleteButton()">\
-        <img src="../../../assets/images/paperbin.png" style="height:50px; width:50px">\
-      </button>\
-      <button class="principalButton edit" id="button-edit" type="button">\
-        <img src="../../../assets/images/edit.png" style="height:50px; width:50px">\
+        <img src="../../../assets/images/paperbin.png" style="height:30px; width:30px">\
       </button>\
     </div>\
-    <br>\
-    <div style="text-align: center;">'+
+    <div style="text-align: center;">'   +
     localStorage.getItem("dragPosition") +
     '</div>\
   </html>';
 
   constructor(
     private httpClient: HttpClient,
-    private translate: TranslateService
-    ) {}
+    private translate: TranslateService) {}
 
   getMark(map: L.Map) {
     L.marker([51.5, -0.09], {icon: pointIcon}).addTo(map)
-      .bindPopup('this is a test mark')
+      .bindPopup('this is a test mark');
     ;
+  }
+
+  findMarkerByID(id): Number {
+    let index = 0;
+    let found = false;
+    for (let i = 0; (index < this.markers.length) && !found; i++) {
+      if (this.markers[i][0] === id) {
+        index = i;
+        found = true;
+      }
+    }
+    return index;
   }
   
   manageDeleteButton(map, marker, reportID) {
     map.removeLayer(marker);
-    console.log("ID", reportID, "type", typeof reportID);
-    this.httpClient.get<Report>(`${environment.API_URL}/map/`+reportID).subscribe((result: Report) => {console.log("report en delete", result)});
+    this.httpClient.get<Report>(`${environment.API_URL}/map/`+reportID).subscribe((result: Report) => {
+      console.log("report en delete", result)
+    });
     this.httpClient.delete<Report[]>(`${environment.API_URL}/map/`+reportID).subscribe((result: Report[]) => {});
   }
 
-  manageEditButton(map, marker, reportID, pos) {
-    // popup for definition
-  }
-
-  updatePointCoordinates(marker, map) {
-    let pos = marker.getLatLng();
-    marker.setLatLng(pos);
-    console.log("Here we would update the marker's position at backend!")
+  manageEditMarker(pos: any, index) {
+    this.markers[index][1].setLatLng(pos);
+    console.log("Here we would update the marker's position at backend!");
   }
 
   getAllMarks(map: L.Map) {
@@ -90,42 +93,31 @@ export class MarkerService {
           .on("popupopen", () => {
             let buttonSubmit = L.DomUtil.get('button-delete');
             buttonSubmit.addEventListener("click", e => {
-                console.log("ID", c.id, "type", typeof c.id);
-                console.log("report", c);
                 this.manageDeleteButton(map, marker, c.id);
               });
             })
-            .on("popupopen", () => {
-              let buttonEdit = L.DomUtil.get('button-edit');
-              buttonEdit.addEventListener("click", e => {
-                  // TODO: editar punto
-                  // .marker([lat, lon], {icon: pointIcon, draggable: true} 
-                  // con el draggable se puede arrastrar
-              });
-            });
 
           marker.on("dragend", () => {
-            this.updatePointCoordinates(marker, map);
-            // var pos = marker.getLatLng();
+            const index = this.findMarkerByID(c.id);
+            var pos = marker.getLatLng();
+            this.manageEditMarker(pos, index);
             // map.panTo(pos);
           });
           marker.on("drag", () => {
             var pos = marker.getLatLng();
             map.panTo(pos);
-            // console.log("position:", pos)
-          })
+          });
 
           this.markers.push([c.id, marker, c.user.email, c.user.username]);
         }
       }
     });
-    console.log("map", this.markers)
   }
   
   addMark(report: Report) {
     this.httpClient.post(`${environment.API_URL}/map`, report).subscribe((result) => {},
     (error) => {
-      console.log(error)
+      console.log(error);
     });
   }
 
@@ -134,13 +126,9 @@ export class MarkerService {
     <html>\
       <div style="text-align: center;">\
         <button class="principalButton delete" id="button-delete" type="button" (click)="manageDeleteButton()">\
-          <img src="../../../assets/images/paperbin.png" style="height:50px; width:50px">\
-        </button>\
-        <button class="principalButton edit" id="button-edit" type="button">\
-          <img src="../../../assets/images/edit.png" style="height:50px; width:50px">\
+          <img src="../../../assets/images/paperbin.png" style="height:30px; width:30px">\
         </button>\
       </div>\
-      <br>\
       <div style="text-align: center;">'+
       msg +
       '</div>\
@@ -150,13 +138,9 @@ export class MarkerService {
 
   changePopupLanguage(language: string, map: L.Map) {
     var msg = this.translate.instant("map.dragPosition");
-    console.log(msg)
 
-    console.log("map", this.markers) 
     for (const index in this.markers) {
-      console.log("id:", this.markers[index][0])
-
-      let markerInfo = this.markers[index]
+      let markerInfo = this.markers[index];
       if (markerInfo[2] === localStorage.getItem('userEmail'))
         markerInfo[1].setPopupContent(this.updateTemplate(msg));
       else {

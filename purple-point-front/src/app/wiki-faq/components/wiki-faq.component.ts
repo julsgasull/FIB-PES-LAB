@@ -78,6 +78,7 @@ export class WikiFaqComponent implements OnInit {
     console.log("upvote");
     this.wikiService.upvote(faq);
   } 
+  
   downvote(faq: FAQ) {
     console.log("downvote");
     this.wikiService.downvote(faq);

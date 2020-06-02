@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
   constructor(private translate: TranslateService) {
     localStorage.setItem('disable', null);
     translate.setDefaultLang('es');
+    translate.use('es');
     localStorage.setItem('disable', 'notNull');
     localStorage.setItem('currentLang', 'es');
   }

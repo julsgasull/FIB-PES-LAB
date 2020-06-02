@@ -47,7 +47,6 @@ export class MapComponent implements OnInit {
   }
   
   initMap(): void {
-    console.log("I'm iniziating the map");
     this.map = L.map('map').fitWorld();
     L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
 	    maxZoom:      20,
@@ -58,7 +57,6 @@ export class MapComponent implements OnInit {
   }
 
   locate() {
-    console.log("locating...");
     this.map.locate({
       setView:            true,
       maxZoom:            15,
