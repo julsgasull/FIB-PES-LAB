@@ -74,7 +74,9 @@
   </form>
   <div class="row">
     <div class="col-12">
-      <button (click)="forgotPassword()">Forgot password?</button>
+      <button class="secondaryButton" (click)="forgotPassword()">
+        {{ 'buttons.forgotPwd' | translate }}
+      </button>
     </div>
   </div>
 </div>

@@ -40,6 +40,11 @@ export class UserRemote {
                 location.reload();
                 return of(error as T);
             }  
+            else if (error.status === 404) {
+                alert(this.translate.instant('alerts.doesntExist'));
+                location.reload();
+                return of(error as T);
+            }  
             else {
                 alert(this.translate.instant('alerts.tryLater'));
                 location.reload();
@@ -62,8 +67,11 @@ export class UserRemote {
         });
     }
 
-    getUserByEmail(email: string): Observable<UserData> {
-        return this.httpClient.get<UserData>(`${environment.API_URL}/users/email/`+email);
+    getUserByEmail(email: string): Observable<any> {
+        return this.httpClient.get<UserData>(`${environment.API_URL}/users/email/`+email)
+        .pipe(
+            catchError(this.handleError<any>())      
+        );
     }
 
     editProfile(user: UserData): Observable<any> {

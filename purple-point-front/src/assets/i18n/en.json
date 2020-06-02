@@ -31,7 +31,8 @@
         "tryLater": "There's been an error, please try it later",
         "createdUser": "The user has been created correctly",
         "alreadyExists": "Already exists a user with this email!!!",
-        "changedPwd": "The password has been changed successfully"
+        "changedPwd": "The password has been changed successfully",
+        "doesntExist": "Does not exist a user with this email !!!"
     },
     "profileFields": {
         "name": "name",
@@ -53,7 +54,9 @@
         "editProfile": "Edit profile",
         "register": "Register",
         "dismiss": "Dismiss",
-        "onMyWay": "On My Way!"
+        "onMyWay": "On My Way!",
+        "changePwd": "Change password",
+        "forgotPwd": "Forgot password?"
     },
     "text": {
         "hello": "Hello, ",
