@@ -60,21 +60,13 @@ describe('PrincipalViewComponent', () => {
     fixture = TestBed.createComponent(PrincipalViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    jasmine.clock().install();
   });
 
   afterEach(function() {
-    jasmine.clock().uninstall();
     
-    clearInterval(component.interval);
   });
 
   it('should create', () => {
-    
-    jasmine.clock().uninstall();
-    jasmine.clock().install();
     expect(component).toBeTruthy();
-    clearInterval(component.interval);
-    jasmine.clock().uninstall();
   });
 });

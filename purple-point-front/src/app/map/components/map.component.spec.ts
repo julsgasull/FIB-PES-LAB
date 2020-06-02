@@ -3,6 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MapComponent } from './map.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
+import { GeoLocationRemote } from 'src/app/services/geolocation/geolocation.remote';
 
 describe('MapComponent', () => {
   let component: MapComponent;
@@ -10,11 +12,20 @@ describe('MapComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      declarations: [ MapComponent ],
       imports:[
         HttpClientTestingModule,
-        RouterTestingModule
+        RouterTestingModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateFakeLoader
+          }
+        }),
       ],
-      declarations: [ MapComponent ]
+      providers: [
+        GeoLocationRemote
+      ]
     })
     .compileComponents();
   }));

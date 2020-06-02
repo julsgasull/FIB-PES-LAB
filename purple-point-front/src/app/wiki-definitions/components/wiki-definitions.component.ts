@@ -37,29 +37,6 @@ export class WikiDefinitionsComponent implements OnInit {
       this.definitions     = response;
     });
 
-    this.definitions = [
-      {
-        id: 1,
-        word: 'harrassment',
-        definition: 'aggressive pressure or intimidation.',
-        kind: '[U]',
-        example: 'they face daily harassment and assault on the streets'
-      },
-      {
-        id: 2,
-        word: 'harrassment',
-        definition: 'aggressive pressure or intimidation.',
-        kind: '[noun]',
-        example: 'they face daily harassment and assault on the streets'
-      },
-      {
-        id: 3,
-        word: 'harrassment',
-        definition: 'aggressive pressure or intimidation.',
-        kind: '[adj]',
-        example: 'they face daily harassment and assault on the streets'
-      },
-    ]
   }
 
   redirectToFAQs() {
@@ -70,6 +47,12 @@ export class WikiDefinitionsComponent implements OnInit {
   }
   redirectToDefinitions() {
     this.route.navigate(['wikidefinitions']);
+  }
+
+  languageChanged(event: string) {
+    this.wikiService.getDefinitions(event).subscribe((response: Definition[])=>{
+      this.definitions     = response;
+    });
   }
 
 }
