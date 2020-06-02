@@ -6,6 +6,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { NotificationsRemote } from 'src/app/services/notifications/notifications.remote';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UserRemote } from 'src/app/services/user/user.remote';
+import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
 
 describe('SimpleSnackbarComponent', () => {
   let component: SimpleSnackbarComponent;
@@ -16,7 +17,13 @@ describe('SimpleSnackbarComponent', () => {
       declarations: [ SimpleSnackbarComponent ],
       imports:[
         OverlayModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateFakeLoader
+          }
+        }),
       ],
       providers: [
         BrowserDynamicTestingModule,
