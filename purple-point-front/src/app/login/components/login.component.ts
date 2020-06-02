@@ -90,4 +90,8 @@ export class LoginComponent implements OnInit {
     this.route.navigate(['/mainmenu']);
   }
 
+  forgotPassword() {
+    this.route.navigate(['/forgotPwd']);
+  }
+
 }

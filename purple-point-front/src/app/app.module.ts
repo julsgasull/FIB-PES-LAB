@@ -53,6 +53,8 @@ import { WikiService } from './services/wiki/wiki.service';
 import { WikiRemote } from './services/wiki/wiki.remote';
 import { WikiFaqModule } from './wiki-faq/wiki-faq.module';
 import { WikiDefinitionsModule } from './wiki-definitions/wiki-definitions.module';
+import { ForgotPwdComponent } from './forgot-pwd/components/forgot-pwd.component';
+import { ForgotPwdModule } from './forgot-pwd/forgot-pwd.module';
 
 @NgModule({
   declarations: [
@@ -87,6 +89,7 @@ import { WikiDefinitionsModule } from './wiki-definitions/wiki-definitions.modul
     LanguageButtonModule,
     WikiFaqModule,
     WikiDefinitionsModule,
+    ForgotPwdModule,
     TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,

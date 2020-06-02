@@ -21,7 +21,7 @@ export class UserService {
     return this.userRemote.createUser(user);
   }
 
-  getUserByEmail(email: string): Observable<UserData> {
+  getUserByEmail(email: string): Observable<any> {
     return this.userRemote.getUserByEmail(email);
   }
 
