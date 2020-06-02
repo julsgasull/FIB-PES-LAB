@@ -1,40 +1,14 @@
 package com.pesados.purplepoint.api.utils;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Base64;
-
-
-import com.pesados.purplepoint.api.model.definition.Definition;
-import com.pesados.purplepoint.api.model.definition.DefinitionService;
+import com.pesados.purplepoint.api.PurplePointApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.FileCopyUtils;
-
-import com.pesados.purplepoint.api.PurplePointApplication;
-import com.pesados.purplepoint.api.model.alarm.Alarm;
-import com.pesados.purplepoint.api.model.alarm.AlarmService;
-import com.pesados.purplepoint.api.model.device.Device;
-import com.pesados.purplepoint.api.model.device.DeviceService;
-import com.pesados.purplepoint.api.model.image.Image;
-import com.pesados.purplepoint.api.model.image.ImageService;
-import com.pesados.purplepoint.api.model.location.Location;
-import com.pesados.purplepoint.api.model.location.LocationService;
-import com.pesados.purplepoint.api.model.report.Report;
-import com.pesados.purplepoint.api.model.report.ReportService;
-import com.pesados.purplepoint.api.model.user.User;
-import com.pesados.purplepoint.api.model.user.UserService;
 
 @Configuration
 class LoadDatabase {
 	private static final Logger logger = LoggerFactory.getLogger(PurplePointApplication.class);
-
+/*
     @Bean
   CommandLineRunner initImageDatabase(ImageService service) throws IOException {
       logger.info("Finding resource \"sample.jpg\"");
@@ -121,4 +95,6 @@ class LoadDatabase {
             logger.info("Preloading " + service.saveDefinition(new Definition("Gender-based violance", "Gender-based violence is a type of physical or psychological violence against any person or group of persons on the basis of their sexual orientation or identity, sex or gender that negatively impacts on their social, physical, psychological or economic identity and well-being.", "2019 ends with the highest number of gender-based violence murders since 2015 in Spain", "en")));
         };
     }
+
+ */
 }
