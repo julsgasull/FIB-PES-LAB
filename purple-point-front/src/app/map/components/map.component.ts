@@ -4,6 +4,7 @@ import { MarkerService } from 'src/app/services/marker/marker.service';
 import { Router } from '@angular/router';
 import { GeoLocation } from 'src/app/models/geoLocation.interface';
 import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
+import { TranslateService } from '@ngx-translate/core';
 
 var locationIcon = L.icon({
   iconUrl:      '../../../assets/images/location.svg',
@@ -21,6 +22,7 @@ var locationIcon = L.icon({
 export class MapComponent implements OnInit {
   
   private map: L.Map;
+  private youMarker: [L.Marker, Number]; // marker, accuracy
   geolocation: GeoLocation = ({
     latitude: -1, 
     longitude: -1, 
@@ -31,20 +33,23 @@ export class MapComponent implements OnInit {
   constructor (
     private markerService:      MarkerService,
     private route:              Router,
-    private geoLocationService: GeoLocationService
+    private geoLocationService: GeoLocationService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
     this.initMap();
     this.markerService.getAllMarks(this.map);
     this.geolocation = this.geoLocationService.startGeoLocationService(this.geolocation);
+    localStorage.setItem('disable', null);
+    this.translate.use(localStorage.getItem('currentLang'));
+    localStorage.setItem('disable', 'notNull');
   }
   
   initMap(): void {
-    console.log("i'm iniziating the map");
     this.map = L.map('map').fitWorld();
     L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
-	    maxZoom:      15,
+	    maxZoom:      20,
 	    attribution:  '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
     }).addTo(this.map);
 
@@ -52,7 +57,6 @@ export class MapComponent implements OnInit {
   }
 
   locate() {
-    console.log("locating...");
     this.map.locate({
       setView:            true,
       maxZoom:            15,
@@ -61,14 +65,20 @@ export class MapComponent implements OnInit {
       timeout:            10000
     })
       .on("locationfound", e => { 
-        L.marker(e.latlng,{icon : locationIcon}).addTo(this.map)
-          .bindPopup("You are within " + e.accuracy + " meters from this point").openPopup();
+        const msg = this.translate.instant("map.youPartOne")  + 
+                    e.accuracy                                + 
+                    this.translate.instant("map.youPartTwo");
+        const marker = L.marker(e.latlng,{icon : locationIcon}).addTo(this.map)
+          .bindPopup(msg).openPopup();
         ;
+        this.youMarker = [marker, e.accuracy];
         L.circle(e.latlng, e.accuracy, {
           color:        '#8F4DEC',
           fillColor:    '#8F4DEC',
           fillOpacity:  0.2
         }).addTo(this.map);
+        localStorage.setItem("youMarker", marker._leaflet_id);
+        localStorage.setItem("youAccuracy", e.accuracy);        
       })
       .on("locationerror", error => {
         console.log(error);
@@ -76,6 +86,23 @@ export class MapComponent implements OnInit {
         this.map.invalidateSize();
       })
     ;
+  }
+
+  changePopupLanguage(language: string) {
+    // change language
+    localStorage.setItem('disable', null);
+    this.translate.use(language);
+    localStorage.setItem('disable', 'notNull');
+    localStorage.setItem('currentLang', this.translate.currentLang);
+
+    // change you Marker
+    const msg = this.translate.instant("map.youPartOne")  + 
+                this.youMarker[1]                         + 
+                this.translate.instant("map.youPartTwo");
+    this.youMarker[0].setPopupContent(msg);
+
+    //change all other markers
+    this.markerService.changePopupLanguage(language, this.map);
   }
 
   redirectToAddPointToMap() { this.route.navigate(['/addpointtotmap']); }

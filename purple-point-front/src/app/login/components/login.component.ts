@@ -60,8 +60,12 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('userEmail', response.email);
         localStorage.setItem('password', response.password);
         localStorage.setItem('token', response.token);
-        localStorage.setItem('username', response.username)
-        localStorage.setItem('userId', response.id.toString())
+        localStorage.setItem('username', response.username);
+        localStorage.setItem('userId', response.id.toString());
+        localStorage.setItem('gender', response.gender),
+        localStorage.setItem('helpedUsers', response.helpedUsers.toString());
+        localStorage.setItem('markedSpots', response.markedSpots.toString());
+        localStorage.setItem('name', response.name);
         console.log("user", response)
         this.redirectToMainMenu();
       },

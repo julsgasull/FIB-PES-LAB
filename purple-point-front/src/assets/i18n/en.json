@@ -79,7 +79,11 @@
         "youAreHere": "you are here",
         "markedSpot": "marked spot",
         "clickMap": "click the map to add the ",
-        "harrased": "where you have been harassed"
+        "harrased": "where you have been harassed",
+        "dragPosition": "Drag the marker to change its position",
+        "youPartOne": "You are within ",
+        "youPartTwo": " meters from this point",
+        "reportedBy": "Reported by "
     },
     "wiki": {
         "FAQButton": "FAQ",

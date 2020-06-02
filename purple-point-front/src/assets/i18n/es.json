@@ -48,8 +48,8 @@
     },
     "buttons" : {
         "panic": "PANIC",
-        "login": "Entrar",
-        "logout": "Salir",
+        "login": "Iniciar Sesión",
+        "logout": "Cerrar Sesión",
         "saveChanges": "Guardar cambios",
         "editProfile": "Editar perfil",
         "register": "Registrarse",
@@ -79,7 +79,11 @@
         "youAreHere": "estás aquí",
         "markedSpot": "punto de conflicto",
         "clickMap": "clica en el mapa para añadir un ",
-        "harrased": "donde has sido agredido"
+        "harrased": "donde has sido agredido",
+        "dragPosition": "Arrastra la marca para cambiar su posición",
+        "youPartOne": "Está a menos de ",
+        "youPartTwo": " metros de este punto",
+        "reportedBy": "Reportado por "
     },
     "wiki": {
         "FAQButton": "FAQ",

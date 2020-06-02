@@ -8,7 +8,7 @@ import { Device } from 'src/app/models/device.interface';
 @Injectable()
 export class GeoLocationRemote {
 
-    timeout = 5 * 1000; // in ms
+    timeout = 10 * 1000; // in ms
     interval;
 
     constructor(private httpClient: HttpClient) {}

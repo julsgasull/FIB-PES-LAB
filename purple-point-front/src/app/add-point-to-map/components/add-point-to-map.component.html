@@ -1,9 +1,10 @@
 <div class="container addpoint-container">
   <div class="row" style="position: fixed; top: 0; right: 0;">
-    <div class="col-12 language-buttonDiv">
-      <language-button></language-button>
+    <div class="col-12">
+        <button class="languageButtons" (click)="changePopupLang('en')">ENG</button> | 
+        <button class="languageButtons" (click)="changePopupLang('es')">ESP</button>
     </div>
-  </div>
+  </div> 
   <div class="row"></div>
   <div class="row map-container-point">
     <div class="col map-frame-point">
