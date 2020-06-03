@@ -17,11 +17,11 @@ export class UserService {
     return this.userRemote.login(user);
   }
 
-  createUser(user: UserData): Observable<UserData> {
+  createUser(user: UserData): Observable<any> {
     return this.userRemote.createUser(user);
   }
 
-  getUserByEmail(email: string): Observable<UserData> {
+  getUserByEmail(email: string): Observable<any> {
     return this.userRemote.getUserByEmail(email);
   }
 

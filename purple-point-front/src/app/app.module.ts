@@ -52,12 +52,21 @@ import { NotificationsRemote } from './services/notifications/notifications.remo
 import { SnackbarModule } from './common/components/snackbar/snackbar.module';
 import { MapModule } from './map/map.module';
 import { AddPointToMapComponentModule } from './add-point-to-map/add-point-to-map.module';
+import { SimpleSnackbarComponent } from './common/components/simple-snackbar/components/simple-snackbar.component';
+import { SimpleSnackbarModule } from './common/components/simple-snackbar/simple-snackbar.module';
+import { WikiFaqComponent } from './wiki-faq/components/wiki-faq.component';
+import { WikiService } from './services/wiki/wiki.service';
+import { WikiRemote } from './services/wiki/wiki.remote';
+import { WikiFaqModule } from './wiki-faq/wiki-faq.module';
+import { WikiDefinitionsModule } from './wiki-definitions/wiki-definitions.module';
+import { ForgotPwdComponent } from './forgot-pwd/components/forgot-pwd.component';
+import { ForgotPwdModule } from './forgot-pwd/forgot-pwd.module';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
-  entryComponents: [SnackbarComponent],
+  entryComponents: [SnackbarComponent, SimpleSnackbarComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -82,9 +91,13 @@ import { AddPointToMapComponentModule } from './add-point-to-map/add-point-to-ma
     MatSnackBarModule,
     BrowserAnimationsModule,
     SnackbarModule,
+    SimpleSnackbarModule,
     AngularFireModule.initializeApp(environment.firebase),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     LanguageButtonModule,
+    WikiFaqModule,
+    WikiDefinitionsModule,
+    ForgotPwdModule,
     TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,
@@ -116,12 +129,14 @@ import { AddPointToMapComponentModule } from './add-point-to-map/add-point-to-ma
     NotificationsService,
     NotificationsRemote,
     SocialOauthService,
-    SocialOauthRemote
+    SocialOauthRemote,
+    WikiService,
+    WikiRemote
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, "assets/i18n/", ".json");
 }

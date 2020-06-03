@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable} from 'rxjs';
 import { GeoLocationRemote } from 'src/app/services/geolocation/geolocation.remote';
 import { GeoLocation } from 'src/app/models/geoLocation.interface';
+import { Device } from 'src/app/models/device.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,11 @@ export class GeoLocationService {
 
   constructor(private geolocationRemote: GeoLocationRemote) {}
 
-  getLocation(loc: GeoLocation): Observable<any> {
+  startGeoLocationService(loc: GeoLocation): GeoLocation {
+    return this.geolocationRemote.startGeoLocationService(loc);
+  }
+
+  getLocation(loc: GeoLocation): Observable<Device> {
     return this.geolocationRemote.getLocation(loc);
   }
 

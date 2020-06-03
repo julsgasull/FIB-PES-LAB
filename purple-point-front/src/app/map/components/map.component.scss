@@ -18,4 +18,18 @@
     bottom: 0;
     margin-top: 100px;
     margin-bottom: 30px;
+    z-index: 0;
+}
+
+.languageButtons {
+    background-color: unset;
+    color: white;
+    font-weight: bold;
+    margin: 10px;
+}
+
+.buttonText {
+    color: white;
+    font-weight: bold;
+    text-align: right;
 }

@@ -9,6 +9,8 @@ import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-tran
 import { UserData } from 'src/app/models/userData.interface';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CommonModule } from '@angular/common';
+import { LanguageButtonModule } from 'src/app/common/components/language-button/language-button.module';
+import { GeoLocationRemote } from 'src/app/services/geolocation/geolocation.remote';
 
 
 describe('SignUpComponent', () => {
@@ -31,12 +33,14 @@ describe('SignUpComponent', () => {
         HttpClientTestingModule,
         CommonModule,
         ReactiveFormsModule,
+        LanguageButtonModule
       ],
       declarations: [ SignUpComponent ],
       providers: [
         UserService,
         UserRemote,
-        { provide: FormBuilder, useValue: formBuilder }
+        { provide: FormBuilder, useValue: formBuilder },
+        GeoLocationRemote
       ]
     })
     .compileComponents();

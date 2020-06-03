@@ -6,10 +6,15 @@ import { UserRemote } from '../user/user.remote';
 import { UserService } from '../user/user.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CommonModule } from '@angular/common';
-import { componentFactoryName } from '@angular/compiler';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import { LanguageButtonModule } from 'src/app/common/components/language-button/language-button.module';
+import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
 
 describe('AuthService', () => {
   let service: AuthService;
+  let messagingService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -23,6 +28,15 @@ describe('AuthService', () => {
         }),
         HttpClientTestingModule,
         CommonModule,
+        AngularFireMessagingModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        LanguageButtonModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateFakeLoader
+          }
+        }),
       ],
       providers: [
         JwtHelperService,
@@ -31,15 +45,10 @@ describe('AuthService', () => {
       ]
     });
     service = TestBed.inject(AuthService);
+    messagingService = TestBed.inject(AngularFireMessagingModule);
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
-  });
-
-  it('should return the token if it is not null or expired when getToken is called', () => {
-    const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImp0aSI6IjQ0ZDkyMDI3LWM0OTMtNDA0Yi05YjdhLWI3NGYyMTZhZWIyMCIsImlhdCI6MTU4ODkzMjU4MSwiZXhwIjoxNTg4OTM2MTgxfQ.Xt4dphRzx7YLz00JPIBWPq93QYhcmuqDhCph6yGJvHs';
-    localStorage.setItem('token',token);
-    expect(service.getToken()).toEqual(token);
   });
 });

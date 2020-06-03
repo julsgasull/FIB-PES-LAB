@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessagingService } from 'src/app/services/messaging/messaging.service';
-import {HttpClient, HttpParams} from '@angular/common/http';
 import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
 import { GeoLocation } from 'src/app/models/geoLocation.interface';
 import { SocialOauthService } from '../../services/social-oauth/social-oauth.service'
@@ -14,8 +13,7 @@ import { SocialOauthService } from '../../services/social-oauth/social-oauth.ser
 })
 export class PrincipalViewComponent implements OnInit {
 
-  message;
-  
+  message;  
   geolocation: GeoLocation = ({
     latitude: -1, 
     longitude: -1, 
@@ -32,24 +30,13 @@ export class PrincipalViewComponent implements OnInit {
 
   ngOnInit(): void {
     localStorage.setItem('token', null);
-    // console.log("FB Token before erasing:", localStorage.getItem('deviceToken'));
-    // localStorage.setItem('deviceToken', null);
-    console.log("FB Token after delete", localStorage.getItem('deviceToken'));
     
     this.geolocation = this.geoLocationService.getFirstLocation(this.geolocation);
     this.messagingService.requestPermission();
     this.messagingService.receiveMessage();
     this.message = this.messagingService.currentMessage;
 
-    const timeout = 5 * 1000; // in ms
-
-    this.geoLocationService.getLocation(this.geolocation);
-    
-    setInterval(() => {
-      this.geoLocationService.getLocation(this.geolocation).subscribe((location: GeoLocation) => {
-        this.geolocation = location;
-      });
-    }, timeout);
+    this.geolocation = this.geoLocationService.startGeoLocationService(this.geolocation);
   }
 
   redirectToLogin() {

@@ -28,12 +28,11 @@ export class NotificationsRemote {
       });
 
     getUserInfo() {
-        console.log("ESTOY COGIENDO LA INFO DEL USER");
         const email = localStorage.getItem('userEmail');
         this.userService.getUserByEmailUnauthorized(email).subscribe((userResponse: UserData) => {
             this.user = userResponse;
+            this.device.user = this.user;
         });
-        this.device.user = this.user;
     }
 
     getLocationInfo() {
@@ -45,11 +44,7 @@ export class NotificationsRemote {
     }
  
     updateFireBaseToken(refreshedToken, oldToken): Observable<Device> {
-        console.log("ESTOY EN UPDATE FB TOKEN");
-        console.log("oldToken: ", oldToken);
-        console.log("refreshedToken: ", refreshedToken);
         if (localStorage.getItem('token') !== 'null') { //logged user
-            console.log("logged; ", localStorage.getItem('token'));
             this.getUserInfo();
             return this.httpClient.put<Device>(`${environment.API_URL}/devices/`+oldToken, //endpoint a realizar
             {   
@@ -80,7 +75,6 @@ export class NotificationsRemote {
             }
             });
         } else { // unlogged user
-            console.log("unlogged update request")
             return this.httpClient.put<Device>(`${environment.API_URL}/devices/`+oldToken, //endpoint a realizar
             {   
                 'firebaseToken':    refreshedToken,
@@ -102,7 +96,6 @@ export class NotificationsRemote {
     }
 
     registerFirebaseToken(refreshedToken): Observable<Device> {
-        console.log("ESTOY REGISTRANDO EL DEVICE");
         this.getLocationInfo();
         if (localStorage.getItem('token') !== 'null') { //logged user
             this.getUserInfo();
@@ -135,7 +128,6 @@ export class NotificationsRemote {
             }
             });
         } else { // unlogged user
-            console.log("HAGO LA REQUEST ISMA MIRA")
             return this.httpClient.post<Device>(`${environment.API_URL}/devices`, //endpoint a realizar
             {   
                 'firebaseToken':    refreshedToken,
@@ -163,7 +155,6 @@ export class NotificationsRemote {
             username = localStorage.getItem('username');
             email = localStorage.getItem('userEmail');
         }
-        console.log("Increasing number of people helped: ", email);
         return this.httpClient.put<UserData>(`${environment.API_URL}/users/increaseHelpedUsers/`+email, //endpoint a realizar
         {},
         {
@@ -174,17 +165,11 @@ export class NotificationsRemote {
         });
     }
 
-    sendNotificationToVictim(token) {
+    sendNotificationToVictim(token): Observable<string> {
         var username: String;
         const bool: String = localStorage.getItem('token');
-        if (bool == null) {
-            username = localStorage.getItem('username');
-            console.log("Inside if ", localStorage.getItem('token') != 'null');
-        }
+        if (bool == null) username = localStorage.getItem('username');
         else username = "";
-        console.log("logged? ", localStorage.getItem('token'))
-        console.log("username: ", username);
-        console.log("Sending notification to victim");
         return this.httpClient.post<string>(`${environment.API_URL}/devices/notifyuser/`+token, //endpoint a realizar
         {   
             'username': username

@@ -8,6 +8,9 @@ import { SignUpComponent } from './sign-up/components/sign-up.component';
 import { OpeningViewComponent } from './opening-view/components/opening-view.component';
 import { MapComponent } from './map/components/map.component';
 import { AddPointToMapComponent } from './add-point-to-map/components/add-point-to-map.component';
+import { WikiFaqComponent } from './wiki-faq/components/wiki-faq.component';
+import { WikiDefinitionsComponent } from './wiki-definitions/components/wiki-definitions.component';
+import { ForgotPwdComponent } from './forgot-pwd/components/forgot-pwd.component';
 
 
 const routes: Routes = [
@@ -42,6 +45,18 @@ const routes: Routes = [
   {
     path: 'addpointtotmap',
     component: AddPointToMapComponent, pathMatch: 'full'
+  },
+  {
+    path: 'wikifaq',
+    component: WikiFaqComponent, pathMatch: 'full'
+  },
+  {
+    path: 'wikidefinitions',
+    component: WikiDefinitionsComponent, pathMatch: 'full'
+  },
+  {
+    path: 'forgotPwd',
+    component: ForgotPwdComponent, pathMatch: 'full'
   }
 ];
 

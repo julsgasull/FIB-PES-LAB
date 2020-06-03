@@ -3,13 +3,27 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { GeoLocation } from '../../models/geoLocation.interface';
+import { Device } from 'src/app/models/device.interface';
 
 @Injectable()
 export class GeoLocationRemote {
 
+    timeout = 10 * 1000; // in ms
+    interval;
+
     constructor(private httpClient: HttpClient) {}
 
-    getLocation(loc: GeoLocation): Observable<any> {
+    startGeoLocationService(loc: GeoLocation): GeoLocation {
+        clearInterval(this.interval);
+        this.interval = setInterval(() => {
+            this.getLocation(loc).subscribe((dev: Device) => {
+                loc = dev.location;
+            });
+          }, this.timeout);
+        return loc;
+    }
+
+    getLocation(loc: GeoLocation): Observable<Device> {
         const token: string = localStorage.getItem("deviceToken");
         console.log("Geolocation storage token: ", token);
         
@@ -48,7 +62,7 @@ export class GeoLocationRemote {
         }
         
         //do request here
-        return this.httpClient.put<GeoLocation>(`${environment.API_URL}/devices/`+token+`/location`, //endpoint a realizar
+        return this.httpClient.put<Device>(`${environment.API_URL}/devices/`+token+`/location`, //endpoint a realizar
         {   
             "latitude":     loc.latitude,
             "longitude":    loc.longitude,
@@ -65,7 +79,6 @@ export class GeoLocationRemote {
 
     getFirstLocation(loc:GeoLocation): GeoLocation {
         const token: string = localStorage.getItem("deviceToken");
-        // console.log("Geolocation remote token: ", token);
 
         const enableHighAccuracy = true;
         const maximumAge = 3600000;

@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { UserData } from 'src/app/models/userData.interface';
-import { ProfilePicData } from 'src/app/models/profilepicdata.interface';
+import { catchError } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Injectable()
 export class UserRemote {
 
-    constructor(private httpClient: HttpClient) {}
+    constructor(
+        private httpClient: HttpClient,
+        private translate: TranslateService,) {}
 
-    createUser(user: UserData): Observable<UserData> {
+    createUser(user: UserData): Observable<any> {
         return this.httpClient.post<UserData>(`${environment.API_URL}/users/register`, 
         {   
             'email':    user.email,
@@ -25,8 +28,30 @@ export class UserRemote {
               'Content-Type':"application/json",
               'X-Skip-Interceptor-Login': ''
             }
-        });
+        }).pipe(
+            catchError(this.handleError<any>())
+          );
     }
+
+    private handleError<T>(result?: T) {
+        return (error: any): Observable<T> => {
+            if (error.status === 400) {
+                alert(this.translate.instant('alerts.alreadyExists'));
+                location.reload();
+                return of(error as T);
+            }  
+            else if (error.status === 404) {
+                alert(this.translate.instant('alerts.doesntExist'));
+                location.reload();
+                return of(error as T);
+            }  
+            else {
+                alert(this.translate.instant('alerts.tryLater'));
+                location.reload();
+                return of(error as T);
+              } 
+        }
+      }
 
     login(user: UserData): Observable<UserData> {
         return this.httpClient.post<UserData>(`${environment.API_URL}/users/login`, 
@@ -42,8 +67,11 @@ export class UserRemote {
         });
     }
 
-    getUserByEmail(email: string): Observable<UserData> {
-        return this.httpClient.get<UserData>(`${environment.API_URL}/users/email/`+email);
+    getUserByEmail(email: string): Observable<any> {
+        return this.httpClient.get<UserData>(`${environment.API_URL}/users/email/`+email)
+        .pipe(
+            catchError(this.handleError<any>())      
+        );
     }
 
     editProfile(user: UserData): Observable<any> {
@@ -63,7 +91,6 @@ export class UserRemote {
     }
 
     getUserByEmailUnauthorized(email: string) {
-        console.log("GET USER UNAUTHORIZED");
         return this.httpClient.get<UserData>(`${environment.API_URL}/users/email/`+email, 
         {
             headers:{

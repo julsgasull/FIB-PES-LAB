@@ -8,6 +8,8 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { TranslateService } from '@ngx-translate/core';
+import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
+import { GeoLocation } from 'src/app/models/geoLocation.interface';
 
 @Component({
   selector: 'app-profile',
@@ -34,12 +36,20 @@ export class ProfileComponent implements OnInit {
   public message: string;
   public image: ProfilePicData = {imageid:123456789, type:"", picByteB64:null, name:""};
   public retrievedImage: any;
+  public timeout = 1 * 1000;
+  geolocation: GeoLocation = ({
+    latitude: -1, 
+    longitude: -1, 
+    accuracy: -1,
+    timestamp: -1
+  });
 
   constructor(
     private route: Router,
     private userService: UserService,
     private httpClient: HttpClient,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private geoLocationService: GeoLocationService
   ) {}
 
   ngOnInit(): void {
@@ -58,7 +68,9 @@ export class ProfileComponent implements OnInit {
         helpedUsers:  new FormControl( { value: response.helpedUsers, disabled: true }, Validators.required),
         profilePic:   new FormControl( { value: response.profilePic,  disabled: true }, Validators.required),
       });
+      this.image = response.profilePic
     });
+    this.geolocation = this.geoLocationService.startGeoLocationService(this.geolocation);
   }
 
   onFileChanged(event) { // Gets called when the user selects an image
@@ -71,8 +83,8 @@ export class ProfileComponent implements OnInit {
       this.image.picByteB64   = response.body.picByteB64;
       this.image.name         = response.body.name;
     })
-    const timeout = 1 * 1000; // in ms
-    setInterval(() => {}, timeout);
+    // const timeout = 1 * 1000; // in ms
+    setInterval(() => {}, this.timeout);
   }
 
   redirectToPrincipalView() {
@@ -149,4 +161,9 @@ export class ProfileComponent implements OnInit {
   get formControls() {
     return this.editProfileForm.controls;
   }
+
+  refreshGeolocation() {
+    console.log("I have realoaded u cunt i work");
+  }
+
 }

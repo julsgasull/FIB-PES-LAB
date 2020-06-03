@@ -15,6 +15,12 @@ export class PanicbuttonComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  disableLogin() {
+    const token = localStorage.getItem('token');
+    if (token !== "null") localStorage.setItem('disableLogin', "notNull"); // logged user
+    else localStorage.setItem('disableLogin', null); // unlogged user
+  }
  
   sendAlert() {
     const userAlarm: PanicAlarm = {
@@ -24,14 +30,13 @@ export class PanicbuttonComponent implements OnInit {
       accuracy: Number(localStorage.getItem('accuracy')),
       timestamp: Number(localStorage.getItem('timestamp')),
       panicbutton: true,
-   } 
+    } 
+
+   this.disableLogin();
    this.panicButtonService.sendAlert(userAlarm).subscribe((response) => {
-     console.log("RESPONSE: ", response);
+      localStorage.setItem('disableLogin', "notNull");
    },
-   (error) => {
-     console.log("ERROR: ", error);
-    }
-   );
+   (error) => { console.log("ERROR: ", error); });
   }
 
 }

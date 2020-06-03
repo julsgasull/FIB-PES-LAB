@@ -5,6 +5,8 @@ import { UserData } from '../../models/userData.interface';
 import { Router } from '@angular/router';
 import { UtilsService } from 'src/app/services/utils/utils.service';
 import { TranslateService } from '@ngx-translate/core';
+import { GeoLocation } from 'src/app/models/geoLocation.interface';
+import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
 
 @Component({
   selector: 'app-login',
@@ -17,13 +19,20 @@ export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
   public wrongCredentials = false;
   public internalError = false;
+  geolocation: GeoLocation = ({
+    latitude: -1, 
+    longitude: -1, 
+    accuracy: -1,
+    timestamp: -1
+  });
 
   constructor (
     private formBuilder: FormBuilder,
     private userService: UserService,
     private route: Router,
     private utilsService : UtilsService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private geoLocationService: GeoLocationService
   ) {}
 
   ngOnInit(): void {
@@ -31,6 +40,8 @@ export class LoginComponent implements OnInit {
       email:    ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     });
+
+    this.geolocation = this.geoLocationService.startGeoLocationService(this.geolocation);
   }
 
   private createUserForm() {
@@ -49,7 +60,13 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('userEmail', response.email);
         localStorage.setItem('password', response.password);
         localStorage.setItem('token', response.token);
-        localStorage.setItem('username', response.username)
+        localStorage.setItem('username', response.username);
+        localStorage.setItem('userId', response.id.toString());
+        localStorage.setItem('gender', response.gender),
+        localStorage.setItem('helpedUsers', response.helpedUsers.toString());
+        localStorage.setItem('markedSpots', response.markedSpots.toString());
+        localStorage.setItem('name', response.name);
+        console.log("user", response)
         this.redirectToMainMenu();
       },
       errorrResponse => {
@@ -75,6 +92,10 @@ export class LoginComponent implements OnInit {
 
   redirectToMainMenu() {
     this.route.navigate(['/mainmenu']);
+  }
+
+  forgotPassword() {
+    this.route.navigate(['/forgotPwd']);
   }
 
 }

@@ -9,6 +9,8 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } 
 import { UserService } from 'src/app/services/user/user.service';
 import { UserRemote } from 'src/app/services/user/user.remote';
 import { UserData } from 'src/app/models/userData.interface';
+import { LanguageButtonModule } from 'src/app/common/components/language-button/language-button.module';
+import { GeoLocationRemote } from 'src/app/services/geolocation/geolocation.remote';
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
@@ -30,12 +32,14 @@ describe('ProfileComponent', () => {
         HttpClientTestingModule,
         CommonModule,
         ReactiveFormsModule,
+        LanguageButtonModule
       ],
       declarations: [ ProfileComponent ],
       providers: [
         UserService,
         UserRemote,
-        { provide: FormBuilder, useValue: formBuilder }
+        { provide: FormBuilder, useValue: formBuilder },
+        GeoLocationRemote
       ]
     })
     .compileComponents();
@@ -49,10 +53,18 @@ describe('ProfileComponent', () => {
     userService = new UserService(userRemote);
 
     loadSpies();
+    jasmine.clock().install();
+  });
+
+  afterEach(function() {
+    jasmine.clock().uninstall();
+    
+    clearInterval(component.timeout);
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    clearInterval(component.timeout);
   });
 
   it('should set isSubmitted to false and enable form fields if disableInputs is true'+
