@@ -58,12 +58,13 @@ class LoadDatabase {
   }
     
     @Bean
-    CommandLineRunner initMapDatabase(ReportService service) {
+    CommandLineRunner initMapDatabase(ReportService service, UserService serviceHelper) {
+      User usr = serviceHelper.saveUser(new User());
       return args -> {
-        logger.info("Preloading " + service.saveReport(new Report((new Location((float)41.447615, (float)2.224420, (float)100, (float)0)), new User("tonto1", "tonto1@mail.com"))));
-        logger.info("Preloading " + service.saveReport(new Report((new Location((float)41.415026309656994, (float)2.151603698730469, (float)-1, (float)-1)), new User("tonto2", "tonto2@mail.com"))));
-        logger.info("Preloading " + service.saveReport(new Report((new Location((float)41.425597961179896, (float) 2.1958923339843754, (float)-1, (float)-1)), new User("tonto3", "tonto3@mail.com"))));
-        logger.info("Preloading " + service.saveReport(new Report((new Location((float)41.39993938849367, (float)2.151260375976563, (float)-1, (float)-1)), new User("tonto4", "tont4o@mail.com"))));
+        logger.info("Preloading " + service.saveReport(new Report((new Location((float)41.447615, (float)2.224420, (float)100, (float)0)), usr)));
+        logger.info("Preloading " + service.saveReport(new Report((new Location((float)41.415026309656994, (float)2.151603698730469, (float)-1, (float)-1)), usr)));
+        logger.info("Preloading " + service.saveReport(new Report((new Location((float)41.425597961179896, (float) 2.1958923339843754, (float)-1, (float)-1)), usr)));
+        logger.info("Preloading " + service.saveReport(new Report((new Location((float)41.39993938849367, (float)2.151260375976563, (float)-1, (float)-1)), usr)));
       };
     }
 

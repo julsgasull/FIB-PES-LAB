@@ -17,6 +17,7 @@ import com.pesados.purplepoint.api.model.image.ImageService;
 import com.pesados.purplepoint.api.model.user.User;
 import com.pesados.purplepoint.api.model.user.UserService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -51,6 +52,7 @@ public class UserController {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 	}
 
+	@Autowired
 	UserController(UserService userService, ImageService imgService, LoginSystem loginSystem) {
 		this.userService = userService;
 		this.imgService = imgService;
@@ -190,11 +192,11 @@ public class UserController {
 					user.setPassword(newUser.getPassword());
 					user.setGender(newUser.getGender());
 					user.setProfilePic(newUser.getProfilePic());
+					user.setReports(newUser.getReports());
 					return userService.saveUser(user);
 				})
-				.orElseGet(() -> {
-					newUser.setId(id);
-					return userService.saveUser(newUser);
+				.orElseThrow(() -> {
+					throw new UserNotFoundException(id);
 				});
 		} else {
 			throw new UnauthorizedDeviceException();
@@ -225,11 +227,8 @@ public class UserController {
 						user.setProfilePic(img);
 						return userService.saveUser(user);
 					})
-					.orElseGet(() -> {
-						User myUser = new User();
-						myUser.setId(id);
-						myUser.setProfilePic(img);
-						return userService.saveUser(myUser);
+					.orElseThrow(() -> {
+						throw new UserNotFoundException(id);
 					});
 		} else {
 			throw new UnauthorizedDeviceException();
@@ -261,11 +260,11 @@ public class UserController {
 					user.setPassword(newUser.getPassword());
 					user.setGender(newUser.getGender());
 					user.setProfilePic(newUser.getProfilePic());
+					user.setReports(newUser.getReports());
 					return userService.saveUser(user);
 				})
-				.orElseGet(() -> {
-					newUser.setEmail(email);
-					return userService.saveUser(newUser);
+				.orElseThrow(() -> {
+					throw new UserNotFoundException(email);
 				});
 		} else {
 			throw new UnauthorizedDeviceException();
@@ -284,7 +283,11 @@ public class UserController {
 		@PathVariable long id
 	) {
 		if (this.loginSystem.checkLoggedIn(unformatedJWT)) {
-			userService.deleteUserById(id);
+			try {
+				userService.deleteUserById(id);
+			} catch (Exception e) {
+				throw new UserNotFoundException(id);
+			}
 		} else {
 			throw new UnauthorizedDeviceException();
 		}
@@ -308,12 +311,7 @@ public class UserController {
 				.map(user -> {
 					user.setHelpedUsers(user.getHelpedUsers()+1);
 					return userService.saveUser(user);
-				})
-				.orElseGet(() -> {
-					User newUser = new User();
-					newUser.setEmail(userEmail);
-					return userService.saveUser(newUser);
-				});
+				}).orElseThrow(() -> new UserNotFoundException(userEmail));
 		} else {
 			throw new UnauthorizedDeviceException();
 		}

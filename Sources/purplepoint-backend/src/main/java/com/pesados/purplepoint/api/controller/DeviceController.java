@@ -27,8 +27,8 @@ public class DeviceController {
 	@Autowired
     private DeviceService deviceService;
     
-	@Autowired
-	private PushNotificationService pushNotificationService;
+    @Autowired
+    private PushNotificationService pushNotificationService;
 
     // Visibilidad Device
     @Operation(summary = "Add a new device",

@@ -1,7 +1,6 @@
 package com.pesados.purplepoint.api.security;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.FilterChain;
@@ -38,6 +37,7 @@ public class FirebaseAuthorizationFilter extends OncePerRequestFilter {
 		
 		*/
 		if ( xAuth == null || xAuth.equals("")) {
+			/*
 			String path = request.getRequestURI();
 			String[] values = {"/v3/api-", "/swagger", "/api-doc"};
 			boolean allowed_urls = Arrays.stream(values).anyMatch(path.substring(0,8)::equals);
@@ -49,6 +49,7 @@ public class FirebaseAuthorizationFilter extends OncePerRequestFilter {
 					)
 				);
 			}
+			*/
 			filterChain.doFilter(request, response);
 			return;
 		} else {

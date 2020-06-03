@@ -3,6 +3,8 @@ package com.pesados.purplepoint.api.controller;
 import com.pesados.purplepoint.api.model.user.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import com.pesados.purplepoint.api.exception.UserNotFoundException;
@@ -16,6 +18,7 @@ public class LoginSystem {
 
     private final UserService userService;
 
+	@Autowired
     public LoginSystem (UserService usrService) {
         this.userService = usrService;
     }

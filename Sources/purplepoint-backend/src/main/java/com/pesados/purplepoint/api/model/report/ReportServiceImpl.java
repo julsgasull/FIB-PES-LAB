@@ -1,6 +1,5 @@
 package com.pesados.purplepoint.api.model.report;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,9 +21,7 @@ public class ReportServiceImpl implements ReportService {
 
 	@Override
 	public List<Report> getAll() {
-		List<Report> result = new ArrayList<Report>();
-    	this.reportRepository.findAll().forEach(result::add);
-		return result;
+		return this.reportRepository.findAll();
 	}
 
 	@Override

@@ -18,7 +18,6 @@ public class AuthServer extends WebSecurityConfigurerAdapter {
 			.addFilterAfter(new FirebaseAuthorizationFilter(new FirebaseParser()), UsernamePasswordAuthenticationFilter.class)
 			.addFilterBefore(new CORSFilter(), UsernamePasswordAuthenticationFilter.class)
 			.authorizeRequests()
-				.antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/api-docs/**").permitAll()
 				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll() //allow CORS option calls
 			.anyRequest().permitAll()
 			.and()
@@ -27,11 +26,13 @@ public class AuthServer extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/v2/api-docs",
-				"/configuration/ui",
-				"/swagger-resources/",
-				"/configuration/security",
-				"/swagger-ui.html",
-				"/webjars/**");
+		web.ignoring().antMatchers(
+			"/api-docs/**",
+			"/v3/api-docs",
+			"/configuration/ui",
+			"/swagger-resources/",
+			"/configuration/security",
+			"/swagger-ui.html",
+			"/webjars/**");
 	}
 }
