@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable} from 'rxjs';
-import { UserData } from 'src/app/models/userData.interface';
+import { UserData } from './../../models/userdata.interface';
 import { UserRemote } from './user.remote';
 import { ProfilePicData } from 'src/app/models/profilepicdata.interface';
 
@@ -17,11 +17,11 @@ export class UserService {
     return this.userRemote.login(user);
   }
 
-  createUser(user: UserData): Observable<UserData> {
+  createUser(user: UserData): Observable<any> {
     return this.userRemote.createUser(user);
   }
 
-  getUserByEmail(email: string): Observable<UserData> {
+  getUserByEmail(email: string): Observable<any> {
     return this.userRemote.getUserByEmail(email);
   }
 

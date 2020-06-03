@@ -23,8 +23,8 @@ export class MessagingService {
         _messaging.onMessage = _messaging.onMessage((payload) => {
             this.zone.run(() => {
               _messaging.getToken().then((refreshedToken) => {
-                if (refreshedToken != localStorage.getItem('deviceToken')) console.log("Inconsistent token");
-                // console.log("Token: ", refreshedToken);
+                if (refreshedToken != localStorage.getItem('deviceToken')) 
+                  console.log("Inconsistent token");
                 let omw;
                 if (payload.data.onMyWay){
                   omw = payload.data.onMyWay.toString();

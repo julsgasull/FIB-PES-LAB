@@ -3,7 +3,8 @@
         "purplepoint": "Purple Point",
         "sign-up": "Registro",
         "login": "Login",
-        "panicButton": "Panic button"
+        "panicButton": "Panic button",
+        "forgotPwd": "Contraseña olvidada"
     },
     "formFields": {
         "email": "email",
@@ -28,7 +29,10 @@
     "alerts": {
         "savedChanges":"Los cambios se han guardado correctamente",
         "tryLater": "Ha habido un error, por favor pruébalo más tarde",
-        "createdUser": "El usuario se ha creado correctamente"
+        "createdUser": "El usuario se ha creado correctamente",
+        "alreadyExists": "Ya existe un usuario con este email!!!",
+        "changedPwd": "La contraseña se ha cambiado con éxito",
+        "doesntExist": "No existe un usuario con este email !!!"
     },
     "profileFields": {
         "name": "nombre",
@@ -44,13 +48,15 @@
     },
     "buttons" : {
         "panic": "PANIC",
-        "login": "Entrar",
-        "logout": "Salir",
+        "login": "Iniciar Sesión",
+        "logout": "Cerrar Sesión",
         "saveChanges": "Guardar cambios",
         "editProfile": "Editar perfil",
         "register": "Registrarse",
         "dismiss": "Ignorar",
-        "onMyWay": "En Camino!"
+        "onMyWay": "En Camino!",
+        "changePwd": "Cambiar contraseña",
+        "forgotPwd": "¿Contraseña olvidada?"
     },
     "text": {
         "hello": "Hola, ",
@@ -73,6 +79,16 @@
         "youAreHere": "estás aquí",
         "markedSpot": "punto de conflicto",
         "clickMap": "clica en el mapa para añadir un ",
-        "harrased": "donde has sido agredido"
+        "harrased": "donde has sido agredido",
+        "dragPosition": "Arrastra la marca para cambiar su posición",
+        "youPartOne": "Está a menos de ",
+        "youPartTwo": " metros de este punto",
+        "reportedBy": "Reportado por "
+    },
+    "wiki": {
+        "FAQButton": "FAQ",
+        "phonesButton": "teléfonos",
+        "definitionsButton": "definiciones",
+        "wikiTitle": "Wiki"
     }
 }

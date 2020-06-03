@@ -3,7 +3,8 @@
         "purplepoint": "Purple Point",
         "sign-up": "Sign up",
         "login": "Login",
-        "panicButton": "Panic button"
+        "panicButton": "Panic button",
+        "forgotPwd": "Forgot password"
     },
     "formFields": {
         "email": "email",
@@ -28,7 +29,10 @@
     "alerts": {
         "savedChanges":"The changes have been saved correctly",
         "tryLater": "There's been an error, please try it later",
-        "createdUser": "The user has been created correctly"
+        "createdUser": "The user has been created correctly",
+        "alreadyExists": "Already exists a user with this email!!!",
+        "changedPwd": "The password has been changed successfully",
+        "doesntExist": "Does not exist a user with this email !!!"
     },
     "profileFields": {
         "name": "name",
@@ -50,7 +54,9 @@
         "editProfile": "Edit profile",
         "register": "Register",
         "dismiss": "Dismiss",
-        "onMyWay": "On My Way!"
+        "onMyWay": "On My Way!",
+        "changePwd": "Change password",
+        "forgotPwd": "Forgot password?"
     },
     "text": {
         "hello": "Hello, ",
@@ -73,6 +79,16 @@
         "youAreHere": "you are here",
         "markedSpot": "marked spot",
         "clickMap": "click the map to add the ",
-        "harrased": "where you have been harassed"
+        "harrased": "where you have been harassed",
+        "dragPosition": "Drag the marker to change its position",
+        "youPartOne": "You are within ",
+        "youPartTwo": " meters from this point",
+        "reportedBy": "Reported by "
+    },
+    "wiki": {
+        "FAQButton": "FAQ",
+        "phonesButton": "phones",
+        "definitionsButton": "definitions",
+        "wikiTitle": "Wiki"
     }
 }

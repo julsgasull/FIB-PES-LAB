@@ -67,12 +67,11 @@ export class SignUpComponent implements OnInit {
     this.isSubmitted = true;
     if (this.userForm.valid) {
       this.userService.createUser(this.createUserForm()).subscribe((response: any) => {
-        alert(this.translate.instant('alerts.createdUser'));
-        this.redirectToLogin();
+        if (response.status !== 400 && response.status !== 500) {
+          alert(this.translate.instant('alerts.createdUser'));
+          this.redirectToLogin();
+        }
       });
-    } else {
-      alert(this.translate.instant('alerts.tryLater'));
-      return
     }
   }
 
