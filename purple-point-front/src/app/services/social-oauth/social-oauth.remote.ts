@@ -39,7 +39,6 @@ export class SocialOauthRemote {
     var res = this.doGoogleLogin();
     res.then((value)=>{
       console.log(value)
-       
       const user: UserData = {
        email: value.user.email,
        username: value.additionalUserInfo.profile.name,
@@ -51,34 +50,34 @@ export class SocialOauthRemote {
 
     })
   }
-login_or_register(user: UserData){
-  this.userService.loginUser(user).subscribe((response: UserData) => {
-    console.log("login bo")
-    console.log(response)
-    this.route.navigate(['/mainmenu']);
- },
- errorrResponse => {
-  console.log("login fallido");
-  this.userService.createUser(user).subscribe((response: UserData) => {
-    console.log("registre bo")
+
+  login_or_register(user: UserData){
     this.userService.loginUser(user).subscribe((response: UserData) => {
-      console.log("login de registre  bo")
-      localStorage.setItem('userEmail', response.email);
-      localStorage.setItem('password', response.password);
-      localStorage.setItem('token', response.token);
-      localStorage.setItem('username', response.username)
-      this.route.navigate(['/mainmenu']); 
-   },
-   errorrResponse=>{
-    console.log(alert("sistem error"))
-   });
- },
- errorrResponse=>{
-  console.log(alert("sistem error"))
-  console.log("registre malament")
- });
- });
-
-}
-
+      console.log("login bo")
+      console.log(response)
+      this.route.navigate(['/mainmenu']);
+    },
+    errorrResponse => {
+      console.log("login fallido");
+      this.userService.createUser(user).subscribe((response: UserData) => {
+        console.log("registre bo")
+        this.userService.loginUser(user).subscribe((response: UserData) => {
+          console.log("login de registre  bo")
+          localStorage.setItem('userEmail', response.email);
+          localStorage.setItem('password', response.password);
+          localStorage.setItem('token', response.token);
+          localStorage.setitem('name', response.username);
+          localStorage.setItem('username', response.username)
+          this.route.navigate(['/mainmenu']);
+      },
+      errorrResponse=>{
+        console.log(alert("sistem error"))
+      });
+    },
+    errorrResponse=>{
+      console.log(alert("sistem error"))
+      console.log("registre malament")
+    });
+    });
+  }
 }
