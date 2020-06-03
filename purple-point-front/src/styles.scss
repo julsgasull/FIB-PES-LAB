@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:500,700");
 @import "@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import "~leaflet/dist/leaflet.css";
+@import "src/app/common/components/terms-of-use/components/terms-of-use.component.scss";
 
 html, body {
     background-color: #202020;
@@ -322,19 +323,18 @@ td, tr {
     margin: auto;
 }
 
-.termsOfUse {
-    position: fixed;
-    width: 85%;
-    border-radius: 10px !important;
-    min-width: 20% !important;
-    // transform-origin: center center !important;
-    background: 341860 !important;
-    white-space: pre-wrap !important;
-    color: white !important;
-    margin-bottom: 57px !important;
-    margin-left: 10% !important;
-    z-index: 100;
-    padding: 0;
+@include termsOfUse();
+
+.termsbutton {
+    background-color: #6730BE;
+    border-radius: 24.5px;
+    font-family: Montserrat;
+    font-weight: bold;
+    font-size: 16px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    margin: 5px;
+    text-align: center;
 }
 
 .checkbox {
