@@ -8,6 +8,8 @@ import { UtilsService } from 'src/app/services/utils/utils.service';
 import { TranslateService } from '@ngx-translate/core';
 import { GeoLocation } from 'src/app/models/geoLocation.interface';
 import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
+import { MatDialog } from '@angular/material/dialog';
+import { TermsOfUseComponent } from 'src/app/common/components/terms-of-use/components/terms-of-use.component';
 
 @Component({
   selector: 'sign-up',
@@ -32,7 +34,8 @@ export class SignUpComponent implements OnInit {
     private route: Router,
     private utilsService : UtilsService,
     private translate: TranslateService,
-    private geoLocationService: GeoLocationService)
+    private geoLocationService: GeoLocationService,
+    private termsOfUse: MatDialog)
      {}
     
   ngOnInit(): void {
@@ -48,6 +51,9 @@ export class SignUpComponent implements OnInit {
       validator: MustMatch('password', 'confirmPassword')
     });
     this.geolocation = this.geoLocationService.startGeoLocationService(this.geolocation);
+
+    this.termsOfUse.open(TermsOfUseComponent, {disableClose: true, autoFocus: true});
+
   }
 
 

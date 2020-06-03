@@ -42,7 +42,8 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { LanguageButtonModule } from './common/components/language-button/language-button.module';
 import { MessagingService } from './services/messaging/messaging.service';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SnackbarService } from './services/snackbar/snackbar.service';
 import { SnackbarRemote } from './services/snackbar/snackbar.remote';
@@ -61,12 +62,15 @@ import { WikiFaqModule } from './wiki-faq/wiki-faq.module';
 import { WikiDefinitionsModule } from './wiki-definitions/wiki-definitions.module';
 import { ForgotPwdComponent } from './forgot-pwd/components/forgot-pwd.component';
 import { ForgotPwdModule } from './forgot-pwd/forgot-pwd.module';
+import { TermsOfUseComponent } from './common/components/terms-of-use/components/terms-of-use.component';
+import { TermsOfUseModule } from './common/components/terms-of-use/terms-of-use.module';
+
 
 @NgModule({
   declarations: [
     AppComponent
   ],
-  entryComponents: [SnackbarComponent, SimpleSnackbarComponent],
+  entryComponents: [SnackbarComponent, SimpleSnackbarComponent, TermsOfUseComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -89,9 +93,11 @@ import { ForgotPwdModule } from './forgot-pwd/forgot-pwd.module';
     AngularFireDatabaseModule,
     AngularFireMessagingModule,
     MatSnackBarModule,
+    MatDialogModule,
     BrowserAnimationsModule,
     SnackbarModule,
     SimpleSnackbarModule,
+    TermsOfUseModule,
     AngularFireModule.initializeApp(environment.firebase),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     LanguageButtonModule,
