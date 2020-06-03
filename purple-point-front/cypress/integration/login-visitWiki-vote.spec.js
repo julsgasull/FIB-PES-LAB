@@ -12,7 +12,7 @@ describe('Testing Purple point front login error, visitMap and add a point', () 
 
     it('Login should fill the login form and redirect to mainmenu', () => {
         cy.get('#email')
-        .type('email@gmail.com');
+        .type('claudia@gmail.com');
         cy.wait(1000);
         cy.get('#password')
         .type('1234');
