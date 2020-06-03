@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -7,6 +7,8 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./language-button.component.scss']
 })
 export class LanguageButtonComponent implements OnInit {
+
+  @Output() languageChanged = new EventEmitter<string>();
 
   constructor(
     private translate: TranslateService
@@ -19,7 +21,12 @@ export class LanguageButtonComponent implements OnInit {
     localStorage.setItem('disable', null);
     this.translate.use(language);
     localStorage.setItem('disable', 'notNull');
-    localStorage.setItem('currentLang', this.translate.currentLang);
+    localStorage.setItem('currentLang', language);
+    this.onLanguageChanged(language);
+  }
+
+  onLanguageChanged(language: string) {
+    this.languageChanged.emit(language);
   }
 
 }
