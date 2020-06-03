@@ -85,12 +85,12 @@ export class WikiFaqComponent implements OnInit {
   }
 
   redirectToFAQs() {
-    this.route.navigate(['wikifaq']);
+    this.route.navigate(['/wikifaq']);
   }
   redirectToPhones() {
-    this.route.navigate(['wikiphones']);
+    this.route.navigate(['/wikiphones']);
   }
   redirectToDefinitions() {
-    this.route.navigate(['wikidefinitions']);
+    this.route.navigate(['/wikidefinitions']);
   }
 }

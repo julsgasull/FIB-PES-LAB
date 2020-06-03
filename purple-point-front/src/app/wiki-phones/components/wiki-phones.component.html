@@ -1,0 +1,62 @@
+<div class="container wiki-container">
+    <div class="row" style="position: fixed; top: 0; right: 0;">
+      <div class="col-12">
+        <language-button></language-button>
+      </div>
+    </div>
+    <div class="row">
+      <br>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <h1> {{'wiki.wikiTitle' | translate}} </h1>
+      </div>
+    </div>
+    <div class="row wikimenu">
+      <div (click)="redirectToFAQs()" class="col-4 wikibutton"> {{'wiki.FAQButton' | translate }} </div>
+      <div (click)="redirectToPhones()" class="col-4 wikihighlightbutton"> {{'wiki.phonesButton' | translate }} </div>
+      <div (click)="redirectToDefinitions()" class="col-4 wikibutton"> {{'wiki.definitionsButton' | translate }} </div>
+    </div>
+    <div class="row phoneName">
+        <div class="col-12">
+          <span>
+            {{ 'phone.gender' | translate}}
+          </span>
+        </div>
+    </div>
+    <div class="row phoneNumber">
+        <div class="col-12">
+        <b>
+            016
+        </b>
+        </div>
+    </div>
+    <div class="row phoneName">
+        <div class="col-12">
+          <span>
+            {{ 'phone.emergencies' | translate}}
+          </span>
+        </div>
+    </div>
+    <div class="row phoneNumber">
+        <div class="col-12">
+        <b>
+            112
+        </b>
+        </div>
+    </div>
+    <div class="row phoneName">
+        <div class="col-12">
+          <span>
+            {{ 'phone.police' | translate}}
+          </span>
+        </div>
+    </div>
+    <div class="row phoneNumber">
+        <div class="col-12">
+        <b>
+            091
+        </b>
+        </div>
+    </div>
+</div>

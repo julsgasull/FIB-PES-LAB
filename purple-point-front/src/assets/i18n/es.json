@@ -90,5 +90,10 @@
         "phonesButton": "teléfonos",
         "definitionsButton": "definiciones",
         "wikiTitle": "Wiki"
+    },
+    "phone": {
+        "gender": "asistencia a víctimas de violencia de género",
+        "emergencies": "emergencias",
+        "police": "policía"
     }
 }
