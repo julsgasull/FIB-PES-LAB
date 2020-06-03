@@ -195,9 +195,7 @@ public class UserController {
 					user.setReports(newUser.getReports());
 					return userService.saveUser(user);
 				})
-				.orElseThrow(() -> {
-					throw new UserNotFoundException(id);
-				});
+				.orElseThrow(() ->  new UserNotFoundException(id));
 		} else {
 			throw new UnauthorizedDeviceException();
 		}
@@ -227,9 +225,7 @@ public class UserController {
 						user.setProfilePic(img);
 						return userService.saveUser(user);
 					})
-					.orElseThrow(() -> {
-						throw new UserNotFoundException(id);
-					});
+					.orElseThrow(() ->  new UserNotFoundException(id));
 		} else {
 			throw new UnauthorizedDeviceException();
 		}
@@ -263,9 +259,7 @@ public class UserController {
 					user.setReports(newUser.getReports());
 					return userService.saveUser(user);
 				})
-				.orElseThrow(() -> {
-					throw new UserNotFoundException(email);
-				});
+					.orElseThrow(() ->  new UserNotFoundException(email));
 		} else {
 			throw new UnauthorizedDeviceException();
 		}
@@ -316,4 +310,6 @@ public class UserController {
 			throw new UnauthorizedDeviceException();
 		}
 	}
+
+
 }
