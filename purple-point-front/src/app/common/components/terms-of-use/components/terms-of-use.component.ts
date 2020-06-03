@@ -3,8 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-terms-of-use',
-  template: '<p> Pop up </p>'
-  //templateUrl: './terms-of-use.component.html',
+  templateUrl: './terms-of-use.component.html',
   //styleUrls: ['./terms-of-use.component.scss']
 })
 export class TermsOfUseComponent implements OnInit {
@@ -13,7 +12,7 @@ export class TermsOfUseComponent implements OnInit {
 
   ngOnInit(): void {
     this.dialogRef.updatePosition({
-      'top': '10%',
+      'top': '5%',
       'left': '10%'
     })
   }

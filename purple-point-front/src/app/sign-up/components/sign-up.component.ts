@@ -20,6 +20,7 @@ export class SignUpComponent implements OnInit {
 
   isSubmitted = false;
   userForm: FormGroup;
+  agreed = false;
   geolocation: GeoLocation = ({
     latitude: -1, 
     longitude: -1, 
@@ -46,6 +47,7 @@ export class SignUpComponent implements OnInit {
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]],
       gender: [null, [Validators.required]],
+      agree: ['', [Validators.required]]
     },
     {
       validator: MustMatch('password', 'confirmPassword')
@@ -69,20 +71,27 @@ export class SignUpComponent implements OnInit {
   showUseOfTerms() {
     this.termsOfUse.open(TermsOfUseComponent, 
       {
-        disableClose: false, 
-        autoFocus: true,
+        disableClose: true,
+        autoFocus: false,
         panelClass: ['termsOfUse'],
         position: {
-          'top': '10%'
+          'top': '7%'
         },
         // width: '450px',
-        height: '200px'
+        height: '90%'
       });
+  }
+
+  setCheckboxToFalse(checked: any) {
+    this.agreed = checked;
+    if (!checked) {
+      this.isSubmitted = false;
+    }
   }
 
   onSubmit() {
     this.isSubmitted = true;
-    if (this.userForm.valid) {
+    if (this.userForm.valid && this.agreed) {
       this.userService.createUser(this.createUserForm()).subscribe((response: any) => {
         if (response.status !== 400 && response.status !== 500) {
           alert(this.translate.instant('alerts.createdUser'));
@@ -98,8 +107,6 @@ export class SignUpComponent implements OnInit {
 
   get formControls() { return this.userForm.controls; }
 
-  redirectToLogin() {
-    this.route.navigate(['/login']);
-  }
+  redirectToLogin() { this.route.navigate(['/login']); }
 
 }

@@ -117,7 +117,7 @@
             {{ 'formErrors.confirmPasswordRequired' | translate}}
           </div>
           <div class="error-message" *ngIf="formControls.confirmPassword.errors.mustMatch">
-            {{'formErrors.passwordMustMatch' | translate }}
+            {{ 'formErrors.passwordMustMatch' | translate }}
           </div>
         </div>
       </div>
@@ -142,13 +142,23 @@
         </div>
       </div>  
     </div>  
-    <div class="row">
-      I have not read but I accept the 
-      <a (click)="showUseOfTerms()">
-        terms of use
-      </a>
-      !
+    <div class="row checkbox" [ngClass]="{ 'has-error': isSubmitted && formControls.agree.errors }">
+      <div class="col-12">
+        <mat-checkbox #checkbox (change)="setCheckboxToFalse(checkbox.checked)" formControlName="agree" color="primary">
+          &nbsp;&nbsp;
+        </mat-checkbox>
+        {{ 'termsOfUse.checkbox1' | translate }}
+        <a class="termsEmphasis"(click)="showUseOfTerms()">
+          {{ 'termsOfUse.checkbox2' | translate }}!
+        </a>
+        <div *ngIf="(isSubmitted && (formControls.agree.errors || !agreed))" >
+          <div class="error-message" *ngIf="!agreed">
+            {{ 'formErrors.agreeRequired' | translate }}
+          </div>
+        </div>
+      </div>
     </div>
+    
     <button type="submit" class="principalButton signup-button">
       {{ 'buttons.register' | translate }}
     </button>

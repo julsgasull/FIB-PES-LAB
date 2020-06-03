@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/css?family=Montserrat:500,700");
-@import "@angular/material/prebuilt-themes/indigo-pink.css";
+@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import "~leaflet/dist/leaflet.css";
 
 html, body {
@@ -335,6 +335,13 @@ td, tr {
     margin-left: 10% !important;
     z-index: 100;
     padding: 0;
+}
+
+.checkbox {
+    display: flex;
+    text-align: left;
+    margin-left: 0px;
+    font-size: 14px !important;
 }
 
 .imageClass {

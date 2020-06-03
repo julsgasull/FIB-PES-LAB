@@ -24,7 +24,8 @@
         "internalServerError": "Internal Server Error",
         "confirmPasswordRequired": "Confirmar contraseña obligatorio",
         "passwordMustMatch": "Las contraseñas deben coincidir",
-        "notAuthenticated": "No autenticado"
+        "notAuthenticated": "No autenticado",
+        "agreeRequired": "Debe aceptar los términos y condiciones de uso antes de registrarse"
     },
     "alerts": {
         "savedChanges":"Los cambios se han guardado correctamente",
@@ -90,5 +91,9 @@
         "phonesButton": "teléfonos",
         "definitionsButton": "definiciones",
         "wikiTitle": "Wiki"
+    },
+    "termsOfUse": {
+        "checkbox1": "He leído, entendido y accepto los ",
+        "checkbox2": "términos y condiciones de uso"
     }
 }

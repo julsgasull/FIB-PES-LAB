@@ -44,6 +44,7 @@ import { LanguageButtonModule } from './common/components/language-button/langua
 import { MessagingService } from './services/messaging/messaging.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SnackbarService } from './services/snackbar/snackbar.service';
 import { SnackbarRemote } from './services/snackbar/snackbar.remote';
@@ -64,7 +65,6 @@ import { ForgotPwdComponent } from './forgot-pwd/components/forgot-pwd.component
 import { ForgotPwdModule } from './forgot-pwd/forgot-pwd.module';
 import { TermsOfUseComponent } from './common/components/terms-of-use/components/terms-of-use.component';
 import { TermsOfUseModule } from './common/components/terms-of-use/terms-of-use.module';
-
 
 @NgModule({
   declarations: [
@@ -94,6 +94,7 @@ import { TermsOfUseModule } from './common/components/terms-of-use/terms-of-use.
     AngularFireMessagingModule,
     MatSnackBarModule,
     MatDialogModule,
+    MatCheckboxModule,
     BrowserAnimationsModule,
     SnackbarModule,
     SimpleSnackbarModule,

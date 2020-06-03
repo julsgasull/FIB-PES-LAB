@@ -4,6 +4,7 @@ import { SignUpComponent } from './components/sign-up.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageButtonModule } from '../common/components/language-button/language-button.module';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
@@ -14,7 +15,8 @@ import { LanguageButtonModule } from '../common/components/language-button/langu
     ReactiveFormsModule,
     FormsModule,
     TranslateModule,
-    LanguageButtonModule
+    LanguageButtonModule,
+    MatCheckboxModule
   ],
   exports: []
 })

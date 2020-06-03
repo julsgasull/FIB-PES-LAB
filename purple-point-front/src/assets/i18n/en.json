@@ -24,7 +24,8 @@
         "internalServerError": "Internal Server Error",
         "confirmPasswordRequired": "Confirm Password is required",
         "passwordMustMatch": "Passwords must match",
-        "notAuthenticated": "Not authenticated"
+        "notAuthenticated": "Not authenticated",
+        "agreeRequired": "You need to accept the terms and conditions of use before registering"
     },
     "alerts": {
         "savedChanges":"The changes have been saved correctly",
@@ -90,5 +91,9 @@
         "phonesButton": "phones",
         "definitionsButton": "definitions",
         "wikiTitle": "Wiki"
+    },
+    "termsOfUse": {
+        "checkbox1": "I have read, understood and accept the general ",
+        "checkbox2": "terms and conditions of use"
     }
 }
