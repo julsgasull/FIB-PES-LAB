@@ -92,6 +92,11 @@
         "definitionsButton": "definitions",
         "wikiTitle": "Wiki"
     },
+    "phone": {
+        "gender": "assistance to victims of gender violence",
+        "emergencies": "emergencies",
+        "police": "police"
+    },
     "termsOfUse": {
         "checkbox1": "I have read, understood and accept the general ",
         "checkbox2": "terms and conditions of use"
