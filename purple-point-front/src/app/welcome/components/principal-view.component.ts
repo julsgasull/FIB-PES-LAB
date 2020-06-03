@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessagingService } from 'src/app/services/messaging/messaging.service';
 import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
-import { GeoLocation } from 'src/app/models/geoLocation.interface';
+import { GeoLocation } from 'src/app/models/geolocation.interface';
 import { Device } from 'src/app/models/device.interface';
 
 @Component({

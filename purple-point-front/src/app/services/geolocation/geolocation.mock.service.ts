@@ -1,5 +1,5 @@
 import { GeoLocationService } from "./geolocation.service";
-import { GeoLocation } from 'src/app/models/geoLocation.interface';
+import { GeoLocation } from 'src/app/models/geolocation.interface';
 import { Observable } from 'rxjs';
 
 

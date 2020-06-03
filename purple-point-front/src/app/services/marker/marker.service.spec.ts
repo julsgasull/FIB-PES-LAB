@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { MarkerService } from './marker.service';
-import { GeoLocationRemote } from '../geolocation/geolocation.remote';
+import { GeoLocationRemote } from './../geolocation/geolocation.remote';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
 

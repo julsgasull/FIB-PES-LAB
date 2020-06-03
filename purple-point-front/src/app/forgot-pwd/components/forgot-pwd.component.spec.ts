@@ -6,12 +6,12 @@ import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-tran
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
-import { UserService } from './../../services/user/user.service';
-import { UserRemote } from './../../services/user/user.remote';
-import { UtilsService } from './../../services/utils/utils.service';
-import { UtilsRemote } from './../../services/utils/utils.remote';
-import { LanguageButtonModule } from './../../common/components/language-button/language-button.module';
-import { GeoLocationRemote } from './../../services/geolocation/geolocation.remote';
+import { UserService } from '././.././../services/user/user.service';
+import { UserRemote } from '././.././../services/user/user.remote';
+import { UtilsService } from '././.././../services/utils/utils.service';
+import { UtilsRemote } from '././.././../services/utils/utils.remote';
+import { LanguageButtonModule } from '././.././../common/components/language-button/language-button.module';
+import { GeoLocationRemote } from '././.././../services/geolocation/geolocation.remote';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ForgotPwdComponent', () => {

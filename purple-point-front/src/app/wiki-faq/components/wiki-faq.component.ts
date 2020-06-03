@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FAQ } from 'src/app/models/faq.interface';
-import { UserData } from 'src/app/models/userData.interface';
+import { UserData } from 'src/app/models/userdata.interface';
 import { WikiService } from 'src/app/services/wiki/wiki.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { TranslateService } from '@ngx-translate/core';
-import { GeoLocation } from 'src/app/models/geoLocation.interface';
+import { GeoLocation } from 'src/app/models/geolocation.interface';
 import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
 
 @Component({

@@ -5,11 +5,11 @@ import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-tran
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { LanguageButtonModule } from '../../common/components/language-button/language-button.module';
-import { UserService } from '../../services/user/user.service';
-import { UserRemote } from '../../services/user/user.remote';
-import { GeoLocationRemote } from '../../services/geolocation/geolocation.remote';
-import { WikiRemote } from '../../services/wiki/wiki.remote';
+import { LanguageButtonModule } from './.././../common/components/language-button/language-button.module';
+import { UserService } from './.././../services/user/user.service';
+import { UserRemote } from './.././../services/user/user.remote';
+import { GeoLocationRemote } from './.././../services/geolocation/geolocation.remote';
+import { WikiRemote } from './.././../services/wiki/wiki.remote';
 
 
 describe('WikiQuestionsComponent', () => {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { GeoLocation } from '../../models/geoLocation.interface';
+import { GeoLocation } from '../../models/geolocation.interface';
 import { Device } from 'src/app/models/device.interface';
 
 @Injectable()

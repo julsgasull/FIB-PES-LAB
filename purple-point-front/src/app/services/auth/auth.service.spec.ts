@@ -2,8 +2,8 @@ import { TestBed } from '@angular/core/testing';
 
 import { AuthService } from './auth.service';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
-import { UserRemote } from '../user/user.remote';
-import { UserService } from '../user/user.service';
+import { UserRemote } from './../user/user.remote';
+import { UserService } from './../user/user.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CommonModule } from '@angular/common';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';

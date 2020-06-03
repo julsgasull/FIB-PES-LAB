@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PanicButtonRemote } from './panic-button.remote';
 import { Observable } from 'rxjs';
-import { PanicAlarm } from 'src/app/models/panicAlarm.interface'
+import { PanicAlarm } from 'src/app/models/panicalarm.interface'
 
 @Injectable({
   providedIn: 'root'

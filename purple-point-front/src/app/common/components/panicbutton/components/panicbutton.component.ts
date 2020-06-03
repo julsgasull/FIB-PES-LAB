@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PanicButtonService } from 'src/app/services/panic-button/panic-button.service'
-import { PanicAlarm } from 'src/app/models/panicAlarm.interface';
+import { PanicAlarm } from 'src/app/models/panicalarm.interface';
 
 @Component({
   selector: 'panicbutton',

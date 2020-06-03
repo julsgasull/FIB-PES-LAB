@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { GeoLocation } from 'src/app/models/geoLocation.interface';
+import { GeoLocation } from 'src/app/models/geolocation.interface';
 import { UserService } from 'src/app/services/user/user.service';
 import { Router } from '@angular/router';
 import { UtilsService } from 'src/app/services/utils/utils.service';
 import { TranslateService } from '@ngx-translate/core';
 import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
-import { UserData } from 'src/app/models/userData.interface';
+import { UserData } from 'src/app/models/userdata.interface';
 import { MustMatch } from 'src/app/common/must-match.validator';
 
 @Component({

@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { NotificationsService } from './notifications.service';
 import { NotificationsRemote } from './notifications.remote';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { UserRemote } from '../user/user.remote';
+import { UserRemote } from './../user/user.remote';
 import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
 
 describe('NotificationsService', () => {

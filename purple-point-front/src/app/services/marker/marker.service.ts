@@ -6,8 +6,8 @@ import { Report } from 'src/app/models/report.interace';
 import { TranslateService } from '@ngx-translate/core';
 
 var pointIcon = L.icon({
-  iconUrl: '../../../assets/images/pin.svg',
-  shadowUrl: '../../../assets/images/pin-shadow.svg',
+  iconUrl: './.././.././../assets/images/pin.svg',
+  shadowUrl: './.././.././../assets/images/pin-shadow.svg',
 
   iconSize:     [38, 95], // size of the icon
   shadowSize:   [50, 64], // size of the shadow
@@ -26,7 +26,7 @@ export class MarkerService {
   <html>\
     <div style="text-align: center;">\
       <button class="principalButton delete" id="button-delete" type="button" (click)="manageDeleteButton()">\
-        <img src="../../../assets/images/paperbin.png" style="height:30px; width:30px">\
+        <img src="./.././.././../assets/images/paperbin.png" style="height:30px; width:30px">\
       </button>\
     </div>\
     <div style="text-align: center;">'   +
@@ -126,7 +126,7 @@ export class MarkerService {
     <html>\
       <div style="text-align: center;">\
         <button class="principalButton delete" id="button-delete" type="button" (click)="manageDeleteButton()">\
-          <img src="../../../assets/images/paperbin.png" style="height:30px; width:30px">\
+          <img src="./.././.././../assets/images/paperbin.png" style="height:30px; width:30px">\
         </button>\
       </div>\
       <div style="text-align: center;">'+

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
-import { UserData } from 'src/app/models/userData.interface';
+import { UserData } from 'src/app/models/userdata.interface';
 import { ProfilePicData } from 'src/app/models/profilepicdata.interface';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 
@@ -9,7 +9,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { TranslateService } from '@ngx-translate/core';
 import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
-import { GeoLocation } from 'src/app/models/geoLocation.interface';
+import { GeoLocation } from 'src/app/models/geolocation.interface';
 
 @Component({
   selector: 'app-profile',

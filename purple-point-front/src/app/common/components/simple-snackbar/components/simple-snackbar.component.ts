@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
-import { SnackbarComponent } from '../../snackbar/components/snackbar.component';
+import { SnackbarComponent } from './.././../snackbar/components/snackbar.component';
 import { NotificationsService } from 'src/app/services/notifications/notifications.service';
 
 @Component({

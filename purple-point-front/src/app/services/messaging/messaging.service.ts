@@ -2,8 +2,8 @@ import { Injectable, NgZone } from '@angular/core';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { BehaviorSubject } from 'rxjs'
 import {HttpClient, HttpParams} from '@angular/common/http';
-import { SnackbarService } from '../snackbar/snackbar.service';
-import { NotificationsService } from '../notifications/notifications.service';
+import { SnackbarService } from './../snackbar/snackbar.service';
+import { NotificationsService } from './../notifications/notifications.service';
       
 @Injectable()
 export class MessagingService {

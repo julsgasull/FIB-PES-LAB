@@ -2,12 +2,12 @@ import { Component, OnInit, OnChanges } from '@angular/core';
 import * as L from 'leaflet';
 import { MarkerService } from 'src/app/services/marker/marker.service';
 import { Router } from '@angular/router';
-import { GeoLocation } from 'src/app/models/geoLocation.interface';
+import { GeoLocation } from 'src/app/models/geolocation.interface';
 import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
 import { TranslateService } from '@ngx-translate/core';
 
 var locationIcon = L.icon({
-  iconUrl:      '../../../assets/images/location.svg',
+  iconUrl:      './.././.././../assets/images/location.svg',
   iconSize:     [50, 50],   // size of the icon
   iconAnchor:   [25, 25],   // point of the icon which will correspond to marker's location
   popupAnchor:  [0, -25]    // point from which the popup should open relative to the iconAnchor

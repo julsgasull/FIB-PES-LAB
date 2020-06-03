@@ -1,5 +1,5 @@
-import { UserData } from './userData.interface';
-import { GeoLocation } from './geoLocation.interface';
+import { UserData } from './userdata.interface';
+import { GeoLocation } from './geolocation.interface';
 
 export interface Device {
     location: GeoLocation,

@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { UserData } from 'src/app/models/userData.interface';
-import { UserService } from '../user/user.service';
-import { GeoLocation } from 'src/app/models/geoLocation.interface';
+import { UserData } from 'src/app/models/userdata.interface';
+import { UserService } from './../user/user.service';
+import { GeoLocation } from 'src/app/models/geolocation.interface';
 import { Device } from 'src/app/models/device.interface';
 import { Observable } from 'rxjs/internal/Observable';
 
