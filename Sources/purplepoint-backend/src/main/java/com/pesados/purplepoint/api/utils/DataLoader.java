@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 
 import com.pesados.purplepoint.api.PurplePointApplication;
@@ -61,20 +60,19 @@ class LoadDatabase {
   }
     
     @Bean
-    CommandLineRunner initMapDatabase(ReportService service) {
+    CommandLineRunner initMapDatabase(ReportService service, UserService serviceHelper) {
+      User usr = serviceHelper.saveUser(new User());
       return args -> {
-        logger.info("Preloading " + service.saveReport(new Report((new Location((float)41.447615, (float)2.224420, (float)100, (float)0)), new User("tonto1", "tonto1@mail.com"))));
-        logger.info("Preloading " + service.saveReport(new Report((new Location((float)41.415026309656994, (float)2.151603698730469, (float)-1, (float)-1)), new User("tonto2", "tonto2@mail.com"))));
-        logger.info("Preloading " + service.saveReport(new Report((new Location((float)41.425597961179896, (float) 2.1958923339843754, (float)-1, (float)-1)), new User("tonto3", "tonto3@mail.com"))));
-        logger.info("Preloading " + service.saveReport(new Report((new Location((float)41.39993938849367, (float)2.151260375976563, (float)-1, (float)-1)), new User("tonto4", "tont4o@mail.com"))));
+        logger.info("Preloading " + service.saveReport(new Report((new Location((float)41.447615, (float)2.224420, (float)100, (float)0)), usr)));
+        logger.info("Preloading " + service.saveReport(new Report((new Location((float)41.415026309656994, (float)2.151603698730469, (float)-1, (float)-1)), usr)));
+        logger.info("Preloading " + service.saveReport(new Report((new Location((float)41.425597961179896, (float) 2.1958923339843754, (float)-1, (float)-1)), usr)));
+        logger.info("Preloading " + service.saveReport(new Report((new Location((float)41.39993938849367, (float)2.151260375976563, (float)-1, (float)-1)), usr)));
       };
     }
 
 
     @Bean
     CommandLineRunner initLocationDatabase(LocationService service) {
-        User usr = new User("test5", "test5","testingthis@gmail.com", "1234", "others");
-
         return args -> {
             logger.info("Preloading " + service.saveLocation(new Location((float)41.447612, (float)2.224417, (float)100, (float)0)));
             logger.info("Preloading " + service.saveLocation(new Location((float)41.447379, (float)2.226842, (float)100, (float)0)));
@@ -101,7 +99,7 @@ class LoadDatabase {
     CommandLineRunner initDeviceDatabase(DeviceService service) {
         return args -> {
             // Location "Mi Casa"
-            logger.info("Preloading " + service.saveDevice(new Device("f2EJYEQeYyYq-v2ubvL7x5:APA91bFam-no_lk9-kryCZol_dXDEtRjyd_iyAORuLDuLgLmyblUhYE9sYV1Prj4ohxnt6-EM_tDBVOkhnV08e2szqCGjNBRap5vnRwzBVf0iCMzlCphZiAWCkRWiDx0pB71dZEj2Ej5", new Location((float)41.447612, (float)2.224417, 100, 0), new User())));
+            logger.info("Preloading " + service.saveDevice(new Device("cUp2XzhPe9MysvfL3J4f9O:APA91bFHVzjQGftg1Ae-kSibDwIWflLm73D-KpVzwJscLvnZrF8oyda9dKDGP3zI8YgroOyFpExbdakK_7bHWr7pzHpVSbtOtASm1dJzjUMcjfsoNyOkYSs5uUcVaoIVbL8qI90B6m0H", new Location((float)41.447612, (float)2.224417, 100, 0), new User())));
             // Location "bar"
             logger.info("Preloading " + service.saveDevice(new Device("2", new Location((float)41.447379, (float)2.226842, (float)100, (float)0), new User())));
             // Location "china"
