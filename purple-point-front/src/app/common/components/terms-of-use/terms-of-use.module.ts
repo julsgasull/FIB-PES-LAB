@@ -8,8 +8,7 @@ import { CommonModule } from '@angular/common';
     declarations: [TermsOfUseComponent],
     imports: [
       CommonModule,
-      TranslateModule,
-      LanguageButtonModule
+      TranslateModule
     ],
     exports: [TermsOfUseComponent]
   })

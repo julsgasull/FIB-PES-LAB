@@ -337,6 +337,61 @@ td, tr {
     text-align: center;
 }
 
+.touH1 {
+    position: relative;
+    font-family: Montserrat;
+    font-weight: bold;
+    font-size: 29px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-align: center;
+}
+
+.touH2 {
+    font-family: Montserrat;
+    font-weight: normal;
+    font-size: 23px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-align: left;
+}
+
+.touH3 {
+    font-family: Montserrat;
+    font-weight: normal;
+    font-size: 19px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-align: left;
+}
+
+.touH4 {
+    font-family: Montserrat;
+    font-weight: normal;
+    font-size: 16px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-align: left;
+}
+
+.touP0 {
+    font-family: Montserrat;
+    font-weight: normal;
+    font-size: 13px;
+    color: #9F9F9F;
+    letter-spacing: 0;
+    text-align: left;
+}
+
+.touP {
+    font-family: Montserrat;
+    font-weight: normal;
+    font-size: 14px;
+    color: #9F9F9F;
+    letter-spacing: 0;
+    text-align: left;
+}
+
 .checkbox {
     display: flex;
     text-align: left;
