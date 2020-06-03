@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/css?family=Montserrat:500,700");
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
 @import "~leaflet/dist/leaflet.css";
 
 html, body {
@@ -310,6 +311,7 @@ td, tr {
     margin: 5px;
 }
 
+
 .mockSnackbar {
     background: #341860 !important;
     white-space: pre-wrap !important;
@@ -318,6 +320,21 @@ td, tr {
 
 .snackbardivButtons {
     margin: auto;
+}
+
+.termsOfUse {
+    position: fixed;
+    width: 85%;
+    border-radius: 10px !important;
+    min-width: 20% !important;
+    // transform-origin: center center !important;
+    background: 341860 !important;
+    white-space: pre-wrap !important;
+    color: white !important;
+    margin-bottom: 57px !important;
+    margin-left: 10% !important;
+    z-index: 100;
+    padding: 0;
 }
 
 .imageClass {

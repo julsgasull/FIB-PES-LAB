@@ -51,9 +51,6 @@ export class SignUpComponent implements OnInit {
       validator: MustMatch('password', 'confirmPassword')
     });
     this.geolocation = this.geoLocationService.startGeoLocationService(this.geolocation);
-
-    this.termsOfUse.open(TermsOfUseComponent, {disableClose: true, autoFocus: true});
-
   }
 
 
@@ -67,6 +64,20 @@ export class SignUpComponent implements OnInit {
       gender: userFormValue.gender
     }
     return userData;
+  }
+
+  showUseOfTerms() {
+    this.termsOfUse.open(TermsOfUseComponent, 
+      {
+        disableClose: false, 
+        autoFocus: true,
+        panelClass: ['termsOfUse'],
+        position: {
+          'top': '10%'
+        },
+        // width: '450px',
+        height: '200px'
+      });
   }
 
   onSubmit() {

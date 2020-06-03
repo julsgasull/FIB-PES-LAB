@@ -5,7 +5,7 @@
     flex-direction: column;
     justify-content: center;
     margin-top: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 30px; 
 }
 
 .form-field {
@@ -19,4 +19,5 @@
 .signup-button{
     margin-top: 20px;
     padding: 2px 16px;
+    z-index: -1;
 }
