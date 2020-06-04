@@ -58,9 +58,7 @@ export class MarkerService {
   
   manageDeleteButton(map, marker, reportID) {
     map.removeLayer(marker);
-    this.httpClient.get<Report>(`${environment.API_URL}/map/`+reportID).subscribe((result: Report) => {
-      console.log("report en delete", result)
-    });
+    this.httpClient.get<Report>(`${environment.API_URL}/map/`+reportID).subscribe((result: Report) => {});
     this.httpClient.delete<Report[]>(`${environment.API_URL}/map/`+reportID).subscribe((result: Report[]) => {});
   }
 
@@ -81,13 +79,13 @@ export class MarkerService {
 
         const lat = c.location.latitude;
         const lon = c.location.longitude;
-        if (c.user.email !== localStorage.getItem('userEmail')) {
-          const repByMsg = this.translate.instant("map.reportedBy") + c.user.username;
+        if (c.reporter.email !== localStorage.getItem('userEmail')) {
+          const repByMsg = this.translate.instant("map.reportedBy") + c.reporter.username;
           const marker = new L.marker([lat, lon], {icon: pointIcon}).addTo(map).bindPopup(repByMsg);
           
-          this.markers.push([c.id, marker, c.user.email, c.user.username]);
+          this.markers.push([c.id, marker, c.reporter.email, c.reporter.username]);
         }
-        else if (c.user.email === localStorage.getItem('userEmail')) {
+        else if (c.reporter.email === localStorage.getItem('userEmail')) {
           const marker = new L.marker([lat, lon], {icon: pointIcon, draggable: true}).addTo(map);
           marker.bindPopup(this.updateTemplate(message))
           .on("popupopen", () => {
@@ -108,7 +106,7 @@ export class MarkerService {
             map.panTo(pos);
           });
 
-          this.markers.push([c.id, marker, c.user.email, c.user.username]);
+          this.markers.push([c.id, marker, c.reporter.email, c.reporter.username]);
         }
       }
     });
