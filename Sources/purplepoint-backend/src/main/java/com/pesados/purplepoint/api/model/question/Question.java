@@ -1,16 +1,14 @@
-package com.pesados.purplepoint.api.model.faq;
+package com.pesados.purplepoint.api.model.question;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.util.Collections;
-import java.util.List;
+import javax.persistence.*;
 
-public class Faq {
+@Entity
+@Table(name = "Question")
+public class Question {
 	@Schema(description = "Id of the definition.", required = true)
-	private @Id @GeneratedValue Long faqId;
+	private @Id Long questionId;
 
 	@Schema(description = "Question", example="Question", required = true)
 	@Column(name = "question", length = 2500)
@@ -20,27 +18,29 @@ public class Faq {
 	private String answer;
 	@Schema(description = "List of votes", example=" List of users emails voters", required = true)
 	@Column(name = "upvotes")
-	private List<String> upvotes;
+	private long numUpvotes;
 	@Schema(description = "List of downvotes", example=" List of users emails downvoters", required = true)
 	@Column(name = "downvotes")
-	private List<String> downvotes;
+	private long numDownvotes;
 	@Schema(description = "Language of the definition.", example="esp", required = true)
 	private String language;
 
-	public Faq(String question, String answer, String language) {
+	public  Question() {
+
+	}
+
+	public Question(String question, String answer, String language) {
 		this.question = question;
 		this.answer = answer;
-		this.upvotes = Collections.<String>emptyList();;
-		this.downvotes = Collections.<String>emptyList();;
 		this.language = language;
 	}
 
-	public Long getFaqId() {
-		return faqId;
+	public Long getQuestionId() {
+		return questionId;
 	}
 
-	public void setFaqId(Long faqId) {
-		this.faqId = faqId;
+	public void setQuestionId(Long questionId) {
+		this.questionId = questionId;
 	}
 
 	public String getQuestion() {
@@ -59,20 +59,18 @@ public class Faq {
 		this.answer = answer;
 	}
 
-	public List<String> getUpvotes() {
-		return upvotes;
+	public long getNumUpvotes() {
+		return numUpvotes;
 	}
 
-	public void setUpvotes(List<String> upvotes) {
-		this.upvotes = upvotes;
+	public void setNumUpvotes(long numUpvotes) { this.numUpvotes = numUpvotes; }
+
+	public long getNumDownvotes() {
+		return numDownvotes;
 	}
 
-	public List<String> getDownvotes() {
-		return downvotes;
-	}
-
-	public void setDownvotes(List<String> downvotes) {
-		this.downvotes = downvotes;
+	public void setNumDownvotes(long numDownvotes) {
+		this.numDownvotes = numDownvotes;
 	}
 
 	public String getLanguage() {

@@ -1,11 +1,8 @@
 package com.pesados.purplepoint.api.controller;
 
 import com.pesados.purplepoint.api.exception.DefinitionBadRequestException;
-import com.pesados.purplepoint.api.exception.UnauthorizedDeviceException;
 import com.pesados.purplepoint.api.model.definition.Definition;
 import com.pesados.purplepoint.api.model.definition.DefinitionService;
-import com.pesados.purplepoint.api.model.report.Report;
-import com.pesados.purplepoint.api.model.user.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -29,7 +26,6 @@ public class DefinitionController {
 		this.defService = defService;
 	}
 
-
 	@Operation(summary = "Add a new definition",
 			description = "Adds a new definition to the database."
 			, tags = { "definition" })
@@ -46,7 +42,7 @@ public class DefinitionController {
 	) {
 		if(!defService.getDefinitionByWord(newDef.getWord()).isPresent()){
 			return this.defService.saveDefinition(newDef);
-		}else {
+		} else {
 			throw new DefinitionBadRequestException();
 		}
 	}
