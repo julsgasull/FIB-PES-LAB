@@ -50,10 +50,13 @@ export class MapOnPanicComponent implements OnInit {
   }
 
   initMap(): void {
-    this.map = L.map('map').fitWorld();        
-    L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
-	    maxZoom:      30,
-	    attribution:  '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+    this.map = L.map('map').fitWorld();
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+      maxZoom: 30,
+      id: 'mapbox/streets-v11',
+      tileSize: 512,
+      zoomOffset: -1,
+      accessToken: 'pk.eyJ1IjoianVsc2dhc3VsbCIsImEiOiJja2F5OGFvbnMwMWNrMnpxYnhkcTExczZ6In0.4WIaQw6Q2rfq9WAVkqoyaQ'
     }).addTo(this.map);
 
     var coordsFromVictim = [this.lat, this.lng];
