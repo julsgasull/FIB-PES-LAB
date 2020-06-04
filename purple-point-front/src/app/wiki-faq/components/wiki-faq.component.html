@@ -1,7 +1,7 @@
 <div class="container wiki-container">
   <div class="row" style="position: fixed; top: 0; right: 0;">
     <div class="col-12">
-      <language-button></language-button>
+      <language-button (languageChanged)="languageChanged($event)"></language-button>
     </div>
   </div>
   <div class="row">

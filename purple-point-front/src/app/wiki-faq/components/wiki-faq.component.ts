@@ -38,8 +38,16 @@ export class WikiFaqComponent implements OnInit {
     const language    = this.translateService.getDefaultLang();
     this.userService.getUserByEmail(userEmail).subscribe((response: UserData) => {
       this.userInfo   = response;
-      this.wikiService.getFAQs(this.userInfo, language).subscribe((response: FAQ[])=>{
+      this.wikiService.getFAQs(language).subscribe((response: FAQ[])=>{
         this.faqs     = response;
+        for (let faq of this.faqs) {
+          this.wikiService.getUpvoteInfo(this.userInfo, faq.id).subscribe((response: boolean) => {
+            faq.isUpvoted = response;
+          });
+          this.wikiService.getDownvoteInfo(this.userInfo, faq.id).subscribe((response: boolean) => {
+            faq.isDownvoted = response;
+          });  
+        }
       });
     });
   
@@ -82,6 +90,12 @@ export class WikiFaqComponent implements OnInit {
   downvote(faq: FAQ) {
     console.log("downvote");
     this.wikiService.downvote(faq);
+  }
+
+  languageChanged(event: string) {
+    this.wikiService.getFAQs(event).subscribe((response: FAQ[])=>{
+      this.faqs     = response;
+    });
   }
 
   redirectToFAQs() {

@@ -15,8 +15,14 @@ export class WikiService {
     private wikiRemote: WikiRemote
   ) { }
 
-  getFAQs(user: UserData, language: string): Observable<FAQ[]> {
-    return this.wikiRemote.getFAQs(user, language);
+  getFAQs(language: string): Observable<FAQ[]> {
+    return this.wikiRemote.getFAQs(language);
+  }
+  getUpvoteInfo(user: UserData, faq_id: number): Observable<boolean>{
+    return this.wikiRemote.getUpvoteInfo(user, faq_id);
+  }
+  getDownvoteInfo(user: UserData, faq_id: number): Observable<boolean>{
+    return this.wikiRemote.getDownvoteInfo(user, faq_id); 
   }
   upvote(faq: FAQ) {
     return this.wikiRemote.upvote(faq);

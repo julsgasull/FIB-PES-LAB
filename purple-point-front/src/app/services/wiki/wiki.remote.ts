@@ -13,8 +13,14 @@ export class WikiRemote {
 
   constructor(private httpClient: HttpClient) {}
 
-  getFAQs(user: UserData, language: string): Observable<FAQ[]> {
-    return this.httpClient.get<FAQ[]>(`${environment.API_URL}/wiki/faqs/` + user.email + `/` + language);
+  getFAQs(language: string): Observable<FAQ[]> {
+    return this.httpClient.get<FAQ[]>(`${environment.API_URL}/wiki/faqs/` + language);
+  }
+  getUpvoteInfo(user: UserData, faq_id: number): Observable<boolean>{
+    return this.httpClient.get<boolean>(`${environment.API_URL}/wiki/upvote/`+faq_id+`/`+user.email);
+  }
+  getDownvoteInfo(user: UserData, faq_id: number): Observable<boolean>{
+    return this.httpClient.get<boolean>(`${environment.API_URL}/wiki/downvote/`+faq_id+`/`+user.email);
   }
   upvote(faq: FAQ) {
     return this.httpClient.put(`${environment.API_URL}/wiki/upvote`, {
