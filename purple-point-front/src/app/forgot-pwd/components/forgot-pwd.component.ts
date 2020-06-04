@@ -64,15 +64,15 @@ export class ForgotPwdComponent implements OnInit {
       const userInfo = this.createUserForm();
       this.userService.getUserByEmail(userInfo.email).subscribe((userResponse: any) => {
         if (userResponse.status !== 404) {
-          userInfo.id = userResponse.id;
-          userInfo.username = userResponse.username;
-          userInfo.name = userResponse.name;
-          userInfo.gender = userResponse.gender;
-          userInfo.helpedUsers = userResponse.helpedUsers;
-          userInfo.lastLocation = userResponse.lastLocation;
-          userInfo.markedSpots = userResponse.markedSpots;
-          userInfo.profilePic = userResponse.profilePic;
-          userInfo.token = userResponse.token;
+          userInfo.id             = userResponse.id;
+          userInfo.username       = userResponse.username;
+          userInfo.name           = userResponse.name;
+          userInfo.gender         = userResponse.gender;
+          userInfo.helpedUsers    = userResponse.helpedUsers;
+          userInfo.lastLocation   = userResponse.lastLocation;
+          userInfo.markedSpots    = userResponse.markedSpots;
+          userInfo.profilePic     = userResponse.profilePic;
+          userInfo.token          = userResponse.token;
           this.userService.editProfile(userInfo).subscribe((response: UserData) => {
             alert(this.translate.instant('alerts.changedPwd'))
             this.redirectToLogin();
