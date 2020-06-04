@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable} from 'rxjs';
-import { UserData } from 'src/app/models/userdata.interface';
+import { UserData } from './../../models/userdata.interface';
 import { UserRemote } from './user.remote';
 import { ProfilePicData } from 'src/app/models/profilepicdata.interface';
 

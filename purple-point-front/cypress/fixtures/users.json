@@ -1,0 +1,9 @@
+{
+    "userInfo" : {
+        "email": "email@gmail.com",
+        "username": "example",
+        "name": "nameExample",
+        "password": "1234",
+        "gender": "other"
+    }
+}

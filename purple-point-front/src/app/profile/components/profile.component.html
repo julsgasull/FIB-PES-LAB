@@ -6,9 +6,10 @@
     </div>
     <div class="row">
         <div class="col-sm-8">
-            <form [formGroup]="editProfileForm" (ngSubmit)="saveChanges()">
-                <div class="usernameTitle" [ngClass]="{'has-error': isSubmitted === true && formControls.username.errors}">
+            <form *ngIf="editProfileForm" id="editProfileForm" [formGroup]="editProfileForm" (ngSubmit)="saveChanges()">
+                <div class="usernameTitle" [ngClass]="{'has-error': isSubmitted && formControls.username.errors}">
                     <input 
+                        id="username-profile"
                         *ngIf="userInfo"
                         class="form-control" 
                         disabled="disableInputs" 
@@ -25,7 +26,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="userData" [ngClass]="{'has-error': isSubmitted === true && formControls.name.errors}">
+                <div class="userData" [ngClass]="{'has-error': isSubmitted && formControls.name.errors}">
                     <div class="row attribute">
                         <div class="col-3">
                             <span class="userTitles">
@@ -34,6 +35,7 @@
                         </div>
                         <div class="col-9 userChanges">
                             <input 
+                                id="name-profile"
                                 *ngIf="userInfo"
                                 class="form-control" 
                                 disabled="disableInputs" 
@@ -58,6 +60,7 @@
                         </div>
                         <div class="col-9 userChanges" [ngClass]="{ 'has-error': isSubmitted && formControls.gender.errors }">
                             <select 
+                                id="gender-profile"
                                 class="form-control" 
                                 disabled="disableInputs"
                                 formControlName="gender"
@@ -84,7 +87,12 @@
                                 </span>
                             </div>
                             <div class="col-9 userChanges" [ngClass]="{ 'has-error': isSubmitted && formControls.password.errors }">
-                                <input class="form-control" type="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;">
+                                <input  
+                                    id="password-profile" 
+                                    class="form-control" 
+                                    type="password" 
+                                    formControlName="password"
+                                    placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;">
                             </div>
                             <div *ngIf="isSubmitted && formControls.password.errors" >
                                 <div *ngIf="formControls.password.errors.required">
@@ -100,7 +108,12 @@
                             </div>
                             <div class="col-9 userChanges" [ngClass]="{ 'has-error': isSubmitted && formControls.profilePic.errors }">
                                 <div class="form-control">
-                                    <input type="file" accept="image/*" (change)="onFileChanged($event)">
+                                    <input 
+                                        formControlName="profilePic"
+                                        id="image-profile" 
+                                        type="file" 
+                                        accept="image/*" 
+                                        (change)="onFileChanged($event)">
                                 </div>
                             </div>
                         </div> 

@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { TranslateService } from '@ngx-translate/core';
 import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
 import { GeoLocation } from 'src/app/models/geoLocation.interface';
+import { UtilsService } from 'src/app/services/utils/utils.service';
 
 @Component({
   selector: 'app-profile',
@@ -29,7 +30,7 @@ export class ProfileComponent implements OnInit {
     gender:       new FormControl( { value: null, disabled: true }, Validators.required),
     markedSpots:  new FormControl( { value: null, disabled: true }, Validators.required),
     helpedUsers:  new FormControl( { value: null, disabled: true }, Validators.required),
-    profilePic:   new FormControl( { value: null, disabled: true }, Validators.required),
+    profilePic:   new FormControl( { value: null, disabled: true }),
   });
   public isSubmitted: boolean = false;
   public selectedFile: File;
@@ -49,26 +50,27 @@ export class ProfileComponent implements OnInit {
     private userService: UserService,
     private httpClient: HttpClient,
     private translate: TranslateService,
-    private geoLocationService: GeoLocationService
+    private geoLocationService: GeoLocationService,
+    private utilsService: UtilsService
   ) {}
 
   ngOnInit(): void {
     const userEmail = localStorage.getItem('userEmail');
-    this.userService.getUserByEmail(userEmail).subscribe((response: UserData) => {
+    this.userService.getUserByEmail(userEmail).subscribe((response: any) => {
       this.userInfo = response;
-      this.retrievedImage = 'data:'+this.userInfo.profilePic.type +';base64,' + this.userInfo.profilePic.picByteB64;
+      // this.retrievedImage = 'data:'+this.userInfo.profilePic.type +';base64,' + this.userInfo.profilePic.picByteB64;
       this.editProfileForm = new FormGroup({
         id:           new FormControl( { value: response.id,          disabled: true }, Validators.required),
         name:         new FormControl( { value: response.name,        disabled: true }, Validators.required),
         email:        new FormControl( { value: response.email,       disabled: true }, Validators.required),
         username:     new FormControl( { value: response.username,    disabled: true }, Validators.required),
-        password:     new FormControl( { value: response.password,    disabled: true }, Validators.required),
+        password:     new FormControl( { value: "",    disabled: true }, Validators.required),
         gender:       new FormControl( { value: response.gender,      disabled: true }, Validators.required),
         markedSpots:  new FormControl( { value: response.markedSpots, disabled: true }, Validators.required),
         helpedUsers:  new FormControl( { value: response.helpedUsers, disabled: true }, Validators.required),
-        profilePic:   new FormControl( { value: response.profilePic,  disabled: true }, Validators.required),
+        profilePic:   new FormControl( { value: response.profilePic,  disabled: true })
       });
-      this.image = response.profilePic
+      this.image = response.profilePic;
     });
     this.geolocation = this.geoLocationService.startGeoLocationService(this.geolocation);
   }
@@ -119,12 +121,14 @@ export class ProfileComponent implements OnInit {
       email:        this.formControls.email.value,
       name:         this.formControls.name.value,
       username:     this.formControls.username.value,
-      password:     this.formControls.password.value,
+      password:     this.utilsService.encryptSha256(this.formControls.password.value),
       gender:       this.formControls.gender.value,
       markedSpots:  this.formControls.markedSpots.value,
       helpedUsers:  this.formControls.helpedUsers.value,
       profilePic:   this.image
     }
+    if (userData.password === "") userData.password = this.userInfo.password;
+    console.log("pwd",  userData.password)
     return userData;
   }
 
