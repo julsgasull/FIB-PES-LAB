@@ -18,6 +18,7 @@ import { environment } from 'src/environments/environment';
 import { GeoLocationRemote } from 'src/app/services/geolocation/geolocation.remote';
 import { PanicButtonRemote } from 'src/app/services/panic-button/panic-button.remote';
 import { setInterval, clearInterval} from 'timers';
+import { AngularFireAuthModule, AngularFireAuth } from '@angular/fire/auth';
 
 describe('PrincipalViewComponent', () => {
   let component: PrincipalViewComponent;
@@ -37,7 +38,6 @@ describe('PrincipalViewComponent', () => {
         PanicbuttonModule,
         HttpClientTestingModule,
         OverlayModule,
-        
         AngularFireMessagingModule,
         AngularFireModule.initializeApp(environment.firebase),
         
@@ -49,7 +49,9 @@ describe('PrincipalViewComponent', () => {
         SnackbarRemote,
         MatSnackBar,
         GeoLocationRemote,
-        PanicButtonRemote
+        PanicButtonRemote,
+        AngularFireAuthModule,
+        AngularFireAuth
       ],
       declarations: [ PrincipalViewComponent ]
     })
