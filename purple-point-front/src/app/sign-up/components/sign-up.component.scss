@@ -5,7 +5,7 @@
     flex-direction: column;
     justify-content: center;
     margin-top: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 30px; 
 }
 
 .form-field {
@@ -16,7 +16,14 @@
     margin-bottom: 20px;
 }
 
-.signup-button{
+.signup-button {
     margin-top: 20px;
     padding: 2px 16px;
+    z-index: -1;
+}
+
+.termsEmphasis {
+    color: #8F4DEC;
+    text-decoration: underline;
+    font-size: 14px;
 }
