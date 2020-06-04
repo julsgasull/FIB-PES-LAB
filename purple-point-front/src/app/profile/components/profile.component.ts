@@ -162,6 +162,6 @@ export class ProfileComponent implements OnInit {
     return this.editProfileForm.controls;
   }
 
-refreshGeolocation() { /* no se para que era esto y me da miedo borrarlo */}
+  refreshGeolocation() { /* no se para que era esto y me da miedo borrarlo */}
 
 }

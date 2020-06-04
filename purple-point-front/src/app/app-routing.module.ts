@@ -13,6 +13,7 @@ import { WikiDefinitionsComponent } from './wiki-definitions/components/wiki-def
 import { ForgotPwdComponent } from './forgot-pwd/components/forgot-pwd.component';
 import { WikiPhonesModule } from './wiki-phones/wiki-phones.module';
 import { WikiPhonesComponent } from './wiki-phones/components/wiki-phones.component';
+import { MapOnPanicComponent } from './common/components/map-on-panic/components/map-on-panic.component';
 
 
 const routes: Routes = [
@@ -47,6 +48,10 @@ const routes: Routes = [
   {
     path: 'addpointtotmap',
     component: AddPointToMapComponent, pathMatch: 'full'
+  },
+  {
+    path: 'maponpanic/:lat/:lng',
+    component: MapOnPanicComponent, pathMatch: 'full'
   },
   {
     path: 'wikifaq',

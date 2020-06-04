@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
 import { pushData } from 'src/app/models/pushdata.interface';
 import { NotificationsService } from 'src/app/services/notifications/notifications.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-snackbar',
@@ -14,7 +15,8 @@ export class SnackbarComponent implements OnInit {
 
   constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any,
               private snackRef: MatSnackBarRef<SnackbarComponent>,
-              private notificationsService: NotificationsService) { }
+              private notificationsService: NotificationsService,
+              private route: Router) { }
 
   ngOnInit(): void {}
 
@@ -26,19 +28,17 @@ export class SnackbarComponent implements OnInit {
 
   showMap() {
     if (localStorage.getItem('token') !== 'null') { //logged user
-      console.log("loggeado")
       this.notificationsService.increaseHelped().subscribe((response) => {},
       (error) => { console.log("error: ", error); }
       );
     }
-    else console.log("no loggeado")
     
     this.notificationsService.sendNotificationToVictim(this.pushData.token).subscribe((response) => {},
     (error) => { console.log("error: ", error); }
     );
     
     this.dismiss();
-    console.log("Last but not least, we redirect to the map with the victim's location");
+    this.redirectToMapOnPanic(this.pushData.latitude, this.pushData.longitude);
   } 
   
   onMyWayAction() {
@@ -48,6 +48,10 @@ export class SnackbarComponent implements OnInit {
 
   dismiss() {
     this.snackRef.dismiss();
+  }
+
+  redirectToMapOnPanic(lat: string, lng: string) {
+    this.route.navigate(['/maponpanic', lat, lng]);
   }
 
 }

@@ -64,6 +64,7 @@ import { ForgotPwdModule } from './forgot-pwd/forgot-pwd.module';
 import { WikiPhonesModule } from './wiki-phones/wiki-phones.module';
 import { TermsOfUseComponent } from './common/components/terms-of-use/components/terms-of-use.component';
 import { TermsOfUseModule } from './common/components/terms-of-use/terms-of-use.module';
+import { MapOnPanicModule } from './common/components/map-on-panic/map-on-panic.module';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { TermsOfUseModule } from './common/components/terms-of-use/terms-of-use.
     OpeningViewModule,
     MainMenuModule,
     MapModule,
+    MapOnPanicModule,
     AddPointToMapComponentModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
