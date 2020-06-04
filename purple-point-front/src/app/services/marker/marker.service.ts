@@ -58,16 +58,14 @@ export class MarkerService {
   
   manageDeleteButton(map, marker, reportID) {
     map.removeLayer(marker);
-    var email: string;
     this.httpClient.get<Report>(`${environment.API_URL}/map/`+reportID).subscribe((result: Report) => {
-      email = result.reporter.email;
+      var email = result.reporter.email;
+      this.httpClient.put(`${environment.API_URL}/users/decreaseMarkedSpots/`+email, {}).subscribe((result) => {},
+      (error) => {
+        console.log(error);
+      });
     });
-    this.httpClient.delete<Report[]>(`${environment.API_URL}/map/`+reportID).subscribe((result: Report[]) => {});
-    console.log("email", email)
-    this.httpClient.put(`${environment.API_URL}/users/decreaseMarkedSpots/`+email, {}).subscribe((result) => {},
-    (error) => {
-      console.log(error);
-    });
+    this.httpClient.delete<Report[]>(`${environment.API_URL}/map/`+reportID).subscribe((result: Report[]) => {}); 
   }
 
   manageEditMarker(pos: any, index, report: Report) {
@@ -131,7 +129,6 @@ export class MarkerService {
     (error) => {
       console.log(error);
     });
-    console.log("email", report.reporter.email)
     this.httpClient.put(`${environment.API_URL}/users/increaseMarkedSpots/`+report.reporter.email, {}).subscribe((result) => {},
     (error) => {
       console.log(error);

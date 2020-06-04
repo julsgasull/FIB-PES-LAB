@@ -450,14 +450,21 @@ td, tr {
     justify-content: center;
 }   
 .wikihighlightbutton {
-    background: #BEA2E4;
+    background: #6730BE;
     border-radius: 25px;
-    color: #1A1A1A;
+    color: white;
+    text-align: center;
+    margin: auto;
     cursor: pointer;
 }   
 .wikibutton {
-    color: #ffffff;
+    color: #6730BE;
+    text-align: center;
+    margin: auto;
     cursor: pointer;
+    border: 1.4px solid #6730BE;
+    // border: 2px solid rgb(54, 54, 54);
+    border-radius: 25px;
 }   
 .wikimenu {
     padding: 6%;
