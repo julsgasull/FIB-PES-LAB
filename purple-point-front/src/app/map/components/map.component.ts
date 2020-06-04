@@ -22,6 +22,7 @@ var locationIcon = L.icon({
 export class MapComponent implements OnInit {
   
   private map: L.Map;
+  //private map: M.Map;
   private youMarker: [L.Marker, Number]; // marker, accuracy
   geolocation: GeoLocation = ({
     latitude: -1, 
@@ -48,16 +49,17 @@ export class MapComponent implements OnInit {
   
   initMap(): void {
     this.map = L.map('map').fitWorld();
-    var darkview = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
-	    maxZoom:      20,
-	    attribution:  '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-    });
-    darkview.addTo(this.map);
-
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+      maxZoom: 20,
+      id: 'mapbox/streets-v11',
+      tileSize: 512,
+      zoomOffset: -1,
+      accessToken: 'pk.eyJ1IjoianVsc2dhc3VsbCIsImEiOiJja2F5OGFvbnMwMWNrMnpxYnhkcTExczZ6In0.4WIaQw6Q2rfq9WAVkqoyaQ'
+    }).addTo(this.map);
     this.locate();
   }
 
-  locate() {
+   locate() {
     this.map.locate({
       setView:            true,
       maxZoom:            15,
