@@ -62,9 +62,15 @@ export class MarkerService {
     this.httpClient.delete<Report[]>(`${environment.API_URL}/map/`+reportID).subscribe((result: Report[]) => {});
   }
 
-  manageEditMarker(pos: any, index) {
+  manageEditMarker(pos: any, index, report: Report) {
     this.markers[index][1].setLatLng(pos);
-    console.log("Here we would update the marker's position at backend!");
+    report.location.latitude = pos.lat;
+    report.location.longitude = pos.lng;
+    
+    this.httpClient.post(`${environment.API_URL}/map`, report).subscribe((result) => {},
+    (error) => {
+      console.log(error);
+    });
   }
 
   getAllMarks(map: L.Map) {
@@ -98,7 +104,7 @@ export class MarkerService {
           marker.on("dragend", () => {
             const index = this.findMarkerByID(c.id);
             var pos = marker.getLatLng();
-            this.manageEditMarker(pos, index);
+            this.manageEditMarker(pos, index, c);
             // map.panTo(pos);
           });
           marker.on("drag", () => {
