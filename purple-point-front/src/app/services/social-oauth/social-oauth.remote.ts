@@ -66,7 +66,7 @@ export class SocialOauthRemote {
           localStorage.setItem('userEmail', response.email);
           localStorage.setItem('password', response.password);
           localStorage.setItem('token', response.token);
-          localStorage.setitem('name', response.username);
+          localStorage.setItem('name', response.username);
           localStorage.setItem('username', response.username)
           this.route.navigate(['/mainmenu']);
       },
