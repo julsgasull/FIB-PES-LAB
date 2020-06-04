@@ -152,6 +152,7 @@ export class NotificationsRemote {
         var username: String;
         var email: String;
         if (localStorage.getItem('token') != 'null') { //logged user
+            console.log("setting up userdata")
             username = localStorage.getItem('username');
             email = localStorage.getItem('userEmail');
         }
@@ -160,7 +161,6 @@ export class NotificationsRemote {
         {
         headers:{
             'Content-Type':"application/json",
-            'X-Skip-Interceptor-Login': '',
         }
         });
     }

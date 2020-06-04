@@ -65,7 +65,9 @@
         "goToMap": "Ves al mapa",
         "doubts": "¿Dudas?",
         "visitWiki": "Visita la wiki",
-        "imageAdv": "Si cambias la imagen, por favor espera unos segundas al apretar el botón 'Guardar cambios'"
+        "imageAdv": "Si cambias la imagen, por favor espera unos segundas al apretar el botón 'Guardar cambios'",
+        "markedPoints": "Puntos marcados: ",
+        "helpedUsers": "Usuarios ayudados: "
     },
     "notification" : {
 		"title": "Alguien necesita tu ayuda!",

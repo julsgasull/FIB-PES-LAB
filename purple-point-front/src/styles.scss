@@ -3,6 +3,8 @@
 @import "@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import "~leaflet/dist/leaflet.css";
 @import "src/app/common/components/terms-of-use/components/terms-of-use.component.scss";
+@import "src/app/common/components/simple-snackbar/components/simple-snackbar.component.scss";
+@import "src/app/common/components/snackbar/components/snackbar.component.scss";
 
 html, body {
     background-color: #202020;
@@ -281,25 +283,8 @@ td, tr {
     color:  #8F4DEC !important;
 }
 
-.snackbarbox {
-    width: 85%;
-    bottom: 71px !important;
-    padding: 20px 0px !important;
-    border-radius: 10px !important;
-    min-width: 20% !important;
-    // transform-origin: center center !important;
-    background: #341860 !important;
-    white-space: pre-wrap !important;
-    color: white !important;
-    margin-bottom: 57px !important;
-    .snackbar-text {
-        text-align: center !important;
-        font-size: 1em ;
-        color: white !important;
-        margin: 0;
-        padding-left: 25px;
-    }
-}
+@include snackbarbox();
+@include snackbarboxSimple();
 
 .snackbutton {
     background-image: linear-gradient(-90deg, #8F4DEC 0%, #6730BE 100%);

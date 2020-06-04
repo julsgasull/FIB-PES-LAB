@@ -25,12 +25,18 @@ export class SnackbarComponent implements OnInit {
   }
 
   showMap() {
-    this.notificationsService.increaseHelped().subscribe((response) => {},
-    (error) => { console.log("error: ", error); }
-    );
+    if (localStorage.getItem('token') !== 'null') { //logged user
+      console.log("loggeado")
+      this.notificationsService.increaseHelped().subscribe((response) => {},
+      (error) => { console.log("error: ", error); }
+      );
+    }
+    else console.log("no loggeado")
+    
     this.notificationsService.sendNotificationToVictim(this.pushData.token).subscribe((response) => {},
     (error) => { console.log("error: ", error); }
     );
+    
     this.dismiss();
     console.log("Last but not least, we redirect to the map with the victim's location");
   } 
