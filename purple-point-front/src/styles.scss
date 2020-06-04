@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/css?family=Montserrat:500,700");
+@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import "~leaflet/dist/leaflet.css";
+@import "src/app/common/components/terms-of-use/components/terms-of-use.component.scss";
 
 html, body {
     background-color: #202020;
@@ -310,6 +312,7 @@ td, tr {
     margin: 5px;
 }
 
+
 .mockSnackbar {
     background: #341860 !important;
     white-space: pre-wrap !important;
@@ -318,6 +321,82 @@ td, tr {
 
 .snackbardivButtons {
     margin: auto;
+}
+
+@include termsOfUse();
+
+.termsbutton {
+    background-color: #6730BE;
+    border-radius: 24.5px;
+    font-family: Montserrat;
+    font-weight: bold;
+    font-size: 16px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    margin: 5px;
+    text-align: center;
+}
+
+.touH1 {
+    position: relative;
+    font-family: Montserrat;
+    font-weight: bold;
+    font-size: 29px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-align: center;
+}
+
+.touH2 {
+    font-family: Montserrat;
+    font-weight: normal;
+    font-size: 23px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-align: left;
+}
+
+.touH3 {
+    font-family: Montserrat;
+    font-weight: normal;
+    font-size: 19px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-align: left;
+}
+
+.touH4 {
+    font-family: Montserrat;
+    font-weight: normal;
+    font-size: 16px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-align: left;
+}
+
+.touP0 {
+    font-family: Montserrat;
+    font-weight: normal;
+    font-size: 13px;
+    color: #9F9F9F;
+    letter-spacing: 0;
+    text-align: justify;
+}
+
+.touP {
+    font-family: Montserrat;
+    font-weight: normal;
+    font-size: 14px;
+    color: #9F9F9F;
+    letter-spacing: 0;
+    text-align: justify;
+}
+
+.checkbox {
+    display: flex;
+    text-align: left;
+    margin-left: 0px;
+    font-size: 14px !important;
 }
 
 .imageClass {
