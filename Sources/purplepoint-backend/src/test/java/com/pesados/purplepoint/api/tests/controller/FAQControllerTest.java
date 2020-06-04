@@ -46,7 +46,7 @@ public class FAQControllerTest {
     @Test
     public void shouldDeleteCreatedQuestion() throws Exception {
         JSONObject question = new JSONObject();
-        question.put("questionId", "1");
+        question.put("questionId", "2");
         question.put("question", "¿Qué es el arte?");
         question.put("answer", "Morirte de frío.");
         question.put("language", "spanish");
