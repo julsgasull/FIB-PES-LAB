@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user/user.service';
 import { UserRemote } from 'src/app/services/user/user.remote';
-import { UserData } from 'src/app/models/userData.interface';
+import { UserData } from 'src/app/models/userdata.interface';
 import { LanguageButtonModule } from 'src/app/common/components/language-button/language-button.module';
 import { GeoLocationRemote } from 'src/app/services/geolocation/geolocation.remote';
 

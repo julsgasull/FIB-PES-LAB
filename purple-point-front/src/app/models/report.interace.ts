@@ -1,5 +1,5 @@
 import { GeoLocation } from './geoLocation.interface';
-import { UserData } from './userData.interface';
+import { UserData } from './userdata.interface';
 
 export interface Report {
   reportid?:      number;

@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { UtilsService } from 'src/app/services/utils/utils.service';
 import { TranslateService } from '@ngx-translate/core';
 import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
-import { UserData } from 'src/app/models/userData.interface';
+import { UserData } from 'src/app/models/userdata.interface';
 import { MustMatch } from 'src/app/common/must-match.validator';
 
 @Component({

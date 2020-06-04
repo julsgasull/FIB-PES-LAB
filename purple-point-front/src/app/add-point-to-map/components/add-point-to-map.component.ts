@@ -3,7 +3,7 @@ import * as L from 'leaflet';
 import { GeoLocation } from 'src/app/models/geoLocation.interface';
 import { Router } from '@angular/router';
 import { MarkerService } from 'src/app/services/marker/marker.service';
-import { UserData } from 'src/app/models/userData.interface';
+import { UserData } from 'src/app/models/userdata.interface';
 import { UserService } from 'src/app/services/user/user.service';
 import { Report } from 'src/app/models/report.interace';
 import { TranslateService } from '@ngx-translate/core';

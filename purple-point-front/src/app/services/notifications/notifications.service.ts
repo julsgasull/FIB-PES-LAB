@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { NotificationsRemote } from './notifications.remote';
 import { Observable } from 'rxjs';
 import { Device } from 'src/app/models/device.interface';
-import { UserData } from 'src/app/models/userData.interface';
+import { UserData } from 'src/app/models/userdata.interface';
 
 @Injectable({
   providedIn: 'root'

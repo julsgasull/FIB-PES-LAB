@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
-import { UserData } from 'src/app/models/userData.interface';
+import { UserData } from 'src/app/models/userdata.interface';
 import {UserService } from 'src/app/services/user/user.service'
 import { useAnimation } from '@angular/animations';
 import { Observable } from 'rxjs';

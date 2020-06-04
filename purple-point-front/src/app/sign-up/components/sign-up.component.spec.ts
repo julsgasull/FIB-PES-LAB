@@ -6,7 +6,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { UserRemote } from 'src/app/services/user/user.remote';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
-import { UserData } from 'src/app/models/userData.interface';
+import { UserData } from 'src/app/models/userdata.interface';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CommonModule } from '@angular/common';
 import { LanguageButtonModule } from 'src/app/common/components/language-button/language-button.module';
