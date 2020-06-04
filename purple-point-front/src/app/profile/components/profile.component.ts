@@ -21,14 +21,14 @@ export class ProfileComponent implements OnInit {
   public disableInputs: boolean = true;
   public enableSaveButton: boolean = false;
   public editProfileForm: FormGroup = new FormGroup({
-    id:           new FormControl( { value: null, disabled: true }),
+    id:           new FormControl( { value: null, disabled: true }, Validators.required),
     name:         new FormControl( { value: null, disabled: true }, Validators.required),
-    email:        new FormControl( { value: null, disabled: true }),
+    email:        new FormControl( { value: null, disabled: true }, Validators.required),
     username:     new FormControl( { value: null, disabled: true }, Validators.required),
     password:     new FormControl( { value: null, disabled: true }, Validators.required),
     gender:       new FormControl( { value: null, disabled: true }, Validators.required),
-    markedSpots:  new FormControl( { value: null, disabled: true }),
-    helpedUsers:  new FormControl( { value: null, disabled: true }),
+    markedSpots:  new FormControl( { value: null, disabled: true }, Validators.required),
+    helpedUsers:  new FormControl( { value: null, disabled: true }, Validators.required),
     profilePic:   new FormControl( { value: null, disabled: true }),
   });
   public isSubmitted: boolean = false;
@@ -54,21 +54,21 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     const userEmail = localStorage.getItem('userEmail');
-    this.userService.getUserByEmail(userEmail).subscribe((response: UserData) => {
+    this.userService.getUserByEmail(userEmail).subscribe((response: any) => {
       this.userInfo = response;
-      this.retrievedImage = 'data:'+this.userInfo.profilePic.type +';base64,' + this.userInfo.profilePic.picByteB64;
+      // this.retrievedImage = 'data:'+this.userInfo.profilePic.type +';base64,' + this.userInfo.profilePic.picByteB64;
       this.editProfileForm = new FormGroup({
-        id:           new FormControl( { value: response.id,          disabled: true }),
+        id:           new FormControl( { value: response.id,          disabled: true }, Validators.required),
         name:         new FormControl( { value: response.name,        disabled: true }, Validators.required),
-        email:        new FormControl( { value: response.email,       disabled: true }),
+        email:        new FormControl( { value: response.email,       disabled: true }, Validators.required),
         username:     new FormControl( { value: response.username,    disabled: true }, Validators.required),
         password:     new FormControl( { value: response.password,    disabled: true }, Validators.required),
         gender:       new FormControl( { value: response.gender,      disabled: true }, Validators.required),
-        markedSpots:  new FormControl( { value: response.markedSpots, disabled: true }),
-        helpedUsers:  new FormControl( { value: response.helpedUsers, disabled: true }),
+        markedSpots:  new FormControl( { value: response.markedSpots, disabled: true }, Validators.required),
+        helpedUsers:  new FormControl( { value: response.helpedUsers, disabled: true }, Validators.required),
         profilePic:   new FormControl( { value: response.profilePic,  disabled: true }),
       });
-      this.image = response.profilePic
+      this.image = response.profilePic;
     });
     this.geolocation = this.geoLocationService.startGeoLocationService(this.geolocation);
   }

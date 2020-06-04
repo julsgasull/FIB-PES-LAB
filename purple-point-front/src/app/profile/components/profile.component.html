@@ -6,8 +6,8 @@
     </div>
     <div class="row">
         <div class="col-sm-8">
-            <form id="editProfileForm" [formGroup]="editProfileForm" (ngSubmit)="saveChanges()">
-                <div class="usernameTitle" [ngClass]="{'has-error': isSubmitted === true && formControls.username.errors}">
+            <form *ngIf="editProfileForm" id="editProfileForm" [formGroup]="editProfileForm" (ngSubmit)="saveChanges()">
+                <div class="usernameTitle" [ngClass]="{'has-error': isSubmitted && formControls.username.errors}">
                     <input 
                         id="username-profile"
                         *ngIf="userInfo"
@@ -26,7 +26,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="userData" [ngClass]="{'has-error': isSubmitted === true && formControls.name.errors}">
+                <div class="userData" [ngClass]="{'has-error': isSubmitted && formControls.name.errors}">
                     <div class="row attribute">
                         <div class="col-3">
                             <span class="userTitles">
