@@ -43,7 +43,7 @@ class LoadDatabase {
     };
   }
 
-*/
+
 
     @Bean
   CommandLineRunner initUserDatabase(UserService service) {
@@ -116,5 +116,4 @@ class LoadDatabase {
         };
     }
 */
-
 }
