@@ -30,8 +30,7 @@ export class WikiDefinitionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.geolocation = this.geoLocationService.startGeoLocationService(this.geolocation);
-    const language    = this.translateService.getDefaultLang();
-    this.wikiService.getDefinitions(language).subscribe((response: Definition[])=>{
+    this.wikiService.getDefinitions(localStorage.getItem('currentLang')).subscribe((response: Definition[])=>{
       this.definitions     = response;
     });
 
