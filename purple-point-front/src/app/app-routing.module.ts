@@ -11,6 +11,8 @@ import { AddPointToMapComponent } from './add-point-to-map/components/add-point-
 import { WikiFaqComponent } from './wiki-faq/components/wiki-faq.component';
 import { WikiDefinitionsComponent } from './wiki-definitions/components/wiki-definitions.component';
 import { ForgotPwdComponent } from './forgot-pwd/components/forgot-pwd.component';
+import { WikiPhonesModule } from './wiki-phones/wiki-phones.module';
+import { WikiPhonesComponent } from './wiki-phones/components/wiki-phones.component';
 
 
 const routes: Routes = [
@@ -53,6 +55,10 @@ const routes: Routes = [
   {
     path: 'wikidefinitions',
     component: WikiDefinitionsComponent, pathMatch: 'full'
+  },
+  {
+    path: 'wikiphones',
+    component: WikiPhonesComponent, pathMatch: 'full'
   },
   {
     path: 'forgotPwd',

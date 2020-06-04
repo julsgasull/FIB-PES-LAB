@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Definition } from 'src/app/models/definition.interface';
 import { WikiService } from 'src/app/services/wiki/wiki.service';
-import { UserService } from 'src/app/services/user/user.service';
 import { TranslateService } from '@ngx-translate/core';
 import { GeoLocation } from 'src/app/models/geoLocation.interface';
 import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
@@ -25,7 +24,6 @@ export class WikiDefinitionsComponent implements OnInit {
   constructor(
     private route:            Router,
     private wikiService:      WikiService,
-    private userService:      UserService,
     private translateService: TranslateService,
     private geoLocationService: GeoLocationService
   ) { }
@@ -40,13 +38,13 @@ export class WikiDefinitionsComponent implements OnInit {
   }
 
   redirectToFAQs() {
-    this.route.navigate(['wikifaq']);
+    this.route.navigate(['/wikifaq']);
   }
   redirectToPhones() {
-    this.route.navigate(['wikiphones']);
+    this.route.navigate(['/wikiphones']);
   }
   redirectToDefinitions() {
-    this.route.navigate(['wikidefinitions']);
+    this.route.navigate(['/wikidefinitions']);
   }
 
   languageChanged(event: string) {

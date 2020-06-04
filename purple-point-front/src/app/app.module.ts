@@ -29,6 +29,12 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireModule } from '@angular/fire';
+
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { SocialOauthService } from './services/social-oauth/social-oauth.service';
+import { SocialOauthRemote } from './services/social-oauth/social-oauth.remote'; 
+
+
 import { MapComponent } from './map/components/map.component';
 import { AddPointToMapComponent } from './add-point-to-map/components/add-point-to-map.component';
 
@@ -36,7 +42,9 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { LanguageButtonModule } from './common/components/language-button/language-button.module';
 import { MessagingService } from './services/messaging/messaging.service';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SnackbarService } from './services/snackbar/snackbar.service';
 import { SnackbarRemote } from './services/snackbar/snackbar.remote';
@@ -48,19 +56,20 @@ import { MapModule } from './map/map.module';
 import { AddPointToMapComponentModule } from './add-point-to-map/add-point-to-map.module';
 import { SimpleSnackbarComponent } from './common/components/simple-snackbar/components/simple-snackbar.component';
 import { SimpleSnackbarModule } from './common/components/simple-snackbar/simple-snackbar.module';
-import { WikiFaqComponent } from './wiki-faq/components/wiki-faq.component';
 import { WikiService } from './services/wiki/wiki.service';
 import { WikiRemote } from './services/wiki/wiki.remote';
 import { WikiFaqModule } from './wiki-faq/wiki-faq.module';
 import { WikiDefinitionsModule } from './wiki-definitions/wiki-definitions.module';
-import { ForgotPwdComponent } from './forgot-pwd/components/forgot-pwd.component';
 import { ForgotPwdModule } from './forgot-pwd/forgot-pwd.module';
+import { WikiPhonesModule } from './wiki-phones/wiki-phones.module';
+import { TermsOfUseComponent } from './common/components/terms-of-use/components/terms-of-use.component';
+import { TermsOfUseModule } from './common/components/terms-of-use/terms-of-use.module';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
-  entryComponents: [SnackbarComponent, SimpleSnackbarComponent],
+  entryComponents: [SnackbarComponent, SimpleSnackbarComponent, TermsOfUseComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -78,18 +87,24 @@ import { ForgotPwdModule } from './forgot-pwd/forgot-pwd.module';
     MapModule,
     AddPointToMapComponentModule,
     AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireMessagingModule,
     MatSnackBarModule,
+    MatDialogModule,
+    MatCheckboxModule,
     BrowserAnimationsModule,
     SnackbarModule,
     SimpleSnackbarModule,
+    TermsOfUseModule,
     AngularFireModule.initializeApp(environment.firebase),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     LanguageButtonModule,
     WikiFaqModule,
     WikiDefinitionsModule,
     ForgotPwdModule,
+    WikiPhonesModule,
     TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,
@@ -120,6 +135,8 @@ import { ForgotPwdModule } from './forgot-pwd/forgot-pwd.module';
     SnackbarRemote,
     NotificationsService,
     NotificationsRemote,
+    SocialOauthService,
+    SocialOauthRemote,
     WikiService,
     WikiRemote
   ],
