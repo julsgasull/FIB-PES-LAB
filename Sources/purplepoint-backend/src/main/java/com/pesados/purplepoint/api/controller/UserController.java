@@ -300,10 +300,16 @@ public class UserController {
 		}
 	}
 
+	@Operation(summary = "Increase MarkedSpot", description = "Increased marked user spots", tags = {"users"})
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Successful operation"),
+			@ApiResponse(responseCode = "404", description = "User not found"),
+			@ApiResponse(responseCode = "401", description = "Unauthorized")
+	})
 	@PutMapping(path = "/users/increaseMarkedSpots/{userEmail}")
 	User increaseMarkedSpots(
 			@Parameter(required = false, hidden=true) @RequestHeader("Authorization") String unformatedJWT,
-			@Parameter(description = "Information for the user who has helped.", required = true)
+			@Parameter(description = "Email of the user", required = true)
 			@PathVariable String userEmail
 	) {
 		if (this.loginSystem.checkLoggedIn(unformatedJWT)) {
@@ -317,10 +323,16 @@ public class UserController {
 		}
 	}
 
+	@Operation(summary = "Decrease MarkedSpot", description = "Decrease marked user spots", tags = {"users"})
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Successful operation"),
+			@ApiResponse(responseCode = "404", description = "User not found"),
+			@ApiResponse(responseCode = "401", description = "Unauthorized")
+	})
 	@PutMapping(path = "/users/decreaseMarkedSpots/{userEmail}")
 	User decreaseMarkedSpots(
 			@Parameter(required = false, hidden=true) @RequestHeader("Authorization") String unformatedJWT,
-			@Parameter(description = "Information for the user who has helped.", required = true)
+			@Parameter(description = "Email of the user", required = true)
 			@PathVariable String userEmail
 	) {
 		if (this.loginSystem.checkLoggedIn(unformatedJWT)) {
