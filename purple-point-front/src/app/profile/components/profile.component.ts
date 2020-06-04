@@ -29,7 +29,7 @@ export class ProfileComponent implements OnInit {
     gender:       new FormControl( { value: null, disabled: true }, Validators.required),
     markedSpots:  new FormControl( { value: null, disabled: true }, Validators.required),
     helpedUsers:  new FormControl( { value: null, disabled: true }, Validators.required),
-    profilePic:   new FormControl( { value: null, disabled: true }, Validators.required),
+    profilePic:   new FormControl( { value: null, disabled: true }),
   });
   public isSubmitted: boolean = false;
   public selectedFile: File;
@@ -54,9 +54,9 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     const userEmail = localStorage.getItem('userEmail');
-    this.userService.getUserByEmail(userEmail).subscribe((response: UserData) => {
+    this.userService.getUserByEmail(userEmail).subscribe((response: any) => {
       this.userInfo = response;
-      this.retrievedImage = 'data:'+this.userInfo.profilePic.type +';base64,' + this.userInfo.profilePic.picByteB64;
+      // this.retrievedImage = 'data:'+this.userInfo.profilePic.type +';base64,' + this.userInfo.profilePic.picByteB64;
       this.editProfileForm = new FormGroup({
         id:           new FormControl( { value: response.id,          disabled: true }, Validators.required),
         name:         new FormControl( { value: response.name,        disabled: true }, Validators.required),
@@ -66,9 +66,9 @@ export class ProfileComponent implements OnInit {
         gender:       new FormControl( { value: response.gender,      disabled: true }, Validators.required),
         markedSpots:  new FormControl( { value: response.markedSpots, disabled: true }, Validators.required),
         helpedUsers:  new FormControl( { value: response.helpedUsers, disabled: true }, Validators.required),
-        profilePic:   new FormControl( { value: response.profilePic,  disabled: true }, Validators.required),
+        profilePic:   new FormControl( { value: response.profilePic,  disabled: true }),
       });
-      this.image = response.profilePic
+      this.image = response.profilePic;
     });
     this.geolocation = this.geoLocationService.startGeoLocationService(this.geolocation);
   }
