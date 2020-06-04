@@ -1,17 +1,8 @@
 @mixin termsOfUse() {
     .termsOfUse .mat-dialog-container {
-        // position: fixed;
-        // width: 85%;
-        // border-radius: 10px !important;
-        // min-width: 20% !important;
-        // // transform-origin: center center !important;
-        // background: #341860 !important;
         background: #202020 !important;
-        // white-space: pre-wrap !important;
+        white-space: pre-wrap !important;
         color: white !important;
-        // margin-bottom: 57px !important;
-        // margin-right: 10% !important;
-        // // margin-left: 10% !important;
         z-index: 100;
     }
 }
