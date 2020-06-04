@@ -18,14 +18,14 @@ describe('Testing Purple point front login error, visitMap and add a point', () 
         .type('1234');
         cy.wait(1000);
 
-        cy.server()
-        cy.route({
-            method: 'POST',      // Route all GET requests
-            url: 'https://purplepoint.herokuapp.com/api/v1/users/login',
-            response: ['fixture:users.json']        // and force the response to be: []
-        }).as('login');
+        // cy.server()
+        // cy.route({
+        //     method: 'POST',      // Route all GET requests
+        //     url: 'https://purplepoint.herokuapp.com/api/v1/users/login',
+        //     response: ['fixture:users.json']        // and force the response to be: []
+        // }).as('login');
         cy.get('.principalButton').click();
-        cy.wait('@login').its('status').should('eq', 200);
+        // cy.wait('@login').its('status').should('eq', 200);
         cy.wait(1000);
         cy.visit('http://localhost:4200/mainmenu');
         cy.url().should('include', 'mainmenu');
@@ -33,7 +33,14 @@ describe('Testing Purple point front login error, visitMap and add a point', () 
 
     it('MainMenu should redirect to wiki and vote a concept', () => {
         // falta redirigir hacia wiki y poder votar un concepto
+        cy.server()
+        cy.route({
+            method: 'GET',      // Route all GET requests
+            url: 'https://purplepoint.herokuapp.com/api/v1/faqs/undefined/es',
+            response: ['']        // and force the response to be: []
+        }).as('faqs');
         cy.get('#redirectToWiki').click();
+         cy.wait('@faqs').its('status').should('eq', 200);
         cy.url().should('include', 'wikifaq');
          
     });
