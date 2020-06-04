@@ -65,7 +65,9 @@
         "goToMap": "Go to map",
         "doubts": "Doubts?",
         "visitWiki": "Visit the wiki",
-        "imageAdv": "If you change the image, please wait for some seconds to press the 'Save changes' button."
+        "imageAdv": "If you change the image, please wait for some seconds to press the 'Save changes' button.",
+        "markedPoints": "Marked points: ",
+        "helpedUsers": "Users Helped: "
     },
     "notification" : {
 		"title": "Someone needs help!",

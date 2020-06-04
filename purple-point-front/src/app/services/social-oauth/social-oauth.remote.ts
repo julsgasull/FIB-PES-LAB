@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
-import { UserData } from 'src/app/models/userData.interface';
+import { UserData } from 'src/app/models/userdata.interface';
 import {UserService } from 'src/app/services/user/user.service'
 import { useAnimation } from '@angular/animations';
 import { Observable } from 'rxjs';
@@ -66,7 +66,7 @@ export class SocialOauthRemote {
           localStorage.setItem('userEmail', response.email);
           localStorage.setItem('password', response.password);
           localStorage.setItem('token', response.token);
-          localStorage.setitem('name', response.username);
+          localStorage.setItem('name', response.username);
           localStorage.setItem('username', response.username)
           this.route.navigate(['/mainmenu']);
       },

@@ -281,26 +281,6 @@ td, tr {
     color:  #8F4DEC !important;
 }
 
-.snackbarbox {
-    width: 85%;
-    bottom: 71px !important;
-    padding: 20px 0px !important;
-    border-radius: 10px !important;
-    min-width: 20% !important;
-    // transform-origin: center center !important;
-    background: #341860 !important;
-    white-space: pre-wrap !important;
-    color: white !important;
-    margin-bottom: 57px !important;
-    .snackbar-text {
-        text-align: center !important;
-        font-size: 1em ;
-        color: white !important;
-        margin: 0;
-        padding-left: 25px;
-    }
-}
-
 .snackbutton {
     background-image: linear-gradient(-90deg, #8F4DEC 0%, #6730BE 100%);
     border-radius: 24.5px;
@@ -312,6 +292,24 @@ td, tr {
     margin: 5px;
 }
 
+.snackbarbox {
+    width: 85% !important;
+    bottom: 71px !important;
+    padding: 20px 0px !important;
+    border-radius: 10px !important;
+    min-width: 20% !important;
+    background: #341860 !important;
+    white-space: pre-wrap !important;
+    color: white !important;
+    margin-bottom: 57px !important;
+    .snackbar-text {
+        text-align: center !important;
+        font-size: 1em !important;
+        color: white !important;
+        margin: 0 !important;
+        padding-left: 25px !important;
+    }
+}
 
 .mockSnackbar {
     background: #341860 !important;
@@ -452,14 +450,21 @@ td, tr {
     justify-content: center;
 }   
 .wikihighlightbutton {
-    background: #BEA2E4;
+    background: #6730BE;
     border-radius: 25px;
-    color: #1A1A1A;
+    color: white;
+    text-align: center;
+    margin: auto;
     cursor: pointer;
 }   
 .wikibutton {
-    color: #ffffff;
+    color: #6730BE;
+    text-align: center;
+    margin: auto;
     cursor: pointer;
+    border: 1.4px solid #6730BE;
+    // border: 2px solid rgb(54, 54, 54);
+    border-radius: 25px;
 }   
 .wikimenu {
     padding: 6%;
