@@ -35,7 +35,7 @@ export class WikiFaqComponent implements OnInit {
   ngOnInit(): void {
     this.geolocation = this.geoLocationService.startGeoLocationService(this.geolocation);
     const userEmail   = localStorage.getItem('userEmail');
-    const language    = this.translateService.getDefaultLang();
+    const language    = localStorage.getItem('currentLang');
     this.userService.getUserByEmail(userEmail).subscribe((response: UserData) => {
       this.userInfo   = response;
       this.wikiService.getFAQs(this.userInfo, language).subscribe((response: FAQ[])=>{
