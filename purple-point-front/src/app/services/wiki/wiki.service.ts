@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable} from 'rxjs';
 import { WikiRemote } from './wiki.remote';
 import { FAQ } from 'src/app/models/faq.interface';
-import { UserData } from 'src/app/models/userData.interface';
+import { UserData } from 'src/app/models/userdata.interface';
 import { Definition } from 'src/app/models/definition.interface';
 
 

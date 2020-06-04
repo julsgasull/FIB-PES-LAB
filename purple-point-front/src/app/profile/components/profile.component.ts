@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
-import { UserData } from 'src/app/models/userData.interface';
+import { UserData } from 'src/app/models/userdata.interface';
 import { ProfilePicData } from 'src/app/models/profilepicdata.interface';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 
@@ -166,8 +166,6 @@ export class ProfileComponent implements OnInit {
     return this.editProfileForm.controls;
   }
 
-  refreshGeolocation() {
-    console.log("I have realoaded u cunt i work");
-  }
+  refreshGeolocation() { /* no se para que era esto y me da miedo borrarlo */}
 
 }
