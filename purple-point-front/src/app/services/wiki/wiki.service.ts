@@ -18,11 +18,11 @@ export class WikiService {
   getFAQs(user: UserData, language: string): Observable<FAQ[]> {
     return this.wikiRemote.getFAQs(user, language);
   }
-  upvote(faq: FAQ) {
-    return this.wikiRemote.upvote(faq);
+  upvote(user: UserData, faq: FAQ) {
+    return this.wikiRemote.upvote(user, faq);
   }
-  downvote(faq: FAQ) {
-    return this.wikiRemote.downvote(faq);
+  downvote(user: UserData, faq: FAQ) {
+    return this.wikiRemote.downvote(user, faq);
   }
   getDefinitions(language: string): Observable<Definition[]> {
     return this.wikiRemote.getDefinitions(language);

@@ -23,13 +23,15 @@ export class WikiRemote {
     .append('lang', language)
     return this.httpClient.get<FAQ[]>(`${environment.API_URL}/wiki/faqs/` + language);
   }
-  upvote(faq: FAQ) {
+  upvote(user: UserData, faq: FAQ) {
     return this.httpClient.put(`${environment.API_URL}/wiki/upvote`, {
+      email: user.email,
       faq_id: faq.id
     })
   }
-  downvote(faq: FAQ) {
+  downvote(user: UserData, faq: FAQ) {
     return this.httpClient.put(`${environment.API_URL}/wiki/downvote`, {
+      email: user.email,
       faq_id: faq.id
     })
   }
