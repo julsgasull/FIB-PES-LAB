@@ -34,22 +34,10 @@ export class WikiFaqComponent implements OnInit {
 
   ngOnInit(): void {
     this.geolocation = this.geoLocationService.startGeoLocationService(this.geolocation);
-    const userEmail   = localStorage.getItem('userEmail');
     const language    = localStorage.getItem('currentLang');
-    this.userService.getUserByEmail(userEmail).subscribe((response: UserData) => {
-      this.userInfo   = response;
-      this.wikiService.getFAQs(this.userInfo, language).subscribe((response: FAQ[])=>{
-        this.faqs     = response;
-      });
+    this.wikiService.getFAQs(language).subscribe((response: FAQ[])=>{
+      this.faqs     = response;
     });
-  }
-
-  upvote(faq: FAQ) {
-    this.wikiService.upvote(this.userInfo, faq);
-  } 
-  
-  downvote(faq: FAQ) {
-    this.wikiService.downvote(this.userInfo, faq);
   }
 
   redirectToFAQs() {
@@ -62,12 +50,8 @@ export class WikiFaqComponent implements OnInit {
     this.route.navigate(['/wikidefinitions']);
   }
   languageChanged(event: string) {
-    const userEmail   = localStorage.getItem('userEmail');
-    this.userService.getUserByEmail(userEmail).subscribe((response: UserData) => {
-      this.userInfo   = response;
-      this.wikiService.getFAQs(this.userInfo, event).subscribe((response: FAQ[])=>{
-        this.faqs     = response;
-      });
+    this.wikiService.getFAQs(event).subscribe((response: FAQ[])=>{
+      this.faqs     = response;
     });
   }
 }
