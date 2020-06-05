@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,7 +26,9 @@ public class FAQController {
 	private final QuestionService faqService;
 	private LoginSystem loginSystem;
 
-	public FAQController(QuestionService faqService) {
+	@Autowired
+	public FAQController(LoginSystem loginSystem, QuestionService faqService) {
+		this.loginSystem = loginSystem;
 		this.faqService = faqService;
 	}
 
@@ -119,7 +122,6 @@ public class FAQController {
 			@Valid @PathVariable String lang) {
 			if (this.loginSystem.checkLoggedIn(unformatedJWT)) {
 				return faqService.getQuestionByLanguage(lang);
-
 			} else {
 				throw new UnauthorizedDeviceException();
 			}

@@ -19,10 +19,10 @@ public class Question {
 	@Schema(description = "Answer to the question", example = "Answer of the question", required = true)
 	@Column(name = "answer", length = 2500)
 	private String answer;
-	@Schema(description = "List of votes", example = " List of users emails voters", required = true)
+	@Schema(description = "Number of votes", example = " List of users emails voters", required = true)
 	@Column(name = "numUpvotes")
 	private long numUpvotes;
-	@Schema(description = "List of downvotes", example = " List of users emails downvoters", required = true)
+	@Schema(description = "Number of downvotes", example = " List of users emails downvoters", required = true)
 	@Column(name = "numDownvotes")
 	private long numDownvotes;
 	@ElementCollection(targetClass = String.class)
