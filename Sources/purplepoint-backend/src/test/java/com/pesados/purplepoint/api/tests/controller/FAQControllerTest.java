@@ -71,4 +71,65 @@ public class FAQControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
+
+    @Test
+    // Should like if the user hasn't liked the question before. Should dislike then liking for the second time.
+    public void likeLogic() throws Exception {
+        JSONObject question = new JSONObject();
+        question.put("questionId", "2");
+        question.put("question", "¿Qud es el arte?");
+        question.put("answer", "Morirte de frio.");
+        question.put("language", "spanish");
+
+        String token = TestUtils.doLogin(this.mockMvc);
+
+        MvcResult responsecreate = this.mockMvc.perform(post("/api/v1/wiki/faqs/create").header("Authorization", token)
+                .contentType("application/json")
+                .header(TestUtils.firebaseHeaderName, TestUtils.firebaseToken)
+                .content(question.toString()))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+
+        JSONObject respcreate = new JSONObject(responsecreate.getResponse().getContentAsString());
+        String id = Integer.toString((int) respcreate.get("questionId"));
+
+        responsecreate = this.mockMvc.perform(post("/api/v1/wiki/faqs/like/isma@gmail.com").header("Authorization", token)
+                .contentType("application/json")
+                .header(TestUtils.firebaseHeaderName, TestUtils.firebaseToken)
+                .content(question.toString()))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+    }
+
+    @Test
+    // Should like if the user hasn't liked the question before. Should dislike then liking for the second time.
+    public void dislikeLogic() throws Exception {
+        JSONObject question = new JSONObject();
+        question.put("questionId", "2");
+        question.put("question", "¿Qud es el arte?");
+        question.put("answer", "Morirte de frio.");
+        question.put("language", "spanish");
+
+        String token = TestUtils.doLogin(this.mockMvc);
+
+        MvcResult responsecreate = this.mockMvc.perform(post("/api/v1/wiki/faqs/create").header("Authorization", token)
+                .contentType("application/json")
+                .header(TestUtils.firebaseHeaderName, TestUtils.firebaseToken)
+                .content(question.toString()))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+
+        JSONObject respcreate = new JSONObject(responsecreate.getResponse().getContentAsString());
+        String id = Integer.toString((int) respcreate.get("questionId"));
+
+        this.mockMvc.perform(delete("/api/v1/wiki/faqs/delete/"+id).header("Authorization", token)
+                .contentType("application/json")
+                .header(TestUtils.firebaseHeaderName, TestUtils.firebaseToken)
+                .content(""))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
 }

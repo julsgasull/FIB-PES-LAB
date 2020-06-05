@@ -36,7 +36,7 @@ public class FAQController {
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "successful operation",
 					content = @Content(array = @ArraySchema(schema = @Schema(implementation = Question.class)))) })
-	@PostMapping(value = "/wiki/faqs/like/{email}", produces = { "application/json", "application/xml"})
+	@PutMapping(value = "/wiki/faqs/like/{email}", produces = { "application/json", "application/xml"})
 	Question updatedQuestion (
 			@Parameter(required = false, hidden=true) @RequestHeader("Authorization") String unformatedJWT,
 			@Parameter(description = "Email of the user who likes the question.", required = true)
@@ -53,6 +53,7 @@ public class FAQController {
 					// Remove from likes
 					updatedQuestion.get().getListNumUpvotes().remove(email);
 					updatedQuestion.get().setNumUpvotes(updatedQuestion.get().getNumUpvotes()-1);
+					return faqService.saveQuestion(updatedQuestion.get());
 				} else {
 					List<String> dislikingUsers = updatedQuestion.get().getListNumUpvotes();
 					// Has the user disliked the question before?
@@ -77,7 +78,7 @@ public class FAQController {
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "successful operation",
 					content = @Content(array = @ArraySchema(schema = @Schema(implementation = Question.class)))) })
-	@PostMapping(value = "/wiki/faqs/dislike/{email}", produces = { "application/json", "application/xml"})
+	@PutMapping(value = "/wiki/faqs/dislike/{email}", produces = { "application/json", "application/xml"})
 	Question updatedQuestion2 (
 			@Parameter(required = false, hidden=true) @RequestHeader("Authorization") String unformatedJWT,
 			@Parameter(description = "Email of the user who likes the question.", required = true)
@@ -93,6 +94,7 @@ public class FAQController {
 					// Remove the dislike
 					updatedQuestion.get().getListNumDownvotes().remove(email);
 					updatedQuestion.get().setNumDownvotes(updatedQuestion.get().getNumDownvotes()-1);
+					return faqService.saveQuestion(updatedQuestion.get());
 				} else {
 					List<String> likingUsers = updatedQuestion.get().getListNumUpvotes();
 					// Has the user disliked the question before?
