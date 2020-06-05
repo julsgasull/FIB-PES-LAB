@@ -3,29 +3,40 @@ package com.pesados.purplepoint.api.model.question;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Question")
 public class Question {
 	@Schema(description = "Id of the definition.", required = true)
-	private @Id Long questionId;
+	private @Id
+	Long questionId;
 
-	@Schema(description = "Question", example="Question", required = true)
+	@Schema(description = "Question", example = "Question", required = true)
 	@Column(name = "question", length = 2500)
 	private String question;
-	@Schema(description = "Answer to the question", example="Answer of the question", required = true)
+	@Schema(description = "Answer to the question", example = "Answer of the question", required = true)
 	@Column(name = "answer", length = 2500)
 	private String answer;
-	@Schema(description = "List of votes", example=" List of users emails voters", required = true)
-	@Column(name = "upvotes")
+	@Schema(description = "List of votes", example = " List of users emails voters", required = true)
+	@Column(name = "numUpvotes")
 	private long numUpvotes;
-	@Schema(description = "List of downvotes", example=" List of users emails downvoters", required = true)
-	@Column(name = "downvotes")
+	@Schema(description = "List of downvotes", example = " List of users emails downvoters", required = true)
+	@Column(name = "numDownvotes")
 	private long numDownvotes;
-	@Schema(description = "Language of the definition.", example="esp", required = true)
+	@ElementCollection(targetClass = String.class)
+	@Schema(description = "List of votes", example = " List of users emails voters", required = true)
+	@Column(name = "listUpvotes")
+	private List<String> listNumUpvotes;
+	@ElementCollection(targetClass = String.class)
+	@Schema(description = "List of downvotes", example = " List of users emails downvoters", required = true)
+	@Column(name = "listDownvotes")
+	private List<String> listNumDownvotes;
+	@Schema(description = "Language of the definition.", example = "esp", required = true)
 	private String language;
 
-	public  Question() {
+	public Question() {
 
 	}
 
@@ -33,6 +44,10 @@ public class Question {
 		this.question = question;
 		this.answer = answer;
 		this.language = language;
+		this.numUpvotes = 0;
+		this.numDownvotes = 0;
+		this.listNumUpvotes = new ArrayList<>();
+		this.listNumDownvotes = new ArrayList<>();
 	}
 
 	public Long getQuestionId() {
@@ -63,7 +78,9 @@ public class Question {
 		return numUpvotes;
 	}
 
-	public void setNumUpvotes(long numUpvotes) { this.numUpvotes = numUpvotes; }
+	public void setNumUpvotes(long numUpvotes) {
+		this.numUpvotes = numUpvotes;
+	}
 
 	public long getNumDownvotes() {
 		return numDownvotes;
@@ -79,5 +96,21 @@ public class Question {
 
 	public void setLanguage(String language) {
 		this.language = language;
+	}
+
+	public List<String> getListNumUpvotes() {
+		return listNumUpvotes;
+	}
+
+	public void setListNumUpvotes(List<String> listNumUpvotes) {
+		this.listNumUpvotes = listNumUpvotes;
+	}
+
+	public List<String> getListNumDownvotes() {
+		return listNumDownvotes;
+	}
+
+	public void setListNumDownvotes(List<String> listNumDownvotes) {
+		this.listNumDownvotes = listNumDownvotes;
 	}
 }

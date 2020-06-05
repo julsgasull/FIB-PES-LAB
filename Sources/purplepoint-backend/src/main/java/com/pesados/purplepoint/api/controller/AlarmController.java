@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,10 +98,9 @@ public class AlarmController {
 			String deviceToken = allDevices.get(i).getFirebaseToken();
 			System.out.println("el token es" +allDevices.get(i).getFirebaseToken());
 
-
-			if (LocationController.isLocationInA500MeterRadius(alarmLatitude, alarmLongitude, deviceLatitude, deviceLongitude) && !alarmToken.equals(deviceToken)){
-				System.out.println("el usurio valido del device es" +allDevices.get(i).getUser().getUsername());
-				System.out.println("el token es" +allDevices.get(i).getFirebaseToken());
+			if (LocationController.isLocationInA500MeterRadius(alarmLatitude, alarmLongitude, deviceLatitude, deviceLongitude) && !alarmToken.equals(deviceToken)) {
+				System.out.println("el usurio valido del device es" + allDevices.get(i).getUser().getUsername());
+				System.out.println("el token es" + allDevices.get(i).getFirebaseToken());
 				result.add(allDevices.get(i));
 			}
 

@@ -47,8 +47,8 @@ public class FAQControllerTest {
     public void shouldDeleteCreatedQuestion() throws Exception {
         JSONObject question = new JSONObject();
         question.put("questionId", "2");
-        question.put("question", "¿Qué es el arte?");
-        question.put("answer", "Morirte de frío.");
+        question.put("question", "¿Qud es el arte?");
+        question.put("answer", "Morirte de frio.");
         question.put("language", "spanish");
 
         String token = TestUtils.doLogin(this.mockMvc);
