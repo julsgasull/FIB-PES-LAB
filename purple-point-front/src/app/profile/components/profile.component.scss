@@ -1,0 +1,56 @@
+.profile {
+    height: 100%;
+    width: 100%;
+    height: 100%;
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.userData {
+    display: flex;
+    flex-direction: column;
+}
+
+.imageBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.usernameTitle{
+    margin-bottom: 30px;
+}
+
+.attribute {
+    display: flex;
+    margin:10px 0;
+}
+
+.userTitles {
+    line-height: 33px;
+    font-family: Montserrat;
+    font-weight: bold;
+    font-size: 55%;
+    color: #9F9F9F;
+    letter-spacing: 0;
+    text-align: left;
+    margin: 0;
+}
+
+.explanation {
+    font-family: Montserrat;
+    font-size: 55%;
+    color: #9F9F9F;
+    letter-spacing: 0;
+    text-align: left;
+    margin: auto;
+}
+
+.userChanges {
+    padding-right: 0;
+}
+
+.editProfile {
+    margin: 10px 0;
+}

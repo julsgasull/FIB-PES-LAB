@@ -1,85 +1,166 @@
-<div class="container">
-    <h1>Purple Point</h1>
-    <h2>Sign up</h2>
-    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-      <div>
-        <div [ngClass]="{'has-error': isSubmitted === true && formControls.email.errors}">
-          <input type="email" class="form-control" id="email" placeholder="email" formControlName="email"
-            name="email"
-            required>
-          <div *ngIf="isSubmitted && formControls.email.errors"> 
-            <div *ngIf="formControls.email.errors.required">
-                Email required
-            </div> 		   
-            <div *ngIf="formControls.email.errors.email">
-                Email not valid
-            </div>
-            </div> 
-        </div>
-        
-        <div [ngClass]="{ 'has-error': isSubmitted && formControls.username.errors }">
+<div class="container signup-cont">
+  <div class="row" style="position: fixed; top: 0; right: 0;">
+    <div class="col-12">
+      <language-button></language-button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <h1>
+        {{ 'titles.purplepoint' | translate }}
+      </h1>
+    </div>
+  </div>
+  <div class="row second-title">
+    <div class="col-12">  
+      <h2>
+        {{ 'titles.sign-up' | translate }}
+      </h2>
+    </div>
+  </div>
+
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div class="row" [ngClass]="{'has-error': isSubmitted === true && formControls.email.errors}">
+      <div class="col-12 form-field">
+        <input 
+          type="email" 
+          class="form-control" 
+          id="email" 
+          placeholder= "{{ 'formFields.email' | translate }}"
+          formControlName="email"
+          name="email"
+          required
+        >
+        <div *ngIf="isSubmitted && formControls.email.errors"> 
+          <div class="error-message" *ngIf="formControls.email.errors.required">
+              {{ 'formErrors.emailRequired' | translate }}
+          </div> 		   
+          <div class="error-message" *ngIf="formControls.email.errors.email">
+              {{ 'formErrors.emailNotValid' | translate }}
+          </div>
+        </div> 
+      </div>
+    </div>
+
+    <div class="row" [ngClass]="{ 'has-error': isSubmitted && formControls.username.errors }">
+      <div class="col-12 form-field">
         <input 
           type="text" 
           class="form-control" 
           id="username" 
-          placeholder="username" 
+          placeholder= "{{ 'formFields.username' | translate }}" 
           formControlName="username"
           name="username"
           (click)="setSubmittedToFalse()"
-          required>
-        </div>
+          required
+        >
         <div *ngIf="isSubmitted && formControls.username.errors" >
-          <div *ngIf="formControls.username.errors.required">Username is required</div>
+          <div class="error-message" *ngIf="formControls.username.errors.required">
+            {{ 'formErrors.usernameRequired' | translate }}
+          </div>
         </div>
-
-        <div [ngClass]="{ 'has-error': isSubmitted && formControls.password.errors }">
-          <input 
-            type="password" 
-            class="form-control" 
-            id="password" 
-            placeholder="password"
-            formControlName="password"
-            (click)="setSubmittedToFalse()"
-            required
-          >
-        </div>
-        <div *ngIf="isSubmitted && formControls.password.errors" >
-          <div *ngIf="formControls.password.errors.required">Password is required</div>
-        </div>
-
-        <div [ngClass]="{ 'has-error': isSubmitted && formControls.password.errors }">
-          <input 
-            type="password" 
-            class="form-control" 
-            id="repeatPassword" placeholder="Confirm password" 
-            formControlName="confirmPassword"
-            name="password"
-            (click)="setSubmittedToFalse()"
-            required
-            >
-        </div>
-        <div *ngIf="isSubmitted && formControls.confirmPassword.errors" >
-          <div *ngIf="formControls.confirmPassword.errors.required">Confirm Password is required</div>
-          <div *ngIf="formControls.confirmPassword.errors.mustMatch">Passwords must match</div>
-        </div>
-
-        <div [ngClass]="{ 'has-error': isSubmitted && formControls.gender.errors }">
-          <select 
-            class="form-control" 
-            id="gender"
-            formControlName="gender"
-            name="gender"
-            (click)="setSubmittedToFalse()"
-            required>
-            <option [ngValue]="null" disabled>{{genders[0]}}</option>
-            <option *ngFor="let gen of genders | slice:1;" [ngValue]="gen">{{gen}}</option>
-          </select>
-        </div>
-        <div *ngIf="isSubmitted && formControls.gender.errors" >
-          <div *ngIf="formControls.gender.errors.required">Gender is required</div>
-        </div>
-
       </div>
-      <button type="submit" class="principalButton">Register</button>
-    </form>
+    </div>
+
+    <div class="row" [ngClass]="{ 'has-error': isSubmitted && formControls.name.errors }">
+      <div class="col-12 form-field">
+        <input 
+          type="text" 
+          class="form-control" 
+          id="name" 
+          placeholder= "{{ 'formFields.name' | translate }}"
+          formControlName="name"
+          name="name"
+          (click)="setSubmittedToFalse()"
+          required>
+        <div *ngIf="isSubmitted && formControls.name.errors" >
+          <div class="error-message" *ngIf="formControls.name.errors.required">
+            {{ 'formErrors.nameRequired' | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" [ngClass]="{ 'has-error': isSubmitted && formControls.password.errors }">
+      <div class="col-12 form-field">
+        <input 
+          type="password" 
+          class="form-control" 
+          id="password" 
+          placeholder= "{{ 'formFields.password' | translate }}"
+          formControlName="password"
+          (click)="setSubmittedToFalse()"
+          required
+        >
+        <div *ngIf="isSubmitted && formControls.password.errors" >
+          <div class="error-message" *ngIf="formControls.password.errors.required">
+            {{ 'formErrors.passwordRequired' | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" [ngClass]="{ 'has-error': isSubmitted && formControls.password.errors }">
+      <div class="col-12 form-field">
+        <input 
+          type="password" 
+          class="form-control" 
+          id="repeatPassword" 
+          placeholder= "{{ 'formFields.confirmPassword' | translate }}"
+          formControlName="confirmPassword"
+          name="password"
+          (click)="setSubmittedToFalse()"
+          required
+        >
+        <div *ngIf="isSubmitted && formControls.confirmPassword.errors" >
+          <div class="error-message" *ngIf="formControls.confirmPassword.errors.required">
+            {{ 'formErrors.confirmPasswordRequired' | translate}}
+          </div>
+          <div class="error-message" *ngIf="formControls.confirmPassword.errors.mustMatch">
+            {{ 'formErrors.passwordMustMatch' | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" [ngClass]="{ 'has-error': isSubmitted && formControls.gender.errors }">
+      <div class="col-12 form-field">
+        <select 
+          class="form-control" 
+          id="gender"
+          formControlName="gender"
+          name="gender"
+          (click)="setSubmittedToFalse()"
+          required>
+          <option [ngValue]="null" disabled>{{ 'profileFields.gender' | translate }}</option>
+          <option *ngFor="let gen of 'genders' | translate | keyvalue " [ngValue]="gen.key">{{gen.value}}</option>
+        </select>
+        <div *ngIf="isSubmitted && formControls.gender.errors" >
+          <div class="error-message" *ngIf="formControls.gender.errors.required">
+            {{ 'formErrors.genderRequired' | translate }}
+          </div>
+        </div>
+      </div>  
+    </div>  
+    <div class="row checkbox" [ngClass]="{ 'has-error': isSubmitted && formControls.agree.errors }">
+      <div class="col-12">
+        <mat-checkbox #checkbox (change)="setCheckboxToFalse(checkbox.checked)" formControlName="agree" color="primary">
+          &nbsp;&nbsp;
+        </mat-checkbox>
+        {{ 'termsOfUse.checkbox1' | translate }}
+        <a class="termsEmphasis"(click)="showUseOfTerms()">
+          {{ 'termsOfUse.checkbox2' | translate }}!
+        </a>
+        <div *ngIf="(isSubmitted && (formControls.agree.errors || !agreed))" >
+          <div class="error-message" *ngIf="!agreed">
+            {{ 'formErrors.agreeRequired' | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <button type="submit" class="principalButton signup-button">
+      {{ 'buttons.register' | translate }}
+    </button>
+  </form>
 </div>

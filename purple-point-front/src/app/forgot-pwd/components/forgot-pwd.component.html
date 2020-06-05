@@ -1,0 +1,92 @@
+<div class="container password-cont">
+    <div class="row" style="position: fixed; top: 0; right: 0;">
+      <div class="col-12">
+        <language-button></language-button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <h1>
+          {{ 'titles.forgotPwd' | translate }}
+        </h1>
+      </div>
+    </div>
+    <form [formGroup]="passwordForm" (ngSubmit)="onSubmit()">
+      <div class="row" [ngClass]="{'has-error': isSubmitted === true && formControls.email.errors}">
+        <div class="col-12 form-field">
+          <input 
+            type="email" 
+            class="form-control" 
+            id="email" 
+            placeholder= "{{'formFields.email' | translate }}"
+            formControlName="email"
+            name="email"
+            required
+          >
+          <div *ngIf="isSubmitted && formControls.email.errors"> 
+            <div class="error-message" *ngIf="formControls.email.errors.required">
+              {{ 'formErrors.emailRequired' | translate }}
+            </div> 		   
+            <div class="error-message" *ngIf="formControls.email.errors.email">
+              {{ 'formErrors.emailNotValid' | translate }}
+            </div>
+          </div>
+        </div> 
+      </div>
+      <div class="row" [ngClass]="{ 'has-error': isSubmitted && formControls.password.errors }">
+        <div class="col-12">
+          <input 
+            type="password" 
+            class="form-control" 
+            id="password" 
+            placeholder= "{{'formFields.password' | translate }}"
+            formControlName="password"
+            (click)="setSubmittedToFalse()"
+            required
+          >
+          <div *ngIf="isSubmitted && formControls.password.errors" >
+            <div class="error-message" *ngIf="formControls.password.errors.required">
+              {{ 'formErrors.passwordRequired' | translate }}
+            </div>
+          </div>
+          <div *ngIf="isSubmitted && wrongCredentials" >
+            <div class="error-message">
+              {{ 'formErrors.incorrectUserOrPwd' | translate }}
+            </div>
+          </div>
+          <div *ngIf="isSubmitted && internalError">
+            <div class="error-message">
+              {{ 'formErrors.internalServerError' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" [ngClass]="{ 'has-error': isSubmitted && formControls.password.errors }">
+        <div class="col-12 form-field">
+          <input 
+            type="password" 
+            class="form-control" 
+            id="repeatPassword" 
+            placeholder= "{{ 'formFields.confirmPassword' | translate }}"
+            formControlName="confirmPassword"
+            name="password"
+            (click)="setSubmittedToFalse()"
+            required
+          >
+          <div *ngIf="isSubmitted && formControls.confirmPassword.errors" >
+            <div class="error-message" *ngIf="formControls.confirmPassword.errors.required">
+              {{ 'formErrors.confirmPasswordRequired' | translate}}
+            </div>
+            <div class="error-message" *ngIf="formControls.confirmPassword.errors.mustMatch">
+              {{'formErrors.passwordMustMatch' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="principalButton password-button">
+        {{ 'buttons.changePwd' | translate }}
+      </button>
+    </form>
+</div>

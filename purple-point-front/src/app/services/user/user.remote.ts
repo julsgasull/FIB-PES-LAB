@@ -1,43 +1,102 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { User } from 'src/app/models/user.class';
-import { Observable } from 'rxjs';
-import { UserData } from 'src/app/models/userData.interface';
-import { LoginData } from 'src/app/models/loginData.interface';
+import { Observable, of } from 'rxjs';
+import { UserData } from 'src/app/models/userdata.interface';
+import { catchError } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
+
 
 @Injectable()
 export class UserRemote {
-    constructor(private httpClient: HttpClient) {}
 
-    createUser(user: UserData): Observable<User> {
-        return this.httpClient.post<User>(`${environment.API_URL}/users/register`, 
+    constructor(
+        private httpClient: HttpClient,
+        private translate: TranslateService,) {}
+
+    createUser(user: UserData): Observable<any> {
+        return this.httpClient.post<UserData>(`${environment.API_URL}/users/register`, 
         {   
-            'email': user.email,
+            'email':    user.email,
+            'name':     user.name,
             'username': user.username,
             'password': user.password,
-            'gender': user.gender
+            'gender':   user.gender
         },
         {
             headers:{
-              'Content-Type':"application/json"
+              'Content-Type':"application/json",
+              'X-Skip-Interceptor-Login': ''
             }
-        });
+        }).pipe(
+            catchError(this.handleError<any>())
+          );
     }
 
-    login(user: UserData): Observable<LoginData> {
-        console.log(`${environment.API_URL}`)
-        let a = this.httpClient.post<LoginData>(`${environment.API_URL}/users/login`, 
+    private handleError<T>(result?: T) {
+        return (error: any): Observable<T> => {
+            if (error.status === 400) {
+                alert(this.translate.instant('alerts.alreadyExists'));
+                location.reload();
+                return of(error as T);
+            }  
+            else if (error.status === 404) {
+                alert(this.translate.instant('alerts.doesntExist'));
+                location.reload();
+                return of(error as T);
+            }  
+            else {
+                alert(this.translate.instant('alerts.tryLater'));
+                location.reload();
+                return of(error as T);
+              } 
+        }
+      }
+
+    login(user: UserData): Observable<UserData> {
+        return this.httpClient.post<UserData>(`${environment.API_URL}/users/login`, 
         {   
-            'email': user.email,
+            'email':    user.email,
             'password': user.password
         },
         {
             headers:{
-              'Content-Type':"application/json"
+                'X-Skip-Interceptor-Login': '',
+                'Content-Type':"application/json"
             }
         });
-        console.log(a);
-        return a;
+    }
+
+    getUserByEmail(email: string): Observable<any> {
+        return this.httpClient.get<UserData>(`${environment.API_URL}/users/email/`+email)
+        .pipe(
+            catchError(this.handleError<any>())      
+        );
+    }
+
+    editProfile(user: UserData): Observable<any> {
+        return this.httpClient.put<UserData>(`${environment.API_URL}/users/email/`+user.email,
+        {   
+            'id':           user.id,
+            'name':         user.name,
+            'email':        user.email,
+            'username':     user.username,
+            'password':     user.password,
+            'gender':       user.gender,
+            'token':        user.token,
+            'markedSpots':  user.markedSpots,
+            'helpedUsers':  user.helpedUsers,
+            'profilePic':   user.profilePic
+        });
+    }
+
+    getUserByEmailUnauthorized(email: string) {
+        return this.httpClient.get<UserData>(`${environment.API_URL}/users/email/`+email, 
+        {
+            headers:{
+                'X-Skip-Interceptor-Login': '',
+                'Content-Type':"application/json"
+            }
+        });
     }
 }

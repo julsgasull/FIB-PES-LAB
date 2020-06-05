@@ -1,0 +1,41 @@
+<div class="container principal-cont">
+    <div class="row" style="position: fixed; top: 0; right: 0;">
+        <div class="col-12">
+          <language-button></language-button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <panicbutton></panicbutton>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>
+                {{ 'titles.purplepoint' | translate }}
+            </h1>   
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div>
+                <button class="principalButton" (click)="redirectToSignUp()">
+                    {{ 'titles.sign-up' | translate }}
+                </button>
+            </div>
+            <div>
+                <button class="secondaryButton" (click)="redirectToLogin()">
+                    {{ 'buttons.login' | translate }}
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <button class="socialButton" (click)="googleLogin()">
+                <img class="googleLogo" src="../../../assets/images/google.svg">
+                <span class="googleSigninText">Sign in with <b>Google</b></span>
+            </button>
+        </div>
+    </div>
+</div>

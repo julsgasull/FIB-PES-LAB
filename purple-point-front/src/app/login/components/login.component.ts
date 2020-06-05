@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../../models/user.class';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../services/user/user.service';
-import { UserData } from '../../models/userData.interface';
+import { UserData } from '../../models/userdata.interface';
 import { Router } from '@angular/router';
+import { UtilsService } from 'src/app/services/utils/utils.service';
+import { TranslateService } from '@ngx-translate/core';
+import { GeoLocation } from 'src/app/models/geoLocation.interface';
+import { GeoLocationService } from 'src/app/services/geolocation/geolocation.service';
 
 @Component({
   selector: 'app-login',
@@ -12,40 +15,65 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  user: User = new User();
-  isSubmitted = false;
-  loginFrom: FormGroup;
+  public isSubmitted = false;
+  public loginForm: FormGroup;
+  public wrongCredentials = false;
+  public internalError = false;
+  geolocation: GeoLocation = ({
+    latitude: -1, 
+    longitude: -1, 
+    accuracy: -1,
+    timestamp: -1
+  });
 
   constructor (
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private route: Router
+    private route: Router,
+    private utilsService : UtilsService,
+    private translate: TranslateService,
+    private geoLocationService: GeoLocationService
   ) {}
 
   ngOnInit(): void {
-    this.loginFrom = this.formBuilder.group({
+    this.loginForm = this.formBuilder.group({
       email:    ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     });
+
+    this.geolocation = this.geoLocationService.startGeoLocationService(this.geolocation);
   }
 
   private createUserForm() {
-    const userFormValue = JSON.parse(JSON.stringify(this.loginFrom.value));
+    const userFormValue = JSON.parse(JSON.stringify(this.loginForm.value));
     const userData: UserData = {
       email:    userFormValue.email,
-      password: userFormValue.password
+      password: this.utilsService.encryptSha256(userFormValue.password)
     }
     return userData;
   }
 
   onSubmit() {
     this.isSubmitted = true;
-    if (this.loginFrom.valid){
-      this.userService.loginUser(this.createUserForm()).subscribe((response: any) => {
-        this.redirectToUserInfo();
+    if (this.loginForm.valid){
+      this.userService.loginUser(this.createUserForm()).subscribe((response: UserData) => {
+        localStorage.setItem('userEmail', response.email);
+        localStorage.setItem('password', response.password);
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('username', response.username);
+        localStorage.setItem('userId', response.id.toString());
+        localStorage.setItem('gender', response.gender),
+        localStorage.setItem('helpedUsers', response.helpedUsers.toString());
+        localStorage.setItem('markedSpots', response.markedSpots.toString());
+        localStorage.setItem('name', response.name);
+        this.redirectToMainMenu();
+      },
+      errorrResponse => {
+        if (errorrResponse.status == 403 || errorrResponse.status == 404)this.wrongCredentials = true;
+        else this.internalError= true;
       });
     } else {
-      alert("not authenticated");
+        alert(this.translate.instant('formErrors.notAuthenticated'));
     }
   }
 
@@ -54,11 +82,19 @@ export class LoginComponent implements OnInit {
   }
 
   get formControls() {
-    return this.loginFrom.controls;
+    return this.loginForm.controls;
   }
 
   redirectToUserInfo() {
     this.route.navigate(['/profile']);
+  }
+
+  redirectToMainMenu() {
+    this.route.navigate(['/mainmenu']);
+  }
+
+  forgotPassword() {
+    this.route.navigate(['/forgotPwd']);
   }
 
 }

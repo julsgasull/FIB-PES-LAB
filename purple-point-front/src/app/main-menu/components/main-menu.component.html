@@ -1,0 +1,76 @@
+<div class="container main-menu-cont">
+    <div class="row" style="position: fixed; top: 0; right: 0;">
+        <div class="col-12">
+          <language-button></language-button>
+        </div>
+    </div>
+    <div class="row profileRectangle">
+        <div class="col-2 profIm">
+            <img class="profileImage" src={{profileImage}} style="height: 50px; width: 50px;">
+        </div>
+        <div *ngIf="userInfo" class="col-3 infoData">
+            <tr class="name">{{userInfo.name}}</tr>
+            <tr clasw="username">@{{userInfo.username}}</tr>
+        </div>
+        <div *ngIf="userInfo" class="col-5 infoData">
+            <tr class="mapInfo"> {{ 'text.markedPoints' | translate }} <strong> {{ userInfo.markedSpots }} </strong></tr> 
+            <tr class="mapInfo"> {{ 'text.helpedUsers' | translate }} <strong> {{ userInfo.helpedUsers }} </strong></tr>
+        </div>
+        <div class="col-2 expandImage">
+            <img src="assets\images\expand.svg" style="height:25px; width:25px" (click)="redirectToProfile()">
+        </div>
+    </div>
+    <div class="row logoutDiv">
+        <div *ngIf="userInfo" class="col-6">
+            <p class="helloText">
+                {{'text.hello' | translate }}
+                <b>{{userInfo.name}}</b>!
+            </p>
+        </div>
+        <div class="col-6">
+            <button type="button" class="logout" (click)="logout()">
+                {{'buttons.logout' | translate }}
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <button id="redirectToMap" class="purpleButton" (click)="redirectToMap()">
+                <div class="bigButton">
+                    <span>
+                        {{'text.markSpots' | translate }} 
+                        <b>
+                            {{'text.goToMap' | translate}}
+                        </b>
+                    </span>
+                </div>
+                <img class="imageClass" src="assets\images\map.svg">
+            </button>
+        </div>
+        <div class="col-6">
+            <button id="redirectToWiki" class="purpleButton" (click)="redirectToWiki()">
+                <div>
+                    <img class="imageClass" src="assets\images\wiki.svg">
+                </div>
+                <div class="doubts">
+                    <span>
+                        {{'text.doubts' | translate}}
+                    </span><br>
+                    <b>
+                        {{'text.visitWiki' | translate}}
+                    </b>
+                </div>      
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 panicButtonTitle">
+            <span>
+                {{'titles.panicButton' | translate}}
+            </span>
+        </div>
+        <div class="col-12 roundButton">
+            <panicbutton></panicbutton>
+        </div>
+    </div>
+</div>

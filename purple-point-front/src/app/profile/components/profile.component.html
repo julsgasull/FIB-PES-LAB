@@ -1,56 +1,149 @@
-<div class="container">
-    <table class="userInfo">
-        <tbody>
-            <tr>
-                <td>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <p class="username">@isma</p>
-                            </tr>
-                            <tr>
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td class="tableAttribute">gender</td>
-                                            <td class="tableValue">male</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="tableAttribute">number of harassed spots masked</td>
-                                            <td class="tableValue">5</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-                <td><p></p></td>
-                <td><p></p></td>
-                <td><p></p></td>
-                <td><p></p></td>
-                <td><p></p></td>
-                <td><p></p></td>
-                <td>
-                    <img class="profileImage" src="https://media-exp1.licdn.com/dms/image/C4D03AQHLDRgeidvYZA/profile-displayphoto-shrink_200_200/0?e=1590624000&v=beta&t=uxwAXOUWM-vFtGENLqSPWJee07Mijq06Rhcp-uYZFwc">
-                </td>
-            </tr>
-            <tr>
-                <td><p></p></td>
-                <td><p></p></td>
-                <td><p></p></td>
-                <td><p></p></td>
-                <td><p></p></td>
-                <td><p></p></td>
-                <td><p></p></td>
-                <td><button class="logoutButton" (click)="redirectToPrincipalView()">log out > </button></td>
-            </tr>
-        </tbody>
-    </table>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <img class="mapImage" src="https://miro.medium.com/max/3332/0*R8YnMoScMd_jiO93.png">
+<div class="container profile">
+    <div class="row" style="position: fixed; top: 0; right: 0;">
+        <div class="col-12">
+        <language-button></language-button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8">
+            <form *ngIf="editProfileForm" id="editProfileForm" [formGroup]="editProfileForm" (ngSubmit)="saveChanges()">
+                <div class="usernameTitle" [ngClass]="{'has-error': isSubmitted && formControls.username.errors}">
+                    <input 
+                        id="username-profile"
+                        *ngIf="userInfo"
+                        class="form-control" 
+                        disabled="disableInputs" 
+                        style="color:blueviolet" 
+                        value="@{{userInfo.username}}"
+                        formControlName="username"
+                        name="username"
+                        (click)="setSubmittedToFalse()"
+                        required
+                    > 
+                    <div *ngIf="isSubmitted && formControls.username.errors"> 
+                        <div class="error-message" *ngIf="formControls.username.errors.required">
+                            {{ 'formErrors.usernameRequired' | translate }}
+                        </div>
+                    </div>
+                </div>
+                <div class="userData" [ngClass]="{'has-error': isSubmitted && formControls.name.errors}">
+                    <div class="row attribute">
+                        <div class="col-3">
+                            <span class="userTitles">
+                                {{ 'profileFields.name' | translate }}
+                            </span>
+                        </div>
+                        <div class="col-9 userChanges">
+                            <input 
+                                id="name-profile"
+                                *ngIf="userInfo"
+                                class="form-control" 
+                                disabled="disableInputs" 
+                                value="{{userInfo.name}}"
+                                formControlName="name"
+                                name="name"
+                                (click)="setSubmittedToFalse()"
+                                required
+                            >
+                            <div *ngIf="isSubmitted && formControls.name.errors"> 
+                                <div class="error-message" *ngIf="formControls.name.errors.required">
+                                    {{ 'formErrors.nameRequired' | translate }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row attribute">
+                        <div class="col-3 ">
+                            <span class="userTitles">
+                                {{ 'profileFields.gender' | translate }}
+                            </span>
+                        </div>
+                        <div class="col-9 userChanges" [ngClass]="{ 'has-error': isSubmitted && formControls.gender.errors }">
+                            <select 
+                                id="gender-profile"
+                                class="form-control" 
+                                disabled="disableInputs"
+                                formControlName="gender"
+                                name="gender"
+                                (click)="setSubmittedToFalse()"
+                                required>
+                            >
+                                <option *ngFor="let gen of 'genders' | translate | keyvalue " [ngValue]="gen.key">
+                                    {{gen.value}}
+                                </option>
+                            </select>
+                            <div *ngIf="isSubmitted && formControls.gender.errors" >
+                                <div class="error-message" *ngIf="formControls.gender.errors.required">
+                                    {{ 'formErrors.genderRequired' | translate }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="enableSaveButton">
+                        <div class="row attribute">
+                            <div class="col-3">
+                                <span class="userTitles">
+                                    {{ 'profileFields.password' | translate }}
+                                </span>
+                            </div>
+                            <div class="col-9 userChanges" [ngClass]="{ 'has-error': isSubmitted && formControls.password.errors }">
+                                <input  
+                                    id="password-profile" 
+                                    class="form-control" 
+                                    type="password" 
+                                    formControlName="password"
+                                    placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;">
+                            </div>
+                            <div *ngIf="isSubmitted && formControls.password.errors" >
+                                <div *ngIf="formControls.password.errors.required">
+                                    {{'formErrors.passwordRequired' | translate }}
+                                </div>
+                            </div> 
+                        </div> 
+                        <div class="row attribute">
+                            <div class="col-3">
+                                <span class="userTitles">
+                                    {{ 'profileFields.profilePic' | translate }}
+                                </span>
+                            </div>
+                            <div class="col-9 userChanges" [ngClass]="{ 'has-error': isSubmitted && formControls.profilePic.errors }">
+                                <div class="form-control">
+                                    <input 
+                                        formControlName="profilePic"
+                                        id="image-profile" 
+                                        type="file" 
+                                        accept="image/*" 
+                                        (change)="onFileChanged($event)">
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="row explanation">
+                            <div class="col-12">
+                                <p><i>
+                                    {{ 'text.imageAdv' | translate }}
+                                </i></p>
+                            </div>
+                        </div>
+                        <button type="submit" class="principalButton" (click)="saveChanges()">
+                            {{ 'buttons.saveChanges' | translate }} 
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+        <div class="col-sm-4 order-first order-sm-last imageBlock">
+            <img class="profileImage" src={{retrievedImage}} style="height: 100px; width: 100px;">
+            <button 
+                type="button" 
+                class="principalButton editProfile"
+                (click)="editarPerfil()"
+            >
+                {{ 'buttons.editProfile' | translate }}
+            </button>
+            <button type="button" class="logoutButton" (click)="logout()">
+                {{ 'buttons.logout' | translate }}
+            </button>
+        </div>
+    </div>
 </div>

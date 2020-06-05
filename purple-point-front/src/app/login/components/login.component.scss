@@ -1,0 +1,16 @@
+.login-cont{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-field {
+    margin: 30px 0;
+}
+
+.login-button{
+    margin-top: 20px;
+    padding: 2px 16px;
+}

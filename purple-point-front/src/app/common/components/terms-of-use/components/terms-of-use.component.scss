@@ -1,0 +1,8 @@
+@mixin termsOfUse() {
+    .termsOfUse .mat-dialog-container {
+        background: #202020 !important;
+        white-space: pre-wrap !important;
+        color: white !important;
+        z-index: 100;
+    }
+}

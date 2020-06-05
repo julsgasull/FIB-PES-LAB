@@ -1,37 +1,64 @@
 {
-  "name": "purple-point-front",
-  "version": "0.0.0",
+  "name": "purplepoint",
+  "displayName": "purplepoint",
+  "version": "1.0.0",
+  "description": "A sample Apache Cordova application that responds to the deviceready event.",
+  "main": "index.js",
+  "author": "PESados Team",
+  "license": "Apache-2.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ng build --aot --prod"
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~9.0.5",
+    "@angular/animations": "^9.0.7",
+    "@angular/cdk": "^9.2.4",
     "@angular/common": "~9.0.5",
     "@angular/compiler": "~9.0.5",
     "@angular/core": "~9.0.5",
+    "@angular/fire": "5.1.1",
     "@angular/forms": "~9.0.5",
+    "@angular/material": "^9.2.4",
     "@angular/platform-browser": "~9.0.5",
     "@angular/platform-browser-dynamic": "~9.0.5",
     "@angular/router": "~9.0.5",
-    "rxjs": "~6.5.4",
+    "@angular/service-worker": "~9.0.5",
+    "@auth0/angular-jwt": "^4.0.0",
+    "@material/snackbar": "^6.0.0",
+    "@ngx-translate/core": "^12.1.2",
+    "@ngx-translate/http-loader": "^4.0.0",
+    "cordova": "^9.0.0",
+    "cordova-android": "8.1.0",
+    "cordova-plugin-geolocation": "^4.0.2",
+    "cordova-plugin-whitelist": "^1.3.4",
+    "crypto": "^1.0.1",
+    "crypto-js": "^4.0.0",
+    "express": "^4.17.1",
+    "firebase": "7.14.2",
+    "leaflet": "^1.6.0",
+    "mapbox-gl": "^1.10.1",
+    "rxjs": "^6.5.5",
     "tslib": "^1.10.0",
+    "watchdog": "^0.8.17",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.900.5",
-    "@angular/cli": "~9.0.5",
+    "@angular/cli": "^9.0.7",
     "@angular/compiler-cli": "~9.0.5",
     "@angular/language-service": "~9.0.5",
-    "@types/node": "^12.11.1",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "^12.11.1",
     "codelyzer": "^5.1.2",
+    "concurrently": "^5.2.0",
+    "cypress": "^4.6.0",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.3.0",
@@ -43,5 +70,36 @@
     "ts-node": "~8.3.0",
     "tslint": "~5.18.0",
     "typescript": "~3.7.5"
+  },
+  "browser": {
+    "crypto": false
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-geolocation": {}
+    },
+    "platforms": [
+      "android"
+    ]
+  },
+  "cypress": {
+    "name": "cypressio",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "cypress": "node_modules/.bin/cypress open"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+      "cypress": "4.0.2"
+    }
+  },
+  "engines": {
+    "node": "12.16.1",
+    "npm": "6.13.4"
   }
 }

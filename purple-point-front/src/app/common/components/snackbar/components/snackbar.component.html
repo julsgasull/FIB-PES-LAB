@@ -1,0 +1,16 @@
+<div class="container snackbarbox">
+     <div class="row">
+          <div class="col-7 snackbar-text">
+               {{ data }}
+          </div>
+          <div class="col-5 snackbardivButtons">
+               <button class="snackbutton" (click)="onMyWayAction()">
+                    {{ 'buttons.onMyWay' | translate }}
+               </button>
+               <br>
+               <button class="snackbutton" (click)="dismiss()">
+                    {{ 'buttons.dismiss' | translate }}
+               </button>
+          </div>
+     </div>
+</div>
