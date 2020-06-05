@@ -16,7 +16,7 @@ Design/Logo.sketch
 !.vscode/extensions.json
 
 #dependencies
-purple-point-front/node_modules
+# purple-point-front/node_modules
 
 #misc
 npm-debug.log
