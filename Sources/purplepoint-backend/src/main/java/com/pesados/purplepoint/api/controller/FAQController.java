@@ -50,8 +50,9 @@ public class FAQController {
 				List<String> likingUsers = updatedQuestion.get().getListNumUpvotes();
 				// Has the user already liked the question?
 				if (likingUsers.contains(email)) {
-					// Do nothing
-					return updatedQuestion.get();
+					// Remove from likes
+					updatedQuestion.get().getListNumUpvotes().remove(email);
+					updatedQuestion.get().setNumUpvotes(updatedQuestion.get().getNumUpvotes()-1);
 				} else {
 					List<String> dislikingUsers = updatedQuestion.get().getListNumUpvotes();
 					// Has the user disliked the question before?
@@ -89,8 +90,9 @@ public class FAQController {
 				List<String> dislikingUsers = updatedQuestion.get().getListNumDownvotes();
 				// Has the user already disliked the question?
 				if (dislikingUsers.contains(email)) {
-					// Do nothing
-					return updatedQuestion.get();
+					// Remove the dislike
+					updatedQuestion.get().getListNumDownvotes().remove(email);
+					updatedQuestion.get().setNumDownvotes(updatedQuestion.get().getNumDownvotes()-1);
 				} else {
 					List<String> likingUsers = updatedQuestion.get().getListNumUpvotes();
 					// Has the user disliked the question before?
