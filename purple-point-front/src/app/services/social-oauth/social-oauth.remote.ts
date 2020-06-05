@@ -41,6 +41,7 @@ export class SocialOauthRemote {
        email: value.user.email,
        username: value.additionalUserInfo.profile.name,
        password: value.user.uid,
+       name: value.additionalUserInfo.profile.name,
        gender: "other",
     }
     this.login_or_register(user)
