@@ -66,6 +66,9 @@ MIT
 @angular/fire/database
 MIT
 
+@angular/fire/firestore
+MIT
+
 @angular/fire/messaging
 MIT
 
@@ -98,6 +101,10 @@ THE SOFTWARE.
 
 
 @angular/material/button
+
+@angular/material/checkbox
+
+@angular/material/dialog
 
 @angular/material/snack-bar
 
@@ -350,6 +357,9 @@ Apache-2.0
 @firebase/database
 Apache-2.0
 
+@firebase/firestore
+Apache-2.0
+
 @firebase/installations
 Apache-2.0
 
@@ -360,6 +370,9 @@ Apache-2.0
 Apache-2.0
 
 @firebase/util
+Apache-2.0
+
+@firebase/webchannel-wrapper
 Apache-2.0
 
 @ngx-translate/core
@@ -424,6 +437,8 @@ firebase/app
 firebase/auth
 
 firebase/database
+
+firebase/firestore
 
 firebase/messaging
 
