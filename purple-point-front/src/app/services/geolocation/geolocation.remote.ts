@@ -25,7 +25,6 @@ export class GeoLocationRemote {
 
     getLocation(loc: GeoLocation): Observable<Device> {
         const token: string = localStorage.getItem("deviceToken");
-        console.log("Geolocation storage token: ", token);
         
         const enableHighAccuracy = true;
         const maximumAge = 3600000;
@@ -46,13 +45,6 @@ export class GeoLocationRemote {
             localStorage.setItem('longitude', loc.longitude.toString());
             localStorage.setItem('accuracy', loc.accuracy.toString());
             localStorage.setItem('timestamp', loc.timestamp.toString());
-
-            //  DEBUG O TREURE PER PANTALLA
-            console.log("Latitude: "    + loc.latitude.toString()    + "\n");
-            console.log("Longitude: "   + loc.longitude.toString()   + "\n");
-            console.log("Accuracy: "    + loc.accuracy.toString()    + "\n");
-            console.log("Timpestamp: "  + loc.timestamp.toString()   + "\n");
-            console.log("-----------------------------------------------\n");
         }
 
         function onError(er): void {
@@ -103,14 +95,6 @@ export class GeoLocationRemote {
             localStorage.setItem('longitude', loc.longitude.toString());
             localStorage.setItem('accuracy', loc.accuracy.toString());
             localStorage.setItem('timestamp', loc.timestamp.toString());
-
-            //  DEBUG O TREURE PER PANTALLA
-            console.log("-----------------------------------------------\n");
-            console.log("Latitude: "    + loc.latitude.toString()    + "\n");
-            console.log("Longitude: "   + loc.longitude.toString()   + "\n");
-            console.log("Accuracy: "    + loc.accuracy.toString()    + "\n");
-            console.log("Timpestamp: "  + loc.timestamp.toString()   + "\n");
-            console.log("-----------------------------------------------\n");
         }
 
         function onError(er): void {

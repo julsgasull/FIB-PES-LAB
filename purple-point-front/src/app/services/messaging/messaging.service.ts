@@ -64,7 +64,6 @@ export class MessagingService {
   requestPermission() {
     this.angularFireMessaging.requestToken.subscribe(
       (token) => {
-        console.log(token); // Remember to erase to clean up code
         this.updateToken(token);
       },
       (err) => {

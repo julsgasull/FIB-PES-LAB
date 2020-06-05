@@ -40,7 +40,6 @@ export class MapOnPanicComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log("From activated route: ... latitude: ", this.activatedRoute.snapshot.paramMap.get("lat"), "longitude: ", this.activatedRoute.snapshot.paramMap.get("lng"));
     this.lat = Number(this.activatedRoute.snapshot.paramMap.get("lat"));  
     this.lng = Number(this.activatedRoute.snapshot.paramMap.get("lng"));
     localStorage.setItem('disable', null);
@@ -72,7 +71,6 @@ export class MapOnPanicComponent implements OnInit {
         const msg = this.translate.instant("map.youPartOne")    + 
                       e.accuracy                                + 
                       this.translate.instant("map.youPartTwo");
-        console.log(e.latlng);
         const marker = L.marker(e.latlng,{icon : locationIcon}).addTo(this.map).bindPopup(msg).openPopup();
         this.youMarker = [marker, e.accuracy];
         L.circle(e.latlng, e.accuracy, {

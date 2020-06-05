@@ -128,7 +128,6 @@ export class ProfileComponent implements OnInit {
       profilePic:   this.image
     }
     if (userData.password === "") userData.password = this.userInfo.password;
-    console.log("pwd",  userData.password)
     return userData;
   }
 

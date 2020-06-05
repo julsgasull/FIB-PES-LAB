@@ -45,12 +45,10 @@ export class WikiFaqComponent implements OnInit {
   }
 
   upvote(faq: FAQ) {
-    console.log("upvote");
     this.wikiService.upvote(faq);
   } 
   
   downvote(faq: FAQ) {
-    console.log("downvote");
     this.wikiService.downvote(faq);
   }
 

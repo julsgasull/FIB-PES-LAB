@@ -66,7 +66,6 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('helpedUsers', response.helpedUsers.toString());
         localStorage.setItem('markedSpots', response.markedSpots.toString());
         localStorage.setItem('name', response.name);
-        console.log("user", response)
         this.redirectToMainMenu();
       },
       errorrResponse => {
